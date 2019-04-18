@@ -1,0 +1,20 @@
+# ignore everything 
+/* 
+
+# except these files/folders
+
+!/.gitignore
+
+!/compton
+
+!/i3
+
+!/rofi
+
+!/mpd
+
+!/polybar
+
+!/pulse
+
+!/.urxvt
