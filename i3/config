@@ -188,16 +188,16 @@ bindsym $mod+Shift+Right 	move right
 # #---Extra XF86 Keys---# #
 bindsym XF86PowerOff		exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
 bindsym XF86Suspend		exec --no-startup-id lockscreen
-bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15
-bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15
+bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15 && dunstify -a "Backlight" -u low -i audio-volume-muted -r "991051" "Decreasing backlight"
+bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15 && dunstify -a "Backlight" -u low -i audio-volume-muted -r "991051" "Increasing backlight"
 bindsym XF86Display		exec --no-startup-id displayselect
 bindsym XF86WLAN		exec $netrefresh
 bindsym $mod+Return exec $term
 bindsym $mod+h split h
 bindsym $mod+v split v
-bindsym XF86AudioRaiseVolume exec amixer -q sset Master 3%+
-bindsym XF86AudioLowerVolume exec amixer -q sset Master 3%-
-bindsym XF86AudioMute exec amixer -q set Master toggle
+bindsym XF86AudioRaiseVolume exec amixer -q sset Master 3%+ && dunstify -a "changeVolume" -u low -i audio-volume-muted -r "991049" "Volume up"
+bindsym XF86AudioLowerVolume exec amixer -q sset Master 3%- && dunstify -a "changeVolume" -u low -i audio-volume-muted -r "991049" "Volume Down"
+bindsym XF86AudioMute exec amixer -q set Master toggle && dunstify -a "Volume muted" -u low -i audio-volume-muted -r "991050" "Volume toggled"
 
 # #--- Resizing---# #
 mode "resize" {
@@ -206,8 +206,8 @@ mode "resize" {
 		bindsym Up resize shrink height 10 px or 10 ppt
 		bindsym Right resize grow width 10 px or 10 ppt
 
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
+		bindsym Return mode "default"; exec dunstify -a "Normal mode" -u low -i audio-volume-muted -r "991052" "Entered normal mode"
+		bindsym Escape mode "default"; exec dunstify -a "Normal mode" -u low -i audio-volume-muted -r "991052" "Entered normal mode"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+r exec dunstify -a "Resizing mode" -u low -r "991052" "Entered resizing mode"  ;mode "resize"

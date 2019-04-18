@@ -30,6 +30,7 @@
 - xbacklight
 - amixer
 - lsd
+- dunst
 
 ### extension
 
@@ -52,7 +53,7 @@ This extention enables spotify support in the polybar
 sudo pacman -Syu
 
 #use your pacman wrapper here
-yay -Syu i3-gaps rxvt-unicode rofi polybar mpd xclip xbacklight amixer lsd
+yay -Syu i3-gaps rxvt-unicode rofi polybar mpd xclip xbacklight amixer lsd dunst
 
 #install extention
 yay -Syu spotify python python-pip
