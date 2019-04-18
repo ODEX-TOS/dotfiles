@@ -100,3 +100,4 @@ mv ~/.config/.zshrc ~
 
 - vim and vimrc
 - explination for installing zsh plugins
+- fix oh-my-zsh submodule
