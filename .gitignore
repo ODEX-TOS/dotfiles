@@ -5,6 +5,10 @@
 
 !/.gitignore
 
+!/README.md
+
+!/.zshrc
+
 !/compton
 
 !/i3
@@ -18,3 +22,7 @@
 !/pulse
 
 !/.urxvt
+
+!/.oh-my-zsh
+
+!/.Xresources
