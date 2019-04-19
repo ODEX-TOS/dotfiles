@@ -188,15 +188,15 @@ bindsym $mod+Shift+Right 	move right
 # #---Extra XF86 Keys---# #
 bindsym XF86PowerOff		exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
 bindsym XF86Suspend		exec --no-startup-id lockscreen
-bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15 && dunstify -a "Backlight" -u low -i audio-volume-muted -r "991051" "Decreasing backlight"
-bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15 && dunstify -a "Backlight" -u low -i audio-volume-muted -r "991051" "Increasing backlight"
+bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15 && dunstify -a "Backlight" -u low -i audio-volume-muted -r "991051" "Decreasing backlight: $(xbacklight | awk -F. '{print $1"%"}')"
+bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15 && dunstify -a "Backlight" -u low -i audio-volume-muted -r "991051" "Increasing backlight: $(xbacklight | awk -F. '{print $1"%"}')"
 bindsym XF86Display		exec --no-startup-id displayselect
 bindsym XF86WLAN		exec $netrefresh
 bindsym $mod+Return exec $term
 bindsym $mod+h split h
 bindsym $mod+v split v
-bindsym XF86AudioRaiseVolume exec amixer -q sset Master 3%+ && dunstify -a "changeVolume" -u low -i audio-volume-muted -r "991049" "Volume up"
-bindsym XF86AudioLowerVolume exec amixer -q sset Master 3%- && dunstify -a "changeVolume" -u low -i audio-volume-muted -r "991049" "Volume Down"
+bindsym XF86AudioRaiseVolume exec amixer -q sset Master 3%+ && dunstify -a "changeVolume" -u low -i audio-volume-muted -r "991049" "Volume up $(amixer get Master | grep 'Front Left: Playback' | awk '{print $5}' | sed -E 's/\[|\]//g')"
+bindsym XF86AudioLowerVolume exec amixer -q sset Master 3%- && dunstify -a "changeVolume" -u low -i audio-volume-muted -r "991049" "Volume Down $(amixer get Master | grep 'Front Left: Playback' | awk '{print $5}' | sed -E 's/\[|\]//g')"
 bindsym XF86AudioMute exec amixer -q set Master toggle && dunstify -a "Volume muted" -u low -i audio-volume-muted -r "991050" "Volume toggled"
 
 # #--- Resizing---# #
