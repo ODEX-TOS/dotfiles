@@ -5,7 +5,10 @@
 
 ! special
 urxvt.foreground:   #d8dee8
+
 urxvt.background:   #2f343f
+
+! urxvt.background:   #1d1f26
 urxvt.cursorColor:  #b48ead
 
 ! black
