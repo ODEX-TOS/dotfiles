@@ -34,7 +34,7 @@
 [bar/main]
 	monitor-strict = true
 	fixed-center = true
-	dpi = 96
+	dpi = 80
 	bottom = false
 	width = ${settings.barwidth}
 	height = ${settings.barheigh}
