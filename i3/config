@@ -219,3 +219,11 @@ exec feh --bg-scale /home/zeus/Pictures/simple.png
 #set xserver keyboard layout
 exec setxkbmap be
 
+# Set tapping enabled on my touchpad
+# Your settings might change depending on the touchpad
+# To find your touchpad use xinput list
+# to list all properties of your touchpad use
+# xinput list-props <device id>
+# to enable tapping use
+# xinput set-prop <device> <property> 1
+exec xinput set-prop 12 288 1

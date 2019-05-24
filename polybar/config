@@ -90,9 +90,9 @@
 [module/spotify]
 	type = custom/script
 	interval = 1
-	format = <label>
-	exec = python /home/zeus/scripts/spotify.py -p ▶,❚❚ 
-	format-underline = #1db95400
+	format = %{A1:playerctl -p spotify previous:}⏮%{A}   %{A1:playerctl -p spotify play-pause:}<label>%{A}   %{A1:playerctl -p spotify next:}⏭%{A}
+	exec = python /home/zeus/scripts/spotify.py -p ▶,⏸ 
+	format-underline = ${colors.transparent}
 
 [module/i3]
 	type = internal/i3
@@ -126,7 +126,7 @@
 [module/mpd]
     type = internal/mpd
     host = 127.0.0.1
-    port = 6602
+    port = 6600
     interval = 1
     format-online = <icon-prev> <icon-stop> <toggle> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
     icon-play = 
@@ -149,7 +149,7 @@
     bar-progress-empty = —
     bar-progress-empty-font = 3
     bar-progress-empty-foreground = #44
-
+    label-offline = Offline
 [module/title]
 	type = internal/xwindow
 	format = <label>
@@ -214,7 +214,7 @@
 	interface = wlp2s0
 	interval = 3.0
 	format-connected = <label-connected>
-	label-connected =  %essid%     %signal%     %upspeed%     %downspeed%
+    label-connected = %{A1:nm-connection-editor:} %essid%     %signal%     %upspeed%     %downspeed%%{A}
 	label-disconnected = "%{A1:connman-gtk &:}%{A}"
 	label-disconnected-foreground = #5b
 	ramp-signal-0 = 
@@ -224,6 +224,7 @@
 	ramp-signal-4 = 
 	ramp-signal-foreground = ${colors.foreground}
 	format-connected-foreground = ${colors.foreground}
+    click-left = bash nmtui 
 
 
 [module/date]
@@ -299,7 +300,7 @@
     animation-discharging-4 = 
     animation-discharging-framerate = 1000
 	animation-discharging-foreground = ${colors.foreground}
-	click-left = bash ~/.startup -r
+	click-left = bash ~/.config/polybar/scripts/time
 
 
 [module/jgmenu]
