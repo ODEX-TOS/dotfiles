@@ -211,7 +211,7 @@ bindsym $mod+r exec dunstify -a "Resizing mode" -u low -r "991052" "Entered resi
 
 exec nohup polybar main &> /dev/null &
 exec nohup polybar workspaces &> /dev/null &
-exec nohup compton --config /home/zeus/.config/compton/compton &> /dev/null &
+exec nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 exec nohup dunst &> /dev/null &
 #exec nohup /home/zeus/bin/keepalive.sh &> /dev/null &
 exec feh --bg-scale /home/zeus/Pictures/simple.png
