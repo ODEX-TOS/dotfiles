@@ -91,7 +91,7 @@
 	type = custom/script
 	interval = 1
 	format = %{A1:playerctl -p spotify previous:}⏮%{A}   %{A1:playerctl -p spotify play-pause:}<label>%{A}   %{A1:playerctl -p spotify next:}⏭%{A}
-	exec = python /home/zeus/scripts/spotify.py -p ▶,⏸ 
+	exec = python ~/bin/spotify.py -p ▶,⏸ 
 	format-underline = ${colors.transparent}
 
 [module/i3]
