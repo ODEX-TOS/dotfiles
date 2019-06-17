@@ -26,6 +26,7 @@ set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
+set $HOME /home/zeus
 
 # #---Dropdown Windows---# #
 # General dropdown window traits. The order can matter.
@@ -214,7 +215,7 @@ exec nohup polybar workspaces &> /dev/null &
 exec nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 exec nohup dunst &> /dev/null &
 #exec nohup /home/zeus/bin/keepalive.sh &> /dev/null &
-exec feh --bg-scale /home/zeus/Pictures/simple.png
+exec feh --bg-scale $HOME/Pictures/simple.png
 
 #set xserver keyboard layout
 exec setxkbmap be
