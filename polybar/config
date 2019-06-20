@@ -98,6 +98,7 @@
 	type = internal/i3
 	format = <label-state> <label-mode>
 	pin-workspaces = true
+    strip-wsnumbers = true
 	label-focused = %name%
 	label-focused-foreground= ${colors.background}
 	label-focused-background = ${colors.i3bar}
