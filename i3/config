@@ -8,7 +8,7 @@
 #set $bordercolor	#9f414a
 
 #blue colors
-set $bordercolor	#04afd6
+set $bordercolor	#04afc1
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #bf616a #bf616a #ffffff #bf616a   $bordercolor
