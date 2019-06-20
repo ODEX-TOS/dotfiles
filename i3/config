@@ -121,12 +121,12 @@ bindsym $mod+semicolon		workspace next
 bindsym $mod+Shift+slash	kill
 bindsym $mod+backslash		workspace back_and_forth
 
-set $ws1 "1: Browser"
-set $ws2 "2: Code"
-set $ws3 "3: Terminal"
-set $ws4 "4: Etc"
-set $ws5 "5: Spotify"
-set $ws6 "6: Floating"
+set $ws1 "1: "
+set $ws2 "2: "
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: "
+set $ws6 "6: "
 set $ws7 "7: 7"
 set $ws8 "8: 8"
 set $ws9 "9: 9"
@@ -214,7 +214,7 @@ exec nohup polybar main &> /dev/null &
 exec nohup polybar workspaces &> /dev/null &
 exec nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 exec nohup dunst &> /dev/null &
-#exec nohup /home/zeus/bin/keepalive.sh &> /dev/null &
+exec nohup /home/zeus/bin/keepalive.sh &> /dev/null &
 exec feh --bg-scale $HOME/Pictures/simple.png
 
 #set xserver keyboard layout
