@@ -4,7 +4,11 @@
 
 # #---Color---# #
 
-set $bordercolor	#9f414a
+# Red colors
+#set $bordercolor	#9f414a
+
+#blue colors
+set $bordercolor	#04afc1
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #bf616a #bf616a #ffffff #bf616a   $bordercolor
@@ -26,6 +30,7 @@ set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
+set $HOME /home/zeus
 
 # #---Dropdown Windows---# #
 # General dropdown window traits. The order can matter.
@@ -120,12 +125,12 @@ bindsym $mod+semicolon		workspace next
 bindsym $mod+Shift+slash	kill
 bindsym $mod+backslash		workspace back_and_forth
 
-set $ws1 "1: Browser"
-set $ws2 "2: Code"
-set $ws3 "3: Terminal"
-set $ws4 "4: Etc"
-set $ws5 "5: Spotify"
-set $ws6 "6: Floating"
+set $ws1 "1: "
+set $ws2 "2: "
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: "
+set $ws6 "6: "
 set $ws7 "7: 7"
 set $ws8 "8: 8"
 set $ws9 "9: 9"
@@ -214,8 +219,8 @@ exec nohup polybar workspaces &> /dev/null &
 exec nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 
 exec nohup dunst &> /dev/null &
-#exec nohup /home/zeus/bin/keepalive.sh &> /dev/null &
-exec feh --bg-scale /home/zeus/Pictures/simple.png
+exec nohup /home/zeus/bin/keepalive.sh &> /dev/null &
+exec feh --bg-scale $HOME/Pictures/simple.png
 
 #set xserver keyboard layout
 exec setxkbmap be

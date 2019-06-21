@@ -46,11 +46,11 @@ urxvt.color15 : #d1d5dc
 ! ------------------------------------------------------------------------------
 ! Font configuration
 ! ------------------------------------------------------------------------------
-urxvt*font: xft:Deja Vu Sans Mono:size=12, xft:FuraCode Nerd Font Mono:size=15 
-polybar*font: xft:Deja Vu Sans Mono:size=12, xft:FuraCode Nerd Font Mono:size=15  
+urxvt*font: xft:Roboto Regular:size=12, xft:FuraCode Nerd Font Mono:size=15 
+polybar*font: xft:mono:size=12, xft:FuraCode Nerd Font Mono:size=15
 URxvt*italicFont:		xft:M+ 1mn:italic:size=8
 URxvt*boldItalicFont:	xft:M+ 1mn:bold italic:size=8
-
+*.font: Liberation Mono:pixelsize=15:antialias=true:autohint=true;
 ! ------------------------------------------------------------------------------
 ! Xft Font Configuration
 ! ------------------------------------------------------------------------------
@@ -111,13 +111,16 @@ URxvt.keysym.Control-Left:	\033[1;5D
 ! ------------------------------------------------------------------------------
 ! Rofi configs
 ! ------------------------------------------------------------------------------
+! Rofi in red colors
+!rofi.color-normal: #2e3440, #d8dee9, #2e3440, #2e3440, #bf616a
+
 
 rofi.color-enabled: true
 rofi.color-window: #2e3440, #2e3440, #2e3440
-rofi.color-normal: #2e3440, #d8dee9, #2e3440, #2e3440, #bf616a
+rofi.color-normal: #2e3440, #d8dee9, #2e3440, #2e3440, #04afd6
 rofi.color-active: #2e3440, #b48ead, #2e3440, #2e3440, #93e5cc
 rofi.color-urgent: #2e3440, #ebcb8b, #2e3440, #2e3440, #ebcb8b
-rofi.modi: run,drun,ssh
+rofi.modi: run,window,drun
 
 ! ------------------------------------------------------------------------------
 ! Dmenu configs
@@ -127,3 +130,6 @@ dmenu.selforeground:	    #d8dee9
 dmenu.background:	        #2e3440
 dmenu.selbackground:	    #bf616a
 dmenu.foreground: #d8dee9
+
+
+Xcursor.theme: xcursor-arch-cursor-complete
