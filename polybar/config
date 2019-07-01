@@ -1,9 +1,11 @@
 [colors]
 	accent = #EDD080
-	bckgrd = #121212
+	bckgrd_blackimg = #121212
+    bckgr_whiteimg = #77000000
+    bckgrd = ${self.bckgr_whiteimg}
 	select = #161A1B
 
-	background =            ${xrdb:color0:self.bckgrd}
+	background =            ${self.bckgrd}
 	background-alt = 		${self.select}
 	foreground =            ${xrdb:color6:#A5ffffff}
 	foreground-alt =        ${xrdb:color7:#222}
@@ -26,7 +28,7 @@
 	throttle-output-for = 10
 	throttle-input-for = 30
 	screenchange-reload = true
-	bargapp= 10
+	bargapp= 20
 	barwidth = 100%
 	barheigh = 20
 
