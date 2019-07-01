@@ -38,3 +38,16 @@ That directory is the profile dir.
 
 Copy all data from our profile dir into that dir
 
+### Customize tree style tab
+Go to
+
+```
+about:addons
+```
+
+Set the tree style tab to no decoration
+Under advanced in the input box enter the css that is located in the file
+
+```
+.mozilla/firefox/profile/tst-extra-style-rules.css
+```
