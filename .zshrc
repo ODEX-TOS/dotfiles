@@ -1,4 +1,4 @@
-export ZSH="/home/zeus/.oh-my-zsh"
+export ZSH=$HOME"/.oh-my-zsh"
 export ZSH_LOAD=$ZSH/load
 export ZSH_PRELOAD=$ZSH_LOAD/preload
 PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/lib/dart/bin:$HOME/.pub-cache/bin"
@@ -31,4 +31,3 @@ load $ZSH_LOAD
 
 #print neofetch a terminal information tool
 neofetch --ascii_distro arch
-
