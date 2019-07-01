@@ -1,0 +1,57 @@
+#background {
+  background-color: #222222;
+}
+
+.tab {
+  height: 30px;
+  border: none;
+  background: none !important;
+  background-color: #222222;
+}
+
+.tab.active, .tab:hover {
+  background-color: #444444 !important;
+}
+
+.tab:not(.pinned) {
+  padding-left: 0px !important;
+}
+
+.highlighter {
+  display: none;
+}
+
+.twisty {
+  margin-left: 4px;
+  color: #eeeeee;
+}
+
+.tab .favicon {
+  display: none;
+}
+
+.tab .label {
+  color: #eeeeee;
+}
+
+.tab:not([data-child-ids]) .label {
+  margin-left: -8px;
+}
+
+.tab .closebox {
+  display: none;
+}
+
+.contextual-identity-marker {
+  display: none;
+}
+
+.newtab-button-box {
+  display: none;
+}
+
+#tabbar {
+  padding-top: 4px;
+  scrollbar-width: none;
+}
+
