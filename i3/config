@@ -220,7 +220,7 @@ exec nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 
 exec nohup dunst &> /dev/null &
 exec nohup /home/zeus/bin/keepalive.sh &> /dev/null &
-exec feh --bg-scale $HOME/Pictures/simple.png
+exec feh --bg-scale $HOME/Pictures/plant.jpg
 
 #set xserver keyboard layout
 exec setxkbmap be
