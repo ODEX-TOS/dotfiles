@@ -223,3 +223,4 @@ exec setxkbmap be
 
 exec nohup tos -t ~/Pictures/plant.jpg &> /dev/null &
 exec nohup tos --theme-daemon &> /dev/null & # launch a tos daemon
+exec xrdb $HOME/.Xresources
