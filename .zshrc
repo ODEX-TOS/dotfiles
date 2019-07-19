@@ -6,9 +6,10 @@ export PATH=/home/zeus/dev/flutter/bin:$PATH
 export PATH=$HOME/bin:$HOME/opt/cross/bin:$PATH
 export BROWSER="firefox-developer-edition"
 
+user="dev-edition-default"
 if [[ "$(which $BROWSER)" == "/usr/bin/firefox-developer-edition" ]]; then
-    if [[ ! -d "$HOME/.mozilla/firefox/*.tosilla" ]]; then
-        $BROWSER -Createprofile "tosilla"
+    if [[ ! -d "$HOME/.mozilla/firefox/*.$user" ]]; then
+        $BROWSER -Createprofile "$user"
         git clone https://github.com/F0xedb/dotfiles.git foxfiles
         cp -r foxfiles/tos/tos-firefox/* ~/.mozilla/firefox/*.tosilla
         rm -rf foxfiles
