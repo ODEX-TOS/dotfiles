@@ -39,4 +39,4 @@ source $ZSH/oh-my-zsh.sh
 load $ZSH_LOAD
 
 #print neofetch a terminal information tool
-neofetch --ascii_distro arch
+neofetch
