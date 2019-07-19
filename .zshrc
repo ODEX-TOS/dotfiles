@@ -4,8 +4,16 @@ export ZSH_PRELOAD=$ZSH_LOAD/preload
 PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/lib/dart/bin:$HOME/.pub-cache/bin"
 export PATH=/home/zeus/dev/flutter/bin:$PATH
 export PATH=$HOME/bin:$HOME/opt/cross/bin:$PATH
+export BROWSER="firefox-developer-edition"
 
-
+if [[ "$(which $BROWSER)" == "/usr/bin/firefox-developer-edition" ]]; then
+    if [[ ! -d "$HOME/.mozilla/firefox/*.tosilla" ]]; then
+        $BROWSER -Createprofile "tosilla"
+        git clone https://github.com/F0xedb/dotfiles.git foxfiles
+        cp -r foxfiles/tos/tos-firefox/* ~/.mozilla/firefox/*.tosilla
+        rm -rf foxfiles
+    fi
+fi
 
 function load() {
   for script in $(ls $1)
