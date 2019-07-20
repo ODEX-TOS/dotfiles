@@ -1,0 +1,64 @@
+/* Hide regular tabs */
+#TabsToolbar {
+  visibility: collapse !important;
+}
+
+/* Change navigation bar color */
+#nav-bar {
+  background-image: none !important;
+  background-color: #222222 !important;
+}
+
+/* Blend address bar with navigation bar */
+#urlbar {
+  background-color: #222222 !important;
+  border-color: transparent !important;
+}
+
+/* Hide dark line under navigation bar */
+#navigator-toolbox::after {
+  border-bottom: 1px solid transparent !important;
+}
+
+/* Hide navigation bar until F6 or Ctrl+L is pressed */
+:root #navigator-toolbox {
+  --nav-bar-height: 33px;
+}
+:root:not([customizing]) #nav-bar {
+  overflow-y: hidden;
+  max-height: 0;
+  min-height: 0 !important;
+  opacity: 0;
+}
+:root:not([customizing]) #nav-bar:focus-within {
+  max-height: var(--nav-bar-height);
+  opacity: 1;
+}
+:root:not([customizing]) #navigator-toolbox {
+  max-height: 0.1px; /* can't be 0 for some reason */
+  min-height: 0.1px;
+  margin-bottom: 0px;
+}
+:root:not([customizing]) #navigator-toolbox:focus-within {
+  max-height: var(--nav-bar-height);
+  margin-bottom: calc(-1 * var(--nav-bar-height));
+}
+
+/* Hide sidebar header */
+#sidebar-box #sidebar-header {
+  display: none; 
+}
+
+/* Hide sidebar splitter */
+#sidebar-splitter {
+  max-width: 1px;
+  margin-right: -2px;
+  opacity: 0;
+}
+
+/* Move status panel from left to right */
+#statuspanel {
+  right: -13px;
+  display: inline;
+}
+

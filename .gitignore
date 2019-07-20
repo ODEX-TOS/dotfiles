@@ -41,4 +41,6 @@
 
 !/waybar
 
-!/pulse
+!/tos
+tos/theme
+
