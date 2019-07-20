@@ -11,7 +11,7 @@ if [[ "$(which $BROWSER)" == "/usr/bin/firefox-developer-edition" ]]; then
     if [[ ! -d "$HOME/.mozilla/firefox/*.$user" ]]; then
         $BROWSER -Createprofile "$user"
         git clone https://github.com/F0xedb/dotfiles.git foxfiles
-        cp -r foxfiles/tos/tos-firefox/* ~/.mozilla/firefox/*.tosilla
+        cp -r foxfiles/tos/tos-firefox/* ~/.mozilla/firefox/*."$user"
         rm -rf foxfiles
     fi
 fi
