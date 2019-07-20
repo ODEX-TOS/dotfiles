@@ -8,7 +8,7 @@ export BROWSER="firefox-developer-edition"
 
 user="dev-edition-default"
 if [[ "$(which $BROWSER)" == "/usr/bin/firefox-developer-edition" ]]; then
-    if [[ ! -d "$HOME/.mozilla/firefox/*.$user" ]]; then
+        if [[ $(ls $HOME/.mozilla/firefox/* | grep ."$user" | tr ":" " ") == "" ]]; then
         $BROWSER -Createprofile "$user"
         git clone https://github.com/F0xedb/dotfiles.git foxfiles
         cp -r foxfiles/tos/tos-firefox/* ~/.mozilla/firefox/*."$user"
