@@ -15,7 +15,7 @@
 
 > This repo contains my dotfiles for `zsh` `i3` `urxvt` `rofi` `polybar` and more.
 
-## Prerequesite
+## Prerequisite
 
 - xserver
 - i3-gaps
@@ -40,7 +40,7 @@
 - python-dbus
 - spotify
 
-This extention enables spotify support in the polybar
+This extension enables spotify support in the polybar
 
 #### zsh plugins
 
@@ -80,9 +80,9 @@ mv ~/.config/.zshrc ~
 
 ```
 
-## i3 keybindings
+## i3 key bindings
 
-| keybind              |                         effect                         |
+| key bind             |                         effect                         |
 | -------------------- | :----------------------------------------------------: |
 | mod+enter            |                    open a terminal                     |
 | mod+Shift+w          |             open firefox-developer-edition             |
@@ -101,6 +101,6 @@ mv ~/.config/.zshrc ~
 
 ## to be included
 
-- vim and vimrc
-- explination for installing zsh plugins
+- explanation for installing zsh plugins
 - fix oh-my-zsh submodule
+- vim directory
