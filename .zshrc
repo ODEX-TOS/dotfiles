@@ -6,16 +6,6 @@ export PATH=/home/zeus/dev/flutter/bin:$PATH
 export PATH=$HOME/bin:$HOME/opt/cross/bin:$PATH
 export BROWSER="firefox-developer-edition"
 
-user="dev-edition-default"
-if [[ "$(which $BROWSER)" == "/usr/bin/firefox-developer-edition" ]]; then
-        if [[ $(ls $HOME/.mozilla/firefox/* | grep ."$user" | tr ":" " ") == "" ]]; then
-        $BROWSER -Createprofile "$user"
-        git clone https://github.com/F0xedb/dotfiles.git foxfiles
-        cp -r foxfiles/tos/tos-firefox/* ~/.mozilla/firefox/*."$user"
-        rm -rf foxfiles
-    fi
-fi
-
 function load() {
   for script in $(ls $1)
   do
