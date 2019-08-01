@@ -94,7 +94,6 @@ mv ~/.config/.zshrc ~
 | mod+q                |                  kill current program                  |
 | mod+f                |        toggle program into and from fullscreen         |
 | function keys        |             perform the standard function              |
-| zebra stripes        |                        are neat                        |
 | mod+r                |                   enter resize mode                    |
 | mod+arrow            | In resize mode use arrow keys to resize current window |
 | mod+esc or mod+enter |                    exit resize mode                    |
