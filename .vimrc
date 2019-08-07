@@ -7,14 +7,30 @@ set spell
 
 set nocompatible                                                                    " stop pretending to be vi
 
-colorscheme badwolf                                                                 " awesome color scheme
+filetype off                  " required
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'ycm-core/YouCompleteMe'
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
+call plug#begin('~/.vim/plugged')
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'PotatoesMaster/i3-vim-syntax'
+call plug#end()
+
+
+set background=dark
+colorscheme palenight                                                                " awesome color scheme
 
 
 syntax enable                                                                       " enable syntax highlighting used for 
 
                                                                                     " TODO Fix background not being draw when there isn't a line present
-highlight Normal ctermbg=None ctermfg=white                                         " disable theme background color
-highlight LineNr ctermbg=None ctermfg=white                                         " reset the line number background
+" highlight Normal ctermbg=None ctermfg=white                                         " disable theme background color
+" highlight LineNr ctermbg=None ctermfg=white                                         " reset the line number background
 
 " tread tabs as 4 spaces and tell the editor how to draw tabs
 set tabstop=4
@@ -26,6 +42,7 @@ set showcmd                                                                     
 set cursorline                                                                      " highlight current line
 
 filetype indent on                                                                  " load file type specific indent files
+filetype plugin on
 
 set wildmenu                                                                        " visual autocomplete for command menu
 
@@ -42,3 +59,6 @@ set  wildignore+=**/node_modules/**                                             
 
 " example macro it binds ,f to select a string encased in "" and removes its content
 nnoremap ,f /"<cr>v/"<cr>xi ""<esc>i
+vnoremap <C-c> "*y : let @+=@*<CR>
+map <C-v> "+P
+
