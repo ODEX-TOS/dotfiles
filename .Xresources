@@ -112,15 +112,6 @@ URxvt.keysym.Control-Left:	\033[1;5D
 ! Rofi configs
 ! ------------------------------------------------------------------------------
 ! Rofi in red colors
-!rofi.color-normal: #2e3440, #d8dee9, #2e3440, #2e3440, #bf616a
-
-
-rofi.color-enabled: true
-rofi.color-window: #2e3440, #2e3440, #2e3440
-rofi.color-normal: #2e3440, #d8dee9, #2e3440, #2e3440, #04afd6
-rofi.color-active: #2e3440, #b48ead, #2e3440, #2e3440, #93e5cc
-rofi.color-urgent: #2e3440, #ebcb8b, #2e3440, #2e3440, #ebcb8b
-rofi.modi: run,window,drun
 
 ! ------------------------------------------------------------------------------
 ! Dmenu configs
