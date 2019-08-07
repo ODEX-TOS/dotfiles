@@ -82,7 +82,7 @@ bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 5
 bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s		gaps inner current minus 5
 
-bindsym $mod+d			exec --no-startup-id  rofi -lines 12 -padding 18 -width 60 -location 0 -show run drun window -sidebar-mode -columns 3 -font 'Fira Code 10'
+bindsym $mod+d			exec --no-startup-id  rofi -lines 12 -padding 18 -width 60 -location 0 -show run drun window -sidebar-mode -columns 3 -font 'Fira Code 10' -show-icons
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 
 set $freeze Distraction-free mode (super+shift+f to reactivate bindings)
@@ -235,3 +235,4 @@ exec setxkbmap be
 exec xinput set-prop 12 288 1
 exec nohup tos -t ~/Pictures/plant.jpg &> /dev/null &
 exec nohup tos --theme-daemon &> /dev/null & # launch a tos daemon
+exec nohup feh-blur -b 10 &> /dev/null & # blur background image when loading 
