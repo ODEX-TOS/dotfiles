@@ -8,23 +8,23 @@ set spell
 set nocompatible                                                                    " stop pretending to be vi
 
 filetype off                  " required
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'ycm-core/YouCompleteMe'
-call vundle#end()            " required
-filetype plugin indent on    " required
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" Plugin 'VundleVim/Vundle.vim'
+" Plugin 'ycm-core/YouCompleteMe'
+" call vundle#end()            " required
+" filetype plugin indent on    " required
 
 
-call plug#begin('~/.vim/plugged')
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'PotatoesMaster/i3-vim-syntax'
-call plug#end()
+" call plug#begin('~/.vim/plugged')
+" Plug 'drewtempelmeyer/palenight.vim'
+" Plug 'PotatoesMaster/i3-vim-syntax'
+" call plug#end()
 
 
 set background=dark
-colorscheme palenight                                                                " awesome color scheme
-
+" colorscheme palenight                                                                " awesome color scheme
+colorscheme badwolf
 
 syntax enable                                                                       " enable syntax highlighting used for 
 
