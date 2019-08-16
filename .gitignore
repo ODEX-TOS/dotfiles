@@ -48,4 +48,8 @@ tos/theme
 
 !/gtk-3.0
 
+!/openbox
+
+!/.themes
+
 !/index.theme
