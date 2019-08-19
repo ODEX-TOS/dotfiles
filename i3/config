@@ -45,6 +45,7 @@ for_window [instance="dropdown_tmuxdd"] border pixel 3
 for_window [instance="dropdown_dropdowncalc"] border pixel 2
 for_window [instance="dropdown_*"] move position center
 
+border_radius 10
 # old school status bar
 # To reenable this remove the polybar entry from .oh-my-zsh/load/polybar.sh
 #bar {
