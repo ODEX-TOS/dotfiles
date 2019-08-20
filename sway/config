@@ -216,11 +216,9 @@ exec nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 
 exec nohup dunst &> /dev/null &
 exec nohup $HOME/bin/keepalive.sh &> /dev/null &
-output "*" bg $HOME/Pictures/plant.jpg fill
+output "*" bg $HOME/Pictures/simple.png fill
 
 #set xserver keyboard layout
 exec setxkbmap be
 
-exec nohup tos -t ~/Pictures/plant.jpg &> /dev/null &
-exec nohup tos --theme-daemon &> /dev/null & # launch a tos daemon
 exec xrdb $HOME/.Xresources
