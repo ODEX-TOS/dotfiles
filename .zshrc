@@ -1,5 +1,10 @@
 # .zshrc file
 # If you want to add ENV variable please add them to the ~/.profile file
+
+if [[ "$(tty)" == "/dev/tty1" ]]; then
+    source ~/.profile
+fi
+
 function load() {
   for script in $(ls $1)
   do
