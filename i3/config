@@ -220,8 +220,8 @@ exec nohup polybar workspaces &> /dev/null &
 exec nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 
 exec nohup dunst &> /dev/null &
-exec nohup /home/zeus/bin/keepalive.sh &> /dev/null &
-exec feh --bg-scale $HOME/Pictures/plant.jpg
+exec nohup $HOME/bin/keepalive.sh &> /dev/null &
+exec feh --bg-scale $HOME/Pictures/simple.png
 
 #set xserver keyboard layout
 exec setxkbmap be
@@ -234,6 +234,6 @@ exec setxkbmap be
 # to enable tapping use
 # xinput set-prop <device> <property> 1
 exec xinput set-prop 12 288 1
-exec nohup tos -t ~/Pictures/plant.jpg &> /dev/null &
+exec nohup tos -t ~/Pictures/simple.png &> /dev/null &
 exec nohup tos --theme-daemon &> /dev/null & # launch a tos daemon
 exec nohup feh-blur -b 10 &> /dev/null & # blur background image when loading 
