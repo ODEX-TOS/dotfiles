@@ -10,4 +10,3 @@ PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/lib/dart/bin:$HOME/.pub-cache/bin"
 export PATH=/home/zeus/dev/flutter/bin:$PATH
 export PATH=$HOME/bin:$HOME/opt/cross/bin:$PATH
 export BROWSER="firefox-developer-edition"
-export $KEY="be"                
