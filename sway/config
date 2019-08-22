@@ -31,6 +31,7 @@ set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
 set $HOME /home/zeus
+set $KEY be
 
 # #---Dropdown Windows---# #
 # General dropdown window traits. The order can matter.
@@ -219,6 +220,6 @@ exec nohup $HOME/bin/keepalive.sh &> /dev/null &
 output "*" bg $HOME/Pictures/simple.png fill
 
 #set xserver keyboard layout
-exec setxkbmap be
+exec setxkbmap $KEY
 
 exec xrdb $HOME/.Xresources
