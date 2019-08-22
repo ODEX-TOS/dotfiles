@@ -234,6 +234,5 @@ exec setxkbmap be
 # to enable tapping use
 # xinput set-prop <device> <property> 1
 exec xinput set-prop 12 288 1
-exec nohup tos -t ~/Pictures/simple.png &> /dev/null &
-exec nohup tos --theme-daemon &> /dev/null & # launch a tos daemon
-exec nohup feh-blur -b 10 &> /dev/null & # blur background image when loading 
+exec nohup tos t s ~/Pictures/simple.png &> /dev/null &
+exec nohup tos theme daemon &> /dev/null & # launch a tos daemon
