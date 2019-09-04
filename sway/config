@@ -74,7 +74,7 @@ bindsym $mod+grave		exec --no-startup-id dmenuunicode
 bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
-bindsym $mod+w			exec $term -e nmtui
+bindsym $mod+w			exec --no-startup-id $term -e nmtui
 bindsym $mod+Shift+w		exec --no-startup-id firefox-developer-edition
 
 bindsym $mod+t			split toggle
@@ -167,11 +167,11 @@ for_window [window_role="GtkFileChooserDialog"] move position center
 for_window [title="Default - Wine desktop"] floating enable
 
 # #---Function Buttons---# #
-bindsym $mod+F1     exec rofiquestion "Do you want to lock your screen" "exec i3lock-next"
-bindsym $mod+F2		exec rofiquestion "Do you want to suspend?" "exec systemctl suspend"
-bindsym $mod+F3		exec rofiquestion "Do you want to shutdown?" "exec SUDO_ASKPASS='/home/zeus/bin/rofi/askpass' sudo -A shutdown now"
-bindsym $mod+F4		exec rofiquestion "Do you want to hibernate?" "exec systemctl hibernate"
-bindsym $mod+F5		exec rofiselect
+bindsym $mod+F1     exec --no-startup-id rofiquestion "Do you want to lock your screen" "exec i3lock-next"
+bindsym $mod+F2		exec --no-startup-id rofiquestion "Do you want to suspend?" "exec systemctl suspend"
+bindsym $mod+F3		exec --no-startup-id rofiquestion "Do you want to shutdown?" "exec SUDO_ASKPASS='/home/zeus/bin/rofi/askpass' sudo -A shutdown now"
+bindsym $mod+F4		exec --no-startup-id rofiquestion "Do you want to hibernate?" "exec systemctl hibernate"
+bindsym $mod+F5		exec --no-startup-id rofiselect
 
 # #---Arrow Keys---# #
 bindsym $mod+Left		focus left
@@ -189,7 +189,7 @@ bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15 && dunstif
 bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15 && dunstify -a "Backlight" -u low -i audio-volume-muted -r "991051" "Increasing backlight: $(xbacklight | awk -F. '{print $1"%"}')"
 bindsym XF86Display		exec --no-startup-id displayselect
 bindsym XF86WLAN		exec $netrefresh
-bindsym $mod+Return exec $term
+bindsym $mod+Return exec --no-startup-id $term
 bindsym $mod+h split h
 bindsym $mod+v split v
 bindsym XF86AudioRaiseVolume exec amixer -q sset Master 3%+ && dunstify -a "changeVolume" -u low -i audio-volume-muted -r "991049" "Volume up $(amixer get Master | grep 'Front Left: Playback' | awk '{print $5}' | sed -E 's/\[|\]//g')"
@@ -212,14 +212,14 @@ bindsym $mod+r exec dunstify -a "Resizing mode" -u low -r "991052" "Entered resi
 
 # execute all i3 dependencies
 
-exec nohup waybar &> /dev/null &
-exec nohup compton --config $HOME/.config/compton/compton &> /dev/null &
+exec --no-startup-id nohup waybar &> /dev/null &
+exec --no-startup-id nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 
-exec nohup dunst &> /dev/null &
-exec nohup $HOME/bin/keepalive.sh &> /dev/null &
+exec --no-startup-id nohup dunst &> /dev/null &
+exec --no-startup-id nohup $HOME/bin/keepalive.sh &> /dev/null &
 output "*" bg $HOME/Pictures/simple.png fill
 
 #set xserver keyboard layout
-exec setxkbmap $KEY
+exec --no-startup-id setxkbmap $KEY
 
-exec xrdb $HOME/.Xresources
+exec --no-startup-id xrdb $HOME/.Xresources
