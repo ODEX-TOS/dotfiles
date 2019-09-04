@@ -171,11 +171,11 @@ for_window [window_role="GtkFileChooserDialog"] move position center
 for_window [title="Default - Wine desktop"] floating enable
 
 # #---Function Buttons---# #
-bindsym $mod+F1     exec rofiquestion "Do you want to lock your screen" "exec i3lock-next"
-bindsym $mod+F2		exec rofiquestion "Do you want to suspend?" "exec systemctl suspend"
-bindsym $mod+F3		exec rofiquestion "Do you want to shutdown?" "exec SUDO_ASKPASS='/home/zeus/bin/rofi/askpass' sudo -A shutdown now"
-bindsym $mod+F4		exec rofiquestion "Do you want to hibernate?" "exec systemctl hibernate"
-bindsym $mod+F5		exec rofiselect
+bindsym $mod+F1     exec --no-startup-id rofiquestion "Do you want to lock your screen" "exec i3lock-next"
+bindsym $mod+F2		exec --no-startup-id rofiquestion "Do you want to suspend?" "exec systemctl suspend"
+bindsym $mod+F3		exec --no-startup-id rofiquestion "Do you want to shutdown?" "exec SUDO_ASKPASS='/home/zeus/bin/rofi/askpass' sudo -A shutdown now"
+bindsym $mod+F4		exec --no-startup-id rofiquestion "Do you want to hibernate?" "exec systemctl hibernate"
+bindsym $mod+F5		exec --no-startup-id rofiselect
 
 # #---Arrow Keys---# #
 bindsym $mod+Left		focus left
@@ -193,7 +193,7 @@ bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15 && dunstif
 bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15 && dunstify -a "Backlight" -u low -i audio-volume-muted -r "991051" "Increasing backlight: $(xbacklight | awk -F. '{print $1"%"}')"
 bindsym XF86Display		exec --no-startup-id displayselect
 bindsym XF86WLAN		exec $netrefresh
-bindsym $mod+Return exec $term
+bindsym $mod+Return exec --no-startup-id $term
 bindsym $mod+h split h
 bindsym $mod+v split v
 bindsym XF86AudioRaiseVolume exec amixer -q sset Master 3%+ && dunstify -a "changeVolume" -u low -i audio-volume-muted -r "991049" "Volume up $(amixer get Master | grep 'Front Left: Playback' | awk '{print $5}' | sed -E 's/\[|\]//g')"
@@ -216,16 +216,16 @@ bindsym $mod+r exec dunstify -a "Resizing mode" -u low -r "991052" "Entered resi
 
 # execute all i3 dependencies
 
-exec nohup polybar main &> /dev/null &
-exec nohup polybar workspaces &> /dev/null &
-exec nohup compton --config $HOME/.config/compton/compton &> /dev/null &
+exec --no-startup-id nohup polybar main &> /dev/null &
+exec --no-startup-id nohup polybar workspaces &> /dev/null &
+exec --no-startup-id nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 
-exec nohup dunst &> /dev/null &
-exec nohup $HOME/bin/keepalive.sh &> /dev/null &
-exec feh --bg-scale $HOME/Pictures/simple.png
+exec --no-startup-id nohup dunst &> /dev/null &
+exec --no-startup-id nohup $HOME/bin/keepalive.sh &> /dev/null &
+exec --no-startup-id feh --bg-scale $HOME/Pictures/simple.png
 
 #set xserver keyboard layout
-exec setxkbmap $KEY
+exec --no-startup-id setxkbmap $KEY
 
 # Set tapping enabled on my touchpad
 # Your settings might change depending on the touchpad
@@ -234,6 +234,6 @@ exec setxkbmap $KEY
 # xinput list-props <device id>
 # to enable tapping use
 # xinput set-prop <device> <property> 1
-exec xinput set-prop 12 288 1
-exec nohup tos t s ~/Pictures/simple.png &> /dev/null &
-exec nohup tos theme daemon &> /dev/null & # launch a tos daemon
+exec --no-startup-id xinput set-prop 12 288 1
+exec --no-startup-id nohup tos t s ~/Pictures/simple.png &> /dev/null &
+exec --no-startup-id nohup tos theme daemon &> /dev/null & # launch a tos daemon
