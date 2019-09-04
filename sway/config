@@ -223,3 +223,4 @@ output "*" bg $HOME/Pictures/simple.png fill
 exec --no-startup-id setxkbmap $KEY
 
 exec --no-startup-id xrdb $HOME/.Xresources
+exec --no-startup-id nohup st
