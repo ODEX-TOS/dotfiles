@@ -1,6 +1,5 @@
 # vim: filetype=i3
 # Config created by Tom Meyers
-input * xkb_layout "be"
 
 # #---Color---# #
 
@@ -33,6 +32,7 @@ set $hibernate sudo -A systemctl suspend
 set $HOME /home/zeus
 set $KEY be
 
+input * xkb_layout "$KEY"
 # #---Dropdown Windows---# #
 # General dropdown window traits. The order can matter.
 for_window [instance="dropdown_*"] floating enable
