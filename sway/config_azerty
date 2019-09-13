@@ -8,6 +8,7 @@
 
 #blue colors
 set $bordercolor	#04afc1
+default_border none
 
 # class                 border  backgr. text    indicator child_border
 client.focused          $bordercolor $bordercolor #ffffff $bordercolor   $bordercolor
@@ -219,7 +220,7 @@ exec --no-startup-id nohup waybar &> /dev/null &
 exec --no-startup-id nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 
 exec --no-startup-id nohup dunst &> /dev/null &
-exec --no-startup-id nohup $HOME/bin/keepalive.sh &> /dev/null &
+exec --no-startup-id nohup sleep 5 && sh $HOME/bin/keepalive.sh &> /dev/null &
 output "*" bg $HOME/Pictures/simple.png fill
 
 #set xserver keyboard layout
