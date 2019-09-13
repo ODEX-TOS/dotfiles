@@ -71,7 +71,7 @@ bindsym $mod+Shift+BackSpace	exec --no-startup-id prompt "Reboot computer?" "$re
 bindsym $mod+grave		exec --no-startup-id dmenuunicode
 
 # #---Letter Key Bindings---# #
-bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+q			kill
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
 bindsym $mod+w			exec --no-startup-id $term -e nmtui
@@ -83,7 +83,7 @@ bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 5
 bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s		gaps inner current minus 5
 
-bindsym $mod+d			exec --no-startup-id  rofi -lines 12 -padding 18 -width 60 -location 0 -show run drun window -sidebar-mode -columns 3 -font 'Fira Code 10'
+bindsym $mod+d			exec --no-startup-id  rofi -lines 12 -padding 18 -width 60 -location 0 -show run drun window -sidebar-mode -columns 3 -font 'Fira Code 10' | xargs swaymsg exec --
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 
 
