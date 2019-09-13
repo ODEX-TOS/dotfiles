@@ -29,7 +29,6 @@ set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
-set $gnome-schema org.gnome.desktop.interface
 set $HOME /home/zeus
 set $KEY be
 
@@ -72,7 +71,7 @@ bindsym $mod+Shift+BackSpace	exec --no-startup-id prompt "Reboot computer?" "$re
 bindsym $mod+grave		exec --no-startup-id dmenuunicode
 
 # #---Letter Key Bindings---# #
-bindsym $mod+q			    kill
+bindsym $mod+q			kill
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
 bindsym $mod+w			exec --no-startup-id $term -e nmtui
@@ -188,7 +187,6 @@ bindsym $mod+Shift+Right 	move right 30
 bindsym XF86PowerOff		exec --no-startup-id rofi -show drun
 bindsym XF86MonBrightnessDown	exec --no-startup-id light -U 15 && dunstify -a "Backlight" -u low -i audio-volume-muted -r "991051" "Decreasing backlight: $(light | awk -F. '{print $1"%"}')"
 bindsym XF86MonBrightnessUp	exec --no-startup-id light -A 15 && dunstify -a "Backlight" -u low -i audio-volume-muted -r "991051" "Increasing backlight: $(light | awk -F. '{print $1"%"}')"
-
 bindsym XF86Display		exec --no-startup-id displayselect
 bindsym XF86WLAN		exec $netrefresh
 bindsym $mod+Return exec --no-startup-id $term
@@ -210,19 +208,18 @@ mode "resize" {
 }
 
 bindsym $mod+r exec dunstify -a "Resizing mode" -u low -r "991052" "Entered resizing mode"  ;mode "resize"
-
-# enable gtk apps
 exec_always import-gsettings \
     gtk-theme:gtk-theme-name \
     icon-theme:gtk-icon-theme-name \
     cursor-theme:gtk-cursor-theme-name
+
 # execute all i3 dependencies
 
 exec --no-startup-id nohup waybar &> /dev/null &
 exec --no-startup-id nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 
 exec --no-startup-id nohup dunst &> /dev/null &
-exec --no-startup-id nohup sleep 5; $HOME/bin/keepalive.sh &> /dev/null &
+exec --no-startup-id nohup sleep 5 && sh $HOME/bin/keepalive.sh &> /dev/null &
 output "*" bg $HOME/Pictures/simple.png fill
 
 #set xserver keyboard layout
