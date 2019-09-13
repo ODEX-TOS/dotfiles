@@ -23,7 +23,7 @@ client.background       #ffffff
 for_window [class="^.*"] border pixel 0
 gaps inner 15
 gaps outer 5
-set $term --no-startup-id st
+set $term st
 set $mod Mod4
 set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
