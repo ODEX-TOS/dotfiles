@@ -208,7 +208,10 @@ mode "resize" {
 }
 
 bindsym $mod+r exec dunstify -a "Resizing mode" -u low -r "991052" "Entered resizing mode"  ;mode "resize"
-
+exec_always import-gsettings \
+    gtk-theme:gtk-theme-name \
+    icon-theme:gtk-icon-theme-name \
+    cursor-theme:gtk-cursor-theme-name
 
 # execute all i3 dependencies
 
