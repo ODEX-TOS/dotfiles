@@ -3,6 +3,7 @@
 
 if [[ "$(tty)" == "/dev/tty1" ]]; then
     source ~/.profile
+    source ~/bin/swayfig.sh
 fi
 
 function load() {
