@@ -143,7 +143,7 @@ bindsym $mod+parenleft	workspace $ws5
 bindsym $mod+egrave		workspace $ws6
 bindsym $mod+minus		workspace $ws7
 bindsym $mod+underscore	workspace $ws8
-bindsym $mod+ccdedilla	workspace $ws9
+bindsym $mod+ccedilla	workspace $ws9
 bindsym $mod+agrave		workspace $ws10
 
 # move focused container to workspace
@@ -155,7 +155,7 @@ bindsym $mod+Shift+parenleft	move container to workspace $ws5
 bindsym $mod+Shift+egrave	    move container to workspace $ws6
 bindsym $mod+Shift+minus	    move container to workspace $ws7
 bindsym $mod+Shift+underscore	move container to workspace $ws8
-bindsym $mod+Shift+ccdedilla	move container to workspace $ws9
+bindsym $mod+Shift+ccedilla	move container to workspace $ws9
 bindsym $mod+Shift+agrave	    move container to workspace $ws10
 
 for_window [class="Pinentry"] sticky enable
