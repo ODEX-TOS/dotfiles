@@ -29,6 +29,7 @@ set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
+set $gnome-schema org.gnome.desktop.interface
 set $HOME /home/zeus
 set $KEY be
 
@@ -71,7 +72,7 @@ bindsym $mod+Shift+BackSpace	exec --no-startup-id prompt "Reboot computer?" "$re
 bindsym $mod+grave		exec --no-startup-id dmenuunicode
 
 # #---Letter Key Bindings---# #
-bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+q			    kill
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
 bindsym $mod+w			exec --no-startup-id $term -e nmtui
@@ -83,7 +84,7 @@ bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 5
 bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s		gaps inner current minus 5
 
-bindsym $mod+d			exec --no-startup-id  rofi -lines 12 -padding 18 -width 60 -location 0 -show run drun window -sidebar-mode -columns 3 -font 'Fira Code 10'
+bindsym $mod+d			exec --no-startup-id  rofi -lines 12 -padding 18 -width 60 -location 0 -show run drun window -sidebar-mode -columns 3 -font 'Fira Code 10' | xargs swaymsg exec --
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 
 
@@ -210,7 +211,11 @@ mode "resize" {
 
 bindsym $mod+r exec dunstify -a "Resizing mode" -u low -r "991052" "Entered resizing mode"  ;mode "resize"
 
-
+# enable gtk apps
+exec_always import-gsettings \
+    gtk-theme:gtk-theme-name \
+    icon-theme:gtk-icon-theme-name \
+    cursor-theme:gtk-cursor-theme-name
 # execute all i3 dependencies
 
 exec --no-startup-id nohup waybar &> /dev/null &
