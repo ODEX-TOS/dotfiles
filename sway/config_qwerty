@@ -221,7 +221,7 @@ exec --no-startup-id nohup waybar &> /dev/null &
 exec --no-startup-id nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 
 exec --no-startup-id nohup dunst &> /dev/null &
-exec --no-startup-id nohup sleep 5 && sh $HOME/bin/keepalive.sh &> /dev/null &
+exec --no-startup-id nohup sleep 5 && keepalive.sh &> /dev/null &
 output "*" bg $HOME/Pictures/simple.png fill
 
 #set xserver keyboard layout

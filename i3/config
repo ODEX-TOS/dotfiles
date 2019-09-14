@@ -221,7 +221,7 @@ exec --no-startup-id nohup polybar workspaces &> /dev/null &
 exec --no-startup-id nohup compton --config $HOME/.config/compton/compton &> /dev/null &
 
 exec --no-startup-id nohup dunst &> /dev/null &
-exec --no-startup-id nohup $HOME/bin/keepalive.sh &> /dev/null &
+exec --no-startup-id nohup keepalive.sh &> /dev/null &
 exec --no-startup-id feh --bg-scale $HOME/Pictures/simple.png
 
 #set xserver keyboard layout
@@ -238,4 +238,4 @@ exec --no-startup-id xinput set-prop 12 288 1
 exec --no-startup-id nohup tos t s ~/Pictures/simple.png &> /dev/null &
 exec --no-startup-id nohup tos theme daemon &> /dev/null & # launch a tos daemon
 exec --no-startup-id nohup st
-exec --no-startup-id $HOME/bin/touchpad.sh
+exec --no-startup-id touchpad.sh
