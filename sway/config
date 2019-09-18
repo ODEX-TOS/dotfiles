@@ -25,7 +25,7 @@ for_window [class="^.*"] border pixel 0
 gaps inner 15
 gaps outer 5
 set $term st
-set $mod Mod4
+set $mod Mod1
 set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
@@ -141,9 +141,9 @@ bindsym $mod+eacute		workspace $ws2
 bindsym $mod+quotedbl	workspace $ws3
 bindsym $mod+apostrophe	workspace $ws4
 bindsym $mod+parenleft	workspace $ws5
-bindsym $mod+egrave		workspace $ws6
-bindsym $mod+minus		workspace $ws7
-bindsym $mod+underscore	workspace $ws8
+bindsym $mod+section	workspace $ws6
+bindsym $mod+egrave		workspace $ws7
+bindsym $mod+exclam 	workspace $ws8
 bindsym $mod+ccedilla	workspace $ws9
 bindsym $mod+agrave		workspace $ws10
 
