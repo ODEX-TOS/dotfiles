@@ -97,7 +97,7 @@
     interval = 60
     format = <label>
     format-prefix = " "
-    exec = python ~/.config/polybar/scripts/weather.py
+    exec = bash ~/.config/polybar/scripts/weather.sh
 
 [module/powermenu]
     type = custom/menu
