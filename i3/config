@@ -173,7 +173,7 @@ for_window [title="Default - Wine desktop"] floating enable
 # #---Function Buttons---# #
 bindsym $mod+F1     exec --no-startup-id rofiquestion "Do you want to lock your screen" "exec i3lock-next"
 bindsym $mod+F2		exec --no-startup-id rofiquestion "Do you want to suspend?" "exec systemctl suspend"
-bindsym $mod+F3		exec --no-startup-id rofiquestion "Do you want to shutdown?" "exec SUDO_ASKPASS='/home/zeus/bin/rofi/askpass' sudo -A shutdown now"
+bindsym $mod+F3		exec --no-startup-id rofiquestion "Do you want to shutdown?" "exec SUDO_ASKPASS='$HOME/bin/rofi/askpass' sudo -A shutdown now"
 bindsym $mod+F4		exec --no-startup-id rofiquestion "Do you want to hibernate?" "exec systemctl hibernate"
 bindsym $mod+F5		exec --no-startup-id rofiselect
 
