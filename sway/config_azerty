@@ -223,9 +223,6 @@ exec --no-startup-id nohup dunst &> /dev/null &
 exec --no-startup-id nohup sleep 5 && keepalive.sh &> /dev/null &
 output "*" bg $HOME/Pictures/simple.png fill
 
-#set xserver keyboard layout
-exec --no-startup-id setxkbmap $KEY
-
 exec --no-startup-id xrdb $HOME/.Xresources
 exec --no-startup-id nohup st
 exec --no-startup-id touchpad.sh

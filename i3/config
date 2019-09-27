@@ -31,7 +31,7 @@ set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
 set $HOME /home/zeus
-set $KEY be
+set $KEY $(cat /etc/vconsole.conf | cut -d= -f2 | cut -d- -f1)
 
 # #---Dropdown Windows---# #
 # General dropdown window traits. The order can matter.
@@ -224,8 +224,8 @@ exec --no-startup-id nohup dunst &> /dev/null &
 exec --no-startup-id nohup keepalive.sh &> /dev/null &
 exec --no-startup-id feh --bg-scale $HOME/Pictures/simple.png
 
-#set xserver keyboard layout
 exec --no-startup-id setxkbmap $KEY
+
 
 # Set tapping enabled on my touchpad
 # Your settings might change depending on the touchpad
