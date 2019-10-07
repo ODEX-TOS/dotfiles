@@ -47,7 +47,7 @@ awful.rules.rules = {
        },
     },
         properties = {
-          screen = 1, tag = '1',
+          screen = 1, tag = '2',
           switchtotag = true,
           titlebars_enabled = true
       }
@@ -60,7 +60,7 @@ awful.rules.rules = {
 			"firefox"
        },
     },
-        properties = { screen = 1, tag = '2' }
+        properties = { screen = 1, tag = '1' }
   },
 
   -- Editors
@@ -68,7 +68,7 @@ awful.rules.rules = {
 	rule_any = {
 		class = {
 			"Geany",
-      "Atom"
+      "Code"
 		},
 	},
 		properties = { screen = 1, tag = '3' }
@@ -88,7 +88,8 @@ awful.rules.rules = {
   {
     rule_any = {
       class = {
-        "vlc"
+        "vlc",
+        "Spotify"
        },
     },
         properties = { tag = '5' }
