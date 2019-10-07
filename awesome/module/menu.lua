@@ -31,15 +31,15 @@ myawesomemenu = {
 }
 
 myterminalmenu = {
-  { "Kitty", function() awful.spawn('kitty') end },
+  { "Suckless Terminal", function() awful.spawn('st') end },
   { "XTerm", function() awful.spawn('xterm') end },
   { "UXTerm", function() awful.spawn('uxterm') end }
 }
 mybrowsermenu = {
-  { "Firefox", function() awful.spawn('firefox') end}
+  { "Firefox", function() awful.spawn('firefox-developer-edition') end}
 }
 myeditorsmenu = {
-  { "Atom", function() awful.spawn('atom') end }
+  { "Code", function() awful.spawn('code') end }
 }
 myfilemanagermenu = {
   { "Nemo", function() awful.spawn('nemo') end },
