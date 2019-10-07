@@ -14,14 +14,27 @@ local wibox = require('wibox')
 local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
-
+local naughty = require('naughty')
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/wifi/icons/'
-local interface = 'wlp2s0'
+local interface = "wlp2s01"
+
+
+
+-- This is the correct way
+local command = "ip route get 1.1.1.1 | grep -Po '(?<=dev\\s)\\w+' | cut -f1 -d ' ' > /tmp/interface.txt"
+
+awful.spawn.easy_async_with_shell(command, function()
+    awful.spawn.easy_async_with_shell("cat /tmp/interface.txt", function(out)
+        interface = out
+    end)
+end)
+
+
 local connected = false
 local essid = 'N/A'
 

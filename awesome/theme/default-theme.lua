@@ -3,6 +3,7 @@ local mat_colors = require('theme.mat-colors')
 local theme_dir = filesystem.get_configuration_dir() .. '/theme'
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
+local awful = require('awful')
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
 theme.font = 'Roboto medium 10'
@@ -18,7 +19,7 @@ end
 -- get all lines from a file, returns an empty 
 -- list/table if the file does not exist
 function lines_from(file)
-  if not file_exists(file) then return {} end
+  if not file_exists(file) then return "~/Pictures/drawing/simple.png" end
   lines = {}
   for line in io.lines(file) do 
     lines[#lines + 1] = line
@@ -46,6 +47,15 @@ local awesome_overrides =
   --theme.dir             = os.getenv("HOME") .. "/code/awesome-pro/themes/pro-dark"
 
   theme.icons = theme.dir .. '/icons/'
+    local command = "head -n3 ~/.config/tos/theme | tail -n1 | awk '{printf $0}'> /tmp/theme.txt"
+
+    awful.spawn.easy_async_with_shell(command, function()
+        awful.spawn.easy_async_with_shell("feh --bg-scale $(cat /tmp/theme.txt)", function(out)
+            print(out)
+        end)
+    end)
+
+
   --theme.wallpaper = '~/Pictures/simple.png'
   theme.wallpaper = lines_from("~/.config/tos/theme")[2]
   --theme.wallpaper = '#e0e0e0'
