@@ -88,7 +88,7 @@ awful.rules.rules = {
   {
     rule_any = {
       class = {
-        "vlc"
+        "vlc",
         "Spotify"
        },
     },
