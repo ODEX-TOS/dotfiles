@@ -39,7 +39,7 @@ mybrowsermenu = {
   { "Firefox", function() awful.spawn('firefox-developer-edition') end}
 }
 myeditorsmenu = {
-  { "Code", function() awful.spawn('code') end }
+  { "Code", function() awful.spawn('code-insiders') end }
 }
 myfilemanagermenu = {
   { "Nemo", function() awful.spawn('nemo') end },
