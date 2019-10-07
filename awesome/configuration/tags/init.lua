@@ -6,7 +6,7 @@ local tags = {
   {
     icon = icons.chrome,
     type = 'chrome',
-    defaultApp = 'firefox-developer-edition',
+    defaultApp = 'chrome',
     screen = 1
   },
   {

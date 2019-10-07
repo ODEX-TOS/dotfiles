@@ -8,7 +8,7 @@ return {
     rofi = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
     rofiappmenu = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/appmenu/drun.rasi',
     lock = 'dm-tool lock' --[['i3lock-fancy-rapid 5 3 -k --timecolor=ffffffff --datecolor=ffffffff']],
-    quake = 'kitty --title QuakeTerminal'
+    quake = 'st --title QuakeTerminal'
   },
   -- List of apps to start once on start-up
   run_on_start_up = {
