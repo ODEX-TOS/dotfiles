@@ -6,7 +6,7 @@ local dir = os.getenv('HOME') .. '/.config/awesome/theme/icons'
 return {
   --tags
   chrome = lit_dir .. '/google-chrome.svg',
-  code = lit_dir .. '/code-braces.svg',
+  code = lit_dir .. '/code.svg',
   social = lit_dir .. '/forum.svg',
   folder = lit_dir .. '/folder.svg',
   music = lit_dir .. '/music.svg',
