@@ -91,22 +91,28 @@ end
 
 local last_battery_check = os.time()
 watch(
-  'pamac checkupdates',
-  60,
+  "yay -Qu",
+  180,
   function(_, stdout)
-    numOfUpdatesAvailable = tonumber(stdout:match('.-\n'):match('%d*'))
+    -- Check if there  bluetooth
+    local _, replacements = string.gsub(stdout, "[a-zA-Z]+", " ")
+    print(replacements)
+    numOfUpdatesAvailable = replacements -- If 'Controller' string is detected on stdout
     local widgetIconName
-    if (numOfUpdatesAvailable ~= nil) then
-      updateAvailable = true
-      widgetIconName = 'package-up'
-    else
-      updateAvailable = false
+    if (numOfUpdatesAvailable == 0) then
       widgetIconName = 'package'
+      updateAvailable = false
+    else
+      widgetIconName = 'package-up'
+      updateAvailable = true
     end
     widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
     collectgarbage('collect')
   end,
   widget
 )
+
+
+
 
 return widget_button
