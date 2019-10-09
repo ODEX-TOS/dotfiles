@@ -15,7 +15,6 @@ local wibox = require('wibox')
 local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
-local awful = require('awful')
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
@@ -89,7 +88,8 @@ watch(
     local battery_info = {}
     local capacities = {}
     for s in stdout:gmatch('[^\r\n]+') do
-      local status, charge_str, time = string.match(s, '.+: (.*), (%d?%d?%d)%.*')
+      local status, charge_str, time = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?.*')
+      local fully_charged = stdout:match('100%')
       if status ~= nil then
         table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
       else
@@ -133,6 +133,9 @@ watch(
       batteryIconName = batteryIconName .. '-outline'
     elseif (roundedCharge ~= 100) then
       batteryIconName = batteryIconName .. '-' .. roundedCharge
+    end
+    if fully_charged ~= nil then
+     batteryIconName = 'battery-charging-100'
     end
 
     widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
