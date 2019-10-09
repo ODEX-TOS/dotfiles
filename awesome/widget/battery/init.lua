@@ -15,6 +15,7 @@ local wibox = require('wibox')
 local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
+local awful = require('awful')
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
@@ -81,14 +82,14 @@ local last_battery_check = os.time()
 
 watch(
   'acpi -i',
-  1,
+  5,
   function(_, stdout)
     local batteryIconName = 'battery'
 
     local battery_info = {}
     local capacities = {}
     for s in stdout:gmatch('[^\r\n]+') do
-      local status, charge_str, time = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?.*')
+      local status, charge_str, time = string.match(s, '.+: (.*), (%d?%d?%d)%.*')
       if status ~= nil then
         table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
       else
