@@ -60,6 +60,9 @@ awful.tooltip(
     align = 'right',
     timer_function = function()
       if updateAvailable then
+        if numOfUpdatesAvailable == "1 " then
+            return numOfUpdatesAvailable .. ' updates are available'
+        end
         return numOfUpdatesAvailable .. ' updates are available'
       else
         return 'We are up-to-date!'
@@ -90,16 +93,16 @@ local function show_battery_warning()
 end
 
 local last_battery_check = os.time()
+local COMMAND = "/bin/bash " .. HOME .. '/.config/awesome/updater.sh'
 watch(
-  "yay -Qu",
+  COMMAND,
   180,
   function(_, stdout)
     -- Check if there  bluetooth
     local _, replacements = string.gsub(stdout, "\n", " ")
-    print(replacements)
-    numOfUpdatesAvailable = replacements -- If 'Controller' string is detected on stdout
+    numOfUpdatesAvailable = _ -- If 'Controller' string is detected on stdout
     local widgetIconName
-    if (numOfUpdatesAvailable == 0) then
+    if numOfUpdatesAvailable == "0 " then
       widgetIconName = 'package'
       updateAvailable = false
     else
