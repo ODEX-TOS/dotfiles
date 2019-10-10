@@ -95,7 +95,7 @@ watch(
   180,
   function(_, stdout)
     -- Check if there  bluetooth
-    local _, replacements = string.gsub(stdout, "[a-zA-Z]+", " ")
+    local _, replacements = string.gsub(stdout, "\n", " ")
     print(replacements)
     numOfUpdatesAvailable = replacements -- If 'Controller' string is detected on stdout
     local widgetIconName

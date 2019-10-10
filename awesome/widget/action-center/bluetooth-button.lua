@@ -35,8 +35,8 @@ local function update_icon()
 end
 
 local function check_bluetooth()
-  awful.spawn.easy_async_with_shell('rfkill list 0', function( stdout )
-    checker = stdout:match('Soft blocked: yes')
+  awful.spawn.easy_async_with_shell('bluetoothctl show', function( stdout )
+    checker = stdout:match('Powered: yes')
     -- IF NOT NULL THEN WIFI IS DISABLED
     -- IF NULL IT THEN WIFI IS ENABLED
     if(checker ~= nil) then
@@ -55,12 +55,12 @@ end
 
 local function toggle_bluetooth()
   if(mode == true) then
-    awful.spawn('rfkill block bluetooth')
+    awful.spawn('bluetoothctl power off')
     awful.spawn("notify-send 'Bluetooth device disabled'")
     mode = false
     update_icon()
   else
-    awful.spawn('rfkill unblock bluetooth')
+    awful.spawn('bluetoothctl power on')
     awful.spawn("notify-send 'Initializing Bluetooth Service' 'Enable in System Tray'")
     mode = true
     update_icon()
@@ -106,11 +106,11 @@ awful.tooltip(
 
 local last_wifi_check = os.time()
 watch(
-  'rfkill list 0',
+  'bluetoothctl show',
   5,
   function(_, stdout)
    -- Check if there  bluetooth
-    checker = stdout:match('Soft blocked: yes') -- If 'Controller' string is detected on stdout
+    checker = stdout:match('Powered: no') -- If 'Controller' string is detected on stdout
     local widgetIconName
     if (checker == nil) then
       widgetIconName = 'toggled-on'
