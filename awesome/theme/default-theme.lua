@@ -4,9 +4,11 @@ local theme_dir = filesystem.get_configuration_dir() .. '/theme'
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local awful = require('awful')
+local gtk = require("beautiful.gtk")
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
 theme.font = 'Roboto medium 10'
+theme.gtk = gtk.get_theme_variables()
 
 -- read out files
 -- see if the file exists
