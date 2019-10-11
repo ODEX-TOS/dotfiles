@@ -29,7 +29,7 @@ local function init()
     local bw       = beautiful.collision_focus_border_width
     local bc       = beautiful.collision_focus_border_color
     local padding  = beautiful.collision_focus_padding or 7
-    local bg       = beautiful.collision_focus_bg or beautiful.bg_alternate or "#ff0000"
+    local bg       = beautiful.collision_focus_bg or beautiful.bg_alternate or "#a62fd8"
     local fg       = beautiful.collision_focus_fg or beautiful.fg_normal    or "#0000ff"
     local bg_focus = beautiful.collision_focus_bg_center or beautiful.bg_urgent or "#ff0000"
     local sw       = beautiful.collision_shape_width or 75
