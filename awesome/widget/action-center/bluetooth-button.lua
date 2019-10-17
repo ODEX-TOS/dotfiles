@@ -55,12 +55,12 @@ end
 
 local function toggle_bluetooth()
   if(mode == true) then
-    awful.spawn('bluetoothctl power off')
+    awful.spawn('tos bluetooth set off')
     awful.spawn("notify-send 'Bluetooth device disabled'")
     mode = false
     update_icon()
   else
-    awful.spawn('bluetoothctl power on')
+    awful.spawn('tos bluetooth set on')
     awful.spawn("notify-send 'Initializing Bluetooth Service' 'Enable in System Tray'")
     mode = true
     update_icon()
