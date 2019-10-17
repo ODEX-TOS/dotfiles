@@ -8,8 +8,11 @@ function run() {
 
 setxkbmap "$(cut -d= -f2 /etc/vconsole.conf | cut -d- -f1)"
 
-nohup tos t s "$(head -n3 ~/.config/tos/theme | tail -n1)" &>/dev/null &
-nohup tos theme daemon &>/dev/null &# launch a tos daemon
+tos t s "$(head -n3 ~/.config/tos/theme | tail -n1)"
+
+if ! pgrep tos; then
+    nohup tos theme daemon &>/dev/null &# launch a tos daemon
+fi
 touchpad.sh &
 
 run st
