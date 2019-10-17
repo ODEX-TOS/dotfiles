@@ -7,7 +7,12 @@ function tutorial ()
     destroy = function ()
         naughty.notify({ title = "TOS tutorial!", text = "For the help menu use mod+f1.", timeout = 0, position = "top_left", 
         destroy = function ()
-            naughty.notify({ title = "TOS tutorial!", text = "Nice all you need to do now is start the installer, open a terminal (mod+Enter) and type in 'tos c'. Good luck on your journey", timeout = 0, position = "top_left"}) 
+            naughty.notify({ title = "TOS tutorial!", text = "Nice all you need to do now is start the installer, open a terminal (mod+Enter) and type in 'tos c'. Good luck on your journey", timeout = 0, position = "top_left",
+               destroy = function ()
+                  local HOME = os.getenv('HOME')
+                  local FILE = HOME .. '/.cache/tutorial_tos'
+                  io.open(FILE,"w"):write("tutorial is complete"):close()
+               end}) 
         end})
     end})
     end
@@ -38,5 +43,4 @@ if f~=nil then
         io.close(f) 
 else 
     tutorial()
-    io.open(FILE,"w"):write("tutorial is complete"):close()
 end
