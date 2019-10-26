@@ -38,16 +38,16 @@ local slider =
   widget = mat_slider
 }
 
+-- TODO: Set the force flag if it is present in the tos config
 slider:connect_signal(
   'property::value',
   function()
-    spawn('xbacklight -set ' .. math.max(slider.value, 5))
-    spawn('light -S ' .. math.max(slider.value, 5))
+    spawn('brightness -s ' .. math.max(slider.value, 5))
   end
 )
 
 watch(
-  [[bash -c "xbacklight -get || light -G"]],
+  [[bash -c "brightness -g"]],
   1,
   function(widget, stdout, stderr, exitreason, exitcode)
     local brightness = string.match(stdout, '(%d+)')
