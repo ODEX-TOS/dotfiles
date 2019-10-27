@@ -32,7 +32,7 @@ local dpi = require('beautiful').xresources.apply_dpi
 local watch = require('awful.widget.watch')
 
 local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/action-center/icons/bluetooth/'
+local PATH_TO_ICONS = '/etc/xdg/awesome/widget/action-center/icons/bluetooth/'
 local checker
 local mode
 

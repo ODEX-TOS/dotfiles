@@ -46,7 +46,7 @@ local dpi = require('beautiful').xresources.apply_dpi
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
 local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/package-updater/icons/'
+local PATH_TO_ICONS = '/etc/xdg/awesome/widget/package-updater/icons/'
 local updateAvailable = false
 local numOfUpdatesAvailable
 
@@ -118,7 +118,7 @@ local function show_battery_warning()
 end
 
 local last_battery_check = os.time()
-local COMMAND = "/bin/bash " .. HOME .. '/.config/awesome/updater.sh'
+local COMMAND = "/bin/bash " .. '/etc/xdg/awesome/updater.sh'
 watch(
   COMMAND,
   180,

@@ -37,7 +37,7 @@ local gap = 1
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
 local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/bluetooth/icons/'
+local PATH_TO_ICONS = '/etc/xdg/awesome/widget/bluetooth/icons/'
 local checker
 local mat_list_item = require('widget.material.list-item')
 

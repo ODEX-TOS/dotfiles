@@ -80,7 +80,7 @@ local function list_update(w, buttons, label, data, objects)
       cb =
         clickable_container(
         wibox.container.margin(
-          wibox.widget.imagebox(os.getenv('HOME') .. '/.config/awesome/theme/icons/tag-list/tag/close.png'),
+          wibox.widget.imagebox('/etc/xdg/awesome/theme/icons/tag-list/tag/close.png'),
           4,
           4,
           4,
