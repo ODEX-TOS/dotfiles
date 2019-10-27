@@ -33,7 +33,7 @@ local watch = require('awful.widget.watch')
 local mat_list_item = require('widget.material.list-item')
 
 local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/action-center/icons/'
+local PATH_TO_ICONS = '/etc/xdg/awesome/widget/action-center/icons/'
 local checker
 local mode
 

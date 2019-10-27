@@ -45,7 +45,7 @@ local naughty = require('naughty')
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
 local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/wifi/icons/'
+local PATH_TO_ICONS = '/etc/xdg/awesome/widget/wifi/icons/'
 local interface = "wlp2s01"
 
 

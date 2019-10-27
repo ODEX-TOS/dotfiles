@@ -34,7 +34,7 @@ local mat_list_item = require('widget.material.list-item')
 local filesystem = require('gears.filesystem')
 
 local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/action-center/icons/'
+local PATH_TO_ICONS = '/etc/xdg/awesome/widget/action-center/icons/'
 local cmd = 'grep -F "blur-background-frame = false;" ' .. filesystem.get_configuration_dir() .. '/configuration/compton.conf ' .. "| tr -d '[\\-\\;\\=\\ ]' "
 local frameStatus
 local widgetIconName

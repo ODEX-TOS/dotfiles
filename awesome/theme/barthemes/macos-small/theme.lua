@@ -29,8 +29,8 @@ local dpi = xresources.apply_dpi
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local theme_name = "manta"
-local icon_path = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name .. "/icons/"
-local titlebar_icon_path = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name .. "/titlebar/"
+local icon_path = "/etc/xdg/awesome/themes/" .. theme_name .. "/icons/"
+local titlebar_icon_path = "/etc/xdg/awesome/themes/" .. theme_name .. "/titlebar/"
 local tip = titlebar_icon_path --alias to save time
 local xrdb = xresources.get_current_theme()
 local theme = dofile(themes_path.."default/theme.lua")
@@ -43,7 +43,7 @@ local awful = require("awful")
 local screen_width = awful.screen.focused().geometry.width
 local screen_height = awful.screen.focused().geometry.height
 
-theme.wallpaper = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name .. "/wall.png"
+theme.wallpaper = "/etc/xdg/awesome/themes/" .. theme_name .. "/wall.png"
 theme.font          = "monospace 12"
 --theme.font          = "sans-serif 12"
 
