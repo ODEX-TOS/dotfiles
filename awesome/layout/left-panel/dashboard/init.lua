@@ -62,6 +62,35 @@ return function(_, panel)
       )
     )
   )
+  local dpi_button =
+    wibox.widget {
+    wibox.widget {
+      icon = icons.search,
+      size = dpi(24),
+      widget = mat_icon
+    },
+    wibox.widget {
+      text = 'Change Application Scaling',
+      font = 'Iosevka Regular 12',
+      widget = wibox.widget.textbox,
+      align = center
+    },
+    forced_height = dpi(12),
+    clickable = true,
+    widget = mat_list_item
+  }
+
+  dpi_button:buttons(
+    awful.util.table.join(
+      awful.button(
+        {},
+        1,
+        function()
+          panel:run_dpi()
+        end
+      )
+    )
+  )
 
   local exit_button =
     wibox.widget {
@@ -136,6 +165,19 @@ return function(_, panel)
       require('layout.left-panel.dashboard.quick-settings'),
       require('layout.left-panel.dashboard.hardware-monitor'),
       require('layout.left-panel.dashboard.action-center'),
+      separator,
+      layout = wibox.layout.fixed.vertical,
+      {
+        wibox.widget {
+          dpi_button,
+          bg = '#ffffff20',     --beautiful.background.hue_800,
+          shape = function(cr, w, h)
+                    gears.shape.rounded_rect(cr, w, h, 28)
+                  end,
+          widget = wibox.container.background,
+        },
+        widget = mat_list_item,
+      },
     },
     nil,
     {
