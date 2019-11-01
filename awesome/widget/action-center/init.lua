@@ -53,6 +53,7 @@ local mat_list_item = require('widget.material.list-item')
 --
 local barColor = '#ffffff20'
 local wifibutton = require('widget.action-center.wifi-button')
+local oledbutton = require('widget.action-center.oled-button')
 local bluebutton = require('widget.action-center.bluetooth-button')
 local comptonbutton = require('widget.action-center.compositor-button')
 
@@ -99,6 +100,27 @@ return wibox.widget {
     },
     widget = mat_list_item,
   },
+  layout = wibox.layout.fixed.vertical,
+  -- OLED Toggle
+  wibox.widget{
+    wibox.widget{
+      oledbutton,
+      bg = barColor,
+      shape = function(cr, width, height)
+                gears.shape.partially_rounded_rect(
+                  cr,
+                  width,
+                  height,
+                  false,
+                  false,
+                  false,
+                  false,
+                  12)
+              end,
+      widget = wibox.container.background
+    },
+    widget = mat_list_item,
+  },
   -- Compositor Toggle
   layout = wibox.layout.fixed.vertical,
   wibox.widget{
@@ -119,5 +141,5 @@ return wibox.widget {
       widget = wibox.container.background
     },
     widget = mat_list_item,
-  }
+    }
 }

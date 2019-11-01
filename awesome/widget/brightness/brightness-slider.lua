@@ -42,12 +42,17 @@ local slider =
 slider:connect_signal(
   'property::value',
   function()
-    spawn('brightness -s ' .. math.max(slider.value, 5))
+    if (_G.oled) then
+        spawn('brightness -s ' .. math.max(slider_osd.value, 5) .. ' -F') -- toggle pixel values
+    else
+        spawn('brightness -s 100 -F') -- reset pixel values
+        spawn('brightness -s ' .. math.max(slider_osd.value, 5))
+    end
   end
 )
 
 watch(
-  [[bash -c "brightness -g"]],
+  [[bash -c "grep -q on ~/.cache/oled && brightness -g -F || brightness -g"]],
   1,
   function(widget, stdout, stderr, exitreason, exitcode)
     local brightness = string.match(stdout, '(%d+)')
