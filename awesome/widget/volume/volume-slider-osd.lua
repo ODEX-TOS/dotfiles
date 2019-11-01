@@ -47,6 +47,7 @@ slider_osd:connect_signal(
   'property::value',
   function()
     spawn('amixer -D pulse sset Master ' .. slider_osd.value .. '%')
+    spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
   end
 )
 
