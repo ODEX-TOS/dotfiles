@@ -257,7 +257,13 @@ local globalKeys =
     {},
     'XF86MonBrightnessUp',
     function()
-      awful.spawn('xbacklight -inc 10')
+      awful.spawn('brightness -a 5')
+      if toggleBriOSD ~= nil then
+        _G.toggleBriOSD(true)
+      end
+      if UpdateBrOSD ~= nil then
+        _G.UpdateBrOSD()
+      end
     end,
     {description = '+10%', group = 'hotkeys'}
   ),
@@ -265,16 +271,28 @@ local globalKeys =
     {},
     'XF86MonBrightnessDown',
     function()
-      awful.spawn('xbacklight -dec 10')
+      awful.spawn('brightness -d 5')
+      if toggleBriOSD ~= nil then
+        _G.toggleBriOSD(true)
+      end
+      if UpdateBrOSD ~= nil then
+        _G.UpdateBrOSD()
+      end
     end,
     {description = '-10%', group = 'hotkeys'}
-  ),
+  ), 
   -- ALSA volume control
   awful.key(
     {},
     'XF86AudioRaiseVolume',
     function()
       awful.spawn('amixer -D pulse sset Master 5%+')
+      if toggleVolOSD ~= nil then
+        _G.toggleVolOSD(true)
+      end
+      if UpdateVolOSD ~= nil then
+        _G.UpdateVolOSD()
+      end
     end,
     {description = 'volume up', group = 'hotkeys'}
   ),
@@ -283,6 +301,12 @@ local globalKeys =
     'XF86AudioLowerVolume',
     function()
       awful.spawn('amixer -D pulse sset Master 5%-')
+      if toggleVolOSD ~= nil then
+        _G.toggleVolOSD(true)
+      end
+      if UpdateVolOSD ~= nil then
+        _G.UpdateVolOSD()
+      end
     end,
     {description = 'volume down', group = 'hotkeys'}
   ),
