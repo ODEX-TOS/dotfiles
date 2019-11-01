@@ -34,6 +34,8 @@ function set-screen {
 }
 
 set-screen "$val"x"$val"
+# TODO: a timer should run while waiting for the rofi output
+# If the timer expires that we should reset the screen
 val=$(printf "Is the scaling correct\nyes\nno\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
 if [[ "$val" == "no" ]]; then
         set-screen "$original"
