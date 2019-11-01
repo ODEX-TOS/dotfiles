@@ -37,13 +37,14 @@ local slider =
   read_only = false,
   widget = mat_slider
 }
-
+_G.volume1 = slider
 slider:connect_signal(
   'property::value',
   function()
     spawn('amixer -D pulse sset Master ' .. slider.value .. '%')
     -- Only play sound when beeing drawn, we also remove the OSD from the screen
-    if (_G.volumeSlider.visible)then
+    _G.volume2:set_value(slider.value)
+    if (_G.menuopened) then
         _G.toggleVolOSD(false)
         spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
     end
@@ -52,7 +53,7 @@ slider:connect_signal(
 
 watch(
   'amixer -D pulse sget Master',
-  1,
+  0.2,
   function(_, stdout)
     local mute = string.match(stdout, '%[(o%D%D?)%]')
     local volume = string.match(stdout, '(%d?%d?%d)%%')
