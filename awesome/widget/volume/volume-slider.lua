@@ -42,13 +42,13 @@ slider:connect_signal(
   'property::value',
   function()
     spawn('amixer -D pulse sset Master ' .. slider.value .. '%')
-    spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
+    spawn([[bash -c "pgrep mplayer || mplayer /etc/xdg/awesome/sound/audio-pop.wav"]])
   end
 )
 
 watch(
   [[bash -c "amixer -D pulse sget Master"]],
-  1,
+  0.2,
   function(_, stdout)
     local mute = string.match(stdout, '%[(o%D%D?)%]')
     local volume = string.match(stdout, '(%d?%d?%d)%%')
