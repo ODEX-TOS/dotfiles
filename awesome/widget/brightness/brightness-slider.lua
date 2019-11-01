@@ -38,15 +38,18 @@ local slider =
   widget = mat_slider
 }
 
--- TODO: Set the force flag if it is present in the tos config
+_G.brightness1 = slider
 slider:connect_signal(
   'property::value',
   function()
+    if (_G.menuopened) then
+        _G.brightness2:set_value(slider.value)
+    end
     if (_G.oled) then
-        spawn('brightness -s ' .. math.max(slider_osd.value, 5) .. ' -F') -- toggle pixel values
+        spawn('brightness -s ' .. math.max(slider.value, 5) .. ' -F') -- toggle pixel values
     else
         spawn('brightness -s 100 -F') -- reset pixel values
-        spawn('brightness -s ' .. math.max(slider_osd.value, 5))
+        spawn('brightness -s ' .. math.max(slider.value, 5))
     end
   end
 )
