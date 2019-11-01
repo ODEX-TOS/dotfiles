@@ -46,8 +46,8 @@ local slider_osd =
 slider_osd:connect_signal(
   'property::value',
   function()
-    spawn('amixer -D pulse sset Master ' .. slider_osd.value .. '%')
     spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
+    spawn('amixer -D pulse sset Master ' .. slider_osd.value .. '%')
   end
 )
 
@@ -95,6 +95,7 @@ button:connect_signal(
                     icon.image = icons.muted
             else
                     icon.image = icons.volume
+                    spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
             end
     end)
   end
