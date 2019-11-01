@@ -36,6 +36,7 @@ local quickTitle = wibox.widget {
 
 local barColor = '#ffffff20'
 local volSlider = require('widget.volume.volume-slider')
+_G.volumeSlider = volSlider -- access volume slider from the otd slider
 local brightnessSlider = require('widget.brightness.brightness-slider')
 return wibox.widget {
   spacing = 1,
