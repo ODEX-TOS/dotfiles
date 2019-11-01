@@ -38,10 +38,13 @@ local slider_osd =
   read_only = false,
   widget = mat_slider
 }
-
+_G.brightness2 = slider_osd
 slider_osd:connect_signal(
   'property::value',
   function()
+    if (_G.menuopened) then
+        _G.brightness1:set_value(slider_osd.value)
+    end
     if (_G.oled) then
         spawn('brightness -s ' .. math.max(slider_osd.value, 5) .. ' -F') -- toggle pixel values
     else
