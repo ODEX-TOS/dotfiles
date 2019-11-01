@@ -109,6 +109,7 @@ end
     'opened',
     function()
       menu_icon.icon = icons.close
+      _G.menuopened = true
     end
   )
 
@@ -116,6 +117,7 @@ end
     'closed',
     function()
       menu_icon.icon = icons.logo
+      _G.menuopened = false
     end
   )
 

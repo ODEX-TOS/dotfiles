@@ -43,11 +43,15 @@ local slider_osd =
   widget = mat_slider
 }
 
+_G.volume2 = slider_osd
 slider_osd:connect_signal(
   'property::value',
   function()
-    spawn('amixer -D pulse sset Master ' .. slider_osd.value .. '%')
-    spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
+    if (not _G.menuopened) then
+        spawn('amixer -D pulse sset Master ' .. slider_osd.value .. '%')
+        spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
+        _G.volume1:set_value(slider_osd.value)
+    end
   end
 )
 

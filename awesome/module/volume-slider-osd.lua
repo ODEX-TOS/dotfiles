@@ -84,14 +84,16 @@ local hideOSD = gears.timer {
 
 
 function toggleVolOSD(bool)
-  volumeOverlay.visible = bool
-  if bool then
-    hideOSD:again()
-    if toggleBriOSD ~= nil then
-      _G.toggleBriOSD(false)
+  if (not _G.menuopened) then
+    volumeOverlay.visible = bool
+    if bool then
+        hideOSD:again()
+        if toggleBriOSD ~= nil then
+            _G.toggleBriOSD(false)
+        end
+    else
+        hideOSD:stop()
     end
-  else
-    hideOSD:stop()
   end
 end
 
