@@ -42,13 +42,13 @@ slider:connect_signal(
   'property::value',
   function()
     spawn('amixer -D pulse sset Master ' .. slider.value .. '%')
-    spawn([[bash -c "pgrep mplayer || mplayer /etc/xdg/awesome/sound/audio-pop.wav"]])
+    spawn([[sh -c " pgrep mplayer || mplayer /etc/xdg/awesome/sound/audio-pop.wav"]])
   end
 )
 
 watch(
-  [[bash -c "amixer -D pulse sget Master"]],
-  0.2,
+  'amixer -D pulse sget Master',
+  0.2, -- TODO: set time interval to something else. The 0.2 seconds is the time of the volume pop
   function(_, stdout)
     local mute = string.match(stdout, '%[(o%D%D?)%]')
     local volume = string.match(stdout, '(%d?%d?%d)%%')
