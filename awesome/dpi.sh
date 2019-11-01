@@ -23,7 +23,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 screens=$(xrandr | grep " connected" | cut -d " " -f1) # get all screens
-timeout=15 # time to wait before reverting the screen settings
+timeout=10 # time to wait before reverting the screen settings
 
 
 function set-screen {
