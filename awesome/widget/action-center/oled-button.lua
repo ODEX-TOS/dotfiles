@@ -79,13 +79,13 @@ local function toggle_oled()
   if(mode == true) then
     _G.oled = true
     awful.spawn([[bash -c "echo on > ~/.cache/oled"]])
-    awful.spawn("notify-send 'Using OLED mode'")
+    awful.spawn("notify-send 'Using OLED brightness mode'")
     mode = false
     update_icon()
   else
     _G.oled = false
     awful.spawn([[bash -c "echo off > ~/.cache/oled"]])
-    awful.spawn("notify-send 'OLED is off'")
+    awful.spawn("notify-send 'Using Backlight brightness mode'")
     mode = true
     update_icon()
   end
@@ -118,9 +118,9 @@ awful.tooltip(
     align = 'right',
     timer_function = function()
       if checker == nil then
-        return 'OLED brightness is ON'
+        return 'Backlight brightness mode is ON'
       else
-        return 'Backlight brightness is ON'
+        return 'OLED brightness mode is ON'
       end
     end,
     preferred_positions = {'right', 'left', 'top', 'bottom'}
