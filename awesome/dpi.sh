@@ -22,10 +22,9 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-val=$(printf "0.25\n0.5\n0.75\n1\n1.25\n1.5\n2\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
-original=$(grep "scale=" ~/.config/tos/theme | head -n1 | cut -d " " -f2)
 screens=$(xrandr | grep " connected" | cut -d " " -f1) # get all screens
+timeout=15 # time to wait before reverting the screen settings
+
 
 function set-screen {
     for screen in $screens; do
@@ -33,11 +32,26 @@ function set-screen {
     done
 }
 
-set-screen "$val"x"$val"
-# TODO: a timer should run while waiting for the rofi output
-# If the timer expires that we should reset the screen
-val=$(printf "Is the scaling correct\nyes\nno\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
-if [[ "$val" == "no" ]]; then
-        set-screen "$original"
+if [[ "$1" == "" ]]; then
+    val=$(printf "0.25\n0.5\n0.75\n1\n1.25\n1.5\n2\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
+    original=$(grep "scale=" ~/.config/tos/theme | head -n1 | cut -d " " -f2)
+    set-screen "$val"x"$val"
+
+
+    # TODO: a timer should run while waiting for the rofi output
+    # If the timer expires that we should reset the screen
+    bash "$0" "$original" "$$" & # call ourselfs in the background
+    sleep "$timeout"
+    set-screen "$original"
+    pkill -f "rofi"
+    pkill -f "$$"
+else
+    # this gets ran in the "fork"
+    val=$(printf "Is the scaling correct\nyes\nno\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
+    if [[ "$val" == "no" ]]; then
+        set-screen "$1"
+    fi
+    kill -9 "$2" # kill the parent
 fi
+
 
