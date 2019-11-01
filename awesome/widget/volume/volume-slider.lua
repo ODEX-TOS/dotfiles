@@ -30,6 +30,7 @@ local mat_icon_button = require('widget.material.icon-button')
 local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local spawn = require('awful.spawn')
+local awful = require('awful')
 
 local slider =
   wibox.widget {
@@ -62,6 +63,21 @@ local icon =
 }
 
 local button = mat_icon_button(icon)
+
+button:connect_signal(
+  'button::press',
+  function()
+    local command = 'amixer -D pulse set Master +1 toggle'
+    awful.spawn.easy_async_with_shell(command, function(out)
+            muted = string.find(out, 'off')
+            if ( muted ~= nil or muted == 'off' ) then
+                    icon.image = icons.muted
+            else
+                    icon.image = icons.volume
+            end
+    end)
+  end
+)
 
 local volume_setting =
   wibox.widget {
