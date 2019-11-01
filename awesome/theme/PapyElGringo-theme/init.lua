@@ -33,7 +33,7 @@ theme.icons = theme_dir .. '/icons/'
 theme.font = 'Roboto medium 10'
 --HERE
 theme.titlebars_enabled = true
-theme.titlebar_size = dpi(32)
+theme.titlebar_size = dpi(54)
 -- Colors Pallets
 
 -- Primary
