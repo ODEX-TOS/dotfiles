@@ -42,7 +42,12 @@ local slider_osd =
 slider_osd:connect_signal(
   'property::value',
   function()
-    spawn('brightness -s ' .. math.max(slider_osd.value, 5))
+    if (_G.oled) then
+        spawn('brightness -s ' .. math.max(slider_osd.value, 5) .. ' -F') -- toggle pixel values
+    else
+        spawn('brightness -s 100 -F') -- reset pixel values
+        spawn('brightness -s ' .. math.max(slider_osd.value, 5))
+    end
   end
 )
 
@@ -59,10 +64,17 @@ slider_osd:connect_signal(
 )
 
 function UpdateBrOSD()
-  awful.spawn.easy_async_with_shell("brightness -g", function( stdout )
-    local brightness = string.match(stdout, '(%d+)')
-    slider_osd:set_value(tonumber(brightness))
-  end)
+  if (_G.oled) then
+    awful.spawn.easy_async_with_shell("brightness -g -F", function( stdout )
+        local brightness = string.match(stdout, '(%d+)')
+        slider_osd:set_value(tonumber(brightness))
+    end) 
+  else
+    awful.spawn.easy_async_with_shell("brightness -g", function( stdout )
+        local brightness = string.match(stdout, '(%d+)')
+        slider_osd:set_value(tonumber(brightness))
+    end)
+  end
 end
 
 

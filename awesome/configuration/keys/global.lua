@@ -257,7 +257,12 @@ local globalKeys =
     {},
     'XF86MonBrightnessUp',
     function()
-      awful.spawn('brightness -a 5')
+      if (_G.oled) then
+        awful.spawn('brightness -a 5 -F')
+      else
+        awful.spawn('brightness -s 100 -F') -- reset pixel values when using backlight
+        awful.spawn('brightness -a 5')
+      end
       if toggleBriOSD ~= nil then
         _G.toggleBriOSD(true)
       end
@@ -271,7 +276,12 @@ local globalKeys =
     {},
     'XF86MonBrightnessDown',
     function()
-      awful.spawn('brightness -d 5')
+      if (_G.oled) then
+        awful.spawn('brightness -d 5 -F')
+      else
+        awful.spawn('brightness -s 100 -F') -- reset pixel values when using backlight
+        awful.spawn('brightness -d 5')
+      end
       if toggleBriOSD ~= nil then
         _G.toggleBriOSD(true)
       end
