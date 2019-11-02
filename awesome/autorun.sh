@@ -23,6 +23,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+userlocation="$HOME/.config/tos/autostart"
+
 function run() {
   if ! pgrep -f "$1"; then
     "$@" &
@@ -36,7 +38,12 @@ tos t s "$(grep -E "(.jpeg)|(.jpg)|(.png)" ~/.config/tos/theme | head -n1)"
 if ! pgrep tos; then
     nohup tos theme daemon &>/dev/null &# launch a tos daemon
 fi
+
 touchpad.sh &
 
-run st
-
+# autostart user scripts if that directory exists
+if [[ -d "$userlocation" ]]; then
+        for script in "$userlocation"/*.sh; do
+            "$script" & # launch all user scripts in the background
+        done
+fi
