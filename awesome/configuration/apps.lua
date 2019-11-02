@@ -46,6 +46,7 @@ return {
     'nitrogen --restore', -- Wallpaper
     'xrdb $HOME/.Xresources',
     'nm-applet',
+    'sh -c "/etc/xdg/awesome/autorun.sh"'
     -- 'mpd'
     --'redshift -l 14.45:121.05'
   }
