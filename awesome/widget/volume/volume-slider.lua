@@ -57,6 +57,7 @@ watch(
   function(_, stdout)
     local mute = string.match(stdout, '%[(o%D%D?)%]')
     local volume = string.match(stdout, '(%d?%d?%d)%%')
+    getIconByOutput(stdout)
     slider:set_value(tonumber(volume))
     collectgarbage('collect')
   end
@@ -73,15 +74,19 @@ _G.volumeIcon1 = icon
 function getIcon()
     local command = 'amixer -D pulse sget Master'
     awful.spawn.easy_async_with_shell(command, function(out)
-            muted = string.find(out, 'off')
-            if ( muted ~= nil or muted == 'off' ) then
-                    icon.image = icons.muted
-                    _G.volumeIcon2.image = icons.muted
-            else
-                    icon.image = icons.volume
-                    _G.volumeIcon2.image = icons.volume
-            end
+            getIconByOutput(out)
     end)
+end
+
+function getIconByOutput(out)
+        muted = string.find(out, 'off')
+        if ( muted ~= nil or muted == 'off' ) then
+             icon.image = icons.muted
+             _G.volumeIcon2.image = icons.muted
+        else
+             icon.image = icons.volume
+             _G.volumeIcon2.image = icons.volume
+        end
 end
 
 getIcon() -- set the icon property to the current volume state
