@@ -89,6 +89,7 @@ local icon =
 
 local button = mat_icon_button(icon)
 
+_G.volumeIcon2 = icon
 button:connect_signal(
   'button::press',
   function()
@@ -97,8 +98,10 @@ button:connect_signal(
             muted = string.find(out, 'off')
             if ( muted ~= nil or muted == 'off' ) then
                     icon.image = icons.muted
+                    _G.volumeIcon1.image = icons.muted
             else
                     icon.image = icons.volume
+                    _G.volumeIcon1.image = icons.volume
                     spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
             end
     end)

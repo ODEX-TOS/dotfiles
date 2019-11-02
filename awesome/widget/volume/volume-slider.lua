@@ -69,20 +69,40 @@ local icon =
 }
 
 local button = mat_icon_button(icon)
+_G.volumeIcon1 = icon
+function getIcon()
+    local command = 'amixer -D pulse sget Master'
+    awful.spawn.easy_async_with_shell(command, function(out)
+            muted = string.find(out, 'off')
+            if ( muted ~= nil or muted == 'off' ) then
+                    icon.image = icons.muted
+                    _G.volumeIcon2.image = icons.muted
+            else
+                    icon.image = icons.volume
+                    _G.volumeIcon2.image = icons.volume
+            end
+    end)
+end
 
-button:connect_signal(
-  'button::press',
-  function()
+getIcon() -- set the icon property to the current volume state
+
+function toggleIcon()
     local command = 'amixer -D pulse set Master +1 toggle'
     awful.spawn.easy_async_with_shell(command, function(out)
             muted = string.find(out, 'off')
             if ( muted ~= nil or muted == 'off' ) then
                     icon.image = icons.muted
+                    _G.volumeIcon2.image = icons.muted
             else
                     icon.image = icons.volume
+                    _G.volumeIcon2.image = icons.volume
             end
     end)
   end
+
+button:connect_signal(
+  'button::press',
+  toggleIcon
 )
 
 local volume_setting =
