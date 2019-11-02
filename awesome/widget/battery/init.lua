@@ -114,7 +114,7 @@ watch(
     local capacities = {}
     for s in stdout:gmatch('[^\r\n]+') do
       local status, charge_str, time = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?.*')
-      local fully_charged = stdout:match('100%')
+      local fully_charged = stdout:match('100%%')
       if status ~= nil then
         table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
       else
