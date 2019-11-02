@@ -34,17 +34,19 @@ function set-screen {
 
 if [[ "$1" == "" ]]; then
     val=$(printf "0.25\n0.5\n0.75\n1\n1.25\n1.5\n2\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
-    original=$(grep "scale=" ~/.config/tos/theme | head -n1 | cut -d " " -f2)
-    set-screen "$val"x"$val"
+    if [[ ! "$val" == "" ]]; then # only set the screen if the user selected a option
+        original=$(grep "scale=" ~/.config/tos/theme | head -n1 | cut -d " " -f2)
+        set-screen "$val"x"$val"
 
 
-    # TODO: a timer should run while waiting for the rofi output
-    # If the timer expires that we should reset the screen
-    bash "$0" "$original" "$$" & # call ourselfs in the background
-    sleep "$timeout"
-    set-screen "$original"
-    pkill -f "rofi"
-    pkill -f "$$"
+        # TODO: a timer should run while waiting for the rofi output
+        # If the timer expires that we should reset the screen
+        bash "$0" "$original" "$$" & # call ourselfs in the background
+        sleep "$timeout"
+        set-screen "$original"
+        pkill -f "rofi"
+        pkill -f "$$"
+    fi
 else
     # this gets ran in the "fork"
     val=$(printf "Is the scaling correct\nyes\nno\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
