@@ -325,6 +325,12 @@ local globalKeys =
     'XF86AudioMute',
     function()
       awful.spawn('amixer -D pulse set Master 1+ toggle')
+      if toggleVolOSD ~= nil then
+        _G.toggleVolOSD(true)
+      end
+      if UpdateVolOSD ~= nil then
+        _G.UpdateVolOSD()
+      end
     end,
     {description = 'toggle mute', group = 'hotkeys'}
   ),
