@@ -31,7 +31,7 @@ function run() {
 
 setxkbmap "$(cut -d= -f2 /etc/vconsole.conf | cut -d- -f1)"
 
-tos t s "$(head -n3 ~/.config/tos/theme | tail -n1)"
+tos t s "$(grep -E "(.jpeg)|(.jpg)|(.png)" ~/.config/tos/theme | head -n1)"
 
 if ! pgrep tos; then
     nohup tos theme daemon &>/dev/null &# launch a tos daemon
