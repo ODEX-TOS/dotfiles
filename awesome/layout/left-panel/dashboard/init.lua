@@ -65,7 +65,7 @@ return function(_, panel)
   local dpi_button =
     wibox.widget {
     wibox.widget {
-      icon = icons.search,
+      icon = icons.monitor,
       size = dpi(24),
       widget = mat_icon
     },
@@ -169,7 +169,17 @@ return function(_, panel)
       layout = wibox.layout.fixed.vertical,
       {
         wibox.widget {
-          dpi_button,
+            text = 'Screen Settings',
+            font = 'Iosevka Regular 10',
+            align = 'left',
+            widget = wibox.widget.textbox
+        },
+        widget = mat_list_item,
+      },
+        layout = wibox.layout.fixed.vertical,
+        {
+            wibox.widget {
+                dpi_button,
           bg = '#ffffff20',     --beautiful.background.hue_800,
           shape = function(cr, w, h)
                     gears.shape.rounded_rect(cr, w, h, 28)

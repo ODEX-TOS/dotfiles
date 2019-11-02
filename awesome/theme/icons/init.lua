@@ -49,6 +49,7 @@ return {
   lock = dir .. '/lock.svg',
   restart = dir .. '/restart.svg',
   search = dir .. '/magnify.svg',
+  monitor = dir .. '/laptop.svg',
   volume = dir .. '/volume-high.svg',
   muted = dir .. '/volume-mute.svg',
   brightness = dir .. '/brightness-7.svg',
