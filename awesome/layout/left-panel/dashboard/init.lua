@@ -92,6 +92,36 @@ return function(_, panel)
     )
   )
 
+  local wifi_button =
+    wibox.widget {
+    wibox.widget {
+      icon = icons.wifi,
+      size = dpi(24),
+      widget = mat_icon
+    },
+    wibox.widget {
+      text = 'Connect to a wireless network',
+      font = 'Iosevka Regular 12',
+      widget = wibox.widget.textbox,
+      align = center
+    },
+    forced_height = dpi(12),
+    clickable = true,
+    widget = mat_list_item
+  }
+
+  wifi_button:buttons(
+    awful.util.table.join(
+      awful.button(
+        {},
+        1,
+        function()
+          panel:run_wifi()
+        end
+      )
+    )
+  )
+
   local exit_button =
     wibox.widget {
     wibox.widget {
@@ -165,6 +195,29 @@ return function(_, panel)
       require('layout.left-panel.dashboard.quick-settings'),
       require('layout.left-panel.dashboard.hardware-monitor'),
       require('layout.left-panel.dashboard.action-center'),
+      separator,
+      layout = wibox.layout.fixed.vertical,
+      {
+        wibox.widget {
+            text = 'Network Settings',
+            font = 'Iosevka Regular 10',
+            align = 'left',
+            widget = wibox.widget.textbox
+        },
+        widget = mat_list_item,
+      },
+        layout = wibox.layout.fixed.vertical,
+        {
+            wibox.widget {
+                wifi_button,
+          bg = '#ffffff20',     --beautiful.background.hue_800,
+          shape = function(cr, w, h)
+                    gears.shape.rounded_rect(cr, w, h, 28)
+                  end,
+          widget = wibox.container.background,
+        },
+        widget = mat_list_item,
+      },
       separator,
       layout = wibox.layout.fixed.vertical,
       {
