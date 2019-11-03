@@ -56,9 +56,7 @@ myawesomemenu = {
 }
 
 myterminalmenu = {
-  { "Suckless Terminal", function() awful.spawn('st') end },
-  { "XTerm", function() awful.spawn('xterm') end },
-  { "UXTerm", function() awful.spawn('uxterm') end }
+  { "Tos Terminal", function() awful.spawn('st') end },
 }
 mybrowsermenu = {
   { "Firefox", function() awful.spawn('firefox-developer-edition') end}
@@ -68,7 +66,6 @@ myeditorsmenu = {
 }
 myfilemanagermenu = {
   { "Nemo", function() awful.spawn('nemo') end },
-  { "File-Roller", function() awful.spawn('file-roller') end }
 }
 mymultimediamenu = {
   { "VLC Media Player",  function() awful.spawn('vlc') end },
