@@ -111,7 +111,4 @@ _G.client.connect_signal(
 )
 
 
-awful.spawn.with_shell("~/.config/awesome/autorun.sh")
-
-
 require("tutorial")
