@@ -91,6 +91,19 @@ local left_panel = function(screen)
     )
   end
 
+  function panel:run_wifi()
+    _G.awesome.spawn(
+      apps.default.rofiwifimenu,
+      false,
+      false,
+      false,
+      false,
+      function()
+        panel:toggle()
+      end
+    )
+  end
+
   local openPanel = function(should_run_rofi)
     panel.width = action_bar_width + panel_content_width
     backdrop.visible = true

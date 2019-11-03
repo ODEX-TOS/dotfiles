@@ -33,6 +33,7 @@ return {
     rofi = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
     rofiappmenu = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/appmenu/drun.rasi',
     rofidpimenu = [[bash /etc/xdg/awesome/dpi.sh]],
+    rofiwifimenu = [[bash /etc/xdg/awesome/wifi.sh]],
     lock = 'dm-tool lock' --[['i3lock-fancy-rapid 5 3 -k --timecolor=ffffffff --datecolor=ffffffff']],
     quake = 'st --title QuakeTerminal'
   },

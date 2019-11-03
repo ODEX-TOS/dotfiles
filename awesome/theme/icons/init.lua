@@ -50,6 +50,7 @@ return {
   restart = dir .. '/restart.svg',
   search = dir .. '/magnify.svg',
   monitor = dir .. '/laptop.svg',
+  wifi = dir .. '/wifi.svg',
   volume = dir .. '/volume-high.svg',
   muted = dir .. '/volume-mute.svg',
   brightness = dir .. '/brightness-7.svg',
