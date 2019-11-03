@@ -28,11 +28,18 @@ networks=$(nmcli d wifi list | awk '$1 !~ /IN-USE|*/{print $0}' | grep -Eo '^.* 
 
 val=$(printf "%s" "$networks" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
 
-nmcli dev wifi list | grep '*' | head -n1 | grep -q " $val " && exit # exit if a connection has been made
+if [[ "$val" == "" ]]; then
+        exit 1 # user aborted
+fi
+
 nmcli dev wifi connect "$val" || echo "Asking for password of $val"
 nmcli dev wifi list | grep '*' | head -n1 | grep -q " $val " && exit # exit if a connection has been made
 # otherwise we ask the password from the user
 password=$(printf "What is the password of %s?" "$val" | rofi -dmenu -password -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
+
+if [[ "$password" == "" ]]; then
+        exit 1 # user aborted password entry field
+fi
 
 nmcli dev wifi connect "$val" password "$password"
 
