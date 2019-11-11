@@ -194,6 +194,7 @@ return function(_, panel)
       },
       separator,
       require('layout.left-panel.dashboard.quick-settings'),
+      require('layout.left-panel.dashboard.hardware-monitor'),
       require('layout.left-panel.dashboard.action-center'),
       separator,
       layout = wibox.layout.fixed.vertical,
@@ -242,7 +243,6 @@ return function(_, panel)
         widget = mat_list_item,
       },
     },
-    require('layout.left-panel.dashboard.hardware-monitor'),
     nil,
     {
 
