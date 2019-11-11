@@ -54,7 +54,7 @@ local globalKeys =
   awful.key(
     {modkey, "Shift"}, 'w',
     function()
-      awful.spawn("firefox")
+      awful.spawn("firefox-developer-edition")
     end,
     { description = "Open Browser", group = "launcher"}),
 
