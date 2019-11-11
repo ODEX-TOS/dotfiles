@@ -25,6 +25,11 @@
 
 userlocation="$HOME/.config/tos/autostart"
 
+if [[ -f "$HOME/.config/tos/autostart/config" ]]; then
+        userlocation=$(grep -E "location" .config/tos/autostart/config | cut -d= -f2)
+fi
+
+
 function run() {
   if ! pgrep -f "$1"; then
     "$@" &
