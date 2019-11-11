@@ -31,6 +31,7 @@ local mat_icon = require('widget.material.icon')
 local dpi = require('beautiful').xresources.apply_dpi
 local icons = require('theme.icons')
 local gears = require('gears')
+local scrollbar = require('widget.scrollbar')
 
 return function(_, panel)
   local search_button =
@@ -175,7 +176,7 @@ return function(_, panel)
 
   }
 
-  return wibox.widget {
+  return scrollbar(wibox.widget {
     layout = wibox.layout.align.vertical,
     {
       topSeparator,
@@ -259,5 +260,5 @@ return function(_, panel)
       },
       bottomSeparator
     }
-  }
+  })
 end
