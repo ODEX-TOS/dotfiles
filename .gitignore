@@ -45,6 +45,7 @@
 
 !/tos
 tos/theme
+tos/autostart
 
 !/neofetch
 
