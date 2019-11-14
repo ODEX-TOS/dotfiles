@@ -68,7 +68,7 @@ local globalKeys =
   awful.key(
     {"Control", "Shift"}, 'Escape',
     function()
-      awful.spawn("deepin-system-monitor")
+      awful.spawn("gnome-system-monitor")
     end,
     { description = "Open system monitor", group = "launcher"}),
 
