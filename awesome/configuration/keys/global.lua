@@ -338,7 +338,7 @@ local globalKeys =
     {},
     'XF86AudioNext',
     function()
-      --
+      print("Pressed Audio Next")
     end,
     {description = 'toggle mute', group = 'hotkeys'}
   ),
@@ -346,9 +346,10 @@ local globalKeys =
     {},
     'XF86PowerDown',
     function()
-      --
+      _G.exit_screen_show()
+
     end,
-    {description = 'toggle mute', group = 'hotkeys'}
+    {description = 'toggle exit screen', group = 'hotkeys'}
   ),
   awful.key(
     {},

@@ -24,6 +24,22 @@
 ]]
 
 local filesystem = require('gears.filesystem')
+local HOME = os.getenv('HOME')
+
+function file_exists(name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return true else return false end
+end
+
+function getComptonFile()
+    userfile = HOME .. "/.config/compton.conf"
+    if(file_exists(userfile)) then
+        return userfile
+    end
+    return filesystem.get_configuration_dir() .. '/configuration/compton.conf '
+end
+
+
 
 return {
   -- List of apps to start by default on some actions
@@ -39,7 +55,7 @@ return {
   },
   -- List of apps to start once on start-up
   run_on_start_up = {
-    'compton --config ' .. filesystem.get_configuration_dir() .. '/configuration/compton.conf',
+    'compton --config ' .. getComptonFile(),
     'blueman-applet', -- Bluetooth tray icon
     'xfce4-power-manager', -- Power manager
     '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)', -- credential manager
