@@ -69,9 +69,9 @@ widget_button:buttons(
       nil,
       function()
         if updateAvailable then
-          awful.spawn('pamac-manager --updates')
+          awful.spawn('st -e tos -Syu')
         else
-          awful.spawn('pamac-manager')
+          awful.spawn('st')
         end
       end
     )

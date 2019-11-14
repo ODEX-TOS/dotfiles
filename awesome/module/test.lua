@@ -42,8 +42,7 @@ anti_aliased_wibox:setup {
     -- Container
     {
         -- Items go here
-        --wibox.widget.textbox("Hello!"),
-        awful.spawn('urxvt'),
+        awful.spawn('st'),
         -- ...
         layout = wibox.layout.fixed.vertical
     },

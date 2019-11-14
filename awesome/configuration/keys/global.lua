@@ -225,7 +225,7 @@ local globalKeys =
   -- Dropdown application
   awful.key(
     {modkey},
-    '`',
+    'F12',
     function()
       _G.toggle_quake()
     end,
