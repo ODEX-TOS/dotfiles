@@ -44,10 +44,8 @@ end
 function getComptonFile()
     userfile = HOME .. "/.config/compton.conf"
     if(file_exists(userfile)) then
-        print("Compton file is overridden")
         return userfile
     end
-    print("Compton file is not overridden")
     return filesystem.get_configuration_dir() .. '/configuration/compton.conf '
 end
 
