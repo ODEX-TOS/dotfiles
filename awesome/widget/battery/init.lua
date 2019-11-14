@@ -147,7 +147,6 @@ watch(
       charge = (batt.charge * capacity)
     end
     charge = charge / capacity
-    print(charge)
 
     if (charge >= 0 and charge < 15) then
       if status ~= 'Charging' and os.difftime(os.time(), last_battery_check) > 300 then
