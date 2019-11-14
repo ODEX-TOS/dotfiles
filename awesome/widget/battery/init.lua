@@ -46,6 +46,7 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/battery/icons/'
+local config = require('config')
 
 local widget =
   wibox.widget {
@@ -105,7 +106,7 @@ local last_battery_check = os.time()
 
 watch(
   'acpi -i',
-  1,
+  config.battery_timeout,
   function(_, stdout)
     local batteryIconName = 'battery'
 

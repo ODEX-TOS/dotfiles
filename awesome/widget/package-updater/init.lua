@@ -49,6 +49,7 @@ local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/package-updater/icons/'
 local updateAvailable = false
 local numOfUpdatesAvailable
+local config = require('config')
 
 local widget =
   wibox.widget {
@@ -121,7 +122,7 @@ local last_battery_check = os.time()
 local COMMAND = "/bin/bash " .. '/etc/xdg/awesome/updater.sh'
 watch(
   COMMAND,
-  60,
+  config.package_timeout,
   function(_, stdout)
     -- Check if there  bluetooth
     local _, replacements = string.gsub(stdout, "\n", " ")
