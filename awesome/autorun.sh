@@ -46,6 +46,10 @@ fi
 
 touchpad.sh &
 
+if grep -q "bluetooth=false" ~/.config/tos/theme; then
+        bluetoothctl power off
+fi
+
 # autostart user scripts if that directory exists
 if [[ -d "$userlocation" ]]; then
         for script in "$userlocation"/*.sh; do

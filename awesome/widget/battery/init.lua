@@ -22,7 +22,6 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 -------------------------------------------------
 -- Battery Widget for Awesome Window Manager
 -- Shows the battery status using the ACPI tool
@@ -46,7 +45,7 @@ local dpi = require('beautiful').xresources.apply_dpi
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
 local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/battery/icons/'
+local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/battery/icons/'
 
 local widget =
   wibox.widget {
@@ -58,7 +57,7 @@ local widget =
   layout = wibox.layout.fixed.horizontal
 }
 
-local widget_button = clickable_container(wibox.container.margin(widget, dpi(14), dpi(14), 7, 7)) -- default top bottom margin is 7
+local widget_button = clickable_container(wibox.container.margin(widget, dpi(7), dpi(7), 7, 7)) -- default top bottom margin is 7
 widget_button:buttons(
   gears.table.join(
     awful.button(
@@ -106,7 +105,7 @@ local last_battery_check = os.time()
 
 watch(
   'acpi -i',
-  5,
+  1,
   function(_, stdout)
     local batteryIconName = 'battery'
 
@@ -114,7 +113,10 @@ watch(
     local capacities = {}
     for s in stdout:gmatch('[^\r\n]+') do
       local status, charge_str, time = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?.*')
-      local fully_charged = stdout:match('100%%')
+      -- When the battery is 100% and discharging the above regex fails
+      if not (status ~= nil or charge_str ~= nil)  then
+              table.insert(battery_info, {status = "Discharging", charge = tonumber("100")})
+      end
       if status ~= nil then
         table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
       else
@@ -136,9 +138,10 @@ watch(
       -- this is arbitrary, and maybe another metric should be used
       end
 
-      charge = charge + batt.charge * capacities[i]
+      charge = (batt.charge * capacity)
     end
     charge = charge / capacity
+    print(charge, capacity)
 
     if (charge >= 0 and charge < 15) then
       if status ~= 'Charging' and os.difftime(os.time(), last_battery_check) > 300 then
@@ -159,9 +162,6 @@ watch(
     elseif (roundedCharge ~= 100) then
       batteryIconName = batteryIconName .. '-' .. roundedCharge
     end
-    if fully_charged ~= nil then
-     batteryIconName = 'battery-charging-100'
-    end
 
     widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
     -- Update popup text
@@ -172,3 +172,4 @@ watch(
 )
 
 return widget_button
+
