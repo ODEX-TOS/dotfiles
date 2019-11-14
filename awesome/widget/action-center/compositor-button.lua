@@ -35,22 +35,10 @@ local filesystem = require('gears.filesystem')
 
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/action-center/icons/'
-
-function file_exists(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
-end
-
-function getComptonFile()
-    userfile = HOME .. "/.config/compton.conf"
-    if(file_exists(userfile)) then
-        return userfile
-    end
-    return filesystem.get_configuration_dir() .. '/configuration/compton.conf '
-end
+local config = require('config')
 
 
-local cmd = 'grep -F "blur-background-frame = false;" ' .. getComptonFile() .."| tr -d '[\\-\\;\\=\\ ]' "
+local cmd = 'grep -F "blur-background-frame = false;" ' .. config.getComptonFile() .."| tr -d '[\\-\\;\\=\\ ]' "
 local frameStatus
 local widgetIconName
 
@@ -104,13 +92,13 @@ end
 
 -- Commands that will be executed when I toggle the button
 blurDisable = {
-  'sed -i -e "s/blur-background-frame = true/blur-background-frame = false/g" ' .. getComptonFile(),
-  'compton --config ' .. getComptonFile(),
+  'sed -i -e "s/blur-background-frame = true/blur-background-frame = false/g" ' .. config.getComptonFile(),
+  'compton --config ' .. config.getComptonFile(),
   'notify-send "Blur effect disabled"'
 }
 blurEnable = {
-  'sed -i -e "s/blur-background-frame = false/blur-background-frame = true/g" ' .. getComptonFile(),
-  'compton --config ' .. getComptonFile(),
+  'sed -i -e "s/blur-background-frame = false/blur-background-frame = true/g" ' .. config.getComptonFile(),
+  'compton --config ' .. config.getComptonFile(),
   'notify-send "Blur effect enabled"'
 }
 

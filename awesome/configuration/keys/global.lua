@@ -224,12 +224,12 @@ local globalKeys =
   ),
   -- Dropdown application
   awful.key(
-    {modkey},
+    {},
     'F12',
     function()
       _G.toggle_quake()
     end,
-    {description = 'dropdown application', group = 'launcher'}
+    {description = 'dropdown terminal', group = 'launcher'}
   ),
   -- Widgets popups
   awful.key(
