@@ -111,10 +111,16 @@ watch(
 
     local battery_info = {}
     local capacities = {}
+    local prev_status = nil
+    local prev_charge = nil
     for s in stdout:gmatch('[^\r\n]+') do
       local status, charge_str, time = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?.*')
       -- When the battery is 100% and discharging the above regex fails
-      if not (status ~= nil or charge_str ~= nil)  then
+      if (status ~= nil or charge_str ~= nill) then
+              prev_status = status
+              prev_charge = charge_str
+      end
+      if not (status ~= nil or charge_str ~= nil or prev_status ~= nil or prev_charge ~=nil)  then
               table.insert(battery_info, {status = "Discharging", charge = tonumber("100")})
       end
       if status ~= nil then
@@ -141,7 +147,7 @@ watch(
       charge = (batt.charge * capacity)
     end
     charge = charge / capacity
-    print(charge, capacity)
+    print(charge)
 
     if (charge >= 0 and charge < 15) then
       if status ~= 'Charging' and os.difftime(os.time(), last_battery_check) > 300 then
