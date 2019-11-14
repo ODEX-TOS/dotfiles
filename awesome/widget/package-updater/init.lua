@@ -121,7 +121,7 @@ local last_battery_check = os.time()
 local COMMAND = "/bin/bash " .. '/etc/xdg/awesome/updater.sh'
 watch(
   COMMAND,
-  180,
+  60,
   function(_, stdout)
     -- Check if there  bluetooth
     local _, replacements = string.gsub(stdout, "\n", " ")
