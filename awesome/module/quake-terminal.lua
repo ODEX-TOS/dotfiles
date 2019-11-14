@@ -65,6 +65,10 @@ _G.client.connect_signal(
   function(c)
     if (c.pid == quake_id) then
       quake_client = c
+      c.width = (c.screen.geometry.width * 0.9)
+      c.height = (c.screen.geometry.height * 0.3)
+      c.x = (c.screen.geometry.width * 0.05)
+      c.y = 100
       c.opacity = 0.9
       c.floating = true
       c.skip_taskbar = true
@@ -72,7 +76,7 @@ _G.client.connect_signal(
       c.above = true
       c.sticky = true
       c.hidden = not opened
-      c.maximized_horizontal = true
+      --c.maximized_horizontal = true
     end
   end
 )
