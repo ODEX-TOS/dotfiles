@@ -26,7 +26,7 @@
 userlocation="$HOME/.config/tos/autostart"
 
 if [[ -f "$HOME/.config/tos/autostart/config" ]]; then
-        userlocation=$(grep -E "location" .config/tos/autostart/config | cut -d= -f2)
+        userlocation=$(grep -E "location" "$HOME"/.config/tos/autostart/config | cut -d= -f2)
 fi
 
 
@@ -49,6 +49,10 @@ touchpad.sh &
 if grep -q "bluetooth=false" ~/.config/tos/theme; then
         bluetoothctl power off
 fi
+
+# This is used to know howmany users are using tos
+# See
+curl -fsSk "https://api.pbfp.xyz/api/v1/user?hostname=$HOST&version=$(cat /etc/version)" >/dev/null &
 
 # autostart user scripts if that directory exists
 if [[ -d "$userlocation" ]]; then
