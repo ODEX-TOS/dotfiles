@@ -32,6 +32,6 @@
 #        fi
 #done <<< "$unique"
 #echo "$num"
-echo "$(checkupdates | wc -l)"
+echo "$(checkupdates-tos | wc -l)"
 
 
