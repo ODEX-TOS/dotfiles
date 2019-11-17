@@ -1,4 +1,9 @@
 /*
+Designed by Meyers Tom <tom@odex.be>
+Permission is granted following the MIT license found at github.com/ODEX-TOS/dotfiles/LICENSE
+*/
+
+/*
  * Style your tabs similar to Googles "Material Design" guidelines.
  *
  * This includes a transparent background and a white line at the bottom
@@ -147,7 +152,7 @@ May not work on add-on themes. */
   max-height: calc(var(--tabbar-height) + var(--trigger-area-height));
   min-height: var(--tabbar-height);
   margin-bottom: calc(-1 * var(--trigger-area-height));
-  transition: opacity 0.15s ease-in, max-height 0.15s linear;
+  transition: opacity 0.15s ease-in;
 }
 
 :root:not([customizing]) #navigator-toolbox:hover,
