@@ -30,6 +30,7 @@ local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local awful = require('awful')
 local gtk = require("beautiful.gtk")
+local config = require("theme.config")()
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
 theme.font = 'Roboto medium 10'
@@ -54,19 +55,24 @@ function lines_from(file)
   return lines
 end
 
+function color(value)
+  if value == nil then return nil end
+  return "#" .. value
+end
+
 -- Colors Pallets
 
 -- Custom
 theme.custom = '#ffffff'
 
 -- Primary
-theme.primary = mat_colors.deep_orange
+theme.primary = mat_colors[config["primary"]] or mat_colors.purple
 
 -- Accent
-theme.accent = mat_colors.pink
+theme.accent = mat_colors[config["accent"]] or mat_colors.hue_purple
 
 -- Background
-theme.background = mat_colors.grey
+theme.background = mat_colors[config["background"]] or mat_colors.grey
 
 local awesome_overrides =
   function(theme)
@@ -89,15 +95,15 @@ local awesome_overrides =
   theme.font = 'Roboto medium 10'
   theme.title_font = 'Roboto medium 14'
 
-  theme.fg_normal = '#ffffffde'
+  theme.fg_normal = color(config["foreground_normal"]) or '#ffffffde'
 
-  theme.fg_focus = '#e4e4e4'
-  theme.fg_urgent = '#CC9393'
-  theme.bat_fg_critical = '#232323'
+  theme.fg_focus = color(config["foreground_focus"]) or '#e4e4e4'
+  theme.fg_urgent = color(config["foreground_urgent"]) or '#CC9393'
+  theme.bat_fg_critical = color(config["foreground_critical"]) or '#232323'
 
   theme.bg_normal = theme.background.hue_800
-  theme.bg_focus = '#5a5a5a'
-  theme.bg_urgent = '#3F3F3F'
+  theme.bg_focus = color(config["background_focus"]) or  '#5a5a5a'
+  theme.bg_urgent = color(config["background_urgent"]) or  '#3F3F3F'
   theme.bg_systray = theme.background.hue_800
 
   -- Borders
@@ -105,7 +111,7 @@ local awesome_overrides =
   theme.border_width = dpi(2)
   theme.border_normal = theme.background.hue_800
   theme.border_focus = theme.primary.hue_300
-  theme.border_marked = '#CC9393'
+  theme.border_marked = color(config["border_marked"]) or  '#CC9393'
 
   -- Menu
 
@@ -113,7 +119,7 @@ local awesome_overrides =
   theme.menu_width = dpi(160)
 
   -- Tooltips
-  theme.tooltip_bg = '#232323' .. '99'
+  theme.tooltip_bg = (color(config["tooltip_bg"]) or '#232323') .. '99'
   --theme.tooltip_border_color = '#232323'
   theme.tooltip_border_width = 0
   theme.tooltip_shape = function(cr, w, h)
@@ -127,14 +133,14 @@ local awesome_overrides =
   theme.layout_dwindle = theme.icons .. 'layouts/dwindle.png'
 
   -- Taglist
-
+  taglist_occupied = color(config["border_marked"]) or "#ffffff"
   theme.taglist_bg_empty = theme.background.hue_800 .. '99'
   theme.taglist_bg_occupied = -- blank theme.background.hue_800
     'linear:0,0:' ..
     dpi(48) ..
       ',0:0,' ..
-        '#ffffff' ..
-          ':0.08,' .. '#ffffff' .. ':0.08,' .. theme.background.hue_800 .. '99' .. theme.background.hue_800
+      taglist_occupied ..
+          ':0.08,' .. taglist_occupied .. ':0.08,' .. theme.background.hue_800 .. '99' .. theme.background.hue_800
   theme.taglist_bg_urgent =
     'linear:0,0:' ..
     dpi(48) ..

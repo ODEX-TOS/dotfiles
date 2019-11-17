@@ -27,6 +27,7 @@ local filesystem = require('gears.filesystem')
 local mat_colors = require('theme.mat-colors')
 local theme_dir = filesystem.get_configuration_dir() .. '/theme'
 local dpi = require('beautiful').xresources.apply_dpi
+local config = require("theme.config")()
 
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
@@ -37,17 +38,26 @@ theme.titlebar_size = dpi(54)
 -- Colors Pallets
 
 -- Primary
-theme.primary = mat_colors.indigo
-theme.primary.hue_500 = '#8AB4F8' --#003f6b
+theme.primary = mat_colors[config["primary"]]or mat_colors.purple
+--theme.primary.hue_500 = '#8AB4F8' --#003f6b
 
 -- Accent
-theme.accent = mat_colors.pink
+theme.accent =  mat_colors[config["accent"]] or mat_colors.hue_purple
 
 -- Background
-theme.background = mat_colors.blue_grey
+theme.background = mat_colors[config["background"]] or mat_colors.blue_grey
 
-theme.background.hue_800 = '#000000' .. '66' --99
-theme.background.hue_900 = '#000000' .. '66' -- 121e25
+theme.background.hue_800 = theme.background.hue_800 .. '66' --99
+
+if config["background_800"] ~= nil then
+  theme.background.hue_800 = "#" .. config["background_800"] .. '66'
+end
+
+theme.background.hue_900 = theme.background.hue_800 .. '66' -- 121e25
+
+if config["background_900"] ~= nil then
+  theme.background.hue_900 = "#" .. config["background_900"] .. '66'
+end
 
 local awesome_overrides = function(theme)
   --
