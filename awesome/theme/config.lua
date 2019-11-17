@@ -33,7 +33,6 @@ function parse_file()
             line = split(line,"#")[1]
             local data, payload = extract(line)
             if not (data == nil) then
-                print(data, payload)
                 lines[data] = payload
             end
         end
