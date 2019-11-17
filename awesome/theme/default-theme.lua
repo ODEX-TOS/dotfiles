@@ -133,7 +133,7 @@ local awesome_overrides =
   theme.layout_dwindle = theme.icons .. 'layouts/dwindle.png'
 
   -- Taglist
-  taglist_occupied = color(config["border_marked"]) or "#ffffff"
+  taglist_occupied = color(config["taglist_occupied"]) or "#ffffff"
   theme.taglist_bg_empty = theme.background.hue_800 .. '99'
   theme.taglist_bg_occupied = -- blank theme.background.hue_800
     'linear:0,0:' ..
