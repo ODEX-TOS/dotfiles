@@ -47,13 +47,13 @@ theme.accent =  mat_colors[config["accent"]] or mat_colors.hue_purple
 -- Background
 theme.background = mat_colors[config["background"]] or mat_colors.blue_grey
 
-theme.background.hue_800 = theme.background.hue_800 .. '66' --99
+theme.background.hue_800 = '#000000' .. '66' --99
 
 if config["background_800"] ~= nil then
   theme.background.hue_800 = "#" .. config["background_800"] .. '66'
 end
 
-theme.background.hue_900 = theme.background.hue_800 .. '66' -- 121e25
+theme.background.hue_900 = "#000000" .. '66' -- 121e25
 
 if config["background_900"] ~= nil then
   theme.background.hue_900 = "#" .. config["background_900"] .. '66'
