@@ -33,12 +33,14 @@ local watch = require('awful.widget.watch')
 -- @param fps             : how fast to update the scrolling effect. A lower fps is better for performance
 -- @param bTopToBottom    : should the scrolling happen left to right or top to bottom
 -- @param bIsInverted     : Should the movement be inverted
-return function(show, speed, offset, fps, bTopToBottom, bIsInverted)
+-- @param max_scroll      : The height of the widget until we stop scrolling
+return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
     offset = offset or 0;
     local speed = speed or 3;
     local fps = fps or 24
     local bTopToBottom = bTopToBottom or true
     local bIsInverted = bIsInverted or false
+    local max_scroll = max_scroll or 1000
 
     local entered = false
     local pressed = false
@@ -106,6 +108,9 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted)
                 if ( offset > 0) then
                     offset = 0;
                 end
+                if (offset < -max_scroll) then
+                        offset = -max_scroll
+                end
                 if ( bTopToBottom) then
                     widget.top = offset;
                 else
@@ -150,7 +155,11 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted)
                 5,
                 function(t)
                     if( bTopToBottom) then
-                        offset = offset - 20
+                        if (offset - 20 < -max_scroll) then
+                            offset = -max_scroll
+                        else
+                            offset = offset - 20
+                        end
                         widget.top = offset
                     end
                 end
