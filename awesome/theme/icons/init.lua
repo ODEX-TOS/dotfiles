@@ -27,7 +27,7 @@ local leftpanel_icon_theme = 'tos' -- Available Themes: 'lines', 'original', 'ma
 local lit_dir = '/etc/xdg/awesome/theme/icons/themes/' .. leftpanel_icon_theme
 
 local dir = '/etc/xdg/awesome/theme/icons'
-local config = require('theme.icons.config')()
+local config = require('theme.icons.config')
 
 return {
   --tags

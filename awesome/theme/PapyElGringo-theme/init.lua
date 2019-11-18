@@ -27,7 +27,7 @@ local filesystem = require('gears.filesystem')
 local mat_colors = require('theme.mat-colors')
 local theme_dir = filesystem.get_configuration_dir() .. '/theme'
 local dpi = require('beautiful').xresources.apply_dpi
-local config = require("theme.config")()
+local config = require("theme.config")
 
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
