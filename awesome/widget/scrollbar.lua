@@ -34,7 +34,7 @@ local watch = require('awful.widget.watch')
 -- @param bTopToBottom    : should the scrolling happen left to right or top to bottom
 -- @param bIsInverted     : Should the movement be inverted
 return function(show, speed, offset, fps, bTopToBottom, bIsInverted)
-    local offset = offset or 0;
+    offset = offset or 0;
     local speed = speed or 3;
     local fps = fps or 24
     local bTopToBottom = bTopToBottom or true
@@ -42,8 +42,8 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted)
 
     local entered = false
     local pressed = false
-    local deltax = 0;
-    local deltay = 0;
+    deltax = 0;
+    deltay = 0;
     local prevx = nil
     local prevy = nil
     local widget = nil
@@ -52,6 +52,7 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted)
     'mouse::enter',
     function()
             entered = true
+            pressed = false -- if one leaves the widget while holding the button this will prevent that
     end)
 
     show:connect_signal(
@@ -128,5 +129,33 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted)
     end)
 
     widget = wibox.container.margin(show)
+    widget:buttons(
+        awful.util.table.join(
+            awful.button(
+                {},
+                4,
+                function(t)
+                    if(bTopToBottom) then
+                        if ((offset + 20) > 0) then
+                            offset = 0
+                        else
+                            offset = offset + 20
+                        end
+                        widget.top = offset
+                    end
+                end
+            ),
+            awful.button(
+                {},
+                5,
+                function(t)
+                    if( bTopToBottom) then
+                        offset = offset - 20
+                        widget.top = offset
+                    end
+                end
+            )
+        )
+    )
     return widget
 end
