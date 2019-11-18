@@ -23,22 +23,23 @@
 --SOFTWARE.
 ]]
 
-local leftpanel_icon_theme = 'macos' -- Available Themes: 'lines', 'original', 'macos'
+local leftpanel_icon_theme = 'tos' -- Available Themes: 'lines', 'original', 'macos'
 local lit_dir = '/etc/xdg/awesome/theme/icons/themes/' .. leftpanel_icon_theme
 
 local dir = '/etc/xdg/awesome/theme/icons'
+local config = require('theme.icons.config')()
 
 return {
   --tags
-  chrome = lit_dir .. '/google-chrome.svg',
-  code = lit_dir .. '/code.svg',
-  social = lit_dir .. '/forum.svg',
-  folder = lit_dir .. '/folder.svg',
-  music = lit_dir .. '/music.svg',
-  game = lit_dir .. '/google-controller.svg',
-  lab = lit_dir .. '/flask.svg',
-  terminal = lit_dir .. '/terminal.svg',
-  art = lit_dir .. '/art.svg',
+  chrome = config["browser"] or lit_dir .. '/firefox.svg',
+  code = config["code"] or lit_dir .. '/code.svg',
+  social = config["social"] or lit_dir .. '/forum.svg',
+  folder = config["folder"] or lit_dir .. '/folder.svg',
+  music = config["music"] or lit_dir .. '/music.svg',
+  game = config["game"] or lit_dir .. '/google-controller.svg',
+  lab = config["lab"] or lit_dir .. '/flask.svg',
+  terminal = config["terminal"] or lit_dir .. '/terminal.svg',
+  art = config["art"] or lit_dir .. '/art.svg',
   --others
   menu = lit_dir .. '/menu.svg',
   logo = lit_dir .. '/logo.svg',
