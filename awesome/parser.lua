@@ -21,7 +21,7 @@ end
 function extract(line)
     local splitted = split(line, "=")
     if splitted[1] == nil or splitted[1] == nil then return nil end
-    return splitted[1]:gsub("%s+", ""), splitted[2]:gsub("%s+", "")
+    return splitted[1]:gsub("%s+", ""), splitted[2]:gsub("%s+", ""):gsub("\"", ""):gsub("'", ""):gsub("`", "")
 end
 
 function parse_file(file)
