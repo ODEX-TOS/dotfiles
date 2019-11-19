@@ -25,8 +25,10 @@ Permission is granted following the MIT license found at github.com/ODEX-TOS/dot
 }
 
 .tab-line[selected="true"] {
-  background-color: white !important; /* Make the line white, remove this for default color */
+  /*If you wish to hardcode this value then remove the start and end statements below*/
+  background-color: /*START*/ #9C27B0 /*END*/ !important; /* Don't edit this line, It is changed by the theme picker to match your theme colors*/ 
 }
+
 
 /* adds curves to tab corners; remove or comment out all below to remove rounded corners */
 /* Curve the background tabs at the upper left and right corners
