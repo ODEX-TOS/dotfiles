@@ -28,6 +28,18 @@ local HOME = os.getenv('HOME')
 local config = require('config')
 
 
+function addHash(input)
+    if input == nil then return nil end
+    return "#" .. input
+end
+
+-- helper to retrieve current theme
+local themefile = require('theme.config')
+local mat_colors = require('theme.mat-colors')
+local color = mat_colors[themefile["primary"]].hue_500 or mat_colors.purple.hue_500
+local color = addHash(themefile["primary_hue_500"]) or color
+print("theme color " ..color .. " primary:" .. themefile["primary"])
+
 return {
   -- List of apps to start by default on some actions
   default = {
@@ -50,6 +62,7 @@ return {
     'nitrogen --restore', -- Wallpaper
     'xrdb $HOME/.Xresources',
     'nm-applet',
+    'sh -c "/etc/xdg/awesome/firefox-color.sh \'' .. color .. '\'"',
     'sh -c "/etc/xdg/awesome/autorun.sh"'
     -- 'mpd'
     --'redshift -l 14.45:121.05'
