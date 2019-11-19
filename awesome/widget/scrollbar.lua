@@ -40,7 +40,7 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
     local fps = fps or 24
     local bTopToBottom = bTopToBottom or true
     local bIsInverted = bIsInverted or false
-    local max_scroll = max_scroll or 1000
+    local max_scroll = max_scroll or 90000 -- if no max scrolling is present we set it to the max
 
     local entered = false
     local pressed = false
@@ -49,6 +49,7 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
     local prevx = nil
     local prevy = nil
     local widget = nil
+    local size = 20
     -- connect signals to get the current status of the scrollbar
     show:connect_signal(
     'mouse::enter',
@@ -132,6 +133,11 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
                     reset()
             end
     end)
+    for s in screen do
+        if((s.geometry.height / 50) > size) then
+            size=(s.geometry.height / 50)
+        end
+    end
 
     widget = wibox.container.margin(show)
     widget:buttons(
@@ -141,10 +147,10 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
                 4,
                 function(t)
                     if(bTopToBottom) then
-                        if ((offset + 20) > 0) then
+                        if ((offset + size) > 0) then
                             offset = 0
                         else
-                            offset = offset + 20
+                            offset = offset + size
                         end
                         widget.top = offset
                     end
@@ -158,7 +164,7 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
                         if (offset - 20 < -max_scroll) then
                             offset = -max_scroll
                         else
-                            offset = offset - 20
+                            offset = offset - size
                         end
                         widget.top = offset
                     end
