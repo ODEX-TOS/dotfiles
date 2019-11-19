@@ -338,5 +338,17 @@ return {
   -- Black
   black = '#000000',
   -- White
-  white = '#FFFFFF'
+  white = '#FFFFFF',
+  light = {
+    hue_50 = '#FFFFFF',
+    hue_100 = '#FFFFFF',
+    hue_200 = '#FFFFFF',
+    hue_300 = '#FFFFFF',
+    hue_400 = '#FFFFFF',
+    hue_500 = '#FFFFFF',
+    hue_600 = '#FFFFFF',
+    hue_700 = '#FFFFFF',
+    hue_800 = '#FFFFFF',
+    hue_900 = '#FFFFFF',
+  }
 }
