@@ -109,7 +109,7 @@ local function new(args)
     paddings = 0,
     shape = gears.shape.rounded_rect,
     background_color = '#ffffff20',--beautiful.background.hue_800,
-    color = '#fdfdfd',--beautiful.primary.hue_500,
+    color = beautiful.accent.hue_500 or '#fdfdfd',
     widget = wibox.widget.progressbar
   }
 
