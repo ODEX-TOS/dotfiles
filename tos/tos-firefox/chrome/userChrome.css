@@ -25,10 +25,8 @@ Permission is granted following the MIT license found at github.com/ODEX-TOS/dot
 }
 
 .tab-line[selected="true"] {
-  /*If you wish to hardcode this value then remove the start and end statements below*/
-  background-color: /*START*/ #9C27B0 /*END*/ !important; /* Don't edit this line, It is changed by the theme picker to match your theme colors*/ 
+  background-color: /*START*/ #9C27B0 /*END*/ !important; 
 }
-
 
 /* adds curves to tab corners; remove or comment out all below to remove rounded corners */
 /* Curve the background tabs at the upper left and right corners
@@ -194,7 +192,12 @@ May not work on add-on themes. */
     -8px - var(--tabbar-height) - var(--nav-bar-height)
   ) !important;
 }
+
 #main-window {
   --lwt-accent-color: rgb(30, 30, 32) !important;
 }
 
+#navigator-toolbox {
+    border-bottom: 0px solid var(--chrome-content-separator-color) !important;
+
+}
