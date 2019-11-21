@@ -120,7 +120,7 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
             end
     end
 
-    awful.widget.watch('true', 1.0/fps, function(widget, stdout)
+    --[[awful.widget.watch('true', 1.0/fps, function(widget, stdout)
             if ( entered and pressed) then
                     if (prevx == nil or prevy == nil) then
                         updateCoords()
@@ -132,7 +132,7 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
             else
                     reset()
             end
-    end)
+    end)--]]
     for s in screen do
         if((s.geometry.height / 50) > size) then
             size=(s.geometry.height / 50)

@@ -10,7 +10,7 @@ end
 
 config = {
     package_timeout = 60, -- how frequently we want to check if there are new updates in seconds
-    battery_timeout = 1, -- How frequently we want to check our battery status in seconds
+    battery_timeout = 5, -- How frequently we want to check our battery status in seconds
     colors_config = HOME .. "/.config/tos/colors.conf",
     icons_config = HOME .. "/.config/tos/icons.conf",
     getComptonFile = function ()
