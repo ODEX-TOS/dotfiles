@@ -36,6 +36,20 @@ local shape        = require( "gears.shape"      )
 local pango = require("lgi").Pango
 local pangocairo = require("lgi").PangoCairo
 local module = {}
+local mat_color    = require("theme.mat-colors")
+local config       = require( "theme.config"   ) 
+
+local arrow_color = mat_color[config["accent"]].hue_500 or mat_color.cyan.hue_800
+local bg_color = mat_color[config["primary"]].hue_700 or mat_color.purple.hue_800
+
+function colorhash(value)
+  if value == nil then return nil end
+  return "#" .. value
+end
+
+arrow_color = colorhash(config["accent_hue_500"]) or arrow_color
+bg_color = colorhash(config["primary_hue_700"]) or bg_color
+
 
 local w = nil
 local rad = 10
@@ -99,9 +113,7 @@ local function draw_shape(s,collection,current_idx,icon_f,y,text_height)
   cr:paint()
 
   -- Get the colors
-  local white,bg = color("#FFFFFF"),color(
-    beautiful.collision_max_bg or beautiful.menu_bg_normal or beautiful.bg_normal
-  )
+  local white,bg = color(arrow_color)
 
   local normal, focus = color(beautiful.collision_max_fg or beautiful.fg_normal), color(beautiful.bg_urgent)
 
