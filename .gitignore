@@ -58,3 +58,5 @@ tos/autostart
 !/.themes
 
 !/index.theme
+
+!libinput-gestures.conf
