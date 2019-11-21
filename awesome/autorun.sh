@@ -50,6 +50,10 @@ if grep -q "bluetooth=false" ~/.config/tos/theme; then
         bluetoothctl power off
 fi
 
+if [[ "$(command -v libinput-gestures)" ]]; then
+        libinput-gestures &
+fi
+
 # This is used to know howmany users are using tos
 # See
 if [[ "$(id -u)" != "0" ]]; then
