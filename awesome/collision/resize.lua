@@ -29,6 +29,21 @@ local beautiful = require( "beautiful"     )
 local awful     = require( "awful"         )
 local surface   = require( "gears.surface" )
 local shape     = require( "gears.shape"   )
+local mat_color    = require("theme.mat-colors")
+local config       = require( "theme.config"   ) 
+
+local arrow_color = mat_color[config["accent"]].hue_500 or mat_color.cyan.hue_800
+local bg_color = mat_color[config["primary"]].hue_700 or mat_color.purple.hue_800
+
+function color(value)
+  if value == nil then return nil end
+  return "#" .. value
+end
+
+
+arrow_color = color(config["accent_hue_500"]) or arrow_color
+bg_color = color(config["primary_hue_700"]) or bg_color
+
 
 local module,indicators,cur_c = {},nil,nil
 
@@ -59,8 +74,8 @@ local function create_indicators()
     local bw      = beautiful.collision_resize_border_width
     local bc      = beautiful.collision_resize_border_color
     local padding = beautiful.collision_resize_padding or 7
-    local bg      = beautiful.collision_resize_bg or beautiful.bg_alternate or "#ff0000"
-    local fg      = beautiful.collision_resize_fg or beautiful.fg_normal    or "#0000ff"
+    local bg      = bg_color or "#ff0000"
+    local fg      = arrow_color or "#0000ff"
 
     for k,v in ipairs(values) do
         local w = wibox {

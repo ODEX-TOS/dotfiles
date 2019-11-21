@@ -35,6 +35,21 @@ local mouse        = require( "collision.mouse" )
 local util         = require( "collision.util"  )
 local shape        = require( "gears.shape"     )
 local scale        = pango.SCALE
+local config       = require("theme.config")
+local mat_color   = require("theme.mat-colors")
+
+local arrow_color = mat_color[config["accent"]].hue_500 or mat_color.cyan.hue_800
+local bg_color = mat_color[config["primary"]].hue_700 or mat_color.purple.hue_800
+
+function color(value)
+  if value == nil then return nil end
+  return "#" .. value
+end
+
+
+arrow_color = color(config["accent_hue_500"]) or arrow_color
+bg_color = color(config["primary_hue_700"]) or bg_color
+
 
 local module = {}
 
@@ -129,6 +144,12 @@ local function new_constrained_text(s)
     return wdg
 end
 
+function color(value)
+  if value == nil then return nil end
+  return "#" .. value
+end
+
+
 local function create_wibox(s)
     s = capi.screen[s]
 
@@ -150,10 +171,10 @@ local function create_wibox(s)
     local bw       = beautiful.collision_screen_border_width
     local bc       = beautiful.collision_screen_border_color
     local padding  = beautiful.collision_screen_padding or 10
-    local bg       = beautiful.collision_screen_bg or beautiful.bg_alternate or "#ff0000"
-    local fg       = beautiful.collision_screen_fg or beautiful.fg_normal    or "#0000ff"
-    local bg_focus = beautiful.collision_screen_bg_focus or beautiful.bg_urgent or "#ff0000"
-    local fg_focus = beautiful.collision_screen_fg_focus or beautiful.fg_urgent or "#ff0000"
+    local bg       = bg_color or "#ff0000"
+    local fg       = arrow_color or "#0000ff"
+    local bg_focus = bg_color or "#ff0000"
+    local fg_focus = arrow_color or "#ff0000"
 
     -- Setup the widgets
     w:setup {
@@ -300,10 +321,10 @@ local function highlight_screen(ss)
   ss = capi.screen[ss]
   if pss ~= ss then
 
-    local bg       = beautiful.collision_screen_bg or beautiful.bg_alternate or "#ff0000"
-    local fg       = beautiful.collision_screen_fg or beautiful.fg_normal    or "#0000ff"
-    local bg_focus = beautiful.collision_screen_bg_focus or beautiful.bg_urgent or "#ff0000"
-    local fg_focus = beautiful.collision_screen_fg_focus or beautiful.fg_urgent or "#ff0000"
+    local bg       = bg_color or "#ff0000"
+    local fg       = arrow_color or "#0000ff"
+    local bg_focus = bg_color or "#ff0000"
+    local fg_focus = arrow_color or "#ff0000"
 
     if pss then
         bgs[pss].bg = bg

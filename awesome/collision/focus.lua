@@ -41,6 +41,19 @@ local color        = require( "gears.color"    )
 local col_utils    = require( "collision.util" )
 local grect        = require( "gears.geometry" ).rectangle
 local placement    = require( "awful.placement")
+local mat_color    = require("theme.mat-colors")
+local config       = require( "theme.config"   ) 
+
+local arrow_color = mat_color[config["accent"]].hue_500 or mat_color.cyan.hue_800
+local bg_color = mat_color[config["primary"]].hue_700 or mat_color.purple.hue_800
+
+function color(value)
+  if value == nil then return nil end
+  return "#" .. value
+end
+
+arrow_color = color(config["accent_hue_500"]) or arrow_color
+bg_color = color(config["primary_hue_700"]) or bg_color
 
 local module = {}
 local wiboxes,delta = nil,100
@@ -54,9 +67,9 @@ local function init()
     local bw       = beautiful.collision_focus_border_width
     local bc       = beautiful.collision_focus_border_color
     local padding  = beautiful.collision_focus_padding or 7
-    local bg       = beautiful.collision_focus_bg or beautiful.bg_alternate or "#a62fd8"
-    local fg       = beautiful.collision_focus_fg or beautiful.fg_normal    or "#0000ff"
-    local bg_focus = beautiful.collision_focus_bg_center or beautiful.bg_urgent or "#ff0000"
+    local bg       = bg_color or "#a62fd8"
+    local fg       = arrow_color or "#00ffff"
+    local bg_focus = bg_color or "#ff0000"
     local sw       = beautiful.collision_shape_width or 75
     local sh       = beautiful.collision_shape_height or 75
     local cshape   = beautiful.collision_focus_shape_center or shape.circle
