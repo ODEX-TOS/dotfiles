@@ -33,7 +33,7 @@ local mat_color    = require("theme.mat-colors")
 local config       = require( "theme.config"   ) 
 
 local arrow_color = mat_color[config["accent"]].hue_500 or mat_color.cyan.hue_800
-local bg_color = mat_color[config["primary"]].hue_700 or mat_color.purple.hue_800
+local bg_color = mat_color[config["background"]].hue_800 or mat_color.purple.hue_800
 
 function color(value)
   if value == nil then return nil end
@@ -42,7 +42,8 @@ end
 
 
 arrow_color = color(config["accent_hue_500"]) or arrow_color
-bg_color = color(config["primary_hue_700"]) or bg_color
+bg_color = color(config["background_hue_800"]) or bg_color
+bg_color = bg_color .. (config["background_transparent"] or "66")
 
 
 local module,indicators,cur_c = {},nil,nil
