@@ -3,12 +3,10 @@ local wibox = require('wibox')
 local gears = require('gears')
 local beautiful = require('beautiful')
 
-local HOME = os.getenv('HOME')
-
 local apps = require('configuration.apps')
 local dpi = require('beautiful').xresources.apply_dpi
 local clickable_container = require('widget.material.clickable-container')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/notification-center/icons/'
+local PATH_TO_ICONS =  '/etc/xdg/awesome/widget/notification-center/icons/'
 local mat_list_item = require('widget.material.list-item')
 
 

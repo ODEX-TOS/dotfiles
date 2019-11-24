@@ -131,6 +131,7 @@ end
       home_button,
       -- Create a taglist widget
       TagList(screen),
+      require("widget.xdg-folders"),
       --[[wibox.widget {
               orientation = 'horizontal',
               forced_height = 10,

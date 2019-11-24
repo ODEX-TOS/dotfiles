@@ -9,8 +9,7 @@ local beautiful = require('beautiful')
 
 local clickable_container = require('widget.material.clickable-container')
 
-local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/weather/icons/'
+local PATH_TO_ICONS = '/etc/xdg/awesome/widget/weather/icons/'
 
 -- Weather Updater
 require('widget.weather.weather-update')

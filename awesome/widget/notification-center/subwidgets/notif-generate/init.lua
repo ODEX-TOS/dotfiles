@@ -10,8 +10,7 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local beautiful = require('beautiful')
 
-local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/notification-center/icons/'
+local PATH_TO_ICONS = '/etc/xdg/awesome/widget/notification-center/icons/'
 local clickable_container = require('widget.material.clickable-container')
 
 local notif_layout = wibox.layout.fixed.vertical(reverse)
