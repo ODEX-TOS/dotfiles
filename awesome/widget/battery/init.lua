@@ -158,10 +158,12 @@ watch(
       end
     end
 
+    -- prevent the battery from toggeling between charging and beeing full
     if status == 'Charging' or status == 'Full' then
       batteryIconName = batteryIconName .. '-charging'
     end
 
+    -- try to convert the current charge percentage to a usable svg file
     local roundedCharge = math.floor(charge / 10) * 10
     if (roundedCharge == 0) then
       batteryIconName = batteryIconName .. '-outline'
@@ -169,7 +171,10 @@ watch(
       batteryIconName = batteryIconName .. '-' .. roundedCharge
     end
 
-    widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
+    -- only try to display the battery icon if a battery is detected
+    if not roundedCharge == "NaN" then
+      widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
+    end
     -- Update popup text
     battery_popup.text = string.gsub(stdout, '\n$', '')
     collectgarbage('collect')
