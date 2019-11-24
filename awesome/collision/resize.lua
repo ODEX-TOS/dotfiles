@@ -58,107 +58,21 @@ local invert = {
 }
 
 local r_ajust = {
-    left  = function(c, d) return { x      = c.x      - d, width = c.width   + d } end,
+    left  = function(c, d) return { x      = c.x,             width = c.width -d } end,
     right = function(c, d) return { width  = c.width  + d,                       } end,
-    up    = function(c, d) return { y      = c.y      - d, height = c.height + d } end,
+    up    = function(c, d) return { y      = c.y,          height = c.height - d } end,
     down  = function(c, d) return { height = c.height + d,                       } end,
 }
 
 local function create_indicators()
     local ret     = {}
-    local angle   = -((2*math.pi)/8)
-
-    -- Get the parameters
-    local size    = beautiful.collision_resize_width or 40
-    local s       = beautiful.collision_resize_shape or shape.circle
-    local bw      = beautiful.collision_resize_border_width
-    local bc      = beautiful.collision_resize_border_color
-    local padding = beautiful.collision_resize_padding or 7
-    local bg      = bg_color or "#ff0000"
-    local fg      = arrow_color or "#0000ff"
-
-    for k,v in ipairs(values) do
-        local w = wibox {
-            width   = size,
-            height  = size,
-            ontop   = true,
-            visible = true
-        }
-
-        angle = angle + (2*math.pi)/8
-
-        local tr = (size - 2*padding) / 2
-
-        w:setup {
-            {
-                {
-                    {
-                        widget = wibox.widget.imagebox
-                    },
-                    shape = shape.transform(shape.arrow)
-                        : translate( tr,tr   )
-                        : rotate   ( angle   )
-                        : translate( -tr,-tr ),
-                    bg     = fg,
-                    widget = wibox.container.background
-                },
-                margins = padding,
-                widget  = wibox.container.margin,
-            },
-            bg                 = bg,
-            shape              = s,
-            shape_border_width = bw,
-            shape_border_color = bc,
-            widget             = wibox.container.background
-        }
-
-        if awesome.version >= "v4.1" then
-            w.shape = s
-        else
-            surface.apply_shape_bounding(w, s)
-        end
-
-        ret[v] = w
-    end
-
     return ret
 end
 
 function module.hide()
-    if not indicators then return end
-
-    for k,v in ipairs(values) do indicators[v].visible = false end
-
-    if not cur_c then return end
-
-    cur_c:disconnect_signal("property::geometry", module.display)
-    cur_c = nil
 end
 
 function module.display(c,toggle)
-    if type(c) ~= "client" then --HACK
-        c = capi.client.focus
-    end
-
-    if not c then return end
-
-    indicators = indicators or create_indicators()
-
-    if c ~= cur_c then
-        if cur_c then
-        cur_c:disconnect_signal("property::geometry", module.display)
-        end
-        c:connect_signal("property::geometry", module.display)
-        cur_c = c
-    elseif toggle == true then
-        module.hide()
-    end
-
-    for k,v in ipairs(values) do
-        local w = indicators[v]
-        awful.placement[v](w, {parent=c})
-        w.visible = true
-    end
 end
 
 function module.resize(mod,key,event,direction,is_swap,is_max)
