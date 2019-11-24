@@ -27,6 +27,25 @@ local awful = require('awful')
 local gears = require('gears')
 local client_keys = require('configuration.client.keys')
 local client_buttons = require('configuration.client.buttons')
+local config = require('parser')(os.getenv('HOME') .. "/.config/tos/tags.conf")
+
+function getItem(item)
+  return config[item] or nil
+end
+
+function getApplicationsPerTag(number)
+  local screen = "screen_" .. number .. "_"
+  local iterator = {}
+  local i = 0
+  while true do
+    i = i +1
+    if getItem(screen .. i) ~= nil then
+      table.insert(iterator, getItem(screen .. i))
+    else 
+      return iterator
+    end
+  end
+end
 
 -- Rules
 awful.rules.rules = {
@@ -64,12 +83,7 @@ awful.rules.rules = {
   -- Terminals
   {
     rule_any = {
-       class = {
-			"URxvt",
-			"XTerm",
-			"UXTerm",
-      "kitty"
-       },
+       class = getApplicationsPerTag(2),
     },
         properties = {
           screen = 1, tag = '2',
@@ -81,9 +95,7 @@ awful.rules.rules = {
   -- Browsers
   {
     rule_any = {
-		class = {
-			"firefox"
-       },
+		class = getApplicationsPerTag(1),
     },
         properties = { screen = 1, tag = '1' }
   },
@@ -91,10 +103,7 @@ awful.rules.rules = {
   -- Editors
   {
 	rule_any = {
-		class = {
-			"Geany",
-      "Code"
-		},
+		class = getApplicationsPerTag(3),
 	},
 		properties = { screen = 1, tag = '3' }
   },
@@ -102,20 +111,14 @@ awful.rules.rules = {
   -- File Managers
   {
     rule_any = {
-       class = {
-         "Nemo",
-         "File-roller"
-       },
+       class = getApplicationsPerTag(4),
     },
         properties = { tag = '4' }
   },
     -- Multimedia
   {
     rule_any = {
-      class = {
-        "vlc",
-        "Spotify"
-       },
+      class = getApplicationsPerTag(5),
     },
         properties = { tag = '5' }
   },
@@ -124,10 +127,7 @@ awful.rules.rules = {
   {
 	rule_any = {
 
-		class = {
-			"Wine",
-      "dolphin-emu"
-		},
+		class = getApplicationsPerTag(6),
   --s  instance = { 'SuperTuxKart' }
 	},
 		properties = {
@@ -142,10 +142,7 @@ awful.rules.rules = {
   -- Multimedia Editing
   {
 	rule_any = {
-		class = {
-			"Gimp-2.10",
-			"Inkscape"
-		},
+		class = getApplicationsPerTag(7),
 	},
 		properties = { screen = 1, tag = '7'}
   },
@@ -252,41 +249,3 @@ awful.rules.rules = {
   }
 }
 
-
--- Normally we'd do this with a rule but Spotify and SuperTuxKart doesnt set
--- its class or name until is starts up, so we need to catch that signal
-client.connect_signal("property::class",function(c)
-
-  if c.class == 'Spotify' or c.class == 'SuperTuxKart' then
-    -- Check if already opened
-    local app = function(c)
-      if c.class == 'SuperTuxKart' then
-        return awful.rules.match(c, { class = 'SuperTuxKart' } )
-      elseif c.class == 'Spotify' then
-        return awful.rules.match(c, { class = 'Spotify' } )
-      end
-    end
-
-      -- Move it to the desired tag in THIS SCREEN
-    local tagName = ''
-    if c.class == 'Spotify' then
-      tagName = '5'
-    elseif c.class == 'SuperTuxKart' then
-      tagName = '6'
-    end
-    local t = awful.tag.find_by_name(awful.screen.focused(), tagName)
-    c:move_to_tag(t)
-    t:view_only()
-
-    if c.class == 'SuperTuxKart' then
-      -- Two fullscreen mode to remove bug
-      -- Yeah it's a hackish way, but it works so whatever
-      -- Make sure to enable fullscreen in SuperTuxKart Settings
-      -- Not tested on not Fullscreen mode in Settings
-      -- Make sure! Or maybe it can delete your root directory
-      c.fullscreen = not c.fullscreen
-      c.fullscreen = not c.fullscreen
-      c:raise()
-    end
-  end
-end)
