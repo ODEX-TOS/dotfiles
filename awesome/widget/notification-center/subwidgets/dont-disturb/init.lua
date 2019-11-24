@@ -9,8 +9,8 @@ local mat_list_item = require('widget.material.list-item')
 local beautiful = require('beautiful')
 
 local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/notification-center/icons/'
-local PATH_TO_WIDGET = HOME .. '/.config/awesome/widget/notification-center/subwidgets/dont-disturb/'
+local PATH_TO_ICONS = '/etc/xdg/awesome/widget/notification-center/icons/'
+local PATH_TO_WIDGET = '/etc/xdg/awesome/widget/notification-center/subwidgets/dont-disturb/'
 
 dont_disturb = false
 
