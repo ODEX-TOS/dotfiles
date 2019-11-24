@@ -129,6 +129,9 @@ local awesome_overrides =
   theme.bg_urgent = color(config["background_urgent"]) or  '#3F3F3F'
   theme.bg_systray = theme.background.hue_800
 
+
+  theme.bg_modal = color(config["background_modal"]) or "#ffffff20"
+  theme.bg_modal_title = color(config["background_modal_title"]) or "#ffffff30"
   -- Borders
 
   theme.border_width = dpi(2)

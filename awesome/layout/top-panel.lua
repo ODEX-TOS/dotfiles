@@ -172,6 +172,7 @@ local TopPanel = function(s, offset)
       require('widget.wifi'),
       require('widget.battery'),
       require('widget.search'),
+      require('widget.notification-center'),
     }
   }
 
