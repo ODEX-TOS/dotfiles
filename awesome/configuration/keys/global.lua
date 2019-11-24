@@ -134,6 +134,14 @@ local globalKeys =
       awful.spawn(apps.default.lock)
     end
   ),
+  awful.key(
+    {modkey}, 'x',
+    function()
+      if require('widget.notification-center') then
+        _G.screen.primary.right_panel:toggle()
+      end
+    end,
+  { description = "Open Notification Center", group = "launcher"}),
   --[[
   awful.key(
     {},
