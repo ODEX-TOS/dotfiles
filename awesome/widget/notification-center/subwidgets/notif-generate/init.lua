@@ -3,6 +3,7 @@
 --
 
 local awful = require('awful')
+local naughty = require('naughty')
 local watch = require('awful.widget.watch')
 local wibox = require('wibox')
 local gears = require('gears')
@@ -15,8 +16,6 @@ local clickable_container = require('widget.material.clickable-container')
 
 local notif_layout = wibox.layout.fixed.vertical(reverse)
 notif_layout.spacing = dpi(5)
-
-local naughty = require('naughty')
 
 local separator = wibox.widget {
   orientation = 'horizontal',
@@ -97,7 +96,7 @@ local function notif_generate(title, message, icon, noti)
       margins = 4,
       widget  = wibox.container.margin,
     },
-    widget = naughty.list.actions,
+    --widget = naughty.list.actions,
   }
 
 
@@ -221,7 +220,7 @@ end
 firstime = true
 
 -- Check signal
-naughty.connect_signal("request::display", function(n)
+_G.awesome.connect_signal("request::display", function(n)
 
   if firstime then
     -- Delete empty message if the 1st notif is generated
