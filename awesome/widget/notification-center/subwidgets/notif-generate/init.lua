@@ -17,9 +17,7 @@ local notif_layout = wibox.layout.fixed.vertical(reverse)
 notif_layout.spacing = dpi(5)
 
 local naughty = require('naughty')
-naughty.notify({
-  text = "string",
- title = "string"})
+
 local separator = wibox.widget {
   orientation = 'horizontal',
   forced_height = 1,
@@ -99,7 +97,7 @@ local function notif_generate(title, message, icon, noti)
       margins = 4,
       widget  = wibox.container.margin,
     },
-    --widget = naughty.list.actions,
+    widget = naughty.list.actions,
   }
 
 

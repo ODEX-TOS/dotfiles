@@ -181,7 +181,7 @@ local right_panel = function(screen)
           },
         },
         {
-          --require('widget.notification-center.subwidgets.notif-generate'),
+          require('widget.notification-center.subwidgets.notif-generate'),
           wibox.widget({}),
           margins = dpi(15),
           widget = wibox.container.margin,
