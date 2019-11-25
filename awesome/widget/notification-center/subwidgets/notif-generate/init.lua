@@ -96,7 +96,7 @@ local function notif_generate(title, message, icon, noti)
       margins = 4,
       widget  = wibox.container.margin,
     },
-    --widget = naughty.list.actions,
+    widget = naughty.list.actions,
   }
 
 
@@ -220,7 +220,7 @@ end
 firstime = true
 
 -- Check signal
-_G.awesome.connect_signal("request::display", function(n)
+naughty.connect_signal("request::display", function(n)
 
   if firstime then
     -- Delete empty message if the 1st notif is generated
