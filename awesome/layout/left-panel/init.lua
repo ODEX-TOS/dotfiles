@@ -44,7 +44,7 @@ local left_panel = function(screen)
     bg = beautiful.background.hue_800,
     fg = beautiful.fg_normal
   }
-
+  _G.left_panel = panel
   panel.opened = false
 
   panel:struts(
@@ -130,6 +130,11 @@ local left_panel = function(screen)
     else
       closePanel()
     end
+  end
+
+  function panel:close()
+      self.opened = false
+      closePanel()
   end
 
   backdrop:buttons(

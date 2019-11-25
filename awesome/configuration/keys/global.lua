@@ -374,7 +374,13 @@ local globalKeys =
       awful.spawn('arandr')
     end,
     {description = 'arandr', group = 'hotkeys'}
-  )
+  ),
+  awful.key(
+  {}, 
+  "Escape", 
+  function()
+    _G.left_panel:close()
+  end)
 )
 
 -- Bind all key numbers to tags.
