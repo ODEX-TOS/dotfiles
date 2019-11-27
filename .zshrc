@@ -2,10 +2,10 @@
 # If you want to add ENV variable please add them to the ~/.profile file
 
 if [[ "$(tty)" == "/dev/tty1" ]]; then
-    source ~/.profile
     source swayfig.sh
 fi
 
+source ~/.profile
 function load() {
   for script in $(ls $1)
   do
