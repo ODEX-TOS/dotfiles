@@ -168,6 +168,7 @@ local TopPanel = function(s, offset)
       --wibox.container.margin(systray, dpi(14), dpi(14)),
       wibox.container.margin(s.systray, dpi(14), dpi(0), dpi(4), dpi(4)),
       require('widget.package-updater'),
+      require('widget.music'), --only add this when the data can be extracted from spotify
       require('widget.bluetooth'),
       require('widget.wifi'),
       require('widget.battery'),

@@ -66,5 +66,8 @@ return {
     'sh -c "/etc/xdg/awesome/autorun.sh"'
     -- 'mpd'
     --'redshift -l 14.45:121.05'
+  },
+  bins = {
+    coverUpdate = require('helper.extractcover').extractalbum
   }
 }

@@ -11,6 +11,8 @@ end
 config = {
     package_timeout = 60, -- how frequently we want to check if there are new updates in seconds
     battery_timeout = 5, -- How frequently we want to check our battery status in seconds
+    player_reaction_time = 0.01, -- The time for the music player to respond to our play/pause action
+    player_update = 5, -- Timeout to check if a new song is playing
     colors_config = HOME .. "/.config/tos/colors.conf",
     icons_config = HOME .. "/.config/tos/icons.conf",
     getComptonFile = function ()
