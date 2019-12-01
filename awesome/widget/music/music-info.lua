@@ -8,9 +8,7 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local clickable_container = require('widget.material.clickable-container')
 
--- TODO: move the path to the icons to the correct location
-local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/music/icons/'
+local PATH_TO_ICONS = '/etc/xdg/awesome/widget/music/icons/'
 
 local mat_list_item = require('widget.material.list-item')
 
