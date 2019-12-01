@@ -7,6 +7,8 @@ local naughty = require('naughty')
 local dpi = require('beautiful').xresources.apply_dpi
 
 local clickable_container = require('widget.material.clickable-container')
+
+-- TODO: move the path to the icons to the correct location
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/music/icons/'
 
