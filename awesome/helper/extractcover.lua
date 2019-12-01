@@ -8,11 +8,9 @@ local extract = {}
 -- TODO: get image information from spotify
 local extract_cover = function()
   local extract_script = [[
-    if [[ "$(playerctl status)" == "Playing" \]\]; then
-      url=$(playerctl -p spotify metadata mpris:artUrl)
-      if [ "$url" ]; then
-        curl -fL "$url" -o /tmp/cover.jpg
-      fi
+    url=$(playerctl -p spotify metadata mpris:artUrl)
+    if [ "$url" ]; then
+      curl -fL "$url" -o /tmp/cover.jpg
     fi
   ]]
 
