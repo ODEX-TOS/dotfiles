@@ -7,6 +7,8 @@ local naughty = require('naughty')
 local dpi = require('beautiful').xresources.apply_dpi
 
 local clickable_container = require('widget.material.clickable-container')
+
+-- TODO: move the path to the icons to the correct location
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/music/icons/'
 
@@ -72,7 +74,7 @@ local widget =
   layout = wibox.layout.align.horizontal
 }
 
-local widget_button = clickable_container(wibox.container.margin(widget, dpi(7), dpi(7), dpi(7), dpi(7)))
+local widget_button = clickable_container(wibox.container.margin(widget, dpi(8), dpi(8), dpi(8), dpi(8)))
 widget_button:buttons(
   gears.table.join(
     awful.button(
@@ -169,7 +171,7 @@ awesome.connect_signal("song_changed", function()
       single_shot = true,
       callback  = function()
         checkCover()
-        awful.spawn('if [ -f /tmp/cover ]; then rm /tmp/cover.jpg; fi', false)
+        awful.spawn('if [ -f /tmp/cover.jpg ]; then rm /tmp/cover.jpg; fi', false)
       end
     }
 end)
