@@ -374,6 +374,64 @@ local globalKeys =
       awful.spawn('arandr')
     end,
     {description = 'arandr', group = 'hotkeys'}
+  ),
+  -- Music player keys
+  awful.key(
+    {},
+    'XF86AudioPlay',
+    function()
+      awful.spawn('playerctl play-pause')
+    end,
+    {description = 'toggle music', group = 'hotkeys'}
+  ),
+  awful.key(
+    {},
+    'XF86AudioPause',
+    function()
+      awful.spawn('playerctl play-pause')
+    end,
+    {description = 'toggle music', group = 'hotkeys'}
+  ),
+  awful.key(
+    {},
+    'XF86AudioPrev',
+    function()
+      awful.spawn('playerctl previous')
+    end,
+    {description = 'go to the previous song', group = 'hotkeys'}
+  ),
+  awful.key(
+    {},
+    'XF86AudioNext',
+    function()
+      awful.spawn('playerctl next')
+    end,
+    {description = 'go to the next song', group = 'hotkeys'}
+  ),
+  -- keys for keyboards without xf86 keys
+  awful.key(
+    {modkey},
+    't',
+    function()
+      awful.spawn('playerctl play-pause')
+    end,
+    {description = 'toggle music', group = 'hotkeys'}
+  ),
+  awful.key(
+    {modkey},
+    'k',
+    function()
+      awful.spawn('playerctl previous')
+    end,
+    {description = 'go to the previous song', group = 'hotkeys'}
+  ),
+  awful.key(
+    {modkey},
+    'n',
+    function()
+      awful.spawn('playerctl next')
+    end,
+    {description = 'go to the next song', group = 'hotkeys'}
   )
 )
 
