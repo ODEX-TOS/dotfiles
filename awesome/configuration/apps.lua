@@ -49,12 +49,12 @@ return {
     rofiappmenu = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/appmenu/drun.rasi',
     rofidpimenu = [[bash /etc/xdg/awesome/dpi.sh]],
     rofiwifimenu = [[bash /etc/xdg/awesome/wifi.sh]],
-    lock = 'dm-tool lock' --[['i3lock-fancy-rapid 5 3 -k --timecolor=ffffffff --datecolor=ffffffff']],
+    lock = 'mantablockscreen -sc',
     quake = 'st -T QuakeTerminal'
   },
   -- List of apps to start once on start-up
   run_on_start_up = {
-    'compton --config ' .. config.getComptonFile(),
+    'compton --dbus --config ' .. config.getComptonFile(),
     'blueman-applet', -- Bluetooth tray icon
     'xfce4-power-manager', -- Power manager
     '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)', -- credential manager
