@@ -46,6 +46,11 @@ fi
 
 touchpad.sh &
 
+if [[ "$(command -v mantablockscreen)" ]]; then
+    # create a cached image for the lock screen
+    mantablockscreen -i "$(tos theme list | tail -n1)" &
+fi
+
 if grep -q "bluetooth=false" ~/.config/tos/theme; then
         bluetoothctl power off
 fi
