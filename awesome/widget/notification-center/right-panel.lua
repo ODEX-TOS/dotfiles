@@ -25,6 +25,23 @@ local right_panel = function(screen)
 
   panel.opened = false
 
+  local grabber = awful.keygrabber {
+    keybindings = {
+        awful.key {
+            modifiers = {},
+            key       = 'Escape',
+            on_press  = function()
+              panel.opened = false
+              print("Notification Closing")
+              closePanel()
+            end
+        },
+    },
+    -- Note that it is using the key name and not the modifier name.
+    stop_key           = 'Escape',
+    stop_event         = 'release',
+}
+
   local backdrop = wibox
   {
     ontop = true,
@@ -46,6 +63,7 @@ local right_panel = function(screen)
     panel_visible = true
     backdrop.visible = true
     panel.visible = true
+    grabber:start()
     panel:emit_signal('opened')
   end
 
@@ -55,6 +73,7 @@ local right_panel = function(screen)
     backdrop.visible = false
     -- Change to notif mode on close
     _G.switch_mode('notif_mode')
+    grabber:stop()
     panel:emit_signal('closed')
   end
 
