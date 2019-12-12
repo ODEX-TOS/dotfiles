@@ -38,7 +38,7 @@ function run() {
 
 setxkbmap "$(cut -d= -f2 /etc/vconsole.conf | cut -d- -f1)"
 
-tos t s "$(grep -E "(.jpeg)|(.jpg)|(.png)" ~/.config/tos/theme | head -n1)"
+tos theme set "$(tos theme list | head -n1)"
 
 if ! pgrep tos; then
     nohup tos theme daemon &>/dev/null &# launch a tos daemon
@@ -48,7 +48,7 @@ touchpad.sh &
 
 if [[ "$(command -v mantablockscreen)" ]]; then
     # create a cached image for the lock screen
-    mantablockscreen -i "$(tos theme list | tail -n1)" &
+    mantablockscreen -i "$(tos theme list | head -n1)" &
 fi
 
 if grep -q "bluetooth=false" ~/.config/tos/theme; then
