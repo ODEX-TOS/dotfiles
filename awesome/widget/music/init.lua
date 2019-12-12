@@ -44,9 +44,31 @@ screen.connect_signal("request::desktop_decoration", function(s)
   }
 end)
 
+local grabber = awful.keygrabber {
+  keybindings = {
+      awful.key {
+          modifiers = {},
+          key       = 'Escape',
+          on_press  = function()
+            musicbackdrop.visible = false
+            musicPlayer.visible = false
+            print("Music Closing")
+          end
+      },
+  },
+  -- Note that it is using the key name and not the modifier name.
+  stop_key           = 'Escape',
+  stop_event         = 'release',
+}
+
 function togglePlayer()
   musicbackdrop.visible = not musicbackdrop.visible
   musicPlayer.visible = not musicPlayer.visible
+  if musicPlayer.visible then
+    grabber:start()
+  else
+    grabber:stop()
+  end
 end
 
 musicbackdrop:buttons(

@@ -44,6 +44,7 @@ local textclock = wibox.widget.textclock('<span font="Roboto bold 10">%l:%M %p</
   -- textclock.forced_height = 56
 local clock_widget = wibox.container.margin(textclock, dpi(0), dpi(0))
 
+
 -- Alternative to naughty.notify - tooltip. You can compare both and choose the preferred one
 
 awful.tooltip(
@@ -80,6 +81,10 @@ local month_calendar = awful.widget.calendar_popup.month({
 
 	})
 	month_calendar:attach( clock_widget, "tc" , { on_pressed = true, on_hover = false })
+  
+  month_calendar:connect_signal("mouse::leave", function()
+    month_calendar:toggle()
+  end)
 
 
 awful.screen.connect_for_each_screen(function(s)

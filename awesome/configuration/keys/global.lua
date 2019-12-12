@@ -31,6 +31,7 @@ local hotkeys_popup = require('awful.hotkeys_popup').widget
 local modkey = require('configuration.keys.mod').modKey
 local altkey = require('configuration.keys.mod').altKey
 local apps = require('configuration.apps')
+
 -- Key bindings
 local globalKeys =
   awful.util.table.join(

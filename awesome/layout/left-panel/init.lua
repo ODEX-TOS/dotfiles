@@ -104,6 +104,22 @@ local left_panel = function(screen)
     )
   end
 
+  local grabber = awful.keygrabber {
+    keybindings = {
+        awful.key {
+            modifiers = {},
+            key       = 'Escape',
+            on_press  = function()
+              print("Left Panel Closing")
+              panel:close()
+            end
+        },
+    },
+    -- Note that it is using the key name and not the modifier name.
+    stop_key           = 'Escape',
+    stop_event         = 'release',
+}
+
   local openPanel = function(should_run_rofi)
     panel.width = action_bar_width + panel_content_width
     backdrop.visible = true
@@ -113,6 +129,7 @@ local left_panel = function(screen)
     if should_run_rofi then
       panel:run_rofi()
     end
+    grabber:start()
     panel:emit_signal('opened')
   end
 
@@ -120,6 +137,7 @@ local left_panel = function(screen)
     panel.width = action_bar_width
     panel:get_children_by_id('panel_content')[1].visible = false
     backdrop.visible = false
+    grabber:stop()
     panel:emit_signal('closed')
   end
 
