@@ -65,46 +65,7 @@ local left_panel = function(screen)
     height = screen.geometry.height
   }
 
-  function panel:run_rofi()
-    _G.awesome.spawn(
-      apps.default.rofi,
-      false,
-      false,
-      false,
-      false,
-      function()
-        panel:toggle()
-      end
-    )
-  end
-
-  function panel:run_dpi()
-    _G.awesome.spawn(
-      apps.default.rofidpimenu,
-      false,
-      false,
-      false,
-      false,
-      function()
-        panel:toggle()
-      end
-    )
-  end
-
-  function panel:run_wifi()
-    _G.awesome.spawn(
-      apps.default.rofiwifimenu,
-      false,
-      false,
-      false,
-      false,
-      function()
-        panel:toggle()
-      end
-    )
-  end
-
-  local grabber = awful.keygrabber {
+  local action_grabber = awful.keygrabber {
     keybindings = {
         awful.key {
             modifiers = {},
@@ -118,7 +79,49 @@ local left_panel = function(screen)
     -- Note that it is using the key name and not the modifier name.
     stop_key           = 'Escape',
     stop_event         = 'release',
-}
+  }
+
+  function panel:run_rofi()
+    action_grabber:stop()
+    _G.awesome.spawn(
+      apps.default.web,
+      false,
+      false,
+      false,
+      false,
+      function()
+        panel:toggle()
+      end
+    )
+  end
+
+  function panel:run_dpi()
+    action_grabber:stop()
+    _G.awesome.spawn(
+      apps.default.rofidpimenu,
+      false,
+      false,
+      false,
+      false,
+      function()
+        panel:toggle()
+      end
+    )
+  end
+
+  function panel:run_wifi()
+    action_grabber:stop()
+    _G.awesome.spawn(
+      apps.default.rofiwifimenu,
+      false,
+      false,
+      false,
+      false,
+      function()
+        panel:toggle()
+      end
+    )
+  end
 
   local openPanel = function(should_run_rofi)
     panel.width = action_bar_width + panel_content_width
@@ -129,7 +132,7 @@ local left_panel = function(screen)
     if should_run_rofi then
       panel:run_rofi()
     end
-    grabber:start()
+    action_grabber:start()
     panel:emit_signal('opened')
   end
 
@@ -137,7 +140,7 @@ local left_panel = function(screen)
     panel.width = action_bar_width
     panel:get_children_by_id('panel_content')[1].visible = false
     backdrop.visible = false
-    grabber:stop()
+    action_grabber:stop()
     panel:emit_signal('closed')
   end
 
