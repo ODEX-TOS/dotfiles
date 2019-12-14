@@ -46,6 +46,7 @@ return {
     terminal = 'st',
     editor = 'code-insiders',
     rofi = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
+    web = 'rofi -show Search -modi Search:' .. filesystem.get_configuration_dir() .. '/configuration/rofi/search.py' .. ' -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
     rofiappmenu = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/appmenu/drun.rasi',
     rofidpimenu = [[bash /etc/xdg/awesome/dpi.sh]],
     rofiwifimenu = [[bash /etc/xdg/awesome/wifi.sh]],
