@@ -33,7 +33,7 @@ beautiful.init(require('theme'))
 
 -- Layout
 require('layout')
-
+awful.spawn.with_shell("/etc/xdg/awesome/autorun.sh")
 -- Init all modules
 require('module.notifications')
 require('module.auto-start')
@@ -109,6 +109,5 @@ _G.client.connect_signal(
     c.border_color = beautiful.border_normal
   end
 )
-
 
 require("tutorial")
