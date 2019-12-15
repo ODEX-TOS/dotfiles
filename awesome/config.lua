@@ -21,7 +21,8 @@ config = {
             return userfile
         end
         return filesystem.get_configuration_dir() .. '/configuration/compton.conf '
-    end
+    end,
+    aboutText = 'TOS Linux Alpha Edition\nMIT License\n© Meyers Tom 2019\n\nThanks for using our product ♥'
 }
 
 

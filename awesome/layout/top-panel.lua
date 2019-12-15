@@ -44,7 +44,6 @@ local textclock = wibox.widget.textclock('<span font="Roboto bold 10">%l:%M %p</
   -- textclock.forced_height = 56
 local clock_widget = wibox.container.margin(textclock, dpi(0), dpi(0))
 
-
 -- Alternative to naughty.notify - tooltip. You can compare both and choose the preferred one
 
 awful.tooltip(
@@ -172,11 +171,12 @@ local TopPanel = function(s, offset)
       -- System tray and widgets
       --wibox.container.margin(systray, dpi(14), dpi(14)),
       wibox.container.margin(s.systray, dpi(14), dpi(0), dpi(4), dpi(4)),
-      require('widget.package-updater'),
-      require('widget.music'), --only add this when the data can be extracted from spotify
+      require('widget.battery'),
       require('widget.bluetooth'),
       require('widget.wifi'),
-      require('widget.battery'),
+      require('widget.package-updater'),
+      require('widget.music'), --only add this when the data can be extracted from spotify
+      require('widget.about'),
       require('widget.search'),
       require('widget.notification-center'),
     }
