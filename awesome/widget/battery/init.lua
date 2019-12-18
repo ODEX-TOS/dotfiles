@@ -1,27 +1,3 @@
---[[
---MIT License
---
---Copyright (c) 2019 PapyElGringo
---Copyright (c) 2019 Tom Meyers
---
---Permission is hereby granted, free of charge, to any person obtaining a copy
---of this software and associated documentation files (the "Software"), to deal
---in the Software without restriction, including without limitation the rights
---to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
---copies of the Software, and to permit persons to whom the Software is
---furnished to do so, subject to the following conditions:
---
---The above copyright notice and this permission notice shall be included in all
---copies or substantial portions of the Software.
---
---THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
---IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
---FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
---AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
---LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
---OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
---SOFTWARE.
-]]
 -------------------------------------------------
 -- Battery Widget for Awesome Window Manager
 -- Shows the battery status using the ACPI tool
@@ -46,7 +22,6 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/battery/icons/'
-local config = require('config')
 
 local widget =
   wibox.widget {
@@ -58,7 +33,7 @@ local widget =
   layout = wibox.layout.fixed.horizontal
 }
 
-local widget_button = clickable_container(wibox.container.margin(widget, dpi(7), dpi(7), 7, 7)) -- default top bottom margin is 7
+local widget_button = clickable_container(wibox.container.margin(widget, dpi(8), dpi(8), dpi(8), dpi(8)))
 widget_button:buttons(
   gears.table.join(
     awful.button(
@@ -106,24 +81,14 @@ local last_battery_check = os.time()
 
 watch(
   'acpi -i',
-  config.battery_timeout,
+  1,
   function(_, stdout)
     local batteryIconName = 'battery'
 
     local battery_info = {}
     local capacities = {}
-    local prev_status = nil
-    local prev_charge = nil
     for s in stdout:gmatch('[^\r\n]+') do
       local status, charge_str, time = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?.*')
-      -- When the battery is 100% and discharging the above regex fails
-      if (status ~= nil or charge_str ~= nill) then
-              prev_status = status
-              prev_charge = charge_str
-      end
-      if not (status ~= nil or charge_str ~= nil or prev_status ~= nil or prev_charge ~=nil)  then
-              table.insert(battery_info, {status = "Discharging", charge = tonumber("100")})
-      end
       if status ~= nil then
         table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
       else
@@ -145,7 +110,7 @@ watch(
       -- this is arbitrary, and maybe another metric should be used
       end
 
-      charge = (batt.charge * capacity)
+      charge = charge + batt.charge * capacities[i]
     end
     charge = charge / capacity
 
@@ -158,12 +123,10 @@ watch(
       end
     end
 
-    -- prevent the battery from toggeling between charging and beeing full
     if status == 'Charging' or status == 'Full' then
       batteryIconName = batteryIconName .. '-charging'
     end
 
-    -- try to convert the current charge percentage to a usable svg file
     local roundedCharge = math.floor(charge / 10) * 10
     if (roundedCharge == 0) then
       batteryIconName = batteryIconName .. '-outline'
@@ -171,10 +134,7 @@ watch(
       batteryIconName = batteryIconName .. '-' .. roundedCharge
     end
 
-    -- only try to display the battery icon if a battery is detected
-    if not roundedCharge == "NaN" then
-      widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
-    end
+    widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
     -- Update popup text
     battery_popup.text = string.gsub(stdout, '\n$', '')
     collectgarbage('collect')
@@ -183,4 +143,3 @@ watch(
 )
 
 return widget_button
-
