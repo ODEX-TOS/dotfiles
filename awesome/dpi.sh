@@ -25,7 +25,6 @@
 screens=$(xrandr | grep " connected" | cut -d " " -f1) # get all screens
 timeout=10 # time to wait before reverting the screen settings
 
-
 function set-screen {
     for screen in $screens; do
         tos screen dpi "$screen" "$1" # set dpi for every screen
@@ -36,6 +35,10 @@ if [[ "$1" == "" ]]; then
     val=$(printf "0.25\n0.5\n0.75\n1\n1.25\n1.5\n2\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
     if [[ ! "$val" == "" ]]; then # only set the screen if the user selected a option
         original=$(grep "scale=" ~/.config/tos/theme | head -n1 | cut -d " " -f2)
+        # set scaling to default if it doesn't exist
+        if [[ "$original" == "" ]]; then
+                original="1x1"
+        fi
         set-screen "$val"x"$val"
 
 
@@ -48,6 +51,7 @@ if [[ "$1" == "" ]]; then
         pkill -f "$$"
     fi
 else
+    pkill -f "rofi"
     # this gets ran in the "fork"
     val=$(printf "Is the scaling correct\nyes\nno\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
     if [[ "$val" == "no" ]]; then
