@@ -23,8 +23,8 @@ window {
     width:                          100%;
     location:                       northwest;
     anchor:                         northwest;
-    x-offset:                       45;
-    y-offset:                       26;
+    x-offset:                       0;
+    y-offset:                       0;
 }
 
 prompt {
@@ -34,7 +34,7 @@ prompt {
 entry  {
     expand:                         false;
     width:                          80%;
-    margin:                         40px 10% 40px 10%;
+    margin:                         40px 5% 40px 10%;
     border-radius:                  12;
     padding:                        10px 10px 10px 10px;
     background-color:               #ffffff20;
@@ -94,3 +94,4 @@ element-text {
     expand:                         true;
     horizontal-align:               0.5;
 }
+
