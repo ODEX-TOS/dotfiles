@@ -55,7 +55,7 @@ local widget =
   layout = wibox.layout.align.horizontal
 }
 
-local widget_button = clickable_container(wibox.container.margin(widget, dpi(14), dpi(14), dpi(7), dpi(7))) -- 4 is top and bottom margin
+local widget_button = clickable_container(wibox.container.margin(widget, dpi(8), dpi(8), dpi(8), dpi(8)))
 widget_button:buttons(
   gears.table.join(
     awful.button(
@@ -94,13 +94,13 @@ awful.tooltip(
 
 local last_bluetooth_check = os.time()
 watch(
-  "bluetoothctl show",
+  'bluetoothctl --monitor list',
   5,
   function(_, stdout)
    -- Check if there  bluetooth
-    checker = stdout:match('Powered: yes') -- If 'Controller' string is detected on stdout
+    checker = stdout:match('Controller') -- If 'Controller' string is detected on stdout
     local widgetIconName
-    if (checker ~= nil or checker == 'yes') then
+    if (checker ~= nil) then
       widgetIconName = 'bluetooth'
     else
       widgetIconName = 'bluetooth-off'

@@ -38,140 +38,148 @@ local checker
 local mode
 
 
-local widget =
+local action_status = false
+
+-- Imagebox
+local button_widget =
   wibox.widget {
   {
     id = 'icon',
+    image = PATH_TO_ICONS .. 'toggled-off' .. '.svg',
     widget = wibox.widget.imagebox,
     resize = true
   },
   layout = wibox.layout.align.horizontal
 }
 
-local function update_icon()
-  local widgetIconName
-  if(mode == true) then
-    widgetIconName = 'toggled-on'
-    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
+
+-- Update imagebox
+local update_imagebox = function()
+  if action_status then
+    button_widget.icon:set_image(PATH_TO_ICONS .. 'toggled-on' .. '.svg')
   else
-    widgetIconName = 'toggled-off'
-    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
+    button_widget.icon:set_image(PATH_TO_ICONS .. 'toggled-off' .. '.svg')
   end
 end
 
-local function check_bluetooth()
-  awful.spawn.easy_async_with_shell('bluetoothctl show', function( stdout )
-    checker = stdout:match('Powered: yes')
-    -- IF NOT NULL THEN WIFI IS DISABLED
-    -- IF NULL IT THEN WIFI IS ENABLED
-    if(checker ~= nil) then
-      mode = false
-      --awful.spawn('notify-send checker~=NOTNULL disabled')
-      update_icon()
+-- Check status
+local check_action_status = function()
+  awful.spawn.easy_async_with_shell('rfkill list bluetooth', function(stdout)
+    if stdout:match('Soft blocked: yes') ~= nil then
+      action_status = false
     else
-      mode = true
-    --awful.spawn('notify-send checker==NULL enabled')
-      update_icon()
+      action_status = true
     end
+    
+    -- Update imagebox
+    update_imagebox()
   end)
-
 end
 
+-- Power on Commands
+local power_on_cmd = [[
+rfkill unblock bluetooth
+echo 'power on' | bluetoothctl 
+notify-send 'Initializing bluetooth Service...'
+]]
 
-local function toggle_bluetooth()
-  if(mode == true) then
-    awful.spawn('tos bluetooth set off')
-    awful.spawn("notify-send 'Bluetooth device disabled'")
-    mode = false
-    update_icon()
+-- Power off Commands
+local power_off_cmd = [[
+echo 'power off' | bluetoothctl
+rfkill block bluetooth
+notify-send 'Bluetooth device disabled'
+]]
+
+
+local toggle_action = function()
+  if action_status then
+    action_status = false
+    awful.spawn.easy_async_with_shell(power_off_cmd, function(stdout) end, false)
   else
-    awful.spawn('tos bluetooth set on')
-    awful.spawn("notify-send 'Initializing Bluetooth Service' 'Enable in System Tray'")
-    mode = true
-    update_icon()
+    action_status = true
+    awful.spawn.easy_async_with_shell(power_on_cmd, function(stdout) end, false)
   end
 
+  -- Update imagebox
+  update_imagebox()
 end
 
-
-check_bluetooth()
-
-
-
-local bluetooth_button = clickable_container(wibox.container.margin(widget, dpi(7), dpi(7), dpi(7), dpi(7))) -- 4 is top and bottom margin
-bluetooth_button:buttons(
+-- Button
+local widget_button = clickable_container(wibox.container.margin(button_widget, dpi(7), dpi(7), dpi(7), dpi(7)))
+widget_button:buttons(
   gears.table.join(
     awful.button(
       {},
       1,
       nil,
       function()
-        toggle_bluetooth()
+        toggle_action()
       end
     )
   )
 )
 
--- Alternative to naughty.notify - tooltip. You can compare both and choose the preferred one
-awful.tooltip(
-  {
-    objects = {bluetooth_button},
-    mode = 'outside',
-    align = 'right',
-    timer_function = function()
-      if checker == nil then
-        return 'Bluetooth Enabled'
-      else
-        return 'Bluetooth Disabled'
-      end
-    end,
-    preferred_positions = {'right', 'left', 'top', 'bottom'}
-  }
-)
-
-local last_wifi_check = os.time()
-watch(
-  'bluetoothctl show',
-  5,
-  function(_, stdout)
-   -- Check if there  bluetooth
-    checker = stdout:match('Powered: no') -- If 'Controller' string is detected on stdout
-    local widgetIconName
-    if (checker == nil) then
-      widgetIconName = 'toggled-on'
+-- Tootltip
+awful.tooltip {
+  objects = {widget_button},
+  mode = 'outside',
+  align = 'right',
+  timer_function = function()
+    if action_status == true then
+      return 'Bluetooth Enabled'
     else
-      widgetIconName = 'toggled-off'
+      return 'Bluetooth Disabled'
     end
-    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
-    collectgarbage('collect')
   end,
-  widget
-)
+  preferred_positions = {'right', 'left', 'top', 'bottom'}
+}
 
-local settingsName = wibox.widget {
+-- Status Checker
+watch('rfkill list bluetooth', 5,
+function(_, stdout)
+  if stdout:match('Soft blocked: yes') == nil then
+    action_status = true
+    button_widget.icon:set_image(PATH_TO_ICONS .. 'toggled-on' .. '.svg')
+  else
+    action_status = false
+    button_widget.icon:set_image(PATH_TO_ICONS .. 'toggled-off' .. '.svg')
+  end
+  collectgarbage('collect')
+end)
+
+-- Action Name
+local action_name = wibox.widget {
   text = 'Bluetooth Connection',
-  font = 'Iosevka Regular 10',
+  font = 'SFNS Display 11',
   align = 'left',
   widget = wibox.widget.textbox
 }
 
-local content =   wibox.widget {
-    settingsName,
-    bluetooth_button,
-    bg = '#ffffff20',
-    shape = gears.shape.rounded_rect,
-    widget = wibox.container.background(settingsName),
-    layout = wibox.layout.ratio.horizontal,
+-- Heirarchy
+local widget_content = wibox.widget {
+  {
+    action_name,
+    layout = wibox.layout.fixed.horizontal,
+  },
+  nil,
+  {
+    widget_button,
+    layout = wibox.layout.fixed.horizontal,
+  },
+  layout = wibox.layout.align.horizontal,
+}
 
-  }
-content:set_ratio(1, .85)
-
-local bluetoothButton =  wibox.widget {
+-- Wrapping
+local action_widget =  wibox.widget {
   wibox.widget {
-    content,
+    widget_content,
     widget = mat_list_item
   },
   layout = wibox.layout.fixed.vertical
 }
-return bluetoothButton
---return bluetooth_button
+
+-- Update/Check status on startup
+check_action_status()
+
+-- Return widget
+return action_widget
