@@ -25,6 +25,7 @@ window {
     anchor:                         northwest;
     x-offset:                       0;
     y-offset:                       0;
+
 }
 
 prompt {
@@ -94,4 +95,3 @@ element-text {
     expand:                         true;
     horizontal-align:               0.5;
 }
-
