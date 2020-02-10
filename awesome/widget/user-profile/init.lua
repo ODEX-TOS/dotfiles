@@ -14,8 +14,12 @@ local clickable_container = require('widget.material.clickable-container')
 
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/user-profile/icons/'
 
+local PATH_TO_CACHE_ICON = os.getenv('HOME') .. '/.cache/tos/user-icons/'
+
 local PATH_TO_USERICON = '/var/lib/AccountsService/icons/'
 
+-- guarantee that the cache dir exists
+awful.spawn('mkdir -p ' .. PATH_TO_CACHE_ICON)
 
 
 local profile_imagebox =
@@ -62,6 +66,7 @@ awful.spawn.easy_async_with_shell('whoami', function(out)
 
 
   -- Bash script to check if user profile picture exists in /var/lib/AccountsService/icons/
+  print("Checking if image exists: " .. PATH_TO_USERICON .. out)
   local cmd_check_user_profile = "if test -f " .. PATH_TO_USERICON .. out .. "; then print 'image_detected'; else print 'not_detected'; fi"
   awful.spawn.easy_async_with_shell(cmd_check_user_profile, function(stdout)
 
@@ -69,14 +74,14 @@ awful.spawn.easy_async_with_shell('whoami', function(out)
     if stdout:match('image_detected') then
 
       -- Check if we already have a user's profile image copied to icon folder
-      local cmd_icon_check = "if test -f " .. PATH_TO_ICONS .. 'user.jpg' .. "; then print 'exists'; fi"
+      local cmd_icon_check = "if test -f " .. PATH_TO_CACHE_ICON .. 'user.jpg' .. "; then print 'exists'; fi"
       awful.spawn.easy_async_with_shell(cmd_icon_check, function(stdout)
         if stdout:match('exists') then
           -- If the file already copied, don't copy, just update the imagebox
-          profile_imagebox.icon:set_image(PATH_TO_ICONS .. 'user.jpg')
+          profile_imagebox.icon:set_image(PATH_TO_CACHE_ICON .. 'user.jpg')
         else
           -- Image detected, now copy your profile picture to the widget directory icon folder
-          copy_cmd = 'cp ' .. PATH_TO_USERICON .. out .. ' ' .. PATH_TO_ICONS .. 'user.jpg'
+          copy_cmd = 'cp ' .. PATH_TO_USERICON .. out .. ' ' .. PATH_TO_CACHE_ICON .. 'user.jpg'
           awful.spawn(copy_cmd)
 
           -- Add a timer to a delay
@@ -87,7 +92,7 @@ awful.spawn.easy_async_with_shell('whoami', function(out)
             single_shot = true,
             callback  = function()
               -- Then set copied image as profilepic in the widget
-              profile_imagebox.icon:set_image(PATH_TO_ICONS .. 'user.jpg')
+              profile_imagebox.icon:set_image(PATH_TO_CACHE_ICON .. 'user.jpg')
             end
           }
         end
@@ -96,7 +101,7 @@ awful.spawn.easy_async_with_shell('whoami', function(out)
     else
       -- r_u_ugly?
       -- if yes then use this image instead
-      profile_imagebox.icon:set_image(PATH_TO_ICONS .. 'user' .. '.svg')
+      profile_imagebox.icon:set_image(PATH_TO_ICONS .. 'user.svg')
     end
 
   end, false)
