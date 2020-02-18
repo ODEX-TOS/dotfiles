@@ -66,7 +66,6 @@ client.connect_signal("request::titlebars", function(c)
 
             layout  = wibox.layout.fixed.vertical
         },
-        --[[
         { -- Middle
           { -- Title
                 align  = "center",
@@ -75,12 +74,11 @@ client.connect_signal("request::titlebars", function(c)
             buttons = buttons,
             layout  = wibox.layout.flex.vertical
         },
-        ]]--
-          nil,
         { -- Right
         --  awful.titlebar.widget.iconwidget(c),
         --  buttons = buttons,
-		    --	awful.titlebar.widget.ontopbutton (c),
+        --	awful.titlebar.widget.ontopbutton (c),
+            buttons = buttons,
 			      awful.titlebar.widget.floatingbutton (c),
             layout = wibox.layout.fixed.vertical()
         },
@@ -156,10 +154,19 @@ client.connect_signal("request::titlebars", function(c)
         { -- Top
 
           awful.titlebar.widget.floatingbutton (c),
+          buttons = buttons,
           layout  = wibox.layout.fixed.horizontal
         },
-          nil,
+        { -- Middle
+          { -- Title
+                align  = "center",
+                widget = awful.titlebar.widget.titlewidget(c)
+          },
+            buttons = buttons,
+            layout  = wibox.layout.flex.horizontal
+        },        
         { -- Bottom
+            buttons = buttons,
             awful.titlebar.widget.minimizebutton (c),
             awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.closebutton    (c),

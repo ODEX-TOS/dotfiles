@@ -86,6 +86,7 @@ local tags = {
 
 awful.layout.layouts = {
   awful.layout.suit.spiral.dwindle,
+  awful.layout.suit.floating,
   awful.layout.suit.tile,
   awful.layout.suit.max
 }

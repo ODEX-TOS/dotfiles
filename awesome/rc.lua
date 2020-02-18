@@ -52,7 +52,6 @@ local wibox = require("wibox")
 require('configuration.client')
 require('configuration.tags')
 _G.root.keys(require('configuration.keys.global'))
-
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(
   function(s)
@@ -82,6 +81,7 @@ _G.client.connect_signal(
     end
 
     if _G.awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
+      awful.placement.under_mouse(c) -- This line added
       -- Prevent clients from being unreachable after screen count changes.
       awful.placement.no_offscreen(c)
     end
