@@ -57,7 +57,7 @@ local weather_details_script = "/bin/bash /etc/xdg/awesome/weather.sh"
             if icon_code == "..." then
                 awesome.emit_signal("widget::weather", "Maybe it's 10000", "No internet connection...", "")
             else
-                awesome.emit_signal("widget::weather", tonumber(temperature), description, icon_code)
+                awesome.emit_signal("widget::weather", temperature, description, icon_code)
             end
         end)
     end
@@ -77,7 +77,7 @@ local weather_details_script = "/bin/bash /etc/xdg/awesome/weather.sh"
     if icon_code == "..." then
         awesome.emit_signal("widget::weather", "Maybe it's 10000", "No internet connection...", "")
     else
-        awesome.emit_signal("widget::weather", tonumber(temperature), description, icon_code)
+        awesome.emit_signal("widget::weather", temperature, description, icon_code)
     end
     collectgarbage('collect')
 end)
@@ -89,39 +89,39 @@ awesome.connect_signal("widget::weather", function(temperature, description, ico
     local color
     local widgetIconName
     -- Set icon and color depending on icon_code
-    if string.find(icon_code, "01d") then
+    if string.find(icon_code, "11") then
         -- icon = sun_icon
         -- color = beautiful.xcolor3
         widgetIconName = 'sun_icon'
-    elseif string.find(icon_code, "01n") then
+    elseif string.find(icon_code, "22") then
         -- icon = moon_icon
         -- color = beautiful.xcolor4
         widgetIconName = 'moon_icon'
-    elseif string.find(icon_code, "02d") then
+    elseif string.find(icon_code, "33") then
         -- icon = dcloud_icon
         -- color = beautiful.xcolor3
         widgetIconName = 'dcloud_icon'
-    elseif string.find(icon_code, "02n") then
+    elseif string.find(icon_code, "44") then
         -- icon = ncloud_icon
         -- color = beautiful.xcolor6
         widgetIconName = 'ncloud_icon'
-    elseif string.find(icon_code, "03") or string.find(icon_code, "04") then
+    elseif string.find(icon_code, "55") or string.find(icon_code, "04") then
         -- icon = cloud_icon
         -- color = beautiful.xcolor1
         widgetIconName = 'cloud_icon'
-    elseif string.find(icon_code, "09") or string.find(icon_code, "10") then
+    elseif string.find(icon_code, "66") or string.find(icon_code, "10") then
         -- icon = rain_icon
         -- color = beautiful.xcolor4
         widgetIconName = 'rain_icon'
-    elseif string.find(icon_code, "11") then
+    elseif string.find(icon_code, "77") then
         -- icon = storm_icon
         -- color = beautiful.xcolor1
         widgetIconName = 'storm_icon'
-    elseif string.find(icon_code, "13") then
+    elseif string.find(icon_code, "88") then
         -- icon = snow_icon
         -- color = beautiful.xcolor6
         widgetIconName = 'snow_icon'
-    elseif string.find(icon_code, "50") or string.find(icon_code, "40") then
+    elseif string.find(icon_code, "99") or string.find(icon_code, "40") then
         -- icon = mist_icon
         -- color = beautiful.xcolor5
         widgetIconName = 'mist_icon'
@@ -134,5 +134,5 @@ awesome.connect_signal("widget::weather", function(temperature, description, ico
     -- Update data. Global variables stored in widget.weather.init
     _G.weather_icon_widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
     _G.weather_description.text = description
-    _G.weather_temperature.text = temperature .. weather_temperature_symbol
+    _G.weather_temperature.text = temperature
 end)
