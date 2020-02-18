@@ -154,7 +154,6 @@ client.connect_signal("request::titlebars", function(c)
         { -- Top
 
           awful.titlebar.widget.floatingbutton (c),
-          buttons = buttons,
           layout  = wibox.layout.fixed.horizontal
         },
         { -- Middle
@@ -166,7 +165,6 @@ client.connect_signal("request::titlebars", function(c)
             layout  = wibox.layout.flex.horizontal
         },        
         { -- Bottom
-            buttons = buttons,
             awful.titlebar.widget.minimizebutton (c),
             awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.closebutton    (c),
