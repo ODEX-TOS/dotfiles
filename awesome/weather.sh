@@ -3,32 +3,51 @@
 weather=$(curl -sf https://wttr.in/\?format="%l:%t:%C")
 weather_icon="test"
 
+# Magic numbers used to denote the weather
+SUNNY="110"
+NIGHT_CLEAR="220"
+CLOUDY_DAY="330"
+CLOUDY_NIGHT="440"
+CLOUDY="550"
+RAIN="660"
+STORM="770"
+SNOW="880"
+MIST="990"
+
+
 # function used to extract the type of icon to display
 # for more information about how and why this function behaves the way it does look at
 # /etc/xdg/awesome/widgets/weather/icons and weather-update.lua
 # see codes at https://github.com/chubin/wttr.in/blob/74d005c0ccb8235319343a8a5237f99f10287695/lib/constants.py for more information
 function updateIcon {
     subtitle=$(echo "$weather" | cut -d: -f3)
+    currentTime=$(date +%H:%M)
     if [[ "$subtitle" == "Sunny" || "$subtitle" == "Clear" ]]; then
-        weather_icon="110"
-    elif [[ "$subtitle" == "" ]]; then
-        weather_icon="220"
+        if [[ "$currentTime" > "21:00" || "$currentTime" < "08:00" ]]; then
+            # moon
+            weather_icon="$NIGHT_CLEAR"
+        else
+            # sun
+            weather_icon="$SUNNY"
+        fi
     elif [[ "$subtitle" == "Partly cloudy" ]]; then
-        # cloud with sun
-        weather_icon="330"
-    elif [[ "$subtitle" == "" ]]; then
-        # cloud during night
-        weather_icon="440"
+        if [[ "$currentTime" > "21:00" || "$currentTime" < "08:00" ]]; then
+            # cloudy during night
+            weather_icon="$CLOUDY_NIGHT"
+        else
+            # cloudy during the day
+            weather_icon="$CLOUDY_DAY"
+        fi
     elif [[ "$subtitle" == "Cloudy" || "$subtitle" == "Overcast" ]]; then
-        weather_icon="550"
+        weather_icon="$CLOUDY"
     elif [[ "$subtitle" == *"rain"* || "$subtitle" == *"drizzle" ]]; then
-        weather_icon="660"
+        weather_icon="$RAIN"
     elif [[ "$subtitle" == "Thundery outbreaks possible" ]]; then
-        weather_icon="770"
+        weather_icon="$STORM"
     elif [[ "$subtitle" == "Patchy snow possible" || "$subtitle" == *"sleet"* || "$subtitle" == "Blowing snow" || "$subtitle" == "Blizzard" || "$subtitle" == *"Ice"* ]]; then
-        weather_icon="880"
+        weather_icon="$SNOW"
     elif [[ "$subtitle" == "Mist" || "$subtitle" == "Fog" || "$subtitle" == "Freezing fog" || "$subtitle" == *"snow"* ]]; then
-        weather_icon="990"
+        weather_icon="$MIST"
     fi
 }
 
