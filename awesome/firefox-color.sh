@@ -2,8 +2,8 @@
 
 # MIT License
 # 
-# Copyright (c) 2019 PapyElGringo
-# Copyright (c) 2019 Tom Meyers
+# Copyright (c) 2019 manilarome
+# Copyright (c) 2020 Tom Meyers
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,4 +29,3 @@ for file in "$HOME"/.mozilla/firefox/*/chrome/userChrome.css; do
         # change all colors in /*START*/ colorcode /*END*/
         sed -i 's:START.*END:START*/ '"$1"' /*END:' "$file"
 done
-
