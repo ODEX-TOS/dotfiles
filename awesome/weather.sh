@@ -45,9 +45,13 @@ START_DAY="08:00"
 # /etc/xdg/awesome/widgets/weather/icons and weather-update.lua
 # see codes at https://github.com/chubin/wttr.in/blob/74d005c0ccb8235319343a8a5237f99f10287695/lib/constants.py for more information
 function updateIcon {
-    subtitle=$(echo "$weather" | cut -d: -f3)
+    # grab the subtitle and convert it to lower case
+    subtitle=$(echo "$weather" | cut -d: -f3 | tr '[:upper:]' '[:lower:]')
+    if [[ "$1" == "-D" ]]; then
+            echo "[DEBUG] match text: $subtitle"
+    fi
     currentTime=$(date +%H:%M)
-    if [[ "$subtitle" == "Sunny" || "$subtitle" == "Clear" ]]; then
+    if [[ "$subtitle" == "sunny" || "$subtitle" == "clear" ]]; then
         if [[ "$currentTime" > "$START_NIGHT" || "$currentTime" < "$START_DAY" ]]; then
             # moon
             weather_icon="$NIGHT_CLEAR"
@@ -55,7 +59,7 @@ function updateIcon {
             # sun
             weather_icon="$SUNNY"
         fi
-    elif [[ "$subtitle" == "Partly cloudy" ]]; then
+    elif [[ "$subtitle" == "partly cloudy" ]]; then
         if [[ "$currentTime" > "$START_NIGHT" || "$currentTime" < "$START_DAY" ]]; then
             # cloudy during night
             weather_icon="$CLOUDY_NIGHT"
@@ -63,15 +67,15 @@ function updateIcon {
             # cloudy during the day
             weather_icon="$CLOUDY_DAY"
         fi
-    elif [[ "$subtitle" == "Cloudy" || "$subtitle" == "Overcast" ]]; then
+    elif [[ "$subtitle" == "cloudy" || "$subtitle" == "overcast" ]]; then
         weather_icon="$CLOUDY"
     elif [[ "$subtitle" == *"rain"* || "$subtitle" == *"drizzle" ]]; then
         weather_icon="$RAIN"
-    elif [[ "$subtitle" == "Thundery outbreaks possible" ]]; then
+    elif [[ "$subtitle" == "thundery outbreaks possible" ]]; then
         weather_icon="$STORM"
-    elif [[ "$subtitle" == "Patchy snow possible" || "$subtitle" == *"sleet"* || "$subtitle" == "Blowing snow" || "$subtitle" == "Blizzard" || "$subtitle" == *"Ice"* ]]; then
+    elif [[ "$subtitle" == "patchy snow possible" || "$subtitle" == *"sleet"* || "$subtitle" == "blowing snow" || "$subtitle" == "blizzard" || "$subtitle" == *"ice"* ]]; then
         weather_icon="$SNOW"
-    elif [[ "$subtitle" == "Mist" || "$subtitle" == "Fog" || "$subtitle" == "Freezing fog" || "$subtitle" == *"snow"* ]]; then
+    elif [[ "$subtitle" == "mist" || "$subtitle" == "fog" || "$subtitle" == "freezing fog" || "$subtitle" == *"snow"* ]]; then
         weather_icon="$MIST"
     fi
 }
@@ -79,7 +83,7 @@ function updateIcon {
 if [ ! -z "$weather" ]; then
     weather_temp=$(echo "$weather" | cut -d: -f2 | sed 's/[+-]//g')
     # todo return icon
-    updateIcon
+    updateIcon $@
     weather_description=$(echo "$weather" | cut -d: -f1)
 
     echo "$weather_icon" "$weather_description"@@"$weather_temp"
