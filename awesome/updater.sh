@@ -2,8 +2,8 @@
 
 # MIT License
 # 
-# Copyright (c) 2019 PapyElGringo
-# Copyright (c) 2019 Tom Meyers
+# Copyright (c) 2019 manilarome
+# Copyright (c) 2020 Tom Meyers
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -33,5 +33,3 @@
 #done <<< "$unique"
 #echo "$num"
 echo "$(checkupdates-tos | wc -l)"
-
-
