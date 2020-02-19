@@ -14,6 +14,8 @@ STORM="770"
 SNOW="880"
 MIST="990"
 
+START_NIGHT="21:00"
+START_DAY="08:00"
 
 # function used to extract the type of icon to display
 # for more information about how and why this function behaves the way it does look at
@@ -23,7 +25,7 @@ function updateIcon {
     subtitle=$(echo "$weather" | cut -d: -f3)
     currentTime=$(date +%H:%M)
     if [[ "$subtitle" == "Sunny" || "$subtitle" == "Clear" ]]; then
-        if [[ "$currentTime" > "21:00" || "$currentTime" < "08:00" ]]; then
+        if [[ "$currentTime" > "$START_NIGHT" || "$currentTime" < "$START_DAY" ]]; then
             # moon
             weather_icon="$NIGHT_CLEAR"
         else
@@ -31,7 +33,7 @@ function updateIcon {
             weather_icon="$SUNNY"
         fi
     elif [[ "$subtitle" == "Partly cloudy" ]]; then
-        if [[ "$currentTime" > "21:00" || "$currentTime" < "08:00" ]]; then
+        if [[ "$currentTime" > "$START_NIGHT" || "$currentTime" < "$START_DAY" ]]; then
             # cloudy during night
             weather_icon="$CLOUDY_NIGHT"
         else
