@@ -6,16 +6,6 @@
 #
 # See file LICENSE at the project root directory for license information.
 #
-# i3status.conf should contain:
-# general {
-#   output_format = i3bar
-# }
-#
-# i3 config looks like this:
-# bar {
-#   status_command exec /usr/share/doc/i3status/contrib/net-speed.sh
-# }
-#
 # Single interface:
 # ifaces="eth0"
 #
@@ -61,6 +51,7 @@ update_rate() {
 
   local interval=$(( $time - $last_time ))
   if [ $interval -gt 0 ]; then
+    # format upload;download
     rate="$(readable $(( (rx - last_rx) / interval )));$(readable $(( (tx - last_tx) / interval )))"
   else
     rate=""
@@ -71,8 +62,10 @@ update_rate() {
   last_tx=$tx
 }
 
+# poll network usage
 update_rate
 sleep 1
+# poll network usage again
 update_rate
-# download;upload
+# print the network usage of last second
 echo "$rate"
