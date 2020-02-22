@@ -31,6 +31,7 @@ local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local watch = require('awful.widget.watch')
 local mat_list_item = require('widget.material.list-item')
+local config = require('config')
 
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/action-center/icons/'
@@ -135,7 +136,7 @@ awful.tooltip {
 }
 
 -- Status Checker
-watch('rfkill list bluetooth', 5,
+watch('rfkill list bluetooth', config.bluetooth_poll,
 function(_, stdout)
   if stdout:match('Soft blocked: yes') == nil then
     action_status = true

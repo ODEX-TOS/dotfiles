@@ -40,6 +40,7 @@ local wibox = require('wibox')
 local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
+local config = require('config')
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
@@ -106,7 +107,7 @@ local last_battery_check = os.time()
 
 watch(
   'acpi -i',
-  1,
+  config.battery_timeout,
   function(_, stdout)
     local batteryIconName = 'battery'
 

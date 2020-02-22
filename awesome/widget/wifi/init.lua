@@ -40,6 +40,7 @@ local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local naughty = require('naughty')
+local config = require('config')
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
@@ -136,7 +137,7 @@ end
 
 watch(
   "awk 'NR==3 {printf \"%3.0f\" ,($3/70)*100}' /proc/net/wireless",
-  5,
+  config.network_poll,
   function(_, stdout)
     local widgetIconName = 'wifi-strength'
     local wifi_strength = tonumber(stdout)

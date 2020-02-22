@@ -31,6 +31,7 @@ local clickable_container = require('widget.material.clickable-container')
 local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local spawn = require('awful.spawn')
+local config = require('config')
 
 local slider =
   wibox.widget {
@@ -56,7 +57,7 @@ slider:connect_signal(
 
 watch(
   [[bash -c "grep -q on ~/.cache/oled && brightness -g -F || brightness -g"]],
-  1,
+  config.brightness_poll,
   function(widget, stdout, stderr, exitreason, exitcode)
     local brightness = string.match(stdout, '(%d+)')
 
