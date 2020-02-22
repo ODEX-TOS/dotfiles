@@ -98,7 +98,5 @@ function toggleVolOSD(bool)
 end
 
 
--- awful.widget.watch('', 5),
-
 return volumeOverlay
 

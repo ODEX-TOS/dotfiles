@@ -36,7 +36,8 @@ end
 -- helper to retrieve current theme
 local themefile = require('theme.config')
 local mat_colors = require('theme.mat-colors')
-local color = mat_colors[themefile["primary"]].hue_500 or mat_colors.purple.hue_500
+--local color = mat_colors[themefile["primary"]].hue_500 or mat_colors.purple.hue_500
+local color = mat_colors.purple.hue_500
 local color = addHash(themefile["primary_hue_500"]) or color
 print("theme color " ..color .. " primary:" .. themefile["primary"])
 
