@@ -59,14 +59,10 @@ return {
     'compton --dbus --config ' .. config.getComptonFile(),
     'blueman-applet', -- Bluetooth tray icon
     'xfce4-power-manager', -- Power manager
-    '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)', -- credential manager
     'xfsettingsd', -- Settings
-    'nitrogen --restore', -- Wallpaper
     'xrdb $HOME/.Xresources',
     'nm-applet',
     'sh -c "/etc/xdg/awesome/firefox-color.sh \'' .. color .. '\'"',
-    -- 'mpd'
-    --'redshift -l 14.45:121.05'
   },
   bins = {
     coverUpdate = require('helper.extractcover').extractalbum
