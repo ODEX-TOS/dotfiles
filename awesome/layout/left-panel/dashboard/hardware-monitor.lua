@@ -42,6 +42,9 @@ local cpu = require('widget.cpu.cpu-meter')
 local ram = require('widget.ram.ram-meter')
 local temp = require('widget.temperature.temperature-meter')
 local drive = require('widget.harddrive.harddrive-meter')
+local network_up = require('widget.network.network-meter')(true)
+local network_down = require('widget.network.network-meter')(false)
+
 return wibox.widget {
   spacing = 1,
   wibox.widget {
@@ -115,6 +118,46 @@ return wibox.widget {
   wibox.widget{
     wibox.widget{
       drive,
+      bg = barColor,
+      shape = function(cr, width, height)
+                gears.shape.partially_rounded_rect(
+                  cr,
+                  width,
+                  height,
+                  false,
+                  false,
+                  false,
+                  false,
+                  12)
+              end,
+      widget = wibox.container.background
+    },
+    widget = mat_list_item,
+  },
+  layout = wibox.layout.fixed.vertical,
+  wibox.widget{
+    wibox.widget{
+      network_up,
+      bg = barColor,
+      shape = function(cr, width, height)
+                gears.shape.partially_rounded_rect(
+                  cr,
+                  width,
+                  height,
+                  false,
+                  false,
+                  false,
+                  false,
+                  12)
+              end,
+      widget = wibox.container.background
+    },
+    widget = mat_list_item,
+  },
+  layout = wibox.layout.fixed.vertical,
+  wibox.widget{
+    wibox.widget{
+      network_down,
       bg = barColor,
       shape = function(cr, width, height)
                 gears.shape.partially_rounded_rect(
