@@ -59,5 +59,8 @@ return {
   memory = config["memory"] or  dir .. '/memory.svg',
   harddisk = config["harddisk"] or  dir .. '/harddisk.svg',
   thermometer = config["thermometer"] or  dir .. '/thermometer.svg',
-  plus = config["plus"] or  dir .. '/plus.svg'
+  plus = config["plus"] or  dir .. '/plus.svg',
+  network = config["network"] or  dir .. '/network.svg',
+  upload = config["upload"] or  dir .. '/upload.svg',
+  download = config["download"] or  dir .. '/download.svg'
 }
