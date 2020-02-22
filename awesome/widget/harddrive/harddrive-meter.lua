@@ -30,7 +30,7 @@ local mat_icon = require('widget.material.icon')
 local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local dpi = require('beautiful').xresources.apply_dpi
-
+local config = require('config')
 local slider =
   wibox.widget {
   read_only = true,
@@ -39,7 +39,7 @@ local slider =
 
 watch(
   [[bash -c "df -h /home|grep '^/' | awk '{print $5}'"]],
-  10,
+  config.harddisk_poll,
   function(_, stdout)
     local space_consumed = stdout:match('(%d+)')
     slider:set_value(tonumber(space_consumed))
