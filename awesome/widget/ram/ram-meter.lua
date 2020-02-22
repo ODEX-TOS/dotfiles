@@ -30,6 +30,7 @@ local mat_icon = require('widget.material.icon')
 local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local dpi = require('beautiful').xresources.apply_dpi
+local config = require('config')
 
 local slider =
   wibox.widget {
@@ -39,7 +40,7 @@ local slider =
 
 watch(
   'bash -c "free | grep -z Mem.*Swap.*"',
-  1,
+  config.ram_poll,
   function(_, stdout)
     local total, used, free, shared, buff_cache, available, total_swap, used_swap, free_swap =
       stdout:match('(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*Swap:%s*(%d+)%s*(%d+)%s*(%d+)')

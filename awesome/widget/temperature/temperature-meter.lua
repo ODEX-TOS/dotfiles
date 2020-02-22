@@ -30,6 +30,7 @@ local mat_icon = require('widget.material.icon')
 local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local dpi = require('beautiful').xresources.apply_dpi
+local config = require('config')
 
 local slider =
   wibox.widget {
@@ -40,7 +41,7 @@ local slider =
 local max_temp = 80
 watch(
   'bash -c "cat /sys/class/thermal/thermal_zone0/temp"',
-  1,
+  config.temp_poll,
   function(_, stdout)
     local temp = stdout:match('(%d+)')
     slider:set_value((temp / 1000) / max_temp * 100)
