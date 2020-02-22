@@ -28,9 +28,14 @@ local gears = require('gears')
 local client_keys = require('configuration.client.keys')
 local client_buttons = require('configuration.client.buttons')
 local config = require('parser')(os.getenv('HOME') .. "/.config/tos/tags.conf")
+local config_float = require('parser')(os.getenv('HOME') .. "/.config/tos/floating.conf")
 
 function getItem(item)
   return config[item] or nil
+end
+
+function getItemFloat(item)
+  return config_float[item] or nil
 end
 
 function getApplicationsPerTag(number)
@@ -38,7 +43,7 @@ function getApplicationsPerTag(number)
   local iterator = {}
   local i = 0
   while true do
-    i = i +1
+    i = i + 1
     if getItem(screen .. i) ~= nil then
       table.insert(iterator, getItem(screen .. i))
     else 
@@ -47,6 +52,21 @@ function getApplicationsPerTag(number)
   end
 end
 
+function getFloatingWindow()
+  print("Retreiving all floating windows")
+  name = "float_"
+  local iterator = {"Xephyr"}
+  local i = 0
+  while true do
+    i = i + 1
+    if getItemFloat(name..i) ~= nil then
+      table.insert(iterator, getItemFloat(name..i))
+    else 
+      return iterator
+    end
+  end
+end
+local floater = getFloatingWindow()
 -- Rules
 awful.rules.rules = {
   -- All clients will match this rule.
@@ -234,9 +254,8 @@ awful.rules.rules = {
   -- TODO: add a config file where users can add custom applications as floating
   {
     rule_any = {
-      class = {
-        "Xephyr"
-      },
+      class = floater
+        
     },
     properties = {
       skip_decoration = true,
