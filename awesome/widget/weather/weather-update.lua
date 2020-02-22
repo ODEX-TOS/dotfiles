@@ -35,7 +35,7 @@ local watch = require('awful.widget.watch')
 local wibox = require('wibox')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
-
+local config = require('config')
 local clickable_container = require('widget.material.clickable-container')
 
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/weather/icons/'
@@ -46,7 +46,7 @@ local city_id   = ""    -- openweathermap_city_id
 local units     = "metric"    -- weather_units  metric(°C)/imperial(°F)
 
 -- Don't update too often, because your requests might get blocked for 24 hours
-local update_interval = 1200
+local update_interval = config.weather_poll
 
 -- Check units
 if units == "metric" then

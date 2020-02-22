@@ -30,7 +30,7 @@ local mat_icon = require('widget.material.icon')
 local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local dpi = require('beautiful').xresources.apply_dpi
-
+local config = require('config')
 local total_prev = 0
 local idle_prev = 0
 
@@ -42,7 +42,7 @@ local slider =
 
 watch(
   [[bash -c "cat /proc/stat | grep '^cpu '"]],
-  1,
+  config.cpu_poll,
   function(_, stdout)
     local user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice =
       stdout:match('(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s')
