@@ -36,6 +36,7 @@ local wibox = require('wibox')
 local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
+local config = require('config')
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
@@ -95,7 +96,7 @@ awful.tooltip(
 local last_bluetooth_check = os.time()
 watch(
   'bluetoothctl --monitor list',
-  5,
+  config.bluetooth_poll,
   function(_, stdout)
    -- Check if there  bluetooth
     checker = stdout:match('Controller') -- If 'Controller' string is detected on stdout
