@@ -30,7 +30,7 @@ local mat_icon = require('widget.material.icon')
 local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local dpi = require('beautiful').xresources.apply_dpi
-
+local config = require('config')
 local biggest_upload = 1
 local biggest_download = 1
 
@@ -48,7 +48,7 @@ local slider_down =
 
 watch(
   "sh /etc/xdg/awesome/net-speed.sh",
-  2,
+  config.network_poll,
   function(_, stdout)
     local upload_text, download_text = stdout:match('(.*);(.*)')
     if upload_text:match('M') then
