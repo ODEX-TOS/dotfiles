@@ -229,8 +229,24 @@ awful.rules.rules = {
       keys = client_keys,
       buttons = client_buttons
     }
-  }
+  },
+  -- General settings for applications who should be floating.
+  -- TODO: add a config file where users can add custom applications as floating
+  {
+    rule_any = {
+      class = {
+        "Xephyr"
+      },
+    },
+    properties = {
+      skip_decoration = true,
+      floating = true,
+      placement = awful.placement.centered,
+      ontop = true
+      }
+  },
 },
+
 
 -- For Firefox Popup when you install extension
 {
