@@ -24,17 +24,23 @@ rate=""
 readable() {
   local bytes=$1
   local kib=$(( bytes >> 10 ))
+  local kib_dec=$((bytes % 1024 * 976 / 100000))
   if [ $kib -lt 0 ]; then
     echo "? K"
   elif [ $kib -gt 1024 ]; then
     local mib_int=$(( kib >> 10 ))
     local mib_dec=$(( kib % 1024 * 976 / 10000 ))
+    if [[ mib_int -gt 99 ]]; then
+      # when the major number is big then we truncate the decimal precision
+      # we do this to decrease the size of the text
+      mib_dec=$((mib_dec / 10 ))
+    fi
     if [ "$mib_dec" -lt 10 ]; then
       mib_dec="0${mib_dec}"
     fi
     echo "${mib_int}.${mib_dec} M"
   else
-    echo "${kib} K"
+    echo "${kib}.${kib_dec} K"
   fi
 }
 
@@ -51,7 +57,7 @@ update_rate() {
 
   local interval=$(( $time - $last_time ))
   if [ $interval -gt 0 ]; then
-    # format upload;download
+    # format download;upload
     rate="$(readable $(( (rx - last_rx) / interval )));$(readable $(( (tx - last_tx) / interval )))"
   else
     rate=""

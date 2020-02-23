@@ -26,83 +26,117 @@
 local wibox = require('wibox')
 local mat_list_item = require('widget.material.list-item')
 local mat_slider = require('widget.material.slider')
+local clickable_container = require('widget.material.clickable-container')
 local mat_icon = require('widget.material.icon')
 local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local dpi = require('beautiful').xresources.apply_dpi
 local config = require('config')
+
 local biggest_upload = 1
 local biggest_download = 1
 
 local slider_up =
   wibox.widget {
   read_only = true,
+  forced_width = dpi(210),
   widget = mat_slider
+}
+
+local value_up = wibox.widget{
+  markup = '...',
+  align  = 'center',
+  valign = 'center',
+  font = 'SFNS Display 14',
+  widget = wibox.widget.textbox
 }
 
 local slider_down =
   wibox.widget {
   read_only = true,
+  forced_width = dpi(210),
   widget = mat_slider
 }
+
+local value_down = wibox.widget{
+  markup = '...',
+  align  = 'center',
+  valign = 'center',
+  font = 'SFNS Display 14',
+  widget = wibox.widget.textbox
+}
+
 
 watch(
   "sh /etc/xdg/awesome/net-speed.sh",
   config.network_poll,
   function(_, stdout)
-    local upload_text, download_text = stdout:match('(.*);(.*)')
+    local download_text, upload_text = stdout:match('(.*);(.*)')
+    value_up:set_markup_silently(upload_text)
+    value_down:set_markup_silently(download_text)
+
     if upload_text:match('M') then
-      up_num = tonumber(upload_text:match('%S+'))
-      if up_num > biggest_upload then
-        biggest_upload = up_num
+      upload_num = tonumber(upload_text:match('%S+'))
+      if upload_num > biggest_upload then
+        biggest_upload = upload_num
       end
-      slider_up:set_value((up_num / biggest_upload) * 100)
+      slider_up:set_value((upload_num / biggest_upload) * 100)
     else
-      up_num = tonumber(upload_text:match('%S+')) / 1000
-      slider_up:set_value((up_num / biggest_upload) * 100)
+      upload_num = tonumber(upload_text:match('%S+')) / 1000
+      slider_up:set_value((upload_num / biggest_upload) * 100)
     end
 
     if download_text:match('M') then
-      down_num = tonumber(download_text:match('%S+'))
-      if down_num > biggest_download then
-        biggest_download = down_num
+      download_num = tonumber(download_text:match('%S+'))
+      if download_num > biggest_download then
+        biggest_download = download_num
       end
-      slider_down:set_value((down_num / biggest_download) * 100)
+      slider_down:set_value((download_num / biggest_download) * 100)
     else
-      down_num = tonumber(download_text:match('%S+')) / 1000
-      slider_down:set_value((down_num / biggest_upload) * 100)
+      download_num = tonumber(download_text:match('%S+')) / 1000
+      slider_down:set_value((download_num / biggest_download) * 100)
     end
+
     collectgarbage('collect')
   end
 )
 
-local network_meter_upload =
+local network_meter_up =
 wibox.widget {
   wibox.widget {
     icon = icons.upload,
     size = dpi(24),
     widget = mat_icon
   },
-  slider_up,
+  wibox.widget {
+    slider_up,
+    wibox.container.margin(value_up, dpi(1), dpi(0), dpi(10), dpi(10)),
+    spacing = dpi(10),
+    layout  = wibox.layout.fixed.horizontal
+  },
   widget = mat_list_item
 }
 
-local network_meter_download =
+local network_meter_down =
+wibox.widget {
   wibox.widget {
-    wibox.widget {
-      icon = icons.download,
-      size = dpi(24),
-      widget = mat_icon
-    },
+    icon = icons.download,
+    size = dpi(24),
+    widget = mat_icon
+  },
+  wibox.widget {
     slider_down,
-    widget = mat_list_item
+    wibox.container.margin(value_down, dpi(1), dpi(0), dpi(10), dpi(10)),
+    spacing = dpi(10),
+    layout  = wibox.layout.fixed.horizontal
+  },
+  widget = mat_list_item
 }
 
-function meter(bisUpload)
-  if bisUpload then
-    return network_meter_upload
-  end
-  return network_meter_download
-end
 
-return meter
+return function(bIsUpload)
+  if bIsUpload then
+    return network_meter_up
+  end
+  return network_meter_down
+end
