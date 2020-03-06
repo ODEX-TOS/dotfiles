@@ -26,25 +26,56 @@
 local awful = require('awful')
 local gears = require('gears')
 local icons = require('theme.icons')
+local config = require('parser')(os.getenv('HOME') .. "/.config/tos/tags.conf")
+
+function getItem(item)
+  return config[item] or nil
+end
+
+function getLayoutPerTag(number)
+  local screen = "tag_" .. number
+  print(screen)
+  item = getItem(screen)
+  print(item)
+  if item ~= nil then
+    if item == "0" or item == "dwindle" then
+      return awful.layout.suit.spiral.dwindle
+    end
+    if item == "1" or item == "floating" then
+      return awful.layout.suit.floating
+    end
+    if item == "2" or item == "tile" then
+      return awful.layout.suit.tile
+    end
+    if item == "3" or item == "max" then
+      return awful.layout.suit.max
+    end
+  else
+    return awful.layout.suit.spiral.dwindle
+  end
+end
 
 local tags = {
   {
     icon = icons.chrome,
     type = 'chrome',
     defaultApp = 'chrome',
-    screen = 1
+    screen = 1,
+    layout = awful.layout.suit.spiral.dwindle
   },
   {
     icon = icons.terminal,
     type = 'terminal',
     defaultApp = 'st',
-    screen = 1
+    screen = 1,
+    layout = awful.layout.suit.spiral.dwindle
   },
   {
     icon = icons.code,
     type = 'code',
     defaultApp = 'code-insiders',
-    screen = 1
+    screen = 1,
+    layout = awful.layout.suit.spiral.dwindle
   },
  --[[ {
     icon = icons.social,
@@ -56,31 +87,36 @@ local tags = {
     icon = icons.folder,
     type = 'files',
     defaultApp = 'nemo',
-    screen = 1
+    screen = 1,
+    layout = awful.layout.suit.spiral.dwindle
   },
   {
     icon = icons.music,
     type = 'music',
     defaultApp = 'spotify',
-    screen = 1
+    screen = 1,
+    layout = awful.layout.suit.spiral.dwindle
   },
   {
     icon = icons.game,
     type = 'game',
     defaultApp = '',
-    screen = 1
+    screen = 1,
+    layout = awful.layout.suit.spiral.dwindle
   },
   {
     icon = icons.art,
     type = 'art',
     defaultApp = 'gimp',
-    screen = 1
+    screen = 1,
+    layout = awful.layout.suit.spiral.dwindle
   },
   {
     icon = icons.lab,
     type = 'any',
     defaultApp = '',
-    screen = 1
+    screen = 1,
+    layout = awful.layout.suit.spiral.dwindle
   }
 }
 
@@ -94,12 +130,13 @@ awful.layout.layouts = {
 awful.screen.connect_for_each_screen(
   function(s)
     for i, tag in pairs(tags) do
+      tag.layout = getLayoutPerTag(i)
       awful.tag.add(
         i,
         {
           icon = tag.icon,
           icon_only = true,
-          layout = awful.layout.suit.spiral.dwindle,
+          layout = tag.layout,
           gap_single_client = false,
           gap = 4,
           screen = s,
