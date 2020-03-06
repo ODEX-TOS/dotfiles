@@ -29,4 +29,4 @@ source $ZSH/oh-my-zsh.sh
 load $ZSH_LOAD
 
 #print neofetch a terminal information tool
-neofetch
+[[ "$SSH_CLIENT" == "" && "$SSH_TTY" == "" ]] && neofetch
