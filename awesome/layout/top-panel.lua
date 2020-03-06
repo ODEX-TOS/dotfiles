@@ -44,6 +44,19 @@ local textclock = wibox.widget.textclock('<span font="Roboto bold 10">%l:%M %p</
   -- textclock.forced_height = 56
 local clock_widget = wibox.container.margin(textclock, dpi(0), dpi(0))
 
+local function rounded_shape(size, partial)
+  if partial then
+      return function(cr, width, height)
+                 gears.shape.partially_rounded_rect(cr, width, height,
+                      false, true, false, true, 5)
+             end
+  else
+      return function(cr, width, height)
+                 gears.shape.rounded_rect(cr, width, height, size)
+             end
+  end
+end
+
 -- Alternative to naughty.notify - tooltip. You can compare both and choose the preferred one
 
 awful.tooltip(
@@ -67,7 +80,7 @@ end
 
 -- Calendar Widget
 local month_calendar = awful.widget.calendar_popup.month({
-	start_sunday = true,
+	start_sunday = false,
 	spacing = 10,
 	font = 'Iosevka Custom 11',
 	long_weekdays = false,
@@ -75,8 +88,12 @@ local month_calendar = awful.widget.calendar_popup.month({
 	style_month = { border_width = 0, padding = 12, shape = cal_shape, padding = 25},
 	style_header = { border_width = 0, bg_color = '#00000000'},
 	style_weekday = { border_width = 0, bg_color = '#00000000' },
-	style_normal = { border_width = 0, bg_color = '#00000000'},
-	style_focus = { border_width = 0, bg_color = beautiful.primary.hue_500 },
+	style_normal = { border_width = 0, bg_color = '#00000000', shape = rounded_shape(5)},
+	style_focus = { 
+    border_width = 0, 
+    bg_color = beautiful.primary.hue_500,
+    shape        = rounded_shape(5)
+  },
 
 	})
 	month_calendar:attach( clock_widget, "tc" , { on_pressed = true, on_hover = false })
