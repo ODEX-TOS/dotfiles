@@ -109,5 +109,5 @@ _G.client.connect_signal(
     c.border_color = beautiful.border_normal
   end
 )
-
-require("tutorial")
+-- TODO: uncomment below when the naughty API is fixed again
+--require("tutorial")
