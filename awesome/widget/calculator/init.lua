@@ -213,7 +213,7 @@ local decorate_widget = function(widget_arg, pos, rad)
 
 	return wibox.widget {
 		widget_arg,
-		bg = beautiful.groups_bg,
+		bg = beautiful.bg_modal,
 		shape = build_shape(pos, rad),
 		widget = wibox.container.background
 	}
@@ -313,7 +313,7 @@ local kb_button_widget = wibox.widget {
 		margins = dpi(10),
 		widget = wibox.container.margin
 	},
-	bg = beautiful.groups_bg,
+	bg = beautiful.bg_modal,
 	shape = build_shape('bottom_left', beautiful.groups_radius),
 	widget = wibox.container.background
 }
