@@ -44,7 +44,7 @@ print("theme color " ..color .. " primary:" .. themefile["primary"])
 return {
   -- List of apps to start by default on some actions
   default = {
-    terminal = 'st',
+    terminal = os.getenv("TERMINAL") or 'st',
     editor = 'code-insiders',
     rofi = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
     web = 'rofi -show Search -modi Search:' .. filesystem.get_configuration_dir() .. '/configuration/rofi/search.py' .. ' -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
@@ -52,7 +52,7 @@ return {
     rofidpimenu = [[bash /etc/xdg/awesome/dpi.sh]],
     rofiwifimenu = [[bash /etc/xdg/awesome/wifi.sh]],
     lock = 'mantablockscreen -sc',
-    quake = 'st -T QuakeTerminal'
+    quake = (os.getenv("TERMINAL") or 'st') .. ' -T QuakeTerminal'
   },
   -- List of apps to start once on start-up
   run_on_start_up = {

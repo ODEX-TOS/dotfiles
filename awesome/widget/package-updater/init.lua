@@ -70,9 +70,9 @@ widget_button:buttons(
       nil,
       function()
         if updateAvailable then
-          awful.spawn('st -e tos -Syu')
+          awful.spawn((os.getenv("TERMINAL") or 'st') .. ' -e tos -Syu')
         else
-          awful.spawn('st')
+          awful.spawn(os.getenv("TERMINAL") or 'st')
         end
       end
     )
