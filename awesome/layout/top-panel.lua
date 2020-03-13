@@ -194,6 +194,7 @@ local TopPanel = function(s, offset)
       require('widget.package-updater'),
       require('widget.music'), --only add this when the data can be extracted from spotify
       require('widget.about'),
+      require('widget.screen-recorder')(),
       require('widget.search'),
       require('widget.notification-center'),
     }
