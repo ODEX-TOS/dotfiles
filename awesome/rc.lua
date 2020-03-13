@@ -45,6 +45,7 @@ require('module.titlebar')
 require('module.menu')
 require('module.brightness-slider-osd')
 require('module.volume-slider-osd')
+require('module.battery-notifier')
 require('collision')()
 local wibox = require("wibox")
 
@@ -109,5 +110,6 @@ _G.client.connect_signal(
     c.border_color = beautiful.border_normal
   end
 )
+
 -- TODO: uncomment below when the naughty API is fixed again
 --require("tutorial")
