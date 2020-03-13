@@ -320,21 +320,24 @@ local kb_button_widget = wibox.widget {
 
 
 local toggle_btn_keygrab = function()
-
-	if keygrab_running then
-
-
+	-- started running keygrab by clicking button
+	if keygrab_running and not mouse_entered_started_keygrab then
 		kb_imagebox.image = widget_icon_dir .. 'kb-off' .. '.svg'
 		awesome.emit_signal("widget::calc_stop_keygrab")
 		keygrab_running = false
+	-- started running keygrab by mouse hover
+	elseif keygrab_running then
+		kb_imagebox.image = widget_icon_dir .. 'kb' .. '.svg'
 
+		-- now the button gets the main attention instead of the mouse hover
+		-- this happens because we clicked on the button
+		awesome.emit_signal("widget::calc_start_keygrab")
+		mouse_entered_started_keygrab=false
 	else
-
-
 		kb_imagebox.image = widget_icon_dir .. 'kb' .. '.svg'
 		awesome.emit_signal("widget::calc_start_keygrab")
 		keygrab_running = true
-
+		mouse_entered_started_keygrab=false
 	end
 
 end
@@ -364,12 +367,14 @@ local calcu_keygrabber = awful.keygrabber {
 	start_callback      = function()
 
 		keygrab_running = true
-		kb_imagebox.image = widget_icon_dir .. 'kb' .. '.svg'
+		--kb_imagebox.image = widget_icon_dir .. 'kb' .. '.svg'
 
 	end,
 	stop_callback = function() 
 
 		keygrab_running = false
+		mouse_entered_started_keygrab = false
+		start_button_keygrab = false
 		kb_imagebox.image = widget_icon_dir .. 'kb-off' .. '.svg'
 
 	end,
@@ -468,25 +473,34 @@ local calculator_body = wibox.widget {
 --        # # #  ### #  # # ###### #           # 
 --  #     # # #    # #   ## #    # #      #    # 
 --   #####  #  ####  #    # #    # ######  ####  
-
-calculator_body:connect_signal("mouse::enter", function() 
+local start_button_keygrab = false
+calculator_body:connect_signal("mouse::enter", function()
+	-- keygrabber is enabled thanks to the mouse enter and not the button
+	if not keygrab_running then
+		mouse_entered_started_keygrab = true
+	end
 	-- Start keygrabbing
 	calcu_keygrabber:start()
 end)
 
 calculator_body:connect_signal("mouse::leave", function()
-	-- Stop keygrabbing
-	calcu_keygrabber:stop()
+	-- don't stop unless the user didn't toggle the keygrab button
+	if not start_button_keygrab then
+		-- Stop keygrabbing
+		calcu_keygrabber:stop()
+	end
 end)
 
 awesome.connect_signal("widget::calc_start_keygrab", function() 
-	-- Stop keygrabbing
+	-- Start keygrabbing
 	calcu_keygrabber:start()
+	start_button_keygrab = true
 end)
 
 awesome.connect_signal("widget::calc_stop_keygrab", function() 
 	-- Stop keygrabbing
 	calcu_keygrabber:stop()
+	start_button_keygrab = false
 end)
 
 
