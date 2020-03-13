@@ -33,6 +33,8 @@ local watch = awful.widget.watch
 
 local apps = require('configuration.apps')
 
+local config = require('config')
+
 local clickable_container = require('widget.material.clickable-container')
 local dpi = require('beautiful').xresources.apply_dpi
 
@@ -249,7 +251,7 @@ local return_button = function()
 	end
 
 	-- Watch status if charging, discharging, fully-charged
-	watch(check_status_cmd, 5, function(widget, stdout)
+	watch(check_status_cmd, config.battery_timeout, function(widget, stdout)
 
 		-- If no output or battery detected
 		if not stdout:match('%W') then
