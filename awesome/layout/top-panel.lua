@@ -188,7 +188,7 @@ local TopPanel = function(s, offset)
       -- System tray and widgets
       --wibox.container.margin(systray, dpi(14), dpi(14)),
       wibox.container.margin(s.systray, dpi(14), dpi(0), dpi(4), dpi(4)),
-      require('widget.battery'),
+      require('widget.battery')(),
       require('widget.bluetooth'),
       require('widget.wifi'),
       require('widget.package-updater'),
