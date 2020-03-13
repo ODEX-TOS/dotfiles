@@ -34,9 +34,7 @@ end
 
 function getLayoutPerTag(number)
   local screen = "tag_" .. number
-  print(screen)
   item = getItem(screen)
-  print(item)
   if item ~= nil then
     if item == "0" or item == "dwindle" then
       return awful.layout.suit.spiral.dwindle
