@@ -293,7 +293,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	({
 		ontop = true,
 		screen = s,
-		type = 'dock',
+		type = 'normal',
 		height = s.geometry.height,
 		width = s.geometry.width,
 		x = s.geometry.x,
