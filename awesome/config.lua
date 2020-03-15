@@ -55,7 +55,7 @@ config = {
         end
         return filesystem.get_configuration_dir() .. '/configuration/compton.conf '
     end,
-    aboutText = 'TOS Linux Alpha Edition\nMIT License\n© Meyers Tom 2019\n\nThanks for using our product ♥'
+    aboutText = 'TOS Linux Alpha Edition\nMIT License\n© Meyers Tom 2019 - ' .. os.date("%Y") ..  '\n\nThanks for using our product ♥'
 }
 
 

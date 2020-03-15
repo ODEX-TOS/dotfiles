@@ -159,7 +159,7 @@ browserOpen:buttons(
       nil,
       function()
         print("Opening website")
-        awful.spawn.easy_async_with_shell("$BROWSER tos.pbfp.xyz")
+        awful.spawn.easy_async_with_shell("$BROWSER tos.odex.be")
         toggleAbout()
         naughty.notify({ title = "TOS website", message = "Opened the tos homepage", timeout = 5, position = "top_right"})
       end
