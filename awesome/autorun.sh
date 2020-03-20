@@ -36,9 +36,9 @@ function run() {
   fi
 }
 
-setxkbmap "$(cut -d= -f2 /etc/vconsole.conf | cut -d- -f1)"
-
 tos theme set "$(tos theme list | head -n1)"
+
+setxkbmap "$(cut -d= -f2 /etc/vconsole.conf | cut -d- -f1)"
 
 if ! pgrep tos; then
     nohup tos theme daemon &>/dev/null &# launch a tos daemon
