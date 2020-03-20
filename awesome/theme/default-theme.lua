@@ -47,7 +47,7 @@ end
 -- get all lines from a file, returns an empty 
 -- list/table if the file does not exist
 function lines_from(file)
-  if not file_exists(file) then return os.env("HOME") .. "/Pictures/drawing/simple.png" end
+  if not file_exists(file) then return os.getenv("HOME") .. "/Pictures/drawing/simple.png" end
   lines = {}
   for line in io.lines(file) do 
     lines[#lines + 1] = line
