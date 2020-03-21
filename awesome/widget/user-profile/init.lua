@@ -51,7 +51,7 @@ local profile_imagebox =
   wibox.widget {
   {
     id = 'icon',
-    forced_height = dpi(70),
+    forced_height = dpi(90),
     image = PATH_TO_ICONS .. 'user' .. '.svg',
     clip_shape = gears.shape.circle,
     widget = wibox.widget.imagebox,
@@ -67,6 +67,12 @@ local profile_name = wibox.widget {
 }
 
 local distro_name = wibox.widget {
+  align = 'left',
+  valign = 'center',
+  widget = wibox.widget.textbox
+}
+
+local kernel_name = wibox.widget {
   align = 'left',
   valign = 'center',
   widget = wibox.widget.textbox
@@ -142,7 +148,7 @@ awful.spawn.easy_async_with_shell("cat /etc/os-release | awk 'NR==1'| awk -F " .
   distro_name.markup = '<span font="SFNS Display Regular 12">' .. distroname ..'</span>'
 end)
 
--- RUn once on startup or login
+-- Run once on startup or login
 awful.spawn.easy_async_with_shell("uptime -p", function(out)
   uptime = out:gsub('%\n','')
   uptime_time.markup = '<span font="SFNS Display Regular 10">' .. uptime ..'</span>'
@@ -154,9 +160,15 @@ awful.widget.watch('uptime -p', 600, function(widget, stdout)
   collectgarbage('collect')
 end)
 
+-- Run once on startup or login
+awful.spawn.easy_async_with_shell("uname -r | cut -d '-' -f 1,2", function(out)
+  kernel = out:gsub('%\n','')
+  kernel_name.markup = '<span font="SFNS Display Regular 12">Kernel: ' .. kernel ..'</span>'
+end)
+
 
 local user_profile = wibox.widget {
-  expand = 'none',
+  --expand = 'none',
   {
     {
       layout = wibox.layout.align.horizontal,
@@ -167,7 +179,7 @@ local user_profile = wibox.widget {
       },
       {
         -- expand = 'none',
-        layout = wibox.layout.align.vertical,
+        layout = wibox.layout.fixed.vertical,
         {
           wibox.container.margin(profile_name, dpi(5)),
           layout = wibox.layout.fixed.horizontal,
@@ -177,12 +189,17 @@ local user_profile = wibox.widget {
           layout = wibox.layout.fixed.vertical,
         },
         {
+          wibox.container.margin(kernel_name, dpi(5)),
+          layout = wibox.layout.fixed.vertical,
+        },
+        {
           wibox.container.margin(uptime_time, dpi(5)),
           layout = wibox.layout.fixed.vertical,
         },
       },
+      
     },
-    margins = dpi(10),
+    margins = dpi(5),
     widget = wibox.container.margin,
   },
   bg = beautiful.bg_modal,
