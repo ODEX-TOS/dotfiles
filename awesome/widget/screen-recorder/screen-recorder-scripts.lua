@@ -18,9 +18,10 @@ user_mic_lvl = user_config.user_mic_lvl or '10'
 user_fps = user_config.user_fps or '30'
 
 
-update_user_settings = function(res, offset, audio)
+update_user_settings = function(res, offset, fps, audio)
 	user_resolution = res
 	user_offset = offset
+	user_fps = fps
 	user_audio = audio
 end
 
@@ -194,6 +195,7 @@ end
 -- User preferences
 
 scripts_tbl.user_resolution = user_resolution
+scripts_tbl.user_fps = user_fps
 scripts_tbl.user_offset = user_offset
 scripts_tbl.user_audio = user_audio
 scripts_tbl.update_user_settings = update_user_settings

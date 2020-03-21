@@ -224,7 +224,47 @@ screen_rec_res_txtbox = wibox.widget {
 		{
 			{
 				id = 'res_tbox',
-				markup = '<span foreground="#FFFFFF66">' .. '1366x768' .. "</span>",
+				markup = '<span foreground="#FFFFFF66">' .. '1920x1080' .. "</span>",
+				font = 'SF Pro Display Bold 16',
+				align = 'left',
+				valign = 'center',
+				widget = wibox.widget.textbox
+			},
+			margins = dpi(5),
+			widget = wibox.container.margin
+		},
+		widget = clickable_container
+	},
+	forced_width = dpi(60),
+	forced_height = dpi(60),
+	bg = beautiful.groups_bg,
+	shape =  function(cr, width, height)
+		gears.shape.rounded_rect(cr, width, height, beautiful.groups_radius) 
+	end,
+	widget = wibox.container.background
+
+}
+
+local screen_rec_fps_txt = wibox.widget {
+	{
+		text = 'FPS',
+		font = 'SF Pro Display Bold 16',
+		align = 'left',
+		valign = 'center',
+		widget = wibox.widget.textbox
+	},
+	margins = dpi(5),
+	widget = wibox.container.margin
+
+}
+
+
+screen_rec_fps_txtbox = wibox.widget {
+	{
+		{
+			{
+				id = 'fps_tbox',
+				markup = '<span foreground="#FFFFFF66">' .. '30' .. "</span>",
 				font = 'SF Pro Display Bold 16',
 				align = 'left',
 				valign = 'center',
@@ -352,6 +392,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
 					},
 					screen_rec_res_txt,
 					screen_rec_res_txtbox,
+					screen_rec_fps_txt,
+					screen_rec_fps_txtbox,
 					screen_rec_offset_txt,
 					screen_rec_offset_txtbox
 				},
@@ -381,6 +423,7 @@ record_tbl.screen_rec_close_button = screen_rec_close_button
 -- Settings UI
 record_tbl.screen_rec_back_button = screen_rec_back_button
 record_tbl.screen_rec_res_txtbox = screen_rec_res_txtbox
+record_tbl.screen_rec_fps_txtbox = screen_rec_fps_txtbox
 record_tbl.screen_rec_offset_txtbox = screen_rec_offset_txtbox
 
 return record_tbl

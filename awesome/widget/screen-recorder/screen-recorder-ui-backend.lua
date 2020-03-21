@@ -19,6 +19,7 @@ local screen_rec_ui = require('widget.screen-recorder.screen-recorder-ui')
 -- User Preferences 
 
 local sr_user_resolution = screen_rec_backend.user_resolution
+local sr_user_fps = screen_rec_backend.user_fps
 local sr_user_offset = screen_rec_backend.user_offset
 local sr_user_audio = screen_rec_backend.user_audio
 local sr_user_update = screen_rec_backend.update_user_settings
@@ -41,9 +42,11 @@ local sr_close_button = screen_rec_ui.screen_rec_close_button
 local sr_back_button = screen_rec_ui.screen_rec_back_button
 
 sr_resolution_box = screen_rec_ui.screen_rec_res_txtbox
+sr_fps_box = screen_rec_ui.screen_rec_fps_txtbox
 sr_offset_box = screen_rec_ui.screen_rec_offset_txtbox
 
 local sr_resolution_tbox = sr_resolution_box:get_children_by_id('res_tbox')[1]
+local sr_fps_tbox = sr_fps_box:get_children_by_id('fps_tbox')[1]
 local sr_offset_tbox = sr_offset_box:get_children_by_id('offset_tbox')[1]
 
 
@@ -73,9 +76,12 @@ local status_audio = sr_user_audio
 -- Update UI on startup using the user config
 
 sr_resolution_tbox:set_markup('<span foreground="#FFFFFF66">' .. sr_user_resolution .. "</span>")
+sr_fps_tbox:set_markup('<span foreground="#FFFFFF66">' .. sr_user_fps .. "</span>")
 sr_offset_tbox:set_markup('<span foreground="#FFFFFF66">' .. sr_user_offset .. "</span>")
 
 local sr_res_default_markup = sr_resolution_tbox:get_markup()
+local sr_fps_default_markup = sr_fps_tbox:get_markup()
+
 local sr_offset_default_markup = sr_offset_tbox:get_markup()
 
 
@@ -98,6 +104,10 @@ local emphasize_inactive_tbox = function()
 
 		sr_offset_box.shape_border_width = dpi(0)
 		sr_offset_box.shape_border_color = beautiful.transparent
+	elseif sr_active_tbox == 'fps_tbox' then
+
+		sr_fps_box.shape_border_width = dpi(0)
+		sr_fps_box.shape_border_color = beautiful.transparent
 	end
 
 	sr_active_tbox = nil
@@ -114,6 +124,10 @@ local emphasize_active_tbox = function()
 
 		sr_offset_box.border_width = dpi(1)
 		sr_offset_box.border_color = '#F2F2F2AA'
+	elseif sr_active_tbox == 'fps_tbox' then
+
+		sr_fps_box.border_width = dpi(1)
+		sr_fps_box.border_color = '#F2F2F2AA'
 
 	end
 
@@ -143,6 +157,13 @@ local write_to_textbox = function(char)
 		end
 
 		sr_offset_tbox:set_text(sr_offset_tbox:get_text() .. char)
+	elseif sr_active_tbox == 'fps_tbox' and char:match('%d') then
+
+		if sr_fps_tbox:get_markup() == sr_fps_default_markup then
+			sr_fps_tbox:set_text('')
+		end
+
+		sr_fps_tbox:set_text(sr_fps_tbox:get_text() .. char)
 	end
 end
 
@@ -156,6 +177,9 @@ local reset_textbox = function()
 	elseif sr_active_tbox == 'offset_tbox' then
 	
 		sr_offset_tbox:set_markup(sr_offset_default_markup)
+	elseif sr_active_tbox == 'fps_tbox' then
+	
+		sr_fps_tbox:set_markup(sr_fps_default_markup)
 	
 	end
 
@@ -213,6 +237,14 @@ local delete_key = function()
 		end
 
 		sr_offset_tbox:set_text(sr_offset_tbox:get_text():sub(1, -2))
+	elseif sr_active_tbox == 'fps_tbox' then
+
+		if tonumber(#sr_fps_tbox:get_text()) == 1 then
+			reset_textbox()
+			return
+		end
+
+		sr_fps_tbox:set_text(sr_fps_tbox:get_text():sub(1, -2))
 	
 	end
 
@@ -223,9 +255,10 @@ local apply_new_settings = function()
 	-- Get the text on texbox
 	sr_user_resolution = sr_resolution_tbox:get_text()
 	sr_user_offset = sr_offset_tbox:get_text()
+	sr_user_fps = sr_fps_tbox:get_text()
 
 	-- Apply new settings
-	sr_user_update(sr_user_resolution, sr_user_offset, status_audio)
+	sr_user_update(sr_user_resolution, sr_user_offset, sr_user_fps, status_audio)
 
 
 	-- Debugger
@@ -296,6 +329,25 @@ sr_offset_tbox:buttons(
 				emphasize_inactive_tbox()
 
 				sr_active_tbox = 'offset_tbox'
+
+				emphasize_active_tbox()
+
+				settings_updater:start()
+			end
+		)
+	)
+)
+
+sr_fps_tbox:buttons(
+	gears.table.join(
+		awful.button(
+			{},
+			1,
+			nil,
+			function()
+				emphasize_inactive_tbox()
+
+				sr_active_tbox = 'fps_tbox'
 
 				emphasize_active_tbox()
 
