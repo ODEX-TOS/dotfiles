@@ -251,6 +251,10 @@ local right_panel = function(screen)
           layout = wibox.layout.fixed.vertical,
         },
         {
+          wibox.container.margin(require('widget.sars-cov-2'), dpi(15), dpi(15), dpi(10), dpi(5)),
+          layout = wibox.layout.fixed.vertical,
+        },
+        {
           wibox.container.margin(require('widget.calculator'), dpi(15), dpi(15), dpi(10), dpi(10)),
           layout = wibox.layout.fixed.vertical,
         },
