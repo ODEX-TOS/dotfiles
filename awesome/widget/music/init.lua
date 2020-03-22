@@ -43,7 +43,7 @@ local config = require('config')
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Create the box
     local offsetx = dpi(500)
-    local padding = dpi(10)
+    local padding = dpi(30)
     musicPlayer = wibox
     {
       bg = '#00000000',
@@ -53,7 +53,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
       height = dpi(380),
       width = dpi(260),
       x = s.geometry.width - dpi(260) - dpi(10),
-      y = padding/2,
+      y = padding,
     }
 
   musicbackdrop = wibox {
