@@ -115,6 +115,5 @@ _G.client.connect_signal(
 -- Look into awesome-freedesktop for more information
 require('module.menu')
 
-
 -- TODO: uncomment below when the naughty API is fixed again
---require("tutorial")
+require("tutorial")

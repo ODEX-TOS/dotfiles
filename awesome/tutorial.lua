@@ -28,36 +28,36 @@ local naughty = require('naughty')
 
 
     function secondTip()
-        naughty.notify({ title = "TOS tutorial!", message = "This sets the staking layout of your windows. Notice the pattern.", timeout = 0, position = "bottom_left"}):connect_signal("destroyed", thirdTip)
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "This sets the staking layout of your windows. Notice the pattern.", timeout = 0, position = "bottom_left"}):connect_signal("destroyed", thirdTip)
     end
 
     function thirdTip()
-        naughty.notify({ title = "TOS tutorial!", message = "Try to open a few terminals and see what happens. mod+Enter to open a terminal (windows key) Now click on the icon in the bottom left corner a few times", timeout = 0, position = "bottom_left"}):connect_signal("destroyed", fourthTip)
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "Try to open a few terminals and see what happens. mod+Enter to open a terminal (windows key) Now click on the icon in the bottom left corner a few times", timeout = 0, position = "bottom_left"}):connect_signal("destroyed", fourthTip)
     end
 
     function fourthTip()
-        naughty.notify({ title = "TOS tutorial!", message = "To kill a program use mod+q", timeout = 0, position = "top_right"}):connect_signal("destroyed", fifthTip)
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "To kill a program use mod+q", timeout = 0, position = "top_right"}):connect_signal("destroyed", fifthTip)
 
     end
 
     function fifthTip()
-        naughty.notify({ title = "TOS tutorial!", message = "To launch applications use mod+d. Try to start a few and kill them.", timeout = 0, position = "top_right"}):connect_signal("destroyed", sixthTip)
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "To launch applications use mod+d. Try to start a few and kill them.", timeout = 0, position = "top_right"}):connect_signal("destroyed", sixthTip)
     end
 
     function sixthTip()
-        naughty.notify({ title = "TOS tutorial!", message = "Click on the tos logo to access general settings.", timeout = 0, position = "top_left"}):connect_signal("destroyed", seventhTip)
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "Click on the tos logo to access general settings.", timeout = 0, position = "top_left"}):connect_signal("destroyed", seventhTip)
     end
 
     function seventhTip()
-        naughty.notify({ title = "TOS tutorial!", message = "To go to a new workspace try mod+2, launch a program and switch back with mod+1", timeout = 0, position = "top_left"}):connect_signal("destroyed", eightTip)
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "To go to a new workspace try mod+2, launch a program and switch back with mod+1", timeout = 0, position = "top_left"}):connect_signal("destroyed", eightTip)
     end
 
     function eightTip()
-        naughty.notify({ title = "TOS tutorial!", message = "For the help menu use mod+f1.", timeout = 0, position = "top_left"}):connect_signal("destroyed", ninthTip)
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "For the help menu use mod+f1.", timeout = 0, position = "top_left"}):connect_signal("destroyed", ninthTip)
     end
 
     function ninthTip()
-        naughty.notify({ title = "TOS tutorial!", message = "Nice all you need to do now is start the installer, open a terminal (mod+Enter) and type in 'tos c'. Good luck on your journey", timeout = 0, position = "top_left"}):connect_signal("destroyed", finish)
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "Nice all you need to do now is start the installer, open a terminal (mod+Enter) and type in 'tos c'. Good luck on your journey", timeout = 0, position = "top_left"}):connect_signal("destroyed", finish)
     end
 
     function finish()
@@ -74,5 +74,7 @@ local f=io.open(FILE,"r")
 if f~=nil then 
         io.close(f) 
 else 
-    naughty.notify({ title = "TOS tutorial!", message = "All the icons on the left represent workspaces", timeout = 0, position = "top_left"}):connect_signal("destroyed", secondTip)
+    require("gears").timer.start_new(3, function()
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "All the icons on the left represent workspaces", timeout = 0, position = "top_left"}):connect_signal("destroyed", secondTip)    
+    end)
 end

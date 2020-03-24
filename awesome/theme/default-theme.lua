@@ -139,6 +139,17 @@ local awesome_overrides =
   theme.border_focus = theme.primary.hue_300
   theme.border_marked = color(config["border_marked"]) or  '#CC9393'
 
+  -- Notification
+  theme.transparent = '#00000000'
+	theme.notification_position = 'top_right'
+	theme.notification_bg = theme.transparent
+	theme.notification_margin = dpi(5)
+	theme.notification_border_width = dpi(0)
+	theme.notification_border_color = theme.transparent
+	theme.notification_spacing = dpi(0)
+	theme.notification_icon_resize_strategy = 'center'
+  theme.notification_icon_size = dpi(32)
+  
   -- Menu
 
   theme.menu_height = dpi(16)
