@@ -23,6 +23,10 @@ local charger_script = [[
 -- Periodically get battery info
 awful.widget.watch(battery_script, update_interval, function(widget, stdout)
 		local battery = stdout:gsub("%%", "")
+		local value = tonumber(battery)
+		if value == nil then
+			return
+		end
 		awesome.emit_signal("module::battery", tonumber(battery))
 end)
 
