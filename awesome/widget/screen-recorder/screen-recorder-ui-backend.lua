@@ -86,7 +86,7 @@ local sr_offset_default_markup = sr_offset_tbox:get_markup()
 
 
 if status_audio then
-	screen_rec_audio_button.bg = '#EE4F84' .. '66'
+	screen_rec_audio_button.bg = '#53e2ae' .. '66'
 else
 	screen_rec_audio_button.bg = beautiful.groups_bg
 end
@@ -207,7 +207,7 @@ local sr_audio_mode = function()
 
 			status_audio = true
 
-			screen_rec_audio_button.bg = '#EE4F84' .. '66'
+			screen_rec_audio_button.bg = '#53e2ae' .. '66'
 
 		end
 
