@@ -42,51 +42,22 @@ beautiful.titlebar_fg_focus = '#ffffff00'
 beautiful.titlebar_fg_normal = '#00000000'
 
 
--- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
-    -- buttons for the titlebar
-    local buttons = gears.table.join(
-        awful.button({ }, 1, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.move(c)
-        end),
-        awful.button({ }, 3, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.resize(c)
-        end)
-    )
+-- event handler that checks if  2 clicks occurend within 0.2 seconds
+-- Use this function inside a button press
+-- Accepts a callback that will be called if a double click occured
+function double_click_event_handler(double_click_event)
+  if double_click_timer then
+      double_click_timer:stop()
+      double_click_timer = nil
+      double_click_event()
+      return
+  end
 
-    awful.titlebar(c, {position = 'left', size = 29}) : setup {
-        { -- Left
-        --  awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.closebutton    (c),
-            awful.titlebar.widget.maximizedbutton(c),
-        --  awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.minimizebutton (c),
-
-            layout  = wibox.layout.fixed.vertical
-        },
-        { -- Middle
-          { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-          },
-            buttons = buttons,
-            layout  = wibox.layout.flex.vertical
-        },
-        { -- Right
-        --  awful.titlebar.widget.iconwidget(c),
-        --  buttons = buttons,
-        --	awful.titlebar.widget.ontopbutton (c),
-            buttons = buttons,
-			      awful.titlebar.widget.floatingbutton (c),
-            layout = wibox.layout.fixed.vertical()
-        },
-        layout = wibox.layout.align.vertical
-    }
-end)
-
-
+  double_click_timer = gears.timer.start_new(0.20, function()
+      double_click_timer = nil
+      return false
+  end)
+end
 
 -- Define the images to load
 beautiful.titlebar_close_button_normal = tip .. "close_normal.svg"
@@ -141,6 +112,16 @@ client.connect_signal("request::titlebars", function(c)
     -- buttons for the titlebar
     local buttons = gears.table.join(
         awful.button({ }, 1, function()
+          double_click_event_handler(function()
+            if c.floating then
+              c.floating = false
+              return
+            end
+
+            c.maximized = not c.maximized
+            c:raise()
+            return
+          end)
             c:emit_signal("request::activate", "titlebar", {raise = true})
             awful.mouse.client.move(c)
         end),
