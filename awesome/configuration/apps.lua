@@ -39,13 +39,14 @@ local mat_colors = require('theme.mat-colors')
 --local color = mat_colors[themefile["primary"]].hue_500 or mat_colors.purple.hue_500
 local color = mat_colors.purple.hue_500
 local color = addHash(themefile["primary_hue_500"]) or color
-print("theme color " ..color .. " primary:" .. themefile["primary"])
 
 return {
   -- List of apps to start by default on some actions
   default = {
     terminal = os.getenv("TERMINAL") or 'st',
     editor = 'code-insiders',
+    web_browser = 'firefox-developer-edition',
+    file_manager = 'nemo',
     rofi = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
     web = 'rofi -show Search -modi Search:' .. filesystem.get_configuration_dir() .. '/configuration/rofi/search.py' .. ' -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
     rofiappmenu = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/appmenu/drun.rasi',

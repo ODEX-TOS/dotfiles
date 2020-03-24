@@ -42,7 +42,6 @@ require('module.backdrop')
 require('module.exit-screen')
 require('module.quake-terminal')
 require('module.titlebar')
-require('module.menu')
 require('module.brightness-slider-osd')
 require('module.volume-slider-osd')
 require('module.battery-notifier')
@@ -110,6 +109,12 @@ _G.client.connect_signal(
     c.border_color = beautiful.border_normal
   end
 )
+
+-- menu takes a bit of time to load in.
+-- because of this we put it in the back so the rest of the system can already behave
+-- Look into awesome-freedesktop for more information
+require('module.menu')
+
 
 -- TODO: uncomment below when the naughty API is fixed again
 --require("tutorial")
