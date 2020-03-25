@@ -38,8 +38,8 @@ local PATH_TO_ICONS = '/etc/xdg/awesome/widget/sars-cov-2/icons/'
 
 watch([[bash -c "curl -s https://corona-stats.online/$(curl https://ipapi.co/country/)?minimal=true | sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g'"]], 3600, function (_, stdout)
   array = split(split(stdout,"\n")[2], "%s*")
-  infected = "Infected: " .. array[3]
-  death = "Deaths: " .. array[5]
+  infected = "Infected: " .. array[4]
+  death = "Deaths: " .. array[7]
   covid_deceases.text = infected
   covid_deaths.text = death
 end)
