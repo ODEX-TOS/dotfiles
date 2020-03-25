@@ -38,17 +38,20 @@ local scale        = pango.SCALE
 local config       = require("theme.config")
 local mat_color   = require("theme.mat-colors")
 
-local arrow_color = mat_color[config["accent"]].hue_500 or mat_color.cyan.hue_800
-local bg_color = mat_color[config["background"]].hue_800 or mat_color.purple.hue_800
+local arrow_color = mat_color[config["accent"] or "cyan"].hue_500 or mat_color.cyan.hue_800
+local bg_color = mat_color[config["background"] or "purple"].hue_800 or mat_color.purple.hue_800
 
 function color(value)
   if value == nil then return nil end
   return "#" .. value
 end
 
-
+if config["accent_hue_500"] ~= nil then
 arrow_color = color(config["accent_hue_500"]) or arrow_color
+end
+if config["background_hue_800"] ~= nil then
 bg_color = color(config["background_hue_800"]) or bg_color
+end
 bg_color = bg_color .. (config["background_transparent"] or "66")
 
 
