@@ -53,7 +53,6 @@ function getApplicationsPerTag(number)
 end
 
 function getFloatingWindow()
-  print("Retreiving all floating windows")
   name = "float_"
   local iterator = {"Xephyr"}
   local i = 0

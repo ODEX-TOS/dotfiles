@@ -40,6 +40,8 @@ local mat_list_item = require('widget.material.list-item')
 local apps = require('configuration.apps')
 local config = require('config')
 
+local bShowingWidget = false;
+
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Create the box
     local offsetx = dpi(500)
@@ -77,7 +79,7 @@ local grabber = awful.keygrabber {
           on_press  = function()
             musicbackdrop.visible = false
             musicPlayer.visible = false
-            print("Music Closing")
+            bShowingWidget = false
           end
       },
   },
@@ -91,8 +93,10 @@ function togglePlayer()
   musicPlayer.visible = not musicPlayer.visible
   if musicPlayer.visible then
     grabber:start()
+    bShowingWidget = true
   else
     grabber:stop()
+    bShowingWidget = false
   end
 end
 
@@ -176,7 +180,7 @@ musicPlayer:setup {
       nil,
       {
         spacing = dpi(4),
-        require('widget.music.progressbar'),
+        --require('widget.music.progressbar'),
         require('widget.music.music-info'),
         require('widget.music.media-buttons'),
         layout = wibox.layout.flex.vertical,
@@ -203,8 +207,11 @@ local updateWidget = gears.timer {
     timeout = config.player_update,
     autostart = true,
     callback  = function()
-      _G.checkIfPlaying()
-      updateInfo()
+      -- only use cpu cycles when the widget is drawn
+      if bShowingWidget then
+        _G.checkIfPlaying()
+        updateInfo()
+      end
     end
 }
 

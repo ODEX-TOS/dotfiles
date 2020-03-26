@@ -107,7 +107,6 @@ local awesome_overrides =
 
     awful.spawn.easy_async_with_shell(command, function()
         awful.spawn.easy_async_with_shell("feh --bg-scale $(cat /tmp/theme.txt)", function(out)
-            print(out)
         end)
     end)
 
@@ -214,7 +213,6 @@ local out = io.popen("if [[ -f ~/.config/gtk-3.0/settings.ini ]]; " .. [[then gr
 if out ~= nil then
   theme.icon_theme = out
 end
-print(out)
   --Client
   theme.border_width = dpi(0)
   theme.border_focus = theme.primary.hue_500

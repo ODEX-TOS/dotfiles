@@ -272,6 +272,7 @@ local globalKeys =
         awful.spawn('brightness -s 100 -F') -- reset pixel values when using backlight
         awful.spawn('brightness -a 5')
       end
+      awesome.emit_signal('widget::brightness')
       if toggleBriOSD ~= nil then
         _G.toggleBriOSD(true)
       end
@@ -291,12 +292,14 @@ local globalKeys =
         awful.spawn('brightness -s 100 -F') -- reset pixel values when using backlight
         awful.spawn('brightness -d 5')
       end
+      awesome.emit_signal('widget::brightness')
       if toggleBriOSD ~= nil then
         _G.toggleBriOSD(true)
       end
       if UpdateBrOSD ~= nil then
         _G.UpdateBrOSD()
       end
+
     end,
     {description = '-10%', group = 'hotkeys'}
   ), 
@@ -306,6 +309,7 @@ local globalKeys =
     'XF86AudioRaiseVolume',
     function()
       awful.spawn('amixer -D pulse sset Master 5%+')
+      awesome.emit_signal('widget::volume')
       if toggleVolOSD ~= nil then
         _G.toggleVolOSD(true)
       end
@@ -320,6 +324,7 @@ local globalKeys =
     'XF86AudioLowerVolume',
     function()
       awful.spawn('amixer -D pulse sset Master 5%-')
+      awesome.emit_signal('widget::volume')
       if toggleVolOSD ~= nil then
         _G.toggleVolOSD(true)
       end
@@ -334,6 +339,7 @@ local globalKeys =
     'XF86AudioMute',
     function()
       awful.spawn('amixer -D pulse set Master 1+ toggle')
+      awesome.emit_signal('widget::volume')
       if toggleVolOSD ~= nil then
         _G.toggleVolOSD(true)
       end

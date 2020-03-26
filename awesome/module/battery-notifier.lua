@@ -6,8 +6,9 @@ local awful = require("awful")
 local naughty = require('naughty')
 
 local icons = require('theme.icons')
+local config = require('config')
 
-local update_interval = 30
+local update_interval = config.battery_timeout
 
 local battery_script = [[
 	sh -c "

@@ -68,7 +68,6 @@ local weather_details_script = "/bin/bash /etc/xdg/awesome/weather.sh"
     single_shot = true,
     callback  = function()
         awful.spawn.easy_async_with_shell(weather_details_script, function(stdout)
-            print("STDOUT" .. stdout)
             local icon_code = string.sub(stdout, 1, 3) or "..."
             local weather_details = string.sub(stdout, 5)
             weather_details = string.gsub(weather_details, '^%s*(.-)%s*$', '%1')
@@ -78,7 +77,6 @@ local weather_details_script = "/bin/bash /etc/xdg/awesome/weather.sh"
             weather_details = weather_details:sub(1,1):upper()..weather_details:sub(2)
             local description = weather_details:match('(.*)@@')
             local temperature = weather_details:match('@@(.*)')
-            print(icon_code .. description .. temperature)
             if icon_code == "..." then
                 awesome.emit_signal("widget::weather", "Maybe it's 10000", "No internet connection...", "")
             else

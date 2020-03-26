@@ -71,7 +71,6 @@ local left_panel = function(screen)
             modifiers = {},
             key       = 'Escape',
             on_press  = function()
-              print("Left Panel Closing")
               panel:close()
             end
         },

@@ -29,7 +29,7 @@ local mat_slider = require('widget.material.slider')
 local mat_icon_button = require('widget.material.icon-button')
 local clickable_container = require('widget.material.clickable-container')
 local icons = require('theme.icons')
-local watch = require('awful.widget.watch')
+local awful = require('awful')
 local spawn = require('awful.spawn')
 local config = require('config')
 
@@ -55,15 +55,29 @@ slider:connect_signal(
   end
 )
 
-watch(
-  [[bash -c "grep -q on ~/.cache/oled && brightness -g -F || brightness -g"]],
-  config.brightness_poll,
-  function(widget, stdout, stderr, exitreason, exitcode)
-    local brightness = string.match(stdout, '(%d+)')
+local update = function()
+  awful.spawn.easy_async_with_shell(
+    [[grep -q on ~/.cache/oled && brightness -g -F || brightness -g]],
+    function(stdout)
+      local brightness = string.match(stdout, '(%d+)')
+      slider:set_value(tonumber(brightness))
+      collectgarbage('collect')
+    end)
+end
 
-    slider:set_value(tonumber(brightness))
-    collectgarbage('collect')
+awesome.connect_signal(
+	'widget::brightness',
+  function(value)
+    update()
   end
+)
+
+-- The emit will come from the OSD
+awesome.connect_signal(
+	'widget::brightness:update',
+	function(value)
+		 slider:set_value(tonumber(value))
+	end
 )
 
 local icon =
@@ -80,5 +94,7 @@ local brightness_setting =
   slider,
   widget = mat_list_item
 }
+
+update()
 
 return brightness_setting

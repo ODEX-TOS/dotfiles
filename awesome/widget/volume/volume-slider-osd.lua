@@ -50,7 +50,7 @@ slider_osd:connect_signal(
     if (not _G.menuopened) then
         spawn('amixer -D pulse sset Master ' .. slider_osd.value .. '%')
         spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
-        _G.volume1:set_value(slider_osd.value)
+        awesome.emit_signal('widget::volume:update', slider_osd.value)
     end
   end
 )

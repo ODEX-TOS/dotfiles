@@ -34,18 +34,17 @@ function file_exists(name)
 end
 
 config = {
-    package_timeout = 60, -- how frequently we want to check if there are new updates in seconds
-    battery_timeout = 5, -- How frequently we want to check our battery status in seconds
+    package_timeout = 180, -- how frequently we want to check if there are new updates in seconds
+    battery_timeout = 20, -- How frequently we want to check our battery status in seconds
     player_reaction_time = 0.01, -- The time for the music player to respond to our play/pause action
     player_update = 5, -- Timeout to check if a new song is playing
     network_poll = 3, -- how often do we check the current network usage eg upload and download
     bluetooth_poll = 5, -- how often do we check if bluetooth is active/disabled
     hardisk_poll = 1800, -- how often do we check how full the harddisk is
-    temp_poll = 10, -- how often do we check the current temperature
-    ram_poll = 10, -- how often do we check the current ram usage
+    temp_poll = 30, -- how often do we check the current temperature
+    ram_poll = 30, -- how often do we check the current ram usage
     weather_poll = 1200, -- how often we check the weather status
-    cpu_poll = 5, -- how often do we check the current cpu status
-    brightness_poll = 3, -- how often do we check the brightness slider status 
+    cpu_poll = 10, -- how often do we check the current cpu status
     colors_config = HOME .. "/.config/tos/colors.conf",
     icons_config = HOME .. "/.config/tos/icons.conf",
     getComptonFile = function ()

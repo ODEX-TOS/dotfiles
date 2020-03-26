@@ -62,7 +62,6 @@ return {
     'xfce4-power-manager', -- Power manager
     'xfsettingsd', -- Settings
     'xrdb $HOME/.Xresources',
-    'nm-applet',
     'sh -c "/etc/xdg/awesome/firefox-color.sh \'' .. color .. '\'"',
   },
   bins = {

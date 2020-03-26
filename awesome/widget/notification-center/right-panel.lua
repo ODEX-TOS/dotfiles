@@ -57,7 +57,6 @@ local right_panel = function(screen)
             key       = 'Escape',
             on_press  = function()
               panel.opened = false
-              print("Notification Closing")
               closePanel()
             end
         },

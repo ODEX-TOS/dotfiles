@@ -97,7 +97,6 @@ awful.spawn.easy_async_with_shell('whoami', function(out)
 
 
   -- Bash script to check if user profile picture exists in /var/lib/AccountsService/icons/
-  print("Checking if image exists: " .. PATH_TO_USERICON .. out)
   local cmd_check_user_profile = "if test -f " .. PATH_TO_USERICON .. out .. "; then print 'image_detected'; else print 'not_detected'; fi"
   awful.spawn.easy_async_with_shell(cmd_check_user_profile, function(stdout)
 

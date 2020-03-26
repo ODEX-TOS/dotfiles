@@ -51,16 +51,29 @@ slider:connect_signal(
   end
 )
 
-watch(
-  'amixer -D pulse sget Master',
-  0.2,
-  function(_, stdout)
+local update = function()
+  awful.spawn.easy_async_with_shell('amixer -D pulse sget Master', function(stdout)
     local mute = string.match(stdout, '%[(o%D%D?)%]')
     local volume = string.match(stdout, '(%d?%d?%d)%%')
     getIconByOutput(stdout)
     slider:set_value(tonumber(volume))
     collectgarbage('collect')
+  end)
+end
+-- The emit will come from the OSD
+awesome.connect_signal(
+	'widget::volume',
+  function(value)
+    update()
   end
+)
+
+-- The emit will come from the OSD
+awesome.connect_signal(
+	'widget::volume:update',
+	function(value)
+		 slider:set_value(tonumber(value))
+	end
 )
 
 local icon =
@@ -90,7 +103,7 @@ function getIconByOutput(out)
 end
 
 getIcon() -- set the icon property to the current volume state
-
+update()
 function toggleIcon()
     local command = 'amixer -D pulse set Master +1 toggle'
     awful.spawn.easy_async_with_shell(command, function(out)
