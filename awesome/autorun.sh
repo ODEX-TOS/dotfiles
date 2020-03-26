@@ -59,6 +59,11 @@ if [[ "$(command -v libinput-gestures)" ]]; then
         libinput-gestures &
 fi
 
+# launch a polkit authentication manager
+if [[ "$(command -v lxsession)" ]]; then
+        lxsession &
+fi
+
 # This is used to know howmany users are using tos
 # See
 if [[ "$(id -u)" != "0" ]]; then

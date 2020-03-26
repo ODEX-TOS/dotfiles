@@ -171,7 +171,8 @@ awful.rules.rules = {
   {
   rule_any = {
     class = {
-      "feh"
+      "feh",
+      "Lxpolkit"
     },
   },
     properties = {
