@@ -31,7 +31,13 @@ local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 
+local menubar = require("menubar")
+
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/xdg-folders/icons/'
+
+function icon(item)
+  return menubar.utils.lookup_icon(item)
+end
 
 local homeWidget =
   wibox.widget {
@@ -70,6 +76,6 @@ awful.tooltip(
   }
 )
 
-homeWidget.icon:set_image(PATH_TO_ICONS .. 'user-home' .. '.svg')
+homeWidget.icon:set_image(icon('folder-home') or (PATH_TO_ICONS .. 'user-home' .. '.svg'))
 
 return home_button

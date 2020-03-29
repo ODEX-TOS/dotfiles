@@ -27,6 +27,11 @@ local awful = require('awful')
 local gears = require('gears')
 local icons = require('theme.icons')
 local config = require('parser')(os.getenv('HOME') .. "/.config/tos/tags.conf")
+local menubar = require("menubar")
+
+function icon(item)
+  return menubar.utils.lookup_icon(item)
+end
 
 function getItem(item)
   return config[item] or nil
@@ -55,21 +60,21 @@ end
 
 local tags = {
   {
-    icon = icons.chrome,
+    icon = icon('webbrowser-app') or icons.chrome,
     type = 'chrome',
     defaultApp = 'chrome',
     screen = 1,
     layout = awful.layout.suit.spiral.dwindle
   },
   {
-    icon = icons.terminal,
+    icon = icon('utilities-terminal') or icons.terminal,
     type = 'terminal',
     defaultApp = 'st',
     screen = 1,
     layout = awful.layout.suit.spiral.dwindle
   },
   {
-    icon = icons.code,
+    icon = icon('visual-studio-code-insiders') or icons.code,
     type = 'code',
     defaultApp = 'code-insiders',
     screen = 1,
@@ -82,35 +87,35 @@ local tags = {
     screen = 1
   },]]--
   {
-    icon = icons.folder,
+    icon = icon('system-file-manager') or icons.folder,
     type = 'files',
     defaultApp = 'nemo',
     screen = 1,
     layout = awful.layout.suit.spiral.dwindle
   },
   {
-    icon = icons.music,
+    icon = icon('deepin-music') or icons.music,
     type = 'music',
     defaultApp = 'spotify',
     screen = 1,
     layout = awful.layout.suit.spiral.dwindle
   },
   {
-    icon = icons.game,
+    icon = icon('applications-games') or icons.game,
     type = 'game',
     defaultApp = '',
     screen = 1,
     layout = awful.layout.suit.spiral.dwindle
   },
   {
-    icon = icons.art,
+    icon = icon('gimp') or icons.art,
     type = 'art',
     defaultApp = 'gimp',
     screen = 1,
     layout = awful.layout.suit.spiral.dwindle
   },
   {
-    icon = icons.lab,
+    icon = icon('utilities-system-monitor') or icons.lab,
     type = 'any',
     defaultApp = '',
     screen = 1,

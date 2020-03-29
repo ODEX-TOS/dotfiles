@@ -32,7 +32,11 @@ local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/xdg-folders/icons/'
+local menubar = require("menubar")
 
+function icon(item)
+  return menubar.utils.lookup_icon(item)
+end
 local dlWidget =
   wibox.widget {
   {

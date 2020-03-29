@@ -86,7 +86,6 @@ mymainmenu = freedesktop.menu.build({
 	},
 	after = {
 		{"Awesome", myawesomemenu, beautiful.awesome_icon},
-		{"Take a Screenshot", screenshot, menubar.utils.lookup_icon("accessories-screenshot") },
 		{"End Session", function() _G.exit_screen_show() end, menubar.utils.lookup_icon("system-shutdown") },
 		-- other triads can be put here
 	}

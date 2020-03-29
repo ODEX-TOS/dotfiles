@@ -31,7 +31,11 @@ local clickable_container = require('widget.material.clickable-container')
 local dpi = require('beautiful').xresources.apply_dpi
 
 local widget_icon_dir = '/etc/xdg/awesome/widget/xdg-folders/icons/'
+local menubar = require("menubar")
 
+function icon(item)
+  return menubar.utils.lookup_icon(item)
+end
 local trash_widget = wibox.widget {
 	{
 		id = 'trash_icon',
@@ -119,7 +123,7 @@ trash_button:buttons(
 local check_trash_list = function()
 	awful.spawn.easy_async_with_shell('gio list trash:/// | wc -l', function(stdout) 
 		if tonumber(stdout) > 0 then
-			trash_widget.trash_icon:set_image(widget_icon_dir .. 'user-trash-full' .. '.svg')
+			trash_widget.trash_icon:set_image(icon('user-trash-empty') or (widget_icon_dir .. 'user-trash-full' .. '.svg'))
 
 			awful.spawn.easy_async_with_shell('gio list trash:///', function(stdout) 
 
@@ -129,7 +133,7 @@ local check_trash_list = function()
 
 
 		else
-			trash_widget.trash_icon:set_image(widget_icon_dir .. 'user-trash-empty' .. '.svg')
+			trash_widget.trash_icon:set_image( icon('user-trash') or (widget_icon_dir .. 'user-trash-empty' .. '.svg'))
 
 			trash_tooltip.markup = 'Trash empty'
 

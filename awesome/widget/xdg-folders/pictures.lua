@@ -32,7 +32,11 @@ local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/xdg-folders/icons/'
+local menubar = require("menubar")
 
+function icon(item)
+  return menubar.utils.lookup_icon(item)
+end
 local picWidget =
   wibox.widget {
   {
@@ -70,6 +74,6 @@ awful.tooltip(
   }
 )
 
-picWidget.icon:set_image(PATH_TO_ICONS .. 'folder-pictures' .. '.svg')
+picWidget.icon:set_image(icon('folder-pictures') or (PATH_TO_ICONS .. 'folder-pictures' .. '.svg'))
 
 return pic_button

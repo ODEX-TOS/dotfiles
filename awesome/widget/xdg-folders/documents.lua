@@ -30,9 +30,13 @@ local wibox = require('wibox')
 local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
+local menubar = require("menubar")
 
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/xdg-folders/icons/'
 
+function icon(item)
+  return menubar.utils.lookup_icon(item)
+end
 local docuWidget =
   wibox.widget {
   {
@@ -70,6 +74,6 @@ awful.tooltip(
   }
 )
 
-docuWidget.icon:set_image(PATH_TO_ICONS .. 'folder-documents' .. '.svg')
+docuWidget.icon:set_image(icon('folder-documents') or (PATH_TO_ICONS .. 'folder-documents' .. '.svg'))
 
 return docu_button
