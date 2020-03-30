@@ -110,9 +110,9 @@ awesome.connect_signal("module::battery", function(battery)
 			urgency = 'critical'
 		elseif battery < 16 and not battery_low_already_notified then
 			battery_low_already_notified = true
-			text = "Battery Full!"
+			text = "Battery is low!"
 			timeout = 6
-			urgency = 'normal'
+			urgency = 'critical'
 		end
 
 	else
