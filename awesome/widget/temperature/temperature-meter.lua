@@ -47,6 +47,7 @@ gears.timer {
   autostart = true,
   callback  = function()
     local stdout = file.string("/sys/class/thermal/thermal_zone0/temp")
+    if stdout == "" then return end
     local temp = stdout:match('(%d+)')
     slider:set_value((temp / 1000) / max_temp * 100)
     collectgarbage('collect')

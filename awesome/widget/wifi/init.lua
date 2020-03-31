@@ -134,6 +134,12 @@ gears.timer {
   callback  = function()
     local widgetIconName = 'wifi-strength'
     local interface = file.lines("/proc/net/wireless", nil, 3)[3]
+    if interface == nil then
+      connected = false
+      widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '-off' .. '.svg')
+      collectgarbage('collect')
+      return
+    end
     local ssid, num, link = interface:match('(%w+):%s+(%d+)%s+(%d+)')
     local wifi_strength = (tonumber(link)/70)*100
     if (wifi_strength ~= nil) then
