@@ -134,20 +134,21 @@ end)
 awful.screen.connect_for_each_screen(
   function(s)
     for i, tag in pairs(tags) do
-      tag.layout = getLayoutPerTag(i)
-      awful.tag.add(
-        i,
-        {
-          icon = tag.icon,
-          icon_only = true,
-          layout = tag.layout,
-          gap_single_client = false,
-          gap = 4,
-          screen = s,
-          defaultApp = tag.defaultApp,
-          selected = i == 1
-        }
-      )
+      -- the last tag is reserved for the desktop
+        tag.layout = getLayoutPerTag(i)
+        awful.tag.add(
+          i,
+          {
+            icon = tag.icon,
+            icon_only = true,
+            layout = tag.layout,
+            gap_single_client = false,
+            gap = 4,
+            screen = s,
+            defaultApp = tag.defaultApp,
+            selected = i == 1
+          }
+        )
     end
   end
 )

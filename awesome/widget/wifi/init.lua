@@ -23,21 +23,13 @@
 --SOFTWARE.
 ]]
 
--------------------------------------------------
--- Battery Widget for Awesome Window Manager
--- Shows the battery status using the ACPI tool
--- More details could be found here:
--- https://github.com/streetturtle/awesome-wm-widgets/tree/master/battery-widget
-
--- @author Pavel Makhov
--- @copyright 2017 Pavel Makhov
--------------------------------------------------
 
 local awful = require('awful')
 local watch = require('awful.widget.watch')
 local wibox = require('wibox')
 local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
+local file = require('helper.file')
 local dpi = require('beautiful').xresources.apply_dpi
 local naughty = require('naughty')
 local config = require('config')
@@ -135,12 +127,15 @@ local function grabText()
   end
 end
 
-watch(
-  "awk 'NR==3 {printf \"%3.0f\" ,($3/70)*100}' /proc/net/wireless",
-  config.network_poll,
-  function(_, stdout)
+gears.timer {
+  timeout   = config.network_poll,
+  call_now  = true,
+  autostart = true,
+  callback  = function()
     local widgetIconName = 'wifi-strength'
-    local wifi_strength = tonumber(stdout)
+    local interface = file.lines("/proc/net/wireless", nil, 3)[3]
+    local ssid, num, link = interface:match('(%w+):%s+(%d+)%s+(%d+)')
+    local wifi_strength = (tonumber(link)/70)*100
     if (wifi_strength ~= nil) then
       connected = true
       -- Update popup text
@@ -155,9 +150,8 @@ watch(
       grabText()
     end
     collectgarbage('collect')
-  end,
-  widget
-)
+  end
+}
 
 widget:connect_signal(
   'mouse::enter',

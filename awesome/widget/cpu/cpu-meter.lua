@@ -31,21 +31,24 @@ local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local dpi = require('beautiful').xresources.apply_dpi
 local config = require('config')
+local gears = require('gears')
 local total_prev = 0
 local idle_prev = 0
+local file = require('helper.file')
 
 local slider =
   wibox.widget {
   read_only = true,
   widget = mat_slider
 }
-
-watch(
-  [[bash -c "cat /proc/stat | grep '^cpu '"]],
-  config.cpu_poll,
-  function(_, stdout)
+gears.timer {
+  timeout   = config.cpu_poll,
+  call_now  = true,
+  autostart = true,
+  callback  = function()
+    stdout = file.string("/proc/stat", "^cpu")
     local user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice =
-      stdout:match('(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s')
+    stdout:match('(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s')
 
     local total = user + nice + system + idle + iowait + irq + softirq + steal
 
@@ -59,7 +62,8 @@ watch(
     idle_prev = idle
     collectgarbage('collect')
   end
-)
+}
+
 
 local cpu_meter =
   wibox.widget {

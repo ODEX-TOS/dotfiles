@@ -70,6 +70,21 @@ local floater = getFloatingWindow()
 awful.rules.rules = {
   -- All clients will match this rule.
   {
+    { rule = { type = "desktop" },
+      properties = { 
+        sticky = true,
+        skip_taskbar = true,
+        border_width = 0,
+        floating = true,
+        below = true,
+        fullscreen = true,
+        maximized = true,
+        keys = {},
+        --tag = '7' 
+      } 
+    },
+  },
+  {
     rule = {},
     except_any = {
       instance = {

@@ -31,6 +31,8 @@ local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local dpi = require('beautiful').xresources.apply_dpi
 local config = require('config')
+local file = require('helper.file')
+local gears = require('gears')
 
 local slider =
   wibox.widget {
@@ -38,16 +40,17 @@ local slider =
   widget = mat_slider
 }
 
-watch(
-  'bash -c "free | grep -z Mem.*Swap.*"',
-  config.ram_poll,
-  function(_, stdout)
-    local total, used, free, shared, buff_cache, available, total_swap, used_swap, free_swap =
-      stdout:match('(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*Swap:%s*(%d+)%s*(%d+)%s*(%d+)')
-    slider:set_value(used / total * 100)
-    collectgarbage('collect')
+gears.timer {
+  timeout   = config.ram_poll,
+  call_now  = true,
+  autostart = true,
+  callback  = function()
+    local stdout = file.lines("/proc/meminfo", nil, 3)
+    local total = string.gmatch(stdout[1], '%d+')()
+    local free = string.gmatch(stdout[3], '%d+')()
+    slider:set_value((1 - (free / total)) * 100)
   end
-)
+}
 
 local ram_meter =
   wibox.widget {

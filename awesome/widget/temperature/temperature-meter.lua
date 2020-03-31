@@ -31,6 +31,8 @@ local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local dpi = require('beautiful').xresources.apply_dpi
 local config = require('config')
+local file = require('helper.file')
+local gears = require('gears')
 
 local slider =
   wibox.widget {
@@ -39,15 +41,17 @@ local slider =
 }
 
 local max_temp = 80
-watch(
-  'bash -c "cat /sys/class/thermal/thermal_zone0/temp"',
-  config.temp_poll,
-  function(_, stdout)
+gears.timer {
+  timeout   = config.temp_poll,
+  call_now  = true,
+  autostart = true,
+  callback  = function()
+    local stdout = file.string("/sys/class/thermal/thermal_zone0/temp")
     local temp = stdout:match('(%d+)')
     slider:set_value((temp / 1000) / max_temp * 100)
     collectgarbage('collect')
   end
-)
+}
 
 local temperature_meter =
   wibox.widget {

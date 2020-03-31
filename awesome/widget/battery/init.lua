@@ -34,12 +34,13 @@ local watch = awful.widget.watch
 local apps = require('configuration.apps')
 
 local config = require('config')
+local file = require('helper.file')
+local gears = require('gears')
 
 local clickable_container = require('widget.material.clickable-container')
 local dpi = require('beautiful').xresources.apply_dpi
 
 local widget_icon_dir = '/etc/xdg/awesome/widget/battery/icons/'
-
 
 
 local return_button = function()
@@ -123,14 +124,6 @@ local return_button = function()
 	end)
 
 
-	local check_percentage_cmd = [[
-	upower -i $(upower -e | grep BAT) | grep percentage | awk '{print $2}' | tr -d '\n%'
-	]]
-
-	local check_status_cmd = [[bash -c "
-	upower -i $(upower -e | grep BAT) | grep state | awk '{print $2}' | tr -d '\n'
-	"]]
-
 	local last_battery_check = os.time()
 	local notify_critcal_battery = true
 
@@ -147,133 +140,82 @@ local return_button = function()
 	local update_battery = function(status)
 
 		local status = status:gsub('%\n', '')
+		local percentage = file.string("/sys/class/power_supply/BAT0/capacity")
+		local battery_percentage = tonumber(percentage)
 
-		awful.spawn.easy_async_with_shell(check_percentage_cmd, function(stdout)
+		battery_widget.spacing = dpi(5)
+		battery_percentage_text.visible = true
+		battery_percentage_text:set_text(battery_percentage .. '%')
 
-			local battery_percentage = tonumber(stdout)
+		local icon_name = 'battery'
 
-			battery_widget.spacing = dpi(5)
-			battery_percentage_text.visible = true
-			battery_percentage_text:set_text(battery_percentage .. '%')
-
-			local icon_name = 'battery'
-
-
-			if status:match('discharging') then
-
-				if battery_percentage >= 0 and battery_percentage < 10 then
-
-					icon_name = icon_name .. '-' .. 'alert-red'
-
-					if os.difftime(os.time(), last_battery_check) > 300 or notify_critcal_battery then
-						last_battery_check = os.time()
-						notify_critcal_battery = false
-						show_battery_warning()
-					end
-				 
-				elseif battery_percentage > 10 and battery_percentage < 20 then
-
-					icon_name = icon_name .. '-' .. '10'
-
-				elseif battery_percentage >= 20 and battery_percentage < 30 then
-
-					icon_name = icon_name .. '-' .. '20'
-
-				elseif battery_percentage >= 30 and battery_percentage < 50 then
-
-					icon_name = icon_name .. '-' .. '30'
-
-				elseif battery_percentage >= 50 and battery_percentage < 60 then
-
-					icon_name = icon_name .. '-' .. '50'
-
-				elseif battery_percentage >= 60 and battery_percentage < 80 then
-
-					icon_name = icon_name .. '-' .. '60'
-
-				elseif battery_percentage >= 80 and battery_percentage < 90 then
-
-					icon_name = icon_name .. '-' .. '80'
-
-				elseif battery_percentage >= 90 and battery_percentage < 100 then
-
-					icon_name = icon_name .. '-' .. '90'
-
-				elseif battery_percentage == 100 then
-
-					icon_name = icon_name .. '-' .. status .. battery_percentage
+		if status:match('discharging') then
+			if battery_percentage >= 0 and battery_percentage < 10 then
+				icon_name = icon_name .. '-' .. 'alert-red'
+				if os.difftime(os.time(), last_battery_check) > 300 or notify_critcal_battery then
+					last_battery_check = os.time()
+					notify_critcal_battery = false
+					show_battery_warning()
 				end
-
-			elseif status:match('charging') or status:match('fully') then
-
-				if battery_percentage > 0 and battery_percentage < 20 then
-
-					icon_name = icon_name .. '-' .. status .. '-' .. '10'
-
-				elseif battery_percentage >= 20 and battery_percentage < 30 then
-
-					icon_name = icon_name .. '-' .. status .. '-' .. '20'
-
-				elseif battery_percentage >= 30 and battery_percentage < 50 then
-
-					icon_name = icon_name .. '-' .. status .. '-' .. '30'
-
-				elseif battery_percentage >= 50 and battery_percentage < 60 then
-
-					icon_name = icon_name .. '-' .. status .. '-' .. '50'
-
-				elseif battery_percentage >= 60 and battery_percentage < 80 then
-
-					icon_name = icon_name .. '-' .. status .. '-' .. '60'
-
-				elseif battery_percentage >= 80 and battery_percentage < 90 then
-
-					icon_name = icon_name .. '-' .. status .. '-' .. '80'
-
-				elseif battery_percentage >= 90 and battery_percentage < 100 then
-
-					icon_name = icon_name .. '-' .. status .. '-' .. '90'
-
-				elseif battery_percentage == 100 then
-
-					icon_name = icon_name .. '-' .. status
-				end
-
+			elseif battery_percentage > 10 and battery_percentage < 20 then
+				icon_name = icon_name .. '-' .. '10'
+			elseif battery_percentage >= 20 and battery_percentage < 30 then
+				icon_name = icon_name .. '-' .. '20'
+			elseif battery_percentage >= 30 and battery_percentage < 50 then
+				icon_name = icon_name .. '-' .. '30'
+			elseif battery_percentage >= 50 and battery_percentage < 60 then
+				icon_name = icon_name .. '-' .. '50'
+			elseif battery_percentage >= 60 and battery_percentage < 80 then
+				icon_name = icon_name .. '-' .. '60'
+			elseif battery_percentage >= 80 and battery_percentage < 90 then
+				icon_name = icon_name .. '-' .. '80'
+			elseif battery_percentage >= 90 and battery_percentage < 100 then
+				icon_name = icon_name .. '-' .. '90'
+			elseif battery_percentage == 100 then
+				icon_name = icon_name .. '-' .. status .. battery_percentage
 			end
-
-			-- Debugger ;)
-			-- naughty.notification({message=widget_icon_dir .. icon_name .. '.svg'})
-
-			battery_imagebox.icon:set_image(gears.surface.load(widget_icon_dir .. icon_name .. '.svg'))
-
-			collectgarbage('collect')
-		end)
-	end
-
-	-- Watch status if charging, discharging, fully-charged
-	watch(check_status_cmd, config.battery_timeout, function(widget, stdout)
-
-		-- If no output or battery detected
-		if not stdout:match('%W') then
-
-			battery_widget.spacing = dpi(0)
-			battery_percentage_text.visible = false
-
-			battery_tooltip:set_text('No battery detected!')
-			battery_imagebox.icon:set_image(gears.surface.load(widget_icon_dir .. 'battery-unknown' .. '.svg'))
-			
-			return
-		
+		elseif status:match('charging') or status:match('fully') then
+			if battery_percentage > 0 and battery_percentage < 20 then
+				icon_name = icon_name .. '-' .. status .. '-' .. '10'
+			elseif battery_percentage >= 20 and battery_percentage < 30 then
+				icon_name = icon_name .. '-' .. status .. '-' .. '20'
+			elseif battery_percentage >= 30 and battery_percentage < 50 then
+				icon_name = icon_name .. '-' .. status .. '-' .. '30'
+			elseif battery_percentage >= 50 and battery_percentage < 60 then
+				icon_name = icon_name .. '-' .. status .. '-' .. '50'
+			elseif battery_percentage >= 60 and battery_percentage < 80 then
+				icon_name = icon_name .. '-' .. status .. '-' .. '60'
+			elseif battery_percentage >= 80 and battery_percentage < 90 then
+				icon_name = icon_name .. '-' .. status .. '-' .. '80'
+			elseif battery_percentage >= 90 and battery_percentage < 100 then
+				icon_name = icon_name .. '-' .. status .. '-' .. '90'
+			elseif battery_percentage == 100 then
+				icon_name = icon_name .. '-' .. status
+			end
 		end
 
-		update_battery(stdout)
+		battery_imagebox.icon:set_image(gears.surface.load(widget_icon_dir .. icon_name .. '.svg'))
 
-	end)
+		collectgarbage('collect')
+	end
 
+	gears.timer {
+		timeout   = config.battery_timeout,
+		call_now  = true,
+		autostart = true,
+		callback  = function()
+			local status = file.string("/sys/class/power_supply/BAT0/status")
+			-- If no output or battery detected
+			if status == "" then
+				battery_widget.spacing = dpi(0)
+				battery_percentage_text.visible = false
+				battery_tooltip:set_text('No battery detected!')
+				battery_imagebox.icon:set_image(gears.surface.load(widget_icon_dir .. 'battery-unknown' .. '.svg'))
+				return
+			end
+			update_battery(status)
+		end
+	}
 	return battery_button
-
-
 end
-
-
 return return_button
