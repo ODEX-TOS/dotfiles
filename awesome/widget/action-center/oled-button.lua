@@ -78,13 +78,13 @@ end
 local function toggle_oled()
   if(mode == true) then
     _G.oled = true
-    awful.spawn([[bash -c "echo on > ~/.cache/oled"]])
+    awful.spawn([[sh -c "echo on > ~/.cache/oled"]])
     awful.spawn("notify-send 'Using OLED brightness mode'")
     mode = false
     update_icon()
   else
     _G.oled = false
-    awful.spawn([[bash -c "echo off > ~/.cache/oled"]])
+    awful.spawn([[sh -c "echo off > ~/.cache/oled"]])
     awful.spawn("notify-send 'Using Backlight brightness mode'")
     mode = true
     update_icon()

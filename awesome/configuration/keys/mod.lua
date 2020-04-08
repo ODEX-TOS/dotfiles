@@ -23,7 +23,9 @@
 --SOFTWARE.
 ]]
 
+local config = require('parser')(os.getenv('HOME') .. "/.config/tos/keys.conf")
+
 return {
-    modKey = 'Mod4',
+    modKey = config["mod"] or 'Mod4',
     altKey = 'Mod1'
 }

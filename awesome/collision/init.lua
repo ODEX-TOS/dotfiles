@@ -29,6 +29,7 @@ local util         = require( "awful.util"     )
 local awful        = require( "awful"          )
 local glib         = require( "lgi"            ).GLib
 local col_utils    = require( "collision.util" )
+local modkey          = require( "configuration.keys.mod" ).modKey
 local unpack = unpack or table.unpack -- luacheck: globals unpack (compatibility with Lua 5.1)
 local module = {
   _focus  = require( "collision.focus" ),
@@ -103,12 +104,12 @@ local function start_loop(is_swap,is_max)
       return #mod > 0
     elseif key == "Control_L" or key == "Control_R" then
       is_max = event == "press"
-      return #mod > 0 and awful.util.table.hasitem(mod,"Mod4") or exit_loop()
+      return #mod > 0 and awful.util.table.hasitem(mod,modkey) or exit_loop()
     elseif key == "Alt_L" or key == "Alt_R" then
       exit_callback[current_mode]()
       current_mode = event == "press" and "resize" or "focus"
       start_callback[current_mode](mod,key,event,k,is_swap,is_max)
-      return #mod > 0 and awful.util.table.hasitem(mod,"Mod4") or exit_loop()
+      return #mod > 0 and awful.util.table.hasitem(mod,modkey) or exit_loop()
     end
 
     return exit_loop()
@@ -180,19 +181,19 @@ local function new(k)
   glib.idle_add(glib.PRIORITY_DEFAULT_IDLE, function()
     for k,v in pairs(keys) do
       for _,key_name in ipairs(v) do
-        aw[#aw+1] = awful.key({ "Mod4",                              }, key_name, function () module.focus (k          ) end,
+        aw[#aw+1] = awful.key({ modkey,                              }, key_name, function () module.focus (k          ) end,
                               { description = "Change focus to the "..key_name, group = "Collision" })
-        aw[#aw+1] = awful.key({ "Mod4", "Mod1"                       }, key_name, function () module.resize(k          ) end,
+        aw[#aw+1] = awful.key({ modkey, "Mod1"                       }, key_name, function () module.resize(k          ) end,
                               { description = "Resize to the "..key_name, group = "Collision" })
-        aw[#aw+1] = awful.key({ "Mod4", "Shift"                      }, key_name, function () module.move  (k          ) end,
+        aw[#aw+1] = awful.key({ modkey, "Shift"                      }, key_name, function () module.move  (k          ) end,
                               { description = "Move to the "..key_name, group = "Collision" })
-        aw[#aw+1] = awful.key({ "Mod4", "Shift",   "Control"         }, key_name, function () module.move  (k,nil ,true) end,
+        aw[#aw+1] = awful.key({ modkey, "Shift",   "Control"         }, key_name, function () module.move  (k,nil ,true) end,
                               { description = "", group = "Collision" })
-        aw[#aw+1] = awful.key({ "Mod4",            "Control"         }, key_name, function () module.focus (k,nil ,true) end,
+        aw[#aw+1] = awful.key({ modkey,            "Control"         }, key_name, function () module.focus (k,nil ,true) end,
                               { description = "Change floating focus to the "..key_name, group = "Collision" })
-        aw[#aw+1] = awful.key({ "Mod4", "Mod1" ,   "Control"         }, key_name, function () module.screen(k          ) end,
+        aw[#aw+1] = awful.key({ modkey, "Mod1" ,   "Control"         }, key_name, function () module.screen(k          ) end,
                               { description = "Change screen to the "..key_name, group = "Collision" })
-        aw[#aw+1] = awful.key({ "Mod1", "Shift", "Control", "Mod4" }, key_name, function () module.screen(k,true     ) end,
+        aw[#aw+1] = awful.key({ "Mod1", "Shift", "Control", modkey }, key_name, function () module.screen(k,true     ) end,
                               { description = "Move tag screen to the "..key_name, group = "Collision" })
         if k == "left" or k =="right" then -- Conflict with my text editor, so I say no
           aw[#aw+1] = awful.key({ "Mod1",          "Control"         }, key_name, function () module.tag   (k,nil ,true) end,
