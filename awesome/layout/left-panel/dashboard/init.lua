@@ -42,7 +42,7 @@ return function(_, panel)
       widget = mat_icon
     },
     wibox.widget {
-      text = 'Web search',
+      text = 'Global search',
       font = 'Iosevka Regular 12',
       widget = wibox.widget.textbox,
       align = center
