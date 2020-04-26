@@ -3,7 +3,20 @@ function file_exists(file)
     local f = io.open(file, "rb")
     if f then f:close() end
     return f ~= nil
-  end
+end
+
+local function osExecute(cmd)
+  local handle     = assert(io.popen(cmd, 'r'))
+  local commandOutput  = assert(handle:read('*a'))
+  local returnTable    = {handle:close()}
+  return commandOutput,returnTable[3]            -- rc[3] contains returnCode
+end
+
+function dir_exists(dir)
+  if type( dir ) ~= "string" then return false end
+  local response, value = osExecute("cd " .. dir)
+  return value == 0
+end
   
 -- get all lines from a file, returns an empty 
 -- list/table if the file does not exist
@@ -51,5 +64,6 @@ return {
     log = log,
     lines = lines_from,
     string = getString,
-    exists = file_exists
+    exists = file_exists,
+    dir_exists = dir_exists
 }

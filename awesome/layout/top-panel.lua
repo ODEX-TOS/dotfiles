@@ -31,6 +31,7 @@ local gears = require('gears')
 local clickable_container = require('widget.material.clickable-container')
 local mat_icon_button = require('widget.material.icon-button')
 local mat_icon = require('widget.material.icon')
+local hardware = require('helper.hardware-check')
 
 local dpi = require('beautiful').xresources.apply_dpi
 
@@ -55,6 +56,17 @@ local function rounded_shape(size, partial)
                  gears.shape.rounded_rect(cr, width, height, size)
              end
   end
+end
+
+local function show_widget_or_default(widget, show)
+  if show then
+    return widget
+  end
+  return wibox.widget {
+		text = '',
+		visible = false,
+    widget = wibox.widget.textbox
+  }
 end
 
 -- Alternative to naughty.notify - tooltip. You can compare both and choose the preferred one
@@ -188,9 +200,9 @@ local TopPanel = function(s, offset)
       -- System tray and widgets
       --wibox.container.margin(systray, dpi(14), dpi(14)),
       wibox.container.margin(s.systray, dpi(14), dpi(0), dpi(4), dpi(4)),
-      require('widget.battery')(),
-      require('widget.bluetooth'),
-      require('widget.wifi'),
+      show_widget_or_default(require('widget.battery')(), hardware.hasBattery()),
+      show_widget_or_default(require('widget.bluetooth'), hardware.hasBluetooth()),
+      show_widget_or_default(require('widget.wifi'), hardware.hasWifi()),
       require('widget.package-updater'),
       require('widget.music'), --only add this when the data can be extracted from spotify
       require('widget.about'),
