@@ -32,7 +32,7 @@ function set-screen {
 }
 
 if [[ "$1" == "" ]]; then
-    val=$(printf "0.25\n0.5\n0.75\n1\n1.25\n1.5\n2\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
+    val=$(printf "0.25 (Very Big)\n0.5 (Big)\n0.75 (Medium)\n1 (Normal)\n1.25 (Small)\n1.5 (Tiny)\n2 (Very Tiny)\n" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi | sed -r 's/\s+.*$//') # get the requested dpi
     if [[ ! "$val" == "" ]]; then # only set the screen if the user selected a option
         original=$(grep "scale=" ~/.config/tos/theme | head -n1 | cut -d " " -f2)
         # set scaling to default if it doesn't exist
