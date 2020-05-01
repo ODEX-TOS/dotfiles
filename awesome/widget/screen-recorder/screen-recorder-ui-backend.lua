@@ -296,7 +296,6 @@ local settings_updater = awful.keygrabber {
 	end
 }
 
-
 -- Textboxes
 
 
@@ -455,6 +454,19 @@ sr_close_button:buttons(
 	)
 )
 
+local ui_open = awful.keygrabber {
+	auto_start          = true,
+	stop_event          = 'release',
+	keyreleased_callback = function(self, mod, key, command)
+		if key == 'Escape' then
+			self:stop()
+			reset_textbox()
+			screen_rec_close()
+		end
+	end
+}
+
+
 
 -- Right click to exit
 local screen_close_on_rmb = function(widget)
@@ -491,6 +503,9 @@ sr_toggle_button:buttons(
 				screen_close_on_rmb(sr_screen)
 
 				sr_screen.visible = not sr_screen.visible
+				if sr_screen.visible then
+					ui_open:start()
+				end
 			end
 		)
 	)
@@ -499,6 +514,8 @@ sr_toggle_button:buttons(
 -- Start Recording
 
 local sr_recording_start = function()
+
+	ui_open:stop()
 	
 	status_countdown = false
 	status_recording = true
