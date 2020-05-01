@@ -33,38 +33,7 @@ local icons = require('theme.icons')
 local TagList = require('widget.tag-list')
 local clickable_container = require('widget.material.clickable-container')
 
-return function(screen, panel, action_bar_width)
-
-  local menu_icon =
-    wibox.widget {
-    icon = icons.logo,
-    size = dpi(40),
-    widget = mat_icon
-  }
-
-  local home_button =
-    wibox.widget {
-    wibox.widget {
-      menu_icon,
-      widget = clickable_container
-    },
-    bg = beautiful.background.hue_800 .. '99', -- beautiful.primary.hue_500,
-    widget = wibox.container.background
-  }
-
-  home_button:buttons(
-    gears.table.join(
-      awful.button(
-        {},
-        1,
-        nil,
-        function()
-          panel:toggle()
-        end
-      )
-    )
-  )
-
+return function(screen, action_bar_width)
 
 -- Create an imagebox widget which will contains an icon indicating which layout we're using.
 -- We need one layoutbox per screen.
@@ -105,30 +74,16 @@ local LayoutBox = function(s)
   return layoutBox
 end
 
-  panel:connect_signal(
-    'opened',
-    function()
-      menu_icon.icon = icons.close
-      _G.menuopened = true
-    end
-  )
-
-  panel:connect_signal(
-    'closed',
-    function()
-      menu_icon.icon = icons.logo
-      _G.menuopened = false
-    end
-  )
-
   return wibox.widget {
     id = 'action_bar',
-    layout = wibox.layout.align.vertical,
-    forced_width = action_bar_width,
+    layout = wibox.layout.align.horizontal,
+    forced_height = action_bar_width,
+    -- left widget
+    expand = "none",
+    require('widget.control-center'),
     {
-      -- Left widgets
-      layout = wibox.layout.fixed.vertical,
-      home_button,
+      -- middle widgets
+      layout = wibox.layout.align.horizontal,
       -- Create a taglist widget
       TagList(screen),
       require("widget.xdg-folders"),
@@ -140,12 +95,11 @@ end
             }, ]]--
     },
     --s.mytasklist, -- Middle widget
-    nil,
+    --nil,
     {
       -- Right widgets
-      layout = wibox.layout.fixed.vertical,
+      layout = wibox.layout.fixed.horizontal,
       LayoutBox(s)
-
     }
   }
 end

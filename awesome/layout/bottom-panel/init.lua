@@ -22,56 +22,39 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-local wibox = require('wibox')
+
+local awful = require('awful')
 local beautiful = require('beautiful')
+local wibox = require('wibox')
+local apps = require('configuration.apps')
+local dpi = require('beautiful').xresources.apply_dpi
 
-function build(widget)
-	local container =
-		wibox.widget {
-		widget,
-		widget = wibox.container.background
-	}
-	local old_cursor, old_wibox
+local bottom_panel = function(screen)
+  local action_bar_height = dpi(45) -- 48
 
-	container:connect_signal(
-		'mouse::enter',
-		function()
-			container.bg = beautiful.groups_bg
-			-- Hm, no idea how to get the wibox from this signal's arguments...
-			local w = mouse.current_wibox
-			if w then
-				old_cursor, old_wibox = w.cursor, w
-				w.cursor = 'hand1'
-			end
-		end
-	)
+  local panel =
+    wibox {
+    screen = screen,
+    height = action_bar_height,
+    width = screen.geometry.width,
+    x = 0,
+    y = (screen.geometry.y + screen.geometry.height) - action_bar_height,
+    ontop = true,
+    bg = beautiful.background.hue_800,
+    fg = beautiful.fg_normal
+  }
 
-	container:connect_signal(
-		'mouse::leave',
-		function()
-			container.bg = beautiful.transparent
-			if old_wibox then
-				old_wibox.cursor = old_cursor
-				old_wibox = nil
-			end
-		end
-	)
+  panel:struts(
+    {
+      bottom = action_bar_height
+    }
+  )
 
-	container:connect_signal(
-		'button::press',
-		function()
-			container.bg = beautiful.groups_title_bg
-		end
-	)
-
-	container:connect_signal(
-		'button::release',
-		function()
-			container.bg = beautiful.groups_bg
-		end
-	)
-
-	return container
+  panel:setup {
+    layout = wibox.layout.align.vertical,
+    require('layout.bottom-panel.action-bar')(screen, action_bar_height)
+  }
+  return panel
 end
 
-return build
+return bottom_panel

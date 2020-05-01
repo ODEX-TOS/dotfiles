@@ -179,24 +179,21 @@ local awesome_overrides =
   -- Taglist
   taglist_occupied = color(config["taglist_occupied"]) or "#ffffff"
   theme.taglist_bg_empty = theme.background.hue_800 .. '99'
-  theme.taglist_bg_occupied = -- blank theme.background.hue_800
-    'linear:0,0:' ..
+  theme.taglist_bg_occupied = 'linear:0,' ..
     dpi(48) ..
-      ',0:0,' ..
-      taglist_occupied ..
-          ':0.08,' .. taglist_occupied .. ':0.08,' .. theme.background.hue_800 .. '99' .. theme.background.hue_800
-  theme.taglist_bg_urgent =
-    'linear:0,0:' ..
+    ':0,0:0,' ..
+    taglist_occupied ..
+    ':0.11,' .. taglist_occupied .. ':0.11,' .. theme.background.hue_800 .. '99' .. theme.background.hue_800
+  theme.taglist_bg_urgent = 'linear:0,' ..
     dpi(48) ..
-      ',0:0,' ..
-        theme.accent.hue_500 ..
-          ':0.08,' .. theme.accent.hue_500 .. ':0.08,' .. theme.background.hue_800 .. ':1,' .. theme.background.hue_800
-  theme.taglist_bg_focus =
-    'linear:0,0:' ..
+    ':0,0:0,' ..
+    theme.accent.hue_500 ..
+    ':0.11,' .. theme.accent.hue_500 .. ':0.11,' .. theme.background.hue_800 .. ':1,' .. theme.background.hue_800
+  theme.taglist_bg_focus = 'linear:0,' ..
     dpi(48) ..
-      ',0:0,' ..
-        theme.primary.hue_500 ..
-          ':0.08,' .. theme.primary.hue_500 .. ':0.08,' .. theme.background.hue_800 .. ':1,' --[[':1,']] .. theme.background.hue_800
+    ':0,0:0,' ..
+    theme.primary.hue_500 ..
+    ':0.11,' .. theme.primary.hue_500 .. ':0.11,' .. theme.background.hue_800 .. ':1,' --[[':1,']] .. theme.background.hue_800
 
   -- Tasklist
 

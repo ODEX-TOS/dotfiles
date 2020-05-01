@@ -36,14 +36,14 @@ local PATH_TO_ICONS = '/etc/xdg/awesome/widget/xdg-folders/icons/'
 
 local separator =  wibox.widget
   {
-    orientation = 'horizontal',
-    forced_height = dpi(1),
+    orientation = 'vertical',
+    forced_width = dpi(1),
     opacity = 0.20,
     widget = wibox.widget.separator
   }
 
 return wibox.widget {
-  layout = wibox.layout.align.vertical,
+  layout = wibox.layout.align.horizontal,
   {
     separator,
     require("widget.xdg-folders.home"),
@@ -53,7 +53,7 @@ return wibox.widget {
     -- require("widget.xdg-folders.videos"),
     separator,
     require("widget.xdg-folders.trash"),
-    layout = wibox.layout.fixed.vertical,
+    layout = wibox.layout.fixed.horizontal,
 
   },
 

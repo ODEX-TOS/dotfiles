@@ -24,59 +24,62 @@
 ]]
 
 local awful = require('awful')
-local bottom_panel = require('layout.bottom-panel')
-local top_panel = require('layout.top-panel')
+local wibox = require('wibox')
+local gears = require('gears')
+local beautiful = require('beautiful')
+local icons = require('theme.icons')
+local mat_icon = require('widget.material.icon')
 
--- Create a wibox for each screen and add it
-awful.screen.connect_for_each_screen(
-  function(s)
-    if s.index == 1 then
-      -- Create the bottom_panel
-      s.bottom_panel = bottom_panel(s)
-      -- Create the Top bar
-      s.top_panel = top_panel(s, false)
-    else
-      -- Create the Top bar
-      s.top_panel = top_panel(s, false)
+
+local apps = require('configuration.apps')
+local dpi = require('beautiful').xresources.apply_dpi
+local clickable_container = require('widget.material.clickable-container')
+
+-- Load panel rules, it will create panel for each screen
+require('widget.control-center.panel-rules')
+
+local menu_icon = wibox.widget {
+  icon = icons.logo,
+  size = dpi(40),
+  widget = mat_icon
+}
+
+local home_button = wibox.widget {
+  wibox.widget {
+    menu_icon,
+    widget = clickable_container
+  },
+  bg = beautiful.background.hue_800 .. '99', -- beautiful.primary.hue_500,
+  widget = wibox.container.background
+}
+
+home_button:buttons(
+gears.table.join(
+  awful.button(
+    {},
+    1,
+    nil,
+    function()
+      _G.screen.primary.left_panel:toggle()
     end
+  )
+)
+)
+
+_G.screen.primary.left_panel:connect_signal(
+  'opened',
+  function()
+    menu_icon.icon = icons.close
+    _G.menuopened = true
   end
 )
 
--- Hide bars when app go fullscreen
-function updateBarsVisibility()
-  for s in screen do
-    if s.selected_tag then
-      local fullscreen = s.selected_tag.fullscreenMode
-      -- Order matter here for shadow
-      s.top_panel.visible = not fullscreen
-      s.bottom_panel.visible = not fullscreen
-    end
-  end
-end
-
-_G.tag.connect_signal(
-  'property::selected',
-  function(t)
-    updateBarsVisibility()
+_G.screen.primary.left_panel:connect_signal(
+  'closed',
+  function()
+    menu_icon.icon = icons.logo
+    _G.menuopened = false
   end
 )
 
-_G.client.connect_signal(
-  'property::fullscreen',
-  function(c)
-    if c.first_tag then
-        c.first_tag.fullscreenMode = c.fullscreen
-    end
-    updateBarsVisibility()
-  end
-)
-
-_G.client.connect_signal(
-  'unmanage',
-  function(c)
-    if c.fullscreen then
-      c.screen.selected_tag.fullscreenMode = false
-      updateBarsVisibility()
-    end
-  end
-)
+return home_button
