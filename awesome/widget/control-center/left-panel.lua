@@ -371,7 +371,7 @@ local bottomSeparator = wibox.widget {
         },
         separator,
         require('widget.control-center.dashboard.quick-settings'),
-        require('widget.control-center.dashboard.hardware-monitor'),
+        require('widget.control-center.dashboard.hardware-monitor')(screen),
         require('widget.control-center.dashboard.action-center'),
         separator,
         layout = wibox.layout.fixed.vertical,

@@ -28,6 +28,8 @@ local gears = require('gears')
 
 local mat_list_item = require('widget.material.list-item')
 
+function build(screen)
+
 local hardwareTitle = wibox.widget
 {
   text = 'Hardware monitor',
@@ -42,8 +44,8 @@ local cpu = require('widget.cpu.cpu-meter')
 local ram = require('widget.ram.ram-meter')
 local temp = require('widget.temperature.temperature-meter')
 local drive = require('widget.harddrive.harddrive-meter')
-local network_up = require('widget.network.network-meter')(true)
-local network_down = require('widget.network.network-meter')(false)
+local network_up = require('widget.network.network-meter')(true, screen)
+local network_down = require('widget.network.network-meter')(false, screen)
 
 return wibox.widget {
   spacing = 1,
@@ -175,3 +177,6 @@ return wibox.widget {
     widget = mat_list_item,
   },
 }
+end
+
+return build

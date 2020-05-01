@@ -36,12 +36,8 @@ local config = require('config')
 local biggest_upload = 1
 local biggest_download = 1
 
-local slider_up =
-  wibox.widget {
-  read_only = true,
-  forced_width = dpi(210),
-  widget = mat_slider
-}
+
+
 
 local value_up = wibox.widget{
   markup = '...',
@@ -49,13 +45,6 @@ local value_up = wibox.widget{
   valign = 'center',
   font = 'SFNS Display 14',
   widget = wibox.widget.textbox
-}
-
-local slider_down =
-  wibox.widget {
-  read_only = true,
-  forced_width = dpi(210),
-  widget = mat_slider
 }
 
 local value_down = wibox.widget{
@@ -80,10 +69,10 @@ watch(
       if upload_num > biggest_upload then
         biggest_upload = upload_num
       end
-      slider_up:set_value((upload_num / biggest_upload) * 100)
+      network_slider_up:set_value((upload_num / biggest_upload) * 100)
     else
       upload_num = tonumber(upload_text:match('%S+')) / 1000
-      slider_up:set_value((upload_num / biggest_upload) * 100)
+      network_slider_up:set_value((upload_num / biggest_upload) * 100)
     end
 
     if download_text:match('M') then
@@ -91,52 +80,68 @@ watch(
       if download_num > biggest_download then
         biggest_download = download_num
       end
-      slider_down:set_value((download_num / biggest_download) * 100)
+      network_slider_down:set_value((download_num / biggest_download) * 100)
     else
       download_num = tonumber(download_text:match('%S+')) / 1000
-      slider_down:set_value((download_num / biggest_download) * 100)
+      network_slider_down:set_value((download_num / biggest_download) * 100)
     end
 
     collectgarbage('collect')
   end
 )
 
-local network_meter_up =
-wibox.widget {
-  wibox.widget {
-    icon = icons.upload,
-    size = dpi(24),
-    widget = mat_icon
-  },
-  wibox.widget {
-    slider_up,
-    wibox.container.margin(value_up, dpi(1), dpi(0), dpi(10), dpi(10)),
-    spacing = dpi(10),
-    layout  = wibox.layout.fixed.horizontal
-  },
-  widget = mat_list_item
-}
 
-local network_meter_down =
-wibox.widget {
-  wibox.widget {
-    icon = icons.download,
-    size = dpi(24),
-    widget = mat_icon
-  },
-  wibox.widget {
-    slider_down,
-    wibox.container.margin(value_down, dpi(1), dpi(0), dpi(10), dpi(10)),
-    spacing = dpi(10),
-    layout  = wibox.layout.fixed.horizontal
-  },
-  widget = mat_list_item
-}
+function up(screen)
+  network_slider_up = wibox.widget {
+    read_only = true,
+    forced_width = screen.geometry.width * 0.13,
+    widget = mat_slider
+  }
+  network_meter_up = wibox.widget {
+    wibox.widget {
+      icon = icons.upload,
+      size = dpi(24),
+      widget = mat_icon
+    },
+    wibox.widget {
+      network_slider_up,
+      wibox.container.margin(value_up, dpi(1), dpi(0), dpi(10), dpi(10)),
+      spacing = dpi(10),
+      layout  = wibox.layout.fixed.horizontal
+    },
+    widget = mat_list_item
+  }
+  return network_meter_up
+end
 
-
-return function(bIsUpload)
-  if bIsUpload then
-    return network_meter_up
-  end
+function down(screen)
+  network_slider_down =
+    wibox.widget {
+    read_only = true,
+    forced_width = screen.geometry.width * 0.13,
+    widget = mat_slider
+  }
+  network_meter_down =
+  wibox.widget {
+    wibox.widget {
+      icon = icons.download,
+      size = dpi(24),
+      widget = mat_icon
+    },
+    wibox.widget {
+      network_slider_down,
+      wibox.container.margin(value_down, dpi(1), dpi(0), dpi(10), dpi(10)),
+      spacing = dpi(10),
+      layout  = wibox.layout.fixed.horizontal
+    },
+    widget = mat_list_item
+  }
   return network_meter_down
+end
+
+return function(bIsUpload, screen)
+  if bIsUpload then
+    return up(screen)
+  end
+  return down(screen)
 end
