@@ -34,13 +34,13 @@ local dpi = require('beautiful').xresources.apply_dpi
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/xdg-folders/icons/'
 
 
-local separator =  wibox.widget
+local separator =  wibox.container.margin(wibox.widget
   {
     orientation = 'vertical',
     forced_width = dpi(1),
     opacity = 0.20,
     widget = wibox.widget.separator
-  }
+  }, dpi(10), dpi(10), 0, 0)
 
 return wibox.widget {
   layout = wibox.layout.align.horizontal,
