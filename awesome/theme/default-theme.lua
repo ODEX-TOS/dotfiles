@@ -148,6 +148,12 @@ local awesome_overrides =
 	theme.notification_spacing = dpi(0)
 	theme.notification_icon_resize_strategy = 'center'
   theme.notification_icon_size = dpi(32)
+
+  -- UI Groups
+
+	theme.groups_title_bg = theme.bg_modal_title
+	theme.groups_bg = theme.bg_modal
+	theme.groups_radius = dpi(9)
   
   -- Menu
 
