@@ -24,9 +24,9 @@
 # SOFTWARE.
 
 # network ssid's
-networks=$(nmcli d wifi list | awk '$1 !~ /IN-USE|*/{print $0}' | grep -Eo '^.* Infra' | sed 's/Infra//' | awk '{print "\""$0"\""}' | sed -r -e 's/^\"\s+/\"/g' -e 's/\s*\"//g') # get all screens
+networks=$(nmcli d wifi list | awk '$1 !~ /IN-USE|*/{print $0}' | grep -Eo '^.* Infra' | sed 's/Infra//' | sed -r 's/([0-9A-F]{2}:){5}[0-9A-F]{2}\s+//' | awk '{print "\""$0"\""}' | sed -r -e 's/^\"\s+/\"/g' -e 's/\s*\"//g' | sort | uniq) # get all screens
 
-val=$(printf "%s" "$networks" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
+val=$(printf "%s" "$networks" | rofi -dmenu -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested network
 
 if [[ "$val" == "" ]]; then
         exit 1 # user aborted
