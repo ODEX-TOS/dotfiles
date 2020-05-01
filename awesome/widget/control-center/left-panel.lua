@@ -101,6 +101,21 @@ local left_panel_func = function(screen)
     left_panel:emit_signal('closed')
   end
 
+  local action_grabber = awful.keygrabber {
+    keybindings = {
+        awful.key {
+            modifiers = {},
+            key       = 'Escape',
+            on_press  = function()
+              left_panel:close()
+            end
+        },
+    },
+    -- Note that it is using the key name and not the modifier name.
+    stop_key           = 'Escape',
+    stop_event         = 'release',
+  }
+
   -- Hide this left_panel when app dashboard is called.
   function left_panel:HideDashboard()
     closeleft_panel()

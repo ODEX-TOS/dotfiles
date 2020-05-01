@@ -38,20 +38,17 @@ local clickable_container = require('widget.material.clickable-container')
 -- Load panel rules, it will create panel for each screen
 require('widget.control-center.panel-rules')
 
-local menu_icon = wibox.widget {
-  icon = icons.logo,
-  size = dpi(40),
-  widget = mat_icon
+local widget =
+  wibox.widget {
+  {
+    id = 'icon',
+    widget = wibox.widget.imagebox,
+    resize = true
+  },
+  layout = wibox.layout.align.horizontal
 }
 
-local home_button = wibox.widget {
-  wibox.widget {
-    menu_icon,
-    widget = clickable_container
-  },
-  bg = beautiful.background.hue_800 .. '99', -- beautiful.primary.hue_500,
-  widget = wibox.container.background
-}
+local home_button = clickable_container(wibox.container.margin(widget, dpi(5), dpi(10), dpi(5), dpi(5)))
 
 home_button:buttons(
 gears.table.join(
@@ -69,7 +66,7 @@ gears.table.join(
 _G.screen.primary.left_panel:connect_signal(
   'opened',
   function()
-    menu_icon.icon = icons.close
+    widget.icon:set_image(icons.close)
     _G.menuopened = true
   end
 )
@@ -77,9 +74,12 @@ _G.screen.primary.left_panel:connect_signal(
 _G.screen.primary.left_panel:connect_signal(
   'closed',
   function()
-    menu_icon.icon = icons.logo
+    widget.icon:set_image(icons.settings)
     _G.menuopened = false
   end
 )
+
+widget.icon:set_image(icons.settings)
+
 
 return home_button

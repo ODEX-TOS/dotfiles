@@ -51,6 +51,7 @@ return function(_, panel)
     clickable = true,
     widget = mat_list_item
   }
+  
 
   search_button:buttons(
     awful.util.table.join(

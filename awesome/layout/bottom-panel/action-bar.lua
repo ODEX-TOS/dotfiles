@@ -80,7 +80,7 @@ end
     forced_height = action_bar_width,
     -- left widget
     expand = "none",
-    require('widget.control-center'),
+    nil,
     {
       -- middle widgets
       layout = wibox.layout.align.horizontal,

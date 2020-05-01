@@ -43,6 +43,7 @@ return {
   --others
   menu = config["menu"] or   lit_dir .. '/menu.svg',
   logo = config["logo"] or  lit_dir .. '/logo.svg',
+  settings = config["settings"] or dir .. '/settings.svg',
   close = config["close"] or  dir .. '/close.svg',
   logout = config["logout"] or  dir .. '/logout.svg',
   sleep = config["sleep"] or  dir .. '/power-sleep.svg',

@@ -189,6 +189,7 @@ local TopPanel = function(s, offset)
     {
       layout = wibox.layout.fixed.horizontal,
       -- Create a taglist widget
+      require('widget.control-center'),
       TaskList(s),
       add_button
     },
