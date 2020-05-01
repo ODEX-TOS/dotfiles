@@ -45,7 +45,7 @@ ruled.notification.connect_signal('request::rules', function()
 		rule       = { urgency = 'critical' },
 		properties = { 
 			font        		= 'SF Pro Text Bold 10',
-			bg 					= '#ff0000', 
+			bg 					= '#ff000099', 
 			fg 					= '#ffffff',
 			margin 				= dpi(16),
 			position 			= 'top_right',
