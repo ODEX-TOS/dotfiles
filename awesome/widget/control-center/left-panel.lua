@@ -34,11 +34,15 @@ local apps = require('configuration.apps')
 local dpi = require('beautiful').xresources.apply_dpi
 local clickable_container = require('widget.material.clickable-container')
 local mat_list_item = require('widget.material.list-item')
+local mat_icon = require('widget.material.icon')
 
 left_panel_visible = false
 
 local left_panel_func = function(screen)
-  local left_panel_width = dpi(450)
+  -- set the panel width equal to the rofi settings
+  -- the rofi width is defined in configuration/rofi/sidebar/rofi.rasi
+  -- under the section window-> width
+  local left_panel_width = screen.geometry.width * 0.25
   local left_panel = wibox {
     ontop = true,
     screen = screen,
