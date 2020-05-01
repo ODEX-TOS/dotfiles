@@ -138,11 +138,19 @@ local globalKeys =
   awful.key(
     {modkey}, 'x',
     function()
-      if require('widget.notification-center') then
+      if  _G.screen.primary.right_panel ~=nil then
         _G.screen.primary.right_panel:toggle()
       end
     end,
   { description = "Open Notification Center", group = "launcher"}),
+  awful.key(
+    {modkey}, 'v',
+    function()
+      if _G.screen.primary.left_panel ~= nil then
+        _G.screen.primary.left_panel:toggle()
+      end
+    end,
+  { description = "Open Control Center", group = "launcher"}),
   --[[
   awful.key(
     {},
