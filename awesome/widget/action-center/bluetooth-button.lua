@@ -156,24 +156,23 @@ local action_name = wibox.widget {
   widget = wibox.widget.textbox
 }
 
--- Heirarchy
-local widget_content = wibox.widget {
-  {
-    action_name,
-    layout = wibox.layout.fixed.horizontal,
-  },
-  nil,
-  {
-    widget_button,
-    layout = wibox.layout.fixed.horizontal,
-  },
-  layout = wibox.layout.align.horizontal,
+
+local content =   wibox.widget {
+  action_name,
+  widget_button,
+  bg = '#ffffff20',
+  shape = gears.shape.rect,
+  widget = wibox.container.background(settingsName),
+  layout = wibox.layout.ratio.horizontal,
+
 }
+content:set_ratio(1, .85)
+
 
 -- Wrapping
 local action_widget =  wibox.widget {
   wibox.widget {
-    widget_content,
+    content,
     widget = mat_list_item
   },
   layout = wibox.layout.fixed.vertical
