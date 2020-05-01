@@ -96,6 +96,7 @@ theme.background = mat_colors[config["background"]] or mat_colors.grey
 theme.primary = loadtheme(theme.primary, config, "primary_")
 theme.accent = loadtheme(theme.accent, config, "accent_")
 theme.background = loadtheme(theme.background, config, "background_")
+theme.text = color(config["text"]) or "#FFFFFF"
 
 local awesome_overrides =
   function(theme)

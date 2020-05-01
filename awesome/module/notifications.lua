@@ -46,7 +46,7 @@ ruled.notification.connect_signal('request::rules', function()
 		properties = { 
 			font        		= 'SF Pro Text Bold 10',
 			bg 					= '#ff000099', 
-			fg 					= '#ffffff',
+			fg 					= beautiful.text,
 			margin 				= dpi(16),
 			position 			= 'top_right',
 			timeout 			= 0,
