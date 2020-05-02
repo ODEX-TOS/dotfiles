@@ -48,13 +48,96 @@ local calculator_screen = wibox.widget {
 --  #       #    # #   ## #    #   #   # #    # #   ## #    # 
 --  #        ####  #    #  ####    #   #  ####  #    #  ####  
 
+-- format integer numbers with delimiters every 3 numbers
+-- eg 123,456 or 12,345 or 345
+local formatInt = function(number, seperator)
+    sign = number:sub(1,1)
+    if (sign == "-") then
+        number = number:sub(2, #number)
+    else
+        sign = ""
+    end
+	local length = #number
+	local out = ""
+	if length < 3 then
+		return number
+	end
+    for i=length-2,0,-3 do
+		if i < 2 then
+            out = string.sub(number, i, i+2) .. out
+        elseif i == 2 then
+            out = string.sub(number, 1, i-1) .. seperator .. string.sub(number, i, i+2) .. out
+		else
+			out = seperator .. string.sub(number, i, i+2) .. out
+		end
+    end
+	return sign .. out
+end
+-- format digits including rational numbers eg 12,345.0607
+local formatDigits = function(number, seperator)
+    local i = 0
+    local out = ""
+    if number:sub(-1) == "." then
+        return formatInt(number:sub(1, #number-1), seperator) .. "."
+    end
+    local sign = number:sub(1,1)
+    if sign == "-" then
+        number = number:sub(2, #number)
+    else
+        sign = ""
+    end
+    for digits in string.gmatch(number, "%d+") do
+        if i == 0 then
+            out = out .. formatInt(digits, seperator)
+        else
+            out = out .. "." .. digits
+        end
+        i = i + 1
+    end 
+    return sign .. out
+end
+
+-- perform calculations that doesn't have a signed number as a beginning
+-- format basic mathematical expressions eg 777,777 * 99,999.03
+-- or 123;456 ^ 2
+local unsignedNumberFormat = function(calculation, seperator)
+    local i = 0
+    local j = 0
+    out = ""
+    for number in string.gmatch(calculation, "%d+%.?%d*") do
+        i = i + 1
+        j = 0
+        out = out .. formatDigits(number,seperator)
+        for opperation in string.gmatch(calculation, "[-%*%+%/%^]") do
+            j = j + 1
+            if(i == j) then
+                out = out .. opperation 
+            end
+        end
+    end
+    return out
+end
+
+-- format basic mathematical expressions eg 777,777 * 99,999.03
+-- or -123,456 ^ 2
+-- can have a - as the first parameter
+local numberFormat = function(calculation, seperator)
+    local sign = ""
+    if(calculation:sub(1,1) == "-") then
+        sign = "-"
+        calculation = calculation:sub(2, #calculation)
+    end
+    return sign .. unsignedNumberFormat(calculation, seperator)
+end
+
+
 
 -- Evaluate
 local calculate = function ()
 
 	local calcu_screen = calculator_screen.calcu_screen
 
-	local string_expression = calcu_screen.text
+	local string_expression = calcu_screen.text:gsub(',', '')
 
 	if string_expression:sub(-1):match("[%+%-%/%*%^%.]") then
 		return
@@ -71,7 +154,7 @@ local calculate = function ()
 	end
 
 	-- Set the answer in textbox
-	calcu_screen:set_text(ans)
+	calcu_screen:set_text(numberFormat(ans, ","))
 
 end
 
@@ -166,6 +249,7 @@ local format_screen = function(value)
 		
 		end
 	end
+	calcu_screen:set_text(numberFormat(calcu_screen.text:gsub(",", ""), ","))
 
 end
 
