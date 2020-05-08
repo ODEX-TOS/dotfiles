@@ -70,7 +70,7 @@ widget_button:buttons(
       nil,
       function()
         if updateAvailable then
-          awful.spawn((os.getenv("TERMINAL") or 'st') .. ' -e tos -Syu')
+          awful.spawn((os.getenv("TERMINAL") or 'st') .. ' -e system-updater')
         else
           awful.spawn(os.getenv("TERMINAL") or 'st')
         end
