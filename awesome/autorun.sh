@@ -51,6 +51,10 @@ if [[ "$(command -v mantablockscreen)" ]]; then
     mantablockscreen -i "$(tos theme list | head -n1)" &
 fi
 
+if [[ "$(command -v psi-notify)" ]]; then
+    pgrep psi-notify &>/dev/null || psi-notify &>/dev/null &
+fi
+
 if grep -q "bluetooth=false" ~/.config/tos/theme; then
         bluetoothctl power off
 fi
