@@ -57,7 +57,7 @@ return {
   },
   -- List of apps to start once on start-up
   run_on_start_up = {
-    'compton --dbus --config ' .. config.getComptonFile(),
+    'picom -b --dbus --experimental-backends --config ' .. config.getComptonFile(),
     'blueman-applet', -- Bluetooth tray icon
     'xfce4-power-manager', -- Power manager
     'xfsettingsd', -- Settings

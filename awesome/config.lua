@@ -48,11 +48,11 @@ config = {
     colors_config = HOME .. "/.config/tos/colors.conf",
     icons_config = HOME .. "/.config/tos/icons.conf",
     getComptonFile = function ()
-        userfile = HOME .. "/.config/compton.conf"
+        userfile = HOME .. "/.config/picom.conf"
         if(file_exists(userfile)) then
             return userfile
         end
-        return filesystem.get_configuration_dir() .. '/configuration/compton.conf '
+        return filesystem.get_configuration_dir() .. '/configuration/picom.conf '
     end,
     aboutText = 'TOS Linux Alpha Edition\nMIT License\n© Meyers Tom 2019 - ' .. os.date("%Y") ..  '\n\nThanks for using our product ♥'
 }
