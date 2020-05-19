@@ -95,7 +95,7 @@ local tags = {
   {
     icon = icon('system-file-manager') or icons.folder,
     type = 'files',
-    defaultApp = 'nemo',
+    defaultApp = 'thunar',
     screen = 1,
     layout = getLayoutPerTag(4)
   },

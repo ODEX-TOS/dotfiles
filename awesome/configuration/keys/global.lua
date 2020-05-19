@@ -62,7 +62,7 @@ local globalKeys =
   awful.key(
     {modkey, "Shift"}, 'e',
     function()
-      awful.spawn("nemo")
+      awful.spawn("thunar")
     end,
     { description = "Open file manager", group = "launcher"}),
 
