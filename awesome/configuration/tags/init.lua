@@ -50,7 +50,13 @@ function getLayoutPerTag(number)
     if item == "2" or item == "tile" then
       return awful.layout.suit.tile
     end
-    if item == "3" or item == "max" then
+    if item == "3" or item == "fair" then
+      return awful.layout.suit.fair
+    end
+    if item == "4" or item == "magnifier" then
+      return awful.layout.suit.magnifier
+    end
+    if item == "5" or item == "max" then
       return awful.layout.suit.max
     end
   else
@@ -64,21 +70,21 @@ local tags = {
     type = 'chrome',
     defaultApp = 'chrome',
     screen = 1,
-    layout = awful.layout.suit.spiral.dwindle
+    layout = getLayoutPerTag(1)
   },
   {
     icon = icon('utilities-terminal') or icons.terminal,
     type = 'terminal',
     defaultApp = 'st',
     screen = 1,
-    layout = awful.layout.suit.spiral.dwindle
+    layout = getLayoutPerTag(2)
   },
   {
     icon = icon('visual-studio-code-insiders') or icons.code,
     type = 'code',
     defaultApp = 'code-insiders',
     screen = 1,
-    layout = awful.layout.suit.spiral.dwindle
+    layout = getLayoutPerTag(3)
   },
  --[[ {
     icon = icons.social,
@@ -91,42 +97,43 @@ local tags = {
     type = 'files',
     defaultApp = 'nemo',
     screen = 1,
-    layout = awful.layout.suit.spiral.dwindle
+    layout = getLayoutPerTag(4)
   },
   {
     icon = icon('deepin-music') or icons.music,
     type = 'music',
     defaultApp = 'spotify',
     screen = 1,
-    layout = awful.layout.suit.spiral.dwindle
+    layout = getLayoutPerTag(5)
   },
   {
     icon = icon('applications-games') or icons.game,
     type = 'game',
     defaultApp = '',
     screen = 1,
-    layout = awful.layout.suit.spiral.dwindle
+    layout = getLayoutPerTag(6)
   },
   {
     icon = icon('gimp') or icons.art,
     type = 'art',
     defaultApp = 'gimp',
     screen = 1,
-    layout = awful.layout.suit.spiral.dwindle
+    layout = getLayoutPerTag(7)
   },
   {
     icon = icon('utilities-system-monitor') or icons.lab,
     type = 'any',
     defaultApp = '',
     screen = 1,
-    layout = awful.layout.suit.spiral.dwindle
+    layout = getLayoutPerTag(8)
   }
 }
 tag.connect_signal("request::default_layouts", function()
   awful.layout.append_default_layouts({
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.floating,
-    awful.layout.suit.tile,
+    awful.layout.suit.fair,
+    awful.layout.suit.magnifier,
     awful.layout.suit.max
   })
 end)

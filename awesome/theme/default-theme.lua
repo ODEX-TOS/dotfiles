@@ -175,6 +175,10 @@ local awesome_overrides =
   theme.layout_tile = theme.icons .. 'layouts/view-quilt.png'
   theme.layout_dwindle = theme.icons .. 'layouts/dwindle.png'
   theme.layout_floating = theme.icons .. 'layouts/floating.png'
+  theme.layout_fairv = theme.icons .. 'layouts/fair.png'
+  theme.layout_magnifier = theme.icons .. 'layouts/magnifier.png'
+
+
 
 
   -- Taglist
