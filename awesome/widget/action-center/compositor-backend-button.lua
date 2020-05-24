@@ -38,7 +38,7 @@ local PATH_TO_ICONS = '/etc/xdg/awesome/widget/action-center/icons/'
 local config = require('config')
 
 
-local cmd = 'grep -F "blur-background-frame = false;" ' .. config.getComptonFile() .."| tr -d '[\\-\\;\\=\\ ]' "
+local cmd = 'grep -F \'"glx";\' ' .. config.getComptonFile() .."| tr -d '[\\-\\;\\=\\ ]' "
 local frameStatus
 local widgetIconName
 
@@ -78,12 +78,13 @@ end
 local frameChecker
 function checkFrame()
   awful.spawn.easy_async_with_shell(cmd, function( stdout )
-    frameChecker = stdout:match('blurbackgroundframefalse')
+    print("Compositor backend: " .. stdout)
+    frameChecker = stdout:match('backend"glx"')
     if frameChecker == nil then
-      frameStatus = true
+      frameStatus = false
       update_icon()
     else
-      frameStatus = false
+      frameStatus = true
       update_icon()
     end
   end)
@@ -91,15 +92,15 @@ end
 
 
 -- Commands that will be executed when I toggle the button
-blurDisable = {
-  'sed -i -e "s/blur-background-frame = true/blur-background-frame = false/g" ' .. config.getComptonFile(),
-  'sleep 1; picom --dbus --experimental-backends --config ' .. config.getComptonFile(),
-  'notify-send "Blur effect disabled"'
+glxDisable = {
+  'sed -i -e \'s/"glx";/"xrender";/g\' ' .. config.getComptonFile(),
+  'picom -b --dbus --experimental-backends --config ' .. config.getComptonFile(),
+  'notify-send "Xrenderer backend enabled"'
 }
-blurEnable = {
-  'sed -i -e "s/blur-background-frame = false/blur-background-frame = true/g" ' .. config.getComptonFile(),
-  'sleep 1; picom --dbus --experimental-backends --config ' .. config.getComptonFile(),
-  'notify-send "Blur effect enabled"'
+glxEnable = {
+  'sed -i -e \'s/"xrender";/"glx";/g\' ' .. config.getComptonFile(),
+  'picom -b --dbus --experimental-backends --config ' .. config.getComptonFile(),
+  'notify-send "GLX effect enabled"'
 }
 
 
@@ -109,6 +110,7 @@ local function run_once(cmd)
   if firstspace then
     findme = cmd:sub(0, firstspace - 1)
   end
+  print("Running command: " .. string.format('pgrep -u $USER -x %s > /dev/null || (%s)', findme, cmd))
   awful.spawn.with_shell(string.format('pgrep -u $USER -x %s > /dev/null || (%s)', findme, cmd))
 end
 
@@ -116,14 +118,14 @@ end
 local function toggle_compositor()
   if(frameStatus == true) then
     awful.spawn.with_shell('kill -9 $(pidof picom)')
-    for _, app in ipairs(blurDisable) do
+    for _, app in ipairs(glxDisable) do
       run_once(app)
     end
     frameStatus = false
     update_icon()
   else
     awful.spawn.with_shell('kill -9 $(pidof picom)')
-    for _, app in ipairs(blurEnable) do
+    for _, app in ipairs(glxEnable) do
       run_once(app)
     end
     frameStatus = true
@@ -150,7 +152,7 @@ compton_button:buttons(
 )
 
 local settingsName = wibox.widget {
-  text = 'Window Effects',
+  text = 'Accelerated graphics composition',
   font = 'Iosevka Regular 10',
   align = 'left',
   widget = wibox.widget.textbox
