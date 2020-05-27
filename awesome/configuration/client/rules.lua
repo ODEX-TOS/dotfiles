@@ -279,6 +279,21 @@ awful.rules.rules = {
       ontop = true
       }
   },
+  -- Polkit
+  -- TODO: Detect the polkit type automatically
+  {
+    rule_any = {class = {'lxpolkit', 'Lxpolkit'}},
+    except_any = { type = { "dialog" } },
+    properties = {
+      floating = true,
+      drawBackdrop = true,
+      shape = function()
+        return function(cr, w, h)
+          gears.shape.rounded_rect(cr, w, h, 12)
+        end
+      end,
+    }
+  },
 },
 
 
