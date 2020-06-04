@@ -32,7 +32,7 @@ local naughty = require('naughty')
     end
 
     function thirdTip()
-        naughty.notify({ app_name = "TOS tutorial!", title="", message = "Try to open a few terminals and see what happens. mod+Enter to open a terminal (windows key) Now click on the icon in the bottom left corner a few times", timeout = 0, position = "bottom_left"}):connect_signal("destroyed", fourthTip)
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "Try to open a few terminals and see what happens. mod+Enter to open a terminal (windows key) Now click on the icon in the bottom right corner a few times", timeout = 0, position = "bottom_left"}):connect_signal("destroyed", fourthTip)
     end
 
     function fourthTip()
@@ -45,7 +45,7 @@ local naughty = require('naughty')
     end
 
     function sixthTip()
-        naughty.notify({ app_name = "TOS tutorial!", title="", message = "Click on the tos logo to access general settings.", timeout = 0, position = "top_left"}):connect_signal("destroyed", seventhTip)
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "Click on the gear logo (top left) to access general settings.", timeout = 0, position = "top_left"}):connect_signal("destroyed", seventhTip)
     end
 
     function seventhTip()
@@ -75,6 +75,6 @@ if f~=nil then
         io.close(f) 
 else 
     require("gears").timer.start_new(3, function()
-        naughty.notify({ app_name = "TOS tutorial!", title="", message = "All the icons on the left represent workspaces", timeout = 0, position = "top_left"}):connect_signal("destroyed", secondTip)    
+        naughty.notify({ app_name = "TOS tutorial!", title="", message = "All the icons on the bottom represent workspaces", timeout = 0, position = "top_left"}):connect_signal("destroyed", secondTip)    
     end)
 end
