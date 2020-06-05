@@ -32,8 +32,9 @@ local awful = require('awful')
 local extract = {}
 -- TODO: get image information from spotify
 local extract_cover = function()
+  -- see https://github.com/altdesktop/playerctl/issues/172 for more info
   local extract_script = [[
-    url=$(playerctl -p spotify metadata mpris:artUrl)
+    url=$(playerctl -p spotify metadata mpris:artUrl | sed "s/open\.spotify\.com/i.scdn.co/")
     if [ "$url" ]; then
       curl -fL "$url" -o /tmp/cover.jpg
     fi
