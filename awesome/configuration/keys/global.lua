@@ -49,7 +49,7 @@ local globalKeys =
     function()
       awful.spawn(apps.default.rofiwindowswitch)
     end,
-    { description = "Open a window switcher", group = "launcher"}),
+    { description = "Open a Window Switcher", group = "launcher"}),
 
   awful.key(
     {modkey}, 'd',
@@ -139,7 +139,8 @@ local globalKeys =
     'l',
     function()
       awful.spawn(apps.default.lock)
-    end
+    end,
+    {description = 'lock the screen', group = 'hotkeys'}
   ),
   awful.key(
     {modkey}, 'x',
@@ -294,7 +295,7 @@ local globalKeys =
         _G.UpdateBrOSD()
       end
     end,
-    {description = '+10%', group = 'hotkeys'}
+    {description = '+10%', group = 'hardware'}
   ),
   awful.key(
     {},
@@ -315,7 +316,7 @@ local globalKeys =
       end
 
     end,
-    {description = '-10%', group = 'hotkeys'}
+    {description = '-10%', group = 'hardware'}
   ), 
   -- ALSA volume control
   awful.key(
@@ -331,7 +332,7 @@ local globalKeys =
         _G.UpdateVolOSD()
       end
     end,
-    {description = 'volume up', group = 'hotkeys'}
+    {description = 'volume up', group = 'hardware'}
   ),
   awful.key(
     {},
@@ -346,7 +347,7 @@ local globalKeys =
         _G.UpdateVolOSD()
       end
     end,
-    {description = 'volume down', group = 'hotkeys'}
+    {description = 'volume down', group = 'hardware'}
   ),
   awful.key(
     {},
@@ -361,7 +362,7 @@ local globalKeys =
         _G.UpdateVolOSD()
       end
     end,
-    {description = 'toggle mute', group = 'hotkeys'}
+    {description = 'toggle mute', group = 'hardware'}
   ),
   awful.key(
     {},
@@ -369,7 +370,7 @@ local globalKeys =
     function()
       print("Pressed Audio Next")
     end,
-    {description = 'toggle mute', group = 'hotkeys'}
+    {description = 'toggle mute', group = 'hardware'}
   ),
   awful.key(
     {},
@@ -378,7 +379,7 @@ local globalKeys =
       _G.exit_screen_show()
 
     end,
-    {description = 'toggle exit screen', group = 'hotkeys'}
+    {description = 'toggle exit screen', group = 'hardware'}
   ),
   awful.key(
     {},
@@ -386,7 +387,7 @@ local globalKeys =
     function()
       _G.exit_screen_show()
     end,
-    {description = 'toggle exit screen', group = 'hotkeys'}
+    {description = 'toggle exit screen', group = 'hardware'}
   ),
   awful.key(
     {},
@@ -403,7 +404,7 @@ local globalKeys =
     function()
       awful.spawn('playerctl play-pause')
     end,
-    {description = 'toggle music', group = 'hotkeys'}
+    {description = 'toggle music', group = 'hardware'}
   ),
   awful.key(
     {},
@@ -411,7 +412,7 @@ local globalKeys =
     function()
       awful.spawn('playerctl play-pause')
     end,
-    {description = 'toggle music', group = 'hotkeys'}
+    {description = 'toggle music', group = 'hardware'}
   ),
   awful.key(
     {},
@@ -419,7 +420,7 @@ local globalKeys =
     function()
       awful.spawn('playerctl previous')
     end,
-    {description = 'go to the previous song', group = 'hotkeys'}
+    {description = 'go to the previous song', group = 'hardware'}
   ),
   awful.key(
     {},
@@ -427,7 +428,7 @@ local globalKeys =
     function()
       awful.spawn('playerctl next')
     end,
-    {description = 'go to the next song', group = 'hotkeys'}
+    {description = 'go to the next song', group = 'hardware'}
   ),
   -- keys for keyboards without xf86 keys
   awful.key(
@@ -436,7 +437,7 @@ local globalKeys =
     function()
       awful.spawn('playerctl play-pause')
     end,
-    {description = 'toggle music', group = 'hotkeys'}
+    {description = 'toggle music', group = 'hardware'}
   ),
   awful.key(
     {modkey},
@@ -444,7 +445,7 @@ local globalKeys =
     function()
       awful.spawn('playerctl previous')
     end,
-    {description = 'go to the previous song', group = 'hotkeys'}
+    {description = 'go to the previous song', group = 'hardware'}
   ),
   awful.key(
     {modkey},
@@ -452,7 +453,7 @@ local globalKeys =
     function()
       awful.spawn('playerctl next')
     end,
-    {description = 'go to the next song', group = 'hotkeys'}
+    {description = 'go to the next song', group = 'hardware'}
   )
 )
 
