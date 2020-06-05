@@ -44,13 +44,19 @@ local globalKeys =
       awful.spawn(apps.default.terminal)
     end,
     { description = "Open Terminal", group = "launcher"}),
+  awful.key(
+    {modkey}, 'f',
+    function()
+      awful.spawn(apps.default.rofiwindowswitch)
+    end,
+    { description = "Open a window switcher", group = "launcher"}),
 
-    awful.key(
-      {modkey}, 'd',
-      function()
-        awful.util.spawn(apps.default.rofiappmenu)
-      end,
-      { description = "Open Rofi", group = "launcher"}),
+  awful.key(
+    {modkey}, 'd',
+    function()
+      awful.util.spawn(apps.default.rofiappmenu)
+    end,
+    { description = "Open Rofi", group = "launcher"}),
 
   awful.key(
     {modkey, "Shift"}, 'w',

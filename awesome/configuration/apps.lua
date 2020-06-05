@@ -50,6 +50,7 @@ return {
     rofi = 'rofi -dpi ' .. screen.primary.dpi .. ' -show "Global Search" -mod "Global Search":'..filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi-spotlight.sh -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
     web = 'rofi -show Search -modi Search:' .. filesystem.get_configuration_dir() .. '/configuration/rofi/search.py' .. ' -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
     rofiappmenu = 'rofi -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/appmenu/drun.rasi',
+    rofiwindowswitch = [[bash /etc/xdg/awesome/application-switch.sh]] .. ' ' .. screen.primary.dpi,
     rofidpimenu = [[bash /etc/xdg/awesome/dpi.sh]],
     rofiwifimenu = [[bash /etc/xdg/awesome/wifi.sh]],
     lock = 'mantablockscreen -sc',
