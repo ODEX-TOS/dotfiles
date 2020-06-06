@@ -36,6 +36,7 @@ local beautiful = require('beautiful')
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/notification-center/icons/'
 local PATH_TO_WIDGET = '/etc/xdg/awesome/widget/notification-center/subwidgets/dont-disturb/'
+local theme = require('theme.icons.dark-light')
 
 dont_disturb = false
 
@@ -60,7 +61,7 @@ local widget =
 local dont_disturb_icon =
   wibox.widget {
   {
-    image = PATH_TO_ICONS .. 'dont-disturb' .. '.svg',
+    image = theme(PATH_TO_ICONS .. 'dont-disturb' .. '.svg'),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -71,10 +72,10 @@ local function update_icon()
   local widgetIconName
   if(dont_disturb == true) then
     widgetIconName = 'toggled-on'
-    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
+    widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '.svg'))
   else
     widgetIconName = 'toggled-off'
-    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
+    widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '.svg'))
   end
 end
 

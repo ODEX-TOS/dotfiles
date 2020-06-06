@@ -26,6 +26,7 @@ local clickable_container = require('widget.material.clickable-container')
 
 local config_dir = gears.filesystem.get_configuration_dir()
 local widget_icon_dir = '/etc/xdg/awesome/widget/calculator/icons/'
+local theme = require('theme.icons.dark-light')
 
 local calculator_screen = wibox.widget {
 	{
@@ -379,7 +380,7 @@ local keygrab_running = false
 local kb_imagebox = wibox.widget {
 	
 	id = 'kb_icon',
-	image = widget_icon_dir .. 'kb-off' .. '.svg',
+	image = theme(widget_icon_dir .. 'kb-off' .. '.svg'),
 	resize = true,
 	forced_height = dpi(15),
 	widget = wibox.widget.imagebox
@@ -406,19 +407,19 @@ local kb_button_widget = wibox.widget {
 local toggle_btn_keygrab = function()
 	-- started running keygrab by clicking button
 	if keygrab_running and not mouse_entered_started_keygrab then
-		kb_imagebox.image = widget_icon_dir .. 'kb-off' .. '.svg'
+		kb_imagebox.image = theme(widget_icon_dir .. 'kb-off' .. '.svg')
 		awesome.emit_signal("widget::calc_stop_keygrab")
 		keygrab_running = false
 	-- started running keygrab by mouse hover
 	elseif keygrab_running then
-		kb_imagebox.image = widget_icon_dir .. 'kb' .. '.svg'
+		kb_imagebox.image = theme(widget_icon_dir .. 'kb' .. '.svg')
 
 		-- now the button gets the main attention instead of the mouse hover
 		-- this happens because we clicked on the button
 		awesome.emit_signal("widget::calc_start_keygrab")
 		mouse_entered_started_keygrab=false
 	else
-		kb_imagebox.image = widget_icon_dir .. 'kb' .. '.svg'
+		kb_imagebox.image = theme(widget_icon_dir .. 'kb' .. '.svg')
 		awesome.emit_signal("widget::calc_start_keygrab")
 		keygrab_running = true
 		mouse_entered_started_keygrab=false
@@ -459,7 +460,7 @@ local calcu_keygrabber = awful.keygrabber {
 		keygrab_running = false
 		mouse_entered_started_keygrab = false
 		start_button_keygrab = false
-		kb_imagebox.image = widget_icon_dir .. 'kb-off' .. '.svg'
+		kb_imagebox.image = theme(widget_icon_dir .. 'kb-off' .. '.svg')
 
 	end,
 	keypressed_callback = function(self, mod, key, command) 

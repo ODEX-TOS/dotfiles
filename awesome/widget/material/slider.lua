@@ -119,7 +119,7 @@ local function new(args)
     bar_shape = gears.shape.rounded_rect,
     bar_height = 0,
     bar_color = beautiful.primary.hue_500,
-    handle_color = '#ffffff',--beautiful.primary.hue_300,
+    handle_color = beautiful.accent.hue_500,--beautiful.primary.hue_300,
     handle_shape = gears.shape.circle,
     handle_border_color = '#00000012',
     handle_border_width = dpi(3),

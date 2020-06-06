@@ -40,6 +40,7 @@ local wibox = require('wibox')
 local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
+local theme = require('theme.icons.dark-light')
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
@@ -105,7 +106,7 @@ awful.tooltip(
 
 local function show_battery_warning()
   naughty.notify {
-    icon = PATH_TO_ICONS .. 'battery-alert.svg',
+    icon = theme(PATH_TO_ICONS .. 'battery-alert.svg'),
     icon_size = dpi(48),
     text = 'Huston, we have a problem',
     title = 'Battery is dying',
@@ -135,7 +136,7 @@ watch(
       widgetIconName = 'package-up'
       updateAvailable = true
     end
-    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
+    widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '.svg'))
     collectgarbage('collect')
   end,
   widget

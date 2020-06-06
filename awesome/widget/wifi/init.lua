@@ -33,6 +33,8 @@ local file = require('helper.file')
 local dpi = require('beautiful').xresources.apply_dpi
 local naughty = require('naughty')
 local config = require('config')
+local theme = require('theme.icons.dark-light')
+
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
@@ -136,7 +138,7 @@ gears.timer {
     local interface = file.lines("/proc/net/wireless", nil, 3)[3]
     if interface == nil then
       connected = false
-      widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '-off' .. '.svg')
+      widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '-off' .. '.svg'))
       collectgarbage('collect')
       return
     end
@@ -147,10 +149,10 @@ gears.timer {
       -- Update popup text
       local wifi_strength_rounded = math.floor(wifi_strength / 25 + 0.5)
       widgetIconName = widgetIconName .. '-' .. wifi_strength_rounded
-      widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')      
+      widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '.svg'))   
     else
       connected = false
-      widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '-off' .. '.svg')
+      widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '-off' .. '.svg'))
     end
     if (connected and (essid == 'N/A' or essid == nil)) then
       grabText()

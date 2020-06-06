@@ -42,8 +42,10 @@ local config = require('config')
 
 local height = dpi(200)
 local width = dpi(380)
+local theme = require('theme.icons.dark-light')
 
-local icon = "/etc/xdg/awesome/widget/about/icons/info.svg"
+
+local icon = theme("/etc/xdg/awesome/widget/about/icons/info.svg")
 
 
 screen.connect_signal("request::desktop_decoration", function(s)

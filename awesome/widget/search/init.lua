@@ -37,6 +37,7 @@ local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local apps = require('configuration.apps')
+local theme = require('theme.icons.dark-light')
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
@@ -55,7 +56,7 @@ local widget =
   layout = wibox.layout.align.horizontal
 }
 
-local widget_button = clickable_container(wibox.container.margin(widget, dpi(14), dpi(14), dpi(7), dpi(7))) -- 4 is top and bottom margin
+local widget_button = clickable_container(wibox.container.margin(widget, dpi(10), dpi(10), dpi(5), dpi(5))) -- 4 is top and bottom margin
 widget_button:buttons(
   gears.table.join(
     awful.button(
@@ -70,7 +71,7 @@ widget_button:buttons(
   )
 )
 
-widget.icon:set_image(PATH_TO_ICONS .. 'search' .. '.svg')
+widget.icon:set_image(theme(PATH_TO_ICONS .. 'search' .. '.svg'))
 
 -- To use colors from beautiful theme put
 -- following lines in rc.lua before require("battery"):

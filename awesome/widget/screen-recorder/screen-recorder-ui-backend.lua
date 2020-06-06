@@ -3,6 +3,7 @@ local awful = require('awful')
 local gears = require('gears')
 local naughty = require('naughty')
 local beautiful = require('beautiful')
+local theme = require('theme.icons.dark-light')
 
 local dpi = beautiful.xresources.apply_dpi
 
@@ -526,8 +527,8 @@ local sr_recording_start = function()
 	sr_screen.visible = false
 
 	-- Manipulate UIs
-	sr_toggle_imgbox:set_image(widget_icon_dir .. 'recording-button' .. '.svg')
-	sr_main_imgbox:set_image(widget_icon_dir .. 'recorder-on' .. '.svg')
+	sr_toggle_imgbox:set_image(theme(widget_icon_dir .. 'recording-button' .. '.svg'))
+	sr_main_imgbox:set_image(theme(widget_icon_dir .. 'recorder-on' .. '.svg'))
 
 
 	sr_start_recording(status_audio)
@@ -544,8 +545,8 @@ sr_recording_stop = function()
 	status_audio = false
 
 	-- Manipulate UIs
-	sr_toggle_imgbox:set_image(widget_icon_dir .. 'start-recording-button' .. '.svg')
-	sr_main_imgbox:set_image(widget_icon_dir .. 'recorder-off' .. '.svg')
+	sr_toggle_imgbox:set_image(theme(widget_icon_dir .. 'start-recording-button' .. '.svg'))
+	sr_main_imgbox:set_image(theme(widget_icon_dir .. 'recorder-off' .. '.svg'))
 
 
 	sr_stop_recording()
@@ -578,7 +579,7 @@ local counter_timer = function()
 			
 			else
 
-				sr_main_imgbox:set_image(widget_icon_dir .. 'recorder-countdown' .. '.svg')
+				sr_main_imgbox:set_image(theme(widget_icon_dir .. 'recorder-countdown' .. '.svg'))
 
 				sr_countdown_text.opacity = 1.0
 				sr_countdown_text:set_text(tostring(seconds))
@@ -604,7 +605,7 @@ local sr_countdown_stop = function()
 
 	status_countdown = false
 
-	sr_main_imgbox:set_image(widget_icon_dir .. 'recorder-off' .. '.svg')
+	sr_main_imgbox:set_image(theme(widget_icon_dir .. 'recorder-off' .. '.svg'))
 
 	sr_countdown_text.opacity = 0.0
 	sr_countdown_text:emit_signal('widget::redraw_needed')

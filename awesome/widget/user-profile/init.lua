@@ -32,6 +32,7 @@ local watch = require('awful.widget.watch')
 local wibox = require('wibox')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
+local theme = require('theme.icons.dark-light')
 
 local beautiful = require('beautiful')
 
@@ -52,7 +53,7 @@ local profile_imagebox =
   {
     id = 'icon',
     forced_height = dpi(90),
-    image = PATH_TO_ICONS .. 'user' .. '.svg',
+    image = theme(PATH_TO_ICONS .. 'user' .. '.svg'),
     clip_shape = gears.shape.circle,
     widget = wibox.widget.imagebox,
     resize = true
@@ -131,7 +132,7 @@ awful.spawn.easy_async_with_shell('whoami', function(out)
     else
       -- r_u_ugly?
       -- if yes then use this image instead
-      profile_imagebox.icon:set_image(PATH_TO_ICONS .. 'user.svg')
+      profile_imagebox.icon:set_image(theme(PATH_TO_ICONS .. 'user.svg'))
     end
 
   end, false)

@@ -31,6 +31,8 @@ local dpi = require('beautiful').xresources.apply_dpi
 local awful = require('awful')
 local gtk = require("beautiful.gtk")
 local config = require("theme.config")
+local darklight = require('theme.icons.dark-light')
+
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
 theme.font = 'Roboto medium 10'
@@ -171,12 +173,12 @@ local awesome_overrides =
 
   -- Layout
 
-  theme.layout_max = theme.icons .. 'layouts/arrow-expand-all.png'
-  theme.layout_tile = theme.icons .. 'layouts/view-quilt.png'
-  theme.layout_dwindle = theme.icons .. 'layouts/dwindle.png'
-  theme.layout_floating = theme.icons .. 'layouts/floating.png'
-  theme.layout_fairv = theme.icons .. 'layouts/fair.png'
-  theme.layout_magnifier = theme.icons .. 'layouts/magnifier.png'
+  theme.layout_max = darklight(theme.icons .. 'layouts/arrow-expand-all.png')
+  theme.layout_tile = darklight(theme.icons .. 'layouts/view-quilt.png')
+  theme.layout_dwindle = darklight(theme.icons .. 'layouts/dwindle.png')
+  theme.layout_floating = darklight(theme.icons .. 'layouts/floating.png')
+  theme.layout_fairv = darklight(theme.icons .. 'layouts/fair.png')
+  theme.layout_magnifier = darklight(theme.icons .. 'layouts/magnifier.png')
 
 
 

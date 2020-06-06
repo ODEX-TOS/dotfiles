@@ -33,6 +33,7 @@ local dpi = require('beautiful').xresources.apply_dpi
 local beautiful = require('beautiful')
 
 local clickable_container = require('widget.material.clickable-container')
+local theme = require('theme.icons.dark-light')
 
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/weather/icons/'
 
@@ -42,7 +43,7 @@ require('widget.weather.weather-update')
 weather_icon_widget = wibox.widget {
     {
         id = 'icon',
-        image = PATH_TO_ICONS .. 'whatever_icon' .. '.svg',
+        image = theme(PATH_TO_ICONS .. 'whatever_icon' .. '.svg'),
         resize = true,
         forced_height = dpi(45),
         forced_width = dpi(45),

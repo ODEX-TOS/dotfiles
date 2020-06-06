@@ -25,6 +25,7 @@
 
 local wibox = require('wibox')
 local gears = require('gears')
+local beautiful = require('beautiful')
 
 local mat_list_item = require('widget.material.list-item')
 
@@ -39,7 +40,7 @@ local hardwareTitle = wibox.widget
 
 }
 
-local barColor = '#ffffff20'
+local barColor = beautiful.bg_modal
 local cpu = require('widget.cpu.cpu-meter')
 local ram = require('widget.ram.ram-meter')
 local temp = require('widget.temperature.temperature-meter')
@@ -52,7 +53,7 @@ return wibox.widget {
   wibox.widget {
     wibox.widget {
       hardwareTitle,
-      bg = '#ffffff20',
+      bg = beautiful.bg_modal_title,
       layout = wibox.layout.flex.vertical
     },
     widget = mat_list_item

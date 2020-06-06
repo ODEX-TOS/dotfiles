@@ -38,6 +38,7 @@ local PATH_TO_ICONS = '/etc/xdg/awesome/widget/music/icons/'
 local mat_list_item = require('widget.material.list-item')
 
 local apps = require('configuration.apps')
+local theme = require('theme.icons.dark-light')
 
 local config = require("config")
 
@@ -56,9 +57,9 @@ local playButton =
 function checkIfPlaying()
   awful.spawn.easy_async_with_shell("playerctl status", function( stdout )
     if (stdout:match(".*Paused.*")) then
-      playButton.play:set_image(gears.surface(PATH_TO_ICONS .. 'play.svg'))
+      playButton.play:set_image(gears.surface(theme(PATH_TO_ICONS .. 'play.svg')))
     else
-      playButton.play:set_image(gears.surface(PATH_TO_ICONS .. 'pause.svg'))
+      playButton.play:set_image(gears.surface(theme(PATH_TO_ICONS .. 'pause.svg')))
     end
   end)
 end
@@ -89,7 +90,7 @@ local nextButton =
   wibox.widget {
   {
     id = 'next',
-    image = PATH_TO_ICONS .. 'next.svg',
+    image = theme(PATH_TO_ICONS .. 'next.svg'),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -116,7 +117,7 @@ local prevButton =
   wibox.widget {
   {
     id = 'prev',
-    image = PATH_TO_ICONS .. 'prev.svg',
+    image = theme(PATH_TO_ICONS .. 'prev.svg'),
     widget = wibox.widget.imagebox,
     resize = true
   },

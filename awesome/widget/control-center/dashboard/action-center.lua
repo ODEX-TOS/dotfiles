@@ -51,7 +51,7 @@ return wibox.widget{
     wibox.widget {
       separator,
       actionTitle,
-      bg = '#ffffff20',
+      bg = beautiful.bg_modal_title,
       layout = wibox.layout.fixed.vertical
     },
     widget = mat_list_item,
@@ -59,6 +59,7 @@ return wibox.widget{
   layout = wibox.layout.fixed.vertical,
   {
     actionWidget,
+    bg = beautiful.bg_modal,
     layout = wibox.layout.align.vertical
    }
 }

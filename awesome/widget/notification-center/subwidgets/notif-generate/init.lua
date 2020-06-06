@@ -33,6 +33,7 @@ local watch = require('awful.widget.watch')
 local wibox = require('wibox')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
+local theme = require('theme.icons.dark-light')
 
 local beautiful = require('beautiful')
 
@@ -201,7 +202,7 @@ local function notif_generate(title, message, icon, noti)
     if #notif_layout.children == 1 then
       notif_layout:reset(notif_layout)
       firstime = true
-      notif_layout:insert(1, notif_generate(empty_title, empty_message, PATH_TO_ICONS .. 'boo' .. '.svg'))
+      notif_layout:insert(1, notif_generate(empty_title, empty_message, theme(PATH_TO_ICONS .. 'boo' .. '.svg')))
     else
       notif_layout:remove_widgets(notif_template, true)
     end
@@ -213,7 +214,7 @@ local function notif_generate(title, message, icon, noti)
     if #notif_layout.children == 1 then
       notif_layout:reset(notif_layout)
       firstime = true
-      notif_layout:insert(1, notif_generate(empty_title, empty_message, PATH_TO_ICONS .. 'boo' .. '.svg'))
+      notif_layout:insert(1, notif_generate(empty_title, empty_message, theme(PATH_TO_ICONS .. 'boo' .. '.svg')))
     else
       notif_layout:remove_widgets(notif_template, true)
     end
@@ -228,7 +229,7 @@ end
 
 -- add a message to an empty notif center
 local function add_empty()
-  notif_layout:insert(1, notif_generate(empty_title, empty_message, PATH_TO_ICONS .. 'boo' .. '.svg'))
+  notif_layout:insert(1, notif_generate(empty_title, empty_message, theme(PATH_TO_ICONS .. 'boo' .. '.svg')))
 end
 
 -- Add empty message on startup
@@ -257,7 +258,7 @@ naughty.connect_signal("request::display", function(n)
   -- Then generate a widget based on naughty.notify data
   if n.icon == nil then
     -- if naughty sends a signal without an icon then use this instead
-    notif_layout:insert(1, notif_generate(n.title, n.message, PATH_TO_ICONS .. 'new-notif' .. '.svg', n))
+    notif_layout:insert(1, notif_generate(n.title, n.message, theme(PATH_TO_ICONS .. 'new-notif' .. '.svg'), n))
   else
     -- Use the notification's icon
     notif_layout:insert(1, notif_generate(n.title, n.message, n.icon, n))

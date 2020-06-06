@@ -34,7 +34,6 @@ local clickable_container = require('widget.material.clickable-container')
 local PATH_TO_ICONS =  '/etc/xdg/awesome/widget/notification-center/icons/'
 local mat_list_item = require('widget.material.list-item')
 
-
 local active_button    = '#ffffff' .. '40'
 local inactive_button  = '#ffffff' .. '20'
 

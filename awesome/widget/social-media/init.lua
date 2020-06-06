@@ -36,6 +36,7 @@ local beautiful = require('beautiful')
 local clickable_container = require('widget.material.clickable-container')
 
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/social-media/icons/'
+local theme = require('theme.icons.dark-light')
 
 -- Generate widget with background
 local genWidget = function(widgets)
@@ -74,7 +75,7 @@ local reddit_widget =
   wibox.widget {
   {
     id = 'icon',
-    image = PATH_TO_ICONS .. 'reddit' .. '.svg',
+    image = theme(PATH_TO_ICONS .. 'reddit' .. '.svg'),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -100,7 +101,7 @@ local facebook_widget =
   wibox.widget {
   {
     id = 'icon',
-    image = PATH_TO_ICONS .. 'facebook' .. '.svg',
+    image = theme(PATH_TO_ICONS .. 'facebook' .. '.svg'),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -124,7 +125,7 @@ local twitter_widget =
   wibox.widget {
   {
     id = 'icon',
-    image = PATH_TO_ICONS .. 'twitter' .. '.svg',
+    image = theme(PATH_TO_ICONS .. 'twitter' .. '.svg'),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -148,7 +149,7 @@ local instagram_widget =
   wibox.widget {
   {
     id = 'icon',
-    image = PATH_TO_ICONS .. 'instagram' .. '.svg',
+    image = theme(PATH_TO_ICONS .. 'instagram' .. '.svg'),
     widget = wibox.widget.imagebox,
     resize = true
   },

@@ -37,6 +37,7 @@ local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local config = require('config')
 local clickable_container = require('widget.material.clickable-container')
+local theme = require('theme.icons.dark-light')
 
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/weather/icons/'
 
@@ -155,7 +156,7 @@ awesome.connect_signal("widget::weather", function(temperature, description, ico
     end
 
     -- Update data. Global variables stored in widget.weather.init
-    _G.weather_icon_widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
+    _G.weather_icon_widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '.svg'))
     _G.weather_description.text = description
     _G.weather_temperature.text = temperature
 end)

@@ -42,6 +42,9 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local widget_icon_dir = '/etc/xdg/awesome/widget/battery/icons/'
 
+local theme = require('theme.icons.dark-light')
+
+
 
 local return_button = function()
 
@@ -49,7 +52,7 @@ local return_button = function()
 		nil,
 		{
 			id = 'icon',
-			image = widget_icon_dir .. 'battery-standard' .. '.svg',
+			image = theme(widget_icon_dir .. 'battery-standard' .. '.svg'),
 			widget = wibox.widget.imagebox,
 			resize = true
 		},
@@ -194,7 +197,7 @@ local return_button = function()
 			end
 		end
 
-		battery_imagebox.icon:set_image(gears.surface.load(widget_icon_dir .. icon_name .. '.svg'))
+		battery_imagebox.icon:set_image(gears.surface.load(theme(widget_icon_dir .. icon_name .. '.svg')))
 
 		collectgarbage('collect')
 	end
@@ -210,7 +213,7 @@ local return_button = function()
 				battery_widget.spacing = dpi(0)
 				battery_percentage_text.visible = false
 				battery_tooltip:set_text('No battery detected!')
-				battery_imagebox.icon:set_image(gears.surface.load(widget_icon_dir .. 'battery-unknown' .. '.svg'))
+				battery_imagebox.icon:set_image(gears.surface.load(theme(widget_icon_dir .. 'battery-unknown' .. '.svg')))
 				return
 			end
 			update_battery(status)

@@ -37,6 +37,8 @@ local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local config = require('config')
+local theme = require('theme.icons.dark-light')
+
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
@@ -106,7 +108,7 @@ watch(
     else
       widgetIconName = 'bluetooth-off'
     end
-    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
+    widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '.svg'))
     collectgarbage('collect')
   end,
   widget

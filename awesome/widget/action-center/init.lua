@@ -29,7 +29,9 @@ local watch = require('awful.widget.watch')
 local wibox = require('wibox')
 local clickable_container = require('widget.action-center.clickable-container')
 local gears = require('gears')
-local dpi = require('beautiful').xresources.apply_dpi
+local beautiful = require('beautiful')
+local dpi = beautiful.xresources.apply_dpi
+
 local gap = 1
 
 -- acpi sample outputs
@@ -51,7 +53,7 @@ local mat_list_item = require('widget.material.list-item')
 -- redshift
 -- Screen Resolution (XRANDR)???
 --
-local barColor = '#ffffff20'
+local barColor = beautiful.bg_modal
 local wifibutton = require('widget.action-center.wifi-button')
 local oledbutton = require('widget.action-center.oled-button')
 local bluebutton = require('widget.action-center.bluetooth-button')

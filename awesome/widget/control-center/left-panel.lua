@@ -361,7 +361,7 @@ local bottomSeparator = wibox.widget {
         {
           wibox.widget {
             search_button,
-            bg = '#ffffff20',     --beautiful.background.hue_800,
+            bg = beautiful.bg_modal,     --beautiful.background.hue_800,
             shape = function(cr, w, h)
                       gears.shape.rounded_rect(cr, w, h, 28)
                     end,
@@ -388,7 +388,7 @@ local bottomSeparator = wibox.widget {
           {
               wibox.widget {
                   wifi_button,
-            bg = '#ffffff20',     --beautiful.background.hue_800,
+            bg = beautiful.bg_modal,     --beautiful.background.hue_800,
             shape = function(cr, w, h)
                       gears.shape.rounded_rect(cr, w, h, 28)
                     end,
@@ -411,7 +411,7 @@ local bottomSeparator = wibox.widget {
           {
               wibox.widget {
                   dpi_button,
-            bg = '#ffffff20',     --beautiful.background.hue_800,
+            bg = beautiful.bg_modal,     --beautiful.background.hue_800,
             shape = function(cr, w, h)
                       gears.shape.rounded_rect(cr, w, h, 28)
                     end,
@@ -427,7 +427,7 @@ local bottomSeparator = wibox.widget {
         wibox.widget{
           wibox.widget{
             exit_button,
-            bg = '#ffffff20',--beautiful.background.hue_800,
+            bg = beautiful.bg_modal,--beautiful.background.hue_800,
             widget = wibox.container.background,
             shape = function(cr, w, h)
                       gears.shape.rounded_rect(cr, w, h, 12)

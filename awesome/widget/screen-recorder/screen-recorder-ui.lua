@@ -8,13 +8,14 @@ local dpi = require('beautiful').xresources.apply_dpi
 local clickable_container = require('widget.material.clickable-container')
 
 local widget_icon_dir = '/etc/xdg/awesome/widget/screen-recorder/icons/'
+local theme = require('theme.icons.dark-light')
 
 local record_tbl = {}
 
 -- Panel UI
 
 screen_rec_toggle_imgbox = wibox.widget {
-	image = widget_icon_dir .. 'start-recording-button' .. '.svg',
+	image = theme(widget_icon_dir .. 'start-recording-button' .. '.svg'),
 	resize = true,
 	widget = wibox.widget.imagebox
 }
@@ -39,7 +40,7 @@ screen_rec_countdown_txt = wibox.widget {
 }
 
 screen_rec_main_imgbox = wibox.widget {
-	image = widget_icon_dir .. 'recorder-off' .. '.svg',
+	image = theme(widget_icon_dir .. 'recorder-off' .. '.svg'),
 	resize = true,
 	widget = wibox.widget.imagebox
 }
@@ -66,7 +67,7 @@ screen_rec_main_button = wibox.widget {
 
 
 screen_rec_audio_imgbox = wibox.widget {
-	image = widget_icon_dir .. 'audio' .. '.svg',
+	image = theme(widget_icon_dir .. 'audio' .. '.svg'),
 	resize = true,
 	widget = wibox.widget.imagebox
 }
@@ -95,7 +96,7 @@ screen_rec_audio_button = wibox.widget {
 
 
 screen_rec_close_imgbox = wibox.widget {
-	image = widget_icon_dir .. 'close-screen' .. '.svg',
+	image = theme(widget_icon_dir .. 'close-screen' .. '.svg'),
 	resize = true,
 	widget = wibox.widget.imagebox
 }
@@ -123,7 +124,7 @@ screen_rec_close_button = wibox.widget {
 }
 
 screen_rec_settings_imgbox = wibox.widget {
-	image = widget_icon_dir .. 'settings' .. '.svg',
+	image = theme(widget_icon_dir .. 'settings' .. '.svg'),
 	resize = true,
 	widget = wibox.widget.imagebox
 }
@@ -157,7 +158,7 @@ screen_rec_settings_button = wibox.widget {
 -- Settings UI
 
 screen_rec_back_imgbox = wibox.widget {
-	image = widget_icon_dir .. 'back' .. '.svg',
+	image = theme(widget_icon_dir .. 'back' .. '.svg'),
 	resize = true,
 	widget = wibox.widget.imagebox
 }

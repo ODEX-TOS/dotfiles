@@ -39,6 +39,7 @@ local mat_list_item = require('widget.material.list-item')
 
 local apps = require('configuration.apps')
 local config = require('config')
+local theme = require('theme.icons.dark-light')
 
 local bShowingWidget = false;
 
@@ -116,7 +117,7 @@ local widget =
   wibox.widget {
   {
     id = 'icon',
-    image = PATH_TO_ICONS .. 'music' .. '.svg',
+    image = theme(PATH_TO_ICONS .. 'music' .. '.svg'),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -156,7 +157,7 @@ function checkCover()
     if (stdout:match("%W")) then
       cover.icon:set_image(gears.surface.load_uncached('/tmp/cover.jpg'))
     else
-      cover.icon:set_image(gears.surface.load_uncached(PATH_TO_ICONS .. 'vinyl' .. '.svg'))
+      cover.icon:set_image(gears.surface.load_uncached(theme(PATH_TO_ICONS .. 'vinyl' .. '.svg')))
     end
   end)
 end
@@ -228,12 +229,12 @@ awesome.connect_signal("song_changed", function()
     }
 end)
 
-widget.icon:set_image(PATH_TO_ICONS .. 'music' .. '.svg')
+widget.icon:set_image(theme(PATH_TO_ICONS .. 'music' .. '.svg'))
 
 -- Update music info on Initialization
 local function initMusicInfo()
   -- set the cover to vinyl until the right image is loaded
-  cover.icon:set_image(gears.surface.load_uncached(PATH_TO_ICONS .. 'vinyl' .. '.svg'))
+  cover.icon:set_image(gears.surface.load_uncached(theme(PATH_TO_ICONS .. 'vinyl' .. '.svg')))
   apps.bins.coverUpdate()
   checkCover()
   _G.getTitle()

@@ -26,6 +26,7 @@
 local wibox = require('wibox')
 local gears = require('gears')
 local mat_list_item = require('widget.material.list-item')
+local beautiful = require('beautiful')
 
 local quickTitle = wibox.widget {
   text = 'Quick settings',
@@ -34,7 +35,7 @@ local quickTitle = wibox.widget {
   widget = wibox.widget.textbox
 }
 
-local barColor = '#ffffff20'
+local barColor = beautiful.bg_modal
 local volSlider = require('widget.volume.volume-slider')
 local brightnessSlider = require('widget.brightness.brightness-slider')
 return wibox.widget {
@@ -42,7 +43,7 @@ return wibox.widget {
   wibox.widget {
     wibox.widget {
       quickTitle,
-      bg = '#ffffff20',
+      bg = beautiful.bg_modal_title,
       layout = wibox.layout.flex.vertical
     },
     widget = mat_list_item
