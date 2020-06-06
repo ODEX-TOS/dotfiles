@@ -28,8 +28,9 @@ require('awful.autofocus')
 local beautiful = require('beautiful')
 local hotkeys_popup = require('awful.hotkeys_popup').widget
 
-local modkey = require('configuration.keys.mod').modKey
-local altkey = require('configuration.keys.mod').altKey
+local config = require('configuration.keys.mod')
+local modkey = config.modKey
+local altkey = config.altKey
 local apps = require('configuration.apps')
 
 -- Key bindings
@@ -39,41 +40,42 @@ local globalKeys =
   awful.key({modkey}, 'F1', hotkeys_popup.show_help, {description = 'show help', group = 'awesome'}),
   -- Custom Keys
   awful.key(
-    {modkey}, 'Return',
+    {modkey}, config.terminal,
     function()
       awful.spawn(apps.default.terminal)
     end,
     { description = "Open Terminal", group = "launcher"}),
   awful.key(
-    {modkey}, 'f',
+    {modkey}, config.window,
     function()
       awful.spawn(apps.default.rofiwindowswitch)
     end,
     { description = "Open a Window Switcher", group = "launcher"}),
 
   awful.key(
-    {modkey}, 'd',
+    {modkey}, config.launcher,
     function()
       awful.util.spawn(apps.default.rofiappmenu)
     end,
     { description = "Open Rofi", group = "launcher"}),
 
   awful.key(
-    {modkey, "Shift"}, 'w',
+    {modkey, "Shift"}, config.browser,
     function()
+      -- TODO: Change to dinamic browser
       awful.spawn("firefox-developer-edition")
     end,
     { description = "Open Browser", group = "launcher"}),
 
   awful.key(
-    {modkey, "Shift"}, 'e',
+    {modkey, "Shift"}, config.filemanager,
     function()
       awful.spawn("thunar")
     end,
     { description = "Open file manager", group = "launcher"}),
 
   awful.key(
-    {"Control", "Shift"}, 'Escape',
+    {"Control", "Shift"}, config.monitor,
     function()
       awful.spawn("gnome-system-monitor")
     end,
@@ -93,9 +95,9 @@ local globalKeys =
     end, {description = "Toggle systray visibility", group = "custom"}),
 
   -- Tag browsing
-  awful.key({modkey}, 'w', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
-  awful.key({modkey}, 's', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
-  awful.key({modkey}, 'Escape', awful.tag.history.restore, {description = 'go back', group = 'tag'}),
+  awful.key({modkey}, config.previousWorkspace, awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
+  awful.key({modkey}, config.nextWorkspace, awful.tag.viewnext, {description = 'view next', group = 'tag'}),
+  awful.key({modkey}, config.swapWorkspace, awful.tag.history.restore, {description = 'go back', group = 'tag'}),
   -- Default client focus
   awful.key(
     {modkey},
@@ -115,16 +117,16 @@ local globalKeys =
   ),
   awful.key(
     {modkey},
-    'e',
+    config.configPanel,
     function()
       _G.screen.primary.left_panel:toggle(true)
     end,
-    {description = 'show main menu', group = 'awesome'}
+    {description = 'Open Control panel', group = 'awesome'}
   ),
   awful.key({modkey}, 'u', awful.client.urgent.jumpto, {description = 'jump to urgent client', group = 'client'}),
   awful.key(
     {modkey},
-    'Tab',
+    config.toggleFocus,
     function()
       awful.client.focus.history.previous()
       if _G.client.focus then
@@ -136,39 +138,23 @@ local globalKeys =
   -- Programms
   awful.key(
     {modkey},
-    'l',
+    config.lock,
     function()
       awful.spawn(apps.default.lock)
     end,
     {description = 'lock the screen', group = 'hotkeys'}
   ),
   awful.key(
-    {modkey}, 'x',
+    {modkey}, config.notificationPanel,
     function()
       if  _G.screen.primary.right_panel ~=nil then
         _G.screen.primary.right_panel:toggle()
       end
     end,
   { description = "Open Notification Center", group = "launcher"}),
-  awful.key(
-    {modkey}, 'v',
-    function()
-      if _G.screen.primary.left_panel ~= nil then
-        _G.screen.primary.left_panel:toggle()
-      end
-    end,
-  { description = "Open Control Center", group = "launcher"}),
-  --[[
-  awful.key(
-    {},
-    'Print',
-    function()
-      awful.util.spawn_with_shell('maim -s | xclip -selection clipboard -t image/png')
-    end
-  ),]]
   -- Standard program
-  awful.key({modkey, 'Control'}, 'r', _G.awesome.restart, {description = 'reload awesome', group = 'awesome'}),
-  awful.key({modkey, 'Control'}, 'q', _G.awesome.quit, {description = 'quit awesome', group = 'awesome'}),
+  awful.key({modkey, 'Control'}, config.restart, _G.awesome.restart, {description = 'reload awesome', group = 'awesome'}),
+  awful.key({modkey, 'Control'}, config.quit, _G.awesome.quit, {description = 'quit awesome', group = 'awesome'}),
   awful.key(
     {altkey, 'Shift'},
     'l',
@@ -219,7 +205,7 @@ local globalKeys =
   ),
   awful.key(
     {modkey},
-    'space',
+    config.nextLayout,
     function()
       awful.layout.inc(1)
     end,
@@ -227,7 +213,7 @@ local globalKeys =
   ),
   awful.key(
     {modkey, 'Shift'},
-    'space',
+    config.prevLayout,
     function()
       awful.layout.inc(-1)
     end,
@@ -235,7 +221,7 @@ local globalKeys =
   ),
   awful.key(
     {modkey, 'Control'},
-    'n',
+    config.restoreMinimized,
     function()
       local c = awful.client.restore()
       -- Focus restored client
@@ -249,32 +235,11 @@ local globalKeys =
   -- Dropdown application
   awful.key(
     {},
-    'F12',
+    config.drop,
     function()
       _G.toggle_quake()
     end,
     {description = 'dropdown terminal', group = 'launcher'}
-  ),
-  -- Widgets popups
-  awful.key(
-    {altkey},
-    'h',
-    function()
-      if beautiful.fs then
-        beautiful.fs.show(7)
-      end
-    end,
-    {description = 'show filesystem', group = 'widgets'}
-  ),
-  awful.key(
-    {altkey},
-    'w',
-    function()
-      if beautiful.weather then
-        beautiful.weather.show(7)
-      end
-    end,
-    {description = 'show weather', group = 'widgets'}
   ),
   -- Brightness
   awful.key(
@@ -433,7 +398,7 @@ local globalKeys =
   -- keys for keyboards without xf86 keys
   awful.key(
     {modkey},
-    't',
+    config.toggleMusic,
     function()
       awful.spawn('playerctl play-pause')
     end,
@@ -441,7 +406,7 @@ local globalKeys =
   ),
   awful.key(
     {modkey},
-    'k',
+    config.prevMusic,
     function()
       awful.spawn('playerctl previous')
     end,
@@ -449,7 +414,7 @@ local globalKeys =
   ),
   awful.key(
     {modkey},
-    'n',
+    config.nextMusic,
     function()
       awful.spawn('playerctl next')
     end,

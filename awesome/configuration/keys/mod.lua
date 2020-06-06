@@ -27,5 +27,27 @@ local config = require('parser')(os.getenv('HOME') .. "/.config/tos/keys.conf")
 
 return {
     modKey = config["mod"] or 'Mod4',
-    altKey = 'Mod1'
+    altKey = config["alt"] or 'Mod1',
+    terminal = config["terminal"] or 'Return',
+    window = config["window_switch"] or 'f',
+    launcher = config["launcher"] or 'd',
+    browser = config["browser"] or 'w',
+    filemanager = config["filemanager"] or 'e',
+    monitor = config["systemmonitor"] or 'Escape',
+    previousWorkspace = config["previous_workspace"] or 'w',
+    nextWorkspace = config["next_workspace"] or 's',
+    swapWorkspace = config["swap_workspace"] or 'Escape',
+    configPanel = config["action_center"] or 'e',
+    toggleFocus = config["toggle_focus"] or 'Tab',
+    lock = config["lock"] or 'l',
+    notificationPanel = config["notification_panel"] or 'x',
+    restart = config["restart_wm"] or 'r',
+    quit = config["quit_wm"] or 'q',
+    nextLayout = config["next_layout"] or 'space',
+    prevLayout = config["previous_layout"] or 'space',
+    restoreMinimized = config["restore_minimized"] or 'n',
+    drop = config["dropdown_terminal"] or 'F12',
+    toggleMusic = config["toggle_sound"] or 't',
+    prevMusic = config["previous_song"] or 'k',
+    nextMusic = config["next_song"] or 'n'
 }

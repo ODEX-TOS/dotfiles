@@ -33,19 +33,19 @@ end
 
 function split (inputstr, sep)
     if sep == nil then
-            sep = "%s"
+        sep = "%s"
     end
     local t={}
     if inputstr == nil then return t; end
     for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-            table.insert(t, str)
+        table.insert(t, str)
     end
     return t
 end
 
 function extract(line)
     local splitted = split(line, "=")
-    if splitted[1] == nil or splitted[1] == nil then return nil end
+    if splitted[1] == nil or splitted[2] == nil then return nil end
     return splitted[1]:gsub("%s+", ""), splitted[2]:gsub("%s+", ""):gsub("\"", ""):gsub("'", ""):gsub("`", "")
 end
 
