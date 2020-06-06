@@ -42,7 +42,7 @@ local left_panel_func = function(screen)
   -- set the panel width equal to the rofi settings
   -- the rofi width is defined in configuration/rofi/sidebar/rofi.rasi
   -- under the section window-> width
-  local left_panel_width = screen.geometry.width * 0.25
+  local left_panel_width = dpi(450)
   local left_panel = wibox {
     ontop = true,
     screen = screen,

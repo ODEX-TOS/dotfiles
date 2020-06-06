@@ -1,10 +1,9 @@
 #!/bin/bash
 
 CONFIG="/etc/xdg/awesome/configuration/rofi/appmenu/drun.rasi"
+DPI=${1:-"100"}
 
-ROFI="rofi -theme $CONFIG -show window 2>/dev/null"
-
-echo "$1"
+ROFI="rofi -dpi $DPI -theme $CONFIG -show window 2>/dev/null"
 
 result=$($ROFI)
 name=$(echo "$result" | cut -f1)
