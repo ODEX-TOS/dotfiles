@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG="~/.config/awesome/configuration/rofi/appmenu/drun.rasi"
+CONFIG="/etc/xdg/awesome/configuration/rofi/appmenu/drun.rasi"
 
 ROFI="rofi -theme $CONFIG -show window 2>/dev/null"
 
