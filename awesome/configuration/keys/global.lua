@@ -27,6 +27,7 @@ local awful = require('awful')
 require('awful.autofocus')
 local beautiful = require('beautiful')
 local hotkeys_popup = require('awful.hotkeys_popup').widget
+require("awful.hotkeys_popup.keys")
 
 local config = require('configuration.keys.mod')
 local modkey = config.modKey
