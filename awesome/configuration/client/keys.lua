@@ -26,14 +26,15 @@
 local awful = require('awful')
 local gears = require('gears')
 require('awful.autofocus')
-local modkey = require('configuration.keys.mod').modKey
-local altkey = require('configuration.keys.mod').altKey
+local config = require('configuration.keys.mod')
+local modkey = config.modKey
+local altkey = config.altKey
 
 local clientKeys =
   awful.util.table.join(
   awful.key(
     {modkey},
-    'f',
+    config.fullscreen,
     function(c)
       c.fullscreen = not c.fullscreen
       c:raise()
@@ -42,7 +43,7 @@ local clientKeys =
   ),
   awful.key(
     {modkey},
-    'q',
+    config.kill,
     function(c)
       c:kill()
     end,
@@ -50,7 +51,7 @@ local clientKeys =
   ),
   awful.key(
     {modkey},
-    'c',
+    config.floating,
     function(c)
       c.floating = not c.floating
       c:raise()
