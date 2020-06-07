@@ -34,6 +34,7 @@ local titlebars = {}
 local theme = {}
 local dpi = require('beautiful').xresources.apply_dpi
 local titleBarSize = dpi(25)
+local mode = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")["draw_mode"]
 
 -- Titlebar Colors
 beautiful.titlebar_bg_focus = '#000000'
@@ -199,16 +200,13 @@ _G.client.connect_signal("manage", function(c)
     end
 end)
 
-
--- This is a messy script on manipulating titlebars and window shape.
--- If you can fixed it please send a PR HAHAHA
--- Plan: If first_tag.layout.name is not max and tiled_clients >1 : Show Titlebars and make client shape rounded ? Hide and make the c.shape rectangle
-_G.screen.connect_signal("arrange", function(s)
-
+function full(s)
   for _, c in pairs(s.clients) do
     if #s.tiled_clients >= 0 and (c.floating or c.first_tag.layout.name == 'floating') then
       awful.titlebar.show(c, 'top')
-      c.shape = roundCorners
+      c.shape = function(cr, w, h)
+        gears.shape.rectangle(cr, w, h)
+      end
     elseif #s.tiled_clients == 1 and c.fullscreen == true then
       awful.titlebar.show(c, 'top')
       c.shape = function(cr, w, h)
@@ -242,11 +240,47 @@ _G.screen.connect_signal("arrange", function(s)
     elseif #s.tiled_clients > 1 and c.first_tag.layout.name == 'tile' then
       awful.titlebar.show(c, 'top')
       c.shape = roundCorners
-
     end
-
   end
+end
 
+function fast(s)
+  for _, c in pairs(s.clients) do
+    if #s.tiled_clients >= 2 or (c.floating or c.first_tag.layout.name == 'floating') then
+      awful.titlebar.show(c, 'top')
+      c.shape = function(cr, w, h)
+        gears.shape.rectangle(cr, w, h)
+      end
+    else
+      awful.titlebar.hide(c, 'top')
+      c.shape = function(cr, w, h)
+        gears.shape.rectangle(cr, w, h)
+      end
+    end
+  end
+end
+
+function none(s)
+  for _, c in pairs(s.clients) do
+      awful.titlebar.hide(c, 'top')
+      c.shape = function(cr, w, h)
+        gears.shape.rectangle(cr, w, h)
+      end
+  end
+end
+
+
+-- This is a messy script on manipulating titlebars and window shape.
+-- If you can fixed it please send a PR HAHAHA
+-- Plan: If first_tag.layout.name is not max and tiled_clients >1 : Show Titlebars and make client shape rounded ? Hide and make the c.shape rectangle
+_G.screen.connect_signal("arrange", function(s)
+  if mode == "full" then
+    full(s)
+  elseif mode == "none" then
+    none(s)
+  else
+    fast(s)
+  end
 end)
 
 _G.client.connect_signal("property::floating", function(c)
