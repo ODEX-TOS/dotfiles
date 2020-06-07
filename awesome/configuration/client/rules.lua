@@ -294,6 +294,20 @@ awful.rules.rules = {
       end,
     }
   },
+  -- Dialog with blurred background
+  {
+    rule_any = {class = {'Pinentry-gtk-2', 'pinentry-gtk-2',
+    'Pinentry-gtk', 'pinentry-gtk'}},
+    properties = {
+      floating = true,
+      drawBackdrop = true,
+      shape = function()
+        return function(cr, w, h)
+          gears.shape.rounded_rect(cr, w, h, 12)
+        end
+      end,
+    }
+  },
 },
 
 
