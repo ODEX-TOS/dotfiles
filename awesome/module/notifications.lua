@@ -63,7 +63,7 @@ ruled.notification.connect_signal('request::rules', function()
 			fg 					= beautiful.fg_normal,
 			margin 				= dpi(16),
 			position 			= 'top_right',
-			timeout 			= 0,
+			timeout 			= 5,
 			implicit_timeout 	= 5
 		}
 	}

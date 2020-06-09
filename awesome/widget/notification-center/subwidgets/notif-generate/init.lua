@@ -80,7 +80,7 @@ end
 
 local notif_message = function(msg)
   return wibox.widget {
-    text   = msg,
+    markup   = msg,
     font   = 'SFNS Display Regular 12',
     align  = 'center',
     valign = 'center',
