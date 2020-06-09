@@ -33,6 +33,7 @@ local config = require('configuration.keys.mod')
 local modkey = config.modKey
 local altkey = config.altKey
 local apps = require('configuration.apps')
+local xrandr = require('helper.xrandr')
 
 -- Key bindings
 local globalKeys =
@@ -40,6 +41,12 @@ local globalKeys =
   -- Hotkeys
   awful.key({modkey}, 'F1', hotkeys_popup.show_help, {description = 'show help', group = 'awesome'}),
   -- Custom Keys
+  awful.key(
+    {modkey}, config.randr,
+    function()
+      xrandr.xrandr()
+    end,
+    { description = "Open Terminal", group = "launcher"}),
   awful.key(
     {modkey}, config.terminal,
     function()

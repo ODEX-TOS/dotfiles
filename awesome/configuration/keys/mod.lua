@@ -27,6 +27,7 @@ local config = require('parser')(os.getenv('HOME') .. "/.config/tos/keys.conf")
 
 return {
     modKey = config["mod"] or 'Mod4',
+    randr = config["screen"] or 'r',
     altKey = config["alt"] or 'Mod1',
     terminal = config["terminal"] or 'Return',
     kill = config["kill"] or 'q',
