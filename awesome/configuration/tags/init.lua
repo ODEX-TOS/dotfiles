@@ -64,6 +64,11 @@ function getLayoutPerTag(number)
   end
 end
 
+function getGapPerTag(number)
+  local gap = "tag_gap_" .. number
+  return tonumber(getItem(gap)) or 4 
+end
+
 local tags = {
   {
     icon = icon('webbrowser-app') or icons.chrome,
@@ -143,6 +148,7 @@ awful.screen.connect_for_each_screen(
     for i, tag in pairs(tags) do
       -- the last tag is reserved for the desktop
         tag.layout = getLayoutPerTag(i)
+        tag.gap = getGapPerTag(i)
         awful.tag.add(
           i,
           {
@@ -150,7 +156,7 @@ awful.screen.connect_for_each_screen(
             icon_only = true,
             layout = tag.layout,
             gap_single_client = false,
-            gap = 4,
+            gap = tag.gap,
             screen = s,
             defaultApp = tag.defaultApp,
             selected = i == 1
@@ -167,7 +173,7 @@ _G.tag.connect_signal(
     if (currentLayout == awful.layout.suit.max) then
       t.gap = 0
     else
-      t.gap = 4
+      t.gap = awful.tag.getproperty(t, 'gap') or 4
     end
   end
 )
