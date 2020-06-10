@@ -34,7 +34,15 @@ local dpi = require('beautiful').xresources.apply_dpi
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/xdg-folders/icons/'
 
 
-local separator =  wibox.container.margin(wibox.widget
+local separator_horizontal =  wibox.container.margin(wibox.widget
+  {
+    orientation = 'horizontal',
+    forced_height = dpi(1),
+    opacity = 0.20,
+    widget = wibox.widget.separator
+  }, 0,0, dpi(10), dpi(10))
+
+local separator_vertical =  wibox.container.margin(wibox.widget
   {
     orientation = 'vertical',
     forced_width = dpi(1),
@@ -42,19 +50,41 @@ local separator =  wibox.container.margin(wibox.widget
     widget = wibox.widget.separator
   }, dpi(10), dpi(10), 0, 0)
 
-return wibox.widget {
+
+return function(position)
+ if position == "left" then
+  return wibox.widget {
+    layout = wibox.layout.align.vertical,
+    {
+      separator_horizontal,
+      require("widget.xdg-folders.home"),
+      require("widget.xdg-folders.documents"),
+      require("widget.xdg-folders.downloads"),
+      -- require("widget.xdg-folders.pictures"),
+      -- require("widget.xdg-folders.videos"),
+      separator_horizontal,
+      require("widget.xdg-folders.trash"),
+      layout = wibox.layout.fixed.vertical,
+  
+    },
+  
+  }
+ end
+ return wibox.widget {
   layout = wibox.layout.align.horizontal,
   {
-    separator,
+    separator_vertical,
     require("widget.xdg-folders.home"),
     require("widget.xdg-folders.documents"),
     require("widget.xdg-folders.downloads"),
     -- require("widget.xdg-folders.pictures"),
     -- require("widget.xdg-folders.videos"),
-    separator,
+    separator_vertical,
     require("widget.xdg-folders.trash"),
     layout = wibox.layout.fixed.horizontal,
 
   },
 
 }
+end
+

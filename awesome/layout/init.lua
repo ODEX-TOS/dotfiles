@@ -25,19 +25,40 @@
 
 local awful = require('awful')
 local bottom_panel = require('layout.bottom-panel')
+local left_panel = require('layout.left-panel')
+local right_panel = require('layout.right-panel')
 local top_panel = require('layout.top-panel')
+local general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
+local topBarDraw = general["top_bar_draw"] or "all"
+local tagBarDraw = general["tag_bar_draw"] or "main"
+local anchorTag = general["tag_bar_anchor"] or "bottom"
+
+function anchor (s)
+  if anchorTag == "bottom" then
+    -- Create the bottom bar
+    s.bottom_panel = bottom_panel(s)
+  elseif anchorTag == "right" then
+    s.bottom_panel = right_panel(s)
+  else
+    s.bottom_panel = left_panel(s)
+  end
+end
 
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(
   function(s)
-    if s.index == 1 then
-      -- Create the bottom_panel
-      s.bottom_panel = bottom_panel(s)
+    if topBarDraw == "all" then
       -- Create the Top bar
       s.top_panel = top_panel(s, false)
-    else
+    elseif topBarDraw == "main" and s.index == 1 then
       -- Create the Top bar
       s.top_panel = top_panel(s, false)
+    end
+
+    if tagBarDraw == "all" then
+      anchor(s)
+    elseif tagBarDraw == "main" and s.index == 1 then
+      anchor(s)
     end
   end
 )

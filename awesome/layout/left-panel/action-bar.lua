@@ -76,30 +76,18 @@ end
 
   return wibox.widget {
     id = 'action_bar',
-    layout = wibox.layout.align.horizontal,
-    forced_height = action_bar_width,
-    -- left widget
+    layout = wibox.layout.align.vertical,
+    forced_width = action_bar_width,
     expand = "none",
-    nil,
+    -- top widget
     {
-      -- middle widgets
-      layout = wibox.layout.align.horizontal,
+      layout = wibox.layout.align.vertical,
       -- Create a taglist widget
-      TagList("bottom")(screen),
-      require("widget.xdg-folders")("bottom"),
-      --[[wibox.widget {
-              orientation = 'horizontal',
-              forced_height = 10,
-              opacity = 0.50,
-              widget = wibox.widget.separator
-            }, ]]--
+      TagList("left")(screen),
+      require("widget.xdg-folders")("left"),
+
     },
-    --s.mytasklist, -- Middle widget
-    --nil,
-    {
-      -- Right widgets
-      layout = wibox.layout.fixed.horizontal,
-      LayoutBox(s)
-    }
+    nil,
+    LayoutBox(s),
   }
 end

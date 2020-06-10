@@ -60,7 +60,7 @@ local function create_buttons(buttons, object)
 	end
 end
 
-local function list_update(w, buttons, label, data, objects)
+local function list_update_horizontal(w, buttons, label, data, objects)
 	-- update the widgets, creating them if needed
 	w:reset()
 	for i, o in ipairs(objects) do
@@ -141,7 +141,88 @@ local function list_update(w, buttons, label, data, objects)
 	end
 end
 
-local TagList = function(s)
+local function list_update_vertical(w, buttons, label, data, objects)
+	-- update the widgets, creating them if needed
+	w:reset()
+	for i, o in ipairs(objects) do
+		local cache = data[o]
+		local ib, tb, bgb, tbm, ibm, l, bg_clickable
+		if cache then
+			ib = cache.ib
+			tb = cache.tb
+			bgb = cache.bgb
+			tbm = cache.tbm
+			ibm = cache.ibm
+		else
+			ib = wibox.widget.imagebox()
+			tb = wibox.widget.textbox()
+			bgb = wibox.container.background()
+			tbm = wibox.widget {
+				tb,
+				left = dpi(4),
+				right = dpi(16),
+				widget = wibox.container.margin
+			}
+			ibm = wibox.widget {
+				ib,
+				margins = dpi(10),
+				widget = wibox.container.margin
+			}
+			l = wibox.layout.fixed.vertical()
+			bg_clickable = clickable_container()
+
+			-- All of this is added in a fixed widget
+			l:fill_space(true)
+			l:add(ibm)
+			-- l:add(tbm)
+			bg_clickable:set_widget(l)
+
+			-- And all of this gets a background
+			bgb:set_widget(bg_clickable)
+
+			bgb:buttons(create_buttons(buttons, o))
+
+			data[o] = {
+				ib = ib,
+				tb = tb,
+				bgb = bgb,
+				tbm = tbm,
+				ibm = ibm
+			}
+		end
+
+		local text, bg, bg_image, icon, args = label(o, tb)
+		args = args or {}
+
+		-- The text might be invalid, so use pcall.
+		if text == nil or text == '' then
+			tbm:set_margins(0)
+		else
+			if not tb:set_markup_silently(text) then
+				tb:set_markup('<i>&lt;Invalid text&gt;</i>')
+			end
+		end
+		bgb:set_bg(bg)
+		if type(bg_image) == 'function' then
+			-- TODO: Why does this pass nil as an argument?
+			bg_image = bg_image(tb, o, nil, objects, i)
+		end
+		bgb:set_bgimage(bg_image)
+		if icon then
+			ib.image = icon
+		else
+			ibm:set_margins(0)
+		end
+
+		bgb.shape = args.shape
+		bgb.shape_border_width = args.shape_border_width
+		bgb.shape_border_color = args.shape_border_color
+
+		w:add(bgb)
+	end
+end
+
+local TagList_bottom = function(s)
 	return awful.widget.taglist(
 		s,
 		awful.widget.taglist.filter.all,
@@ -189,8 +270,65 @@ local TagList = function(s)
 			)
 		),
 		{},
-		list_update,
+		list_update_horizontal,
 		wibox.layout.fixed.horizontal()
 	)
 end
-return TagList
+local TagList_left = function(s)
+	return awful.widget.taglist(
+		s,
+		awful.widget.taglist.filter.all,
+		awful.util.table.join(
+			awful.button(
+				{},
+				1,
+				function(t)
+					t:view_only()
+				end
+			),
+			awful.button(
+				{modkey},
+				1,
+				function(t)
+					if _G.client.focus then
+						_G.client.focus:move_to_tag(t)
+						t:view_only()
+					end
+				end
+			),
+			awful.button({}, 3, awful.tag.viewtoggle),
+			awful.button(
+				{modkey},
+				3,
+				function(t)
+					if _G.client.focus then
+						_G.client.focus:toggle_tag(t)
+					end
+				end
+			),
+			awful.button(
+				{},
+				4,
+				function(t)
+					awful.tag.viewprev(t.screen)
+				end
+			),
+			awful.button(
+				{},
+				5,
+				function(t)
+					awful.tag.viewnext(t.screen)
+				end
+			)
+		),
+		{},
+		list_update_vertical,
+		wibox.layout.fixed.vertical()
+	)
+end
+return function (position)
+	if position == "left" then
+		return TagList_left
+	end
+	return TagList_bottom
+end
