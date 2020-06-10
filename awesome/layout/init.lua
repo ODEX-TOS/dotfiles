@@ -40,7 +40,7 @@ function anchor (s)
   elseif anchorTag == "right" then
     s.bottom_panel = right_panel(s)
   else
-    s.bottom_panel = left_panel(s)
+    s.bottom_panel = left_panel(s, topBarDraw == "none")
   end
 end
 
@@ -49,10 +49,13 @@ awful.screen.connect_for_each_screen(
   function(s)
     if topBarDraw == "all" then
       -- Create the Top bar
-      s.top_panel = top_panel(s, false)
+      s.top_panel = top_panel(s, false, false)
     elseif topBarDraw == "main" and s.index == 1 then
       -- Create the Top bar
-      s.top_panel = top_panel(s, false)
+      s.top_panel = top_panel(s, false, false)
+    else
+      -- don't draw anything but render the left_panel
+      s.top_panel = top_panel(s, false, true)
     end
 
     if tagBarDraw == "all" then

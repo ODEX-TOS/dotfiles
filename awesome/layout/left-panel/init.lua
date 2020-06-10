@@ -29,9 +29,12 @@ local wibox = require('wibox')
 local apps = require('configuration.apps')
 local dpi = require('beautiful').xresources.apply_dpi
 
-local bottom_panel = function(screen)
+local bottom_panel = function(screen, offset)
   local action_bar_width = dpi(45) -- 48
-
+  offsetY = dpi(26)
+  if offset then
+    offsetY = 0
+  end
   local panel =
     wibox {
     screen = screen,
@@ -39,7 +42,7 @@ local bottom_panel = function(screen)
     width = action_bar_width,
     type = 'dock',
 		x = screen.geometry.x,
-		y = screen.geometry.y + dpi(26),
+		y = screen.geometry.y + offsetY,
     ontop = true,
     bg = beautiful.background.hue_800,
     fg = beautiful.fg_normal

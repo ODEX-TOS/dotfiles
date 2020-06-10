@@ -154,7 +154,7 @@ add_button:buttons(
 )
 
 
-local TopPanel = function(s, offset)
+local TopPanel = function(s, offset, controlCenterOnly)
   local offsetx = 0
   if offset == true then
     offsetx = dpi(45) -- 48
@@ -212,6 +212,9 @@ local TopPanel = function(s, offset)
       require('widget.notification-center'),
     }
   }
+  if controlCenterOnly then
+    return require('widget.control-center')
+  end
 
   return panel
 end
