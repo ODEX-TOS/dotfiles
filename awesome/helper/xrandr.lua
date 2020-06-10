@@ -92,14 +92,11 @@ end
 local state = { cid = nil }
 
 local function naughty_destroy_callback(reason)
-  if reason == naughty.notificationClosedReason.expired or
-     reason == naughty.notificationClosedReason.dismissedByUser then
     local action = state.index and state.menu[state.index - 1][2]
     if action then
       spawn(action, false)
       state.index = nil
     end
-  end
 end
 
 local function xrandr()
@@ -120,12 +117,13 @@ local function xrandr()
    else
       label, action = next[1], next[2]
    end
-   state.cid = naughty.notify({ text = label,
+   local noti = naughty.notify({ text = label,
                                 icon = icon_path,
                                 timeout = 4,
                                 screen = mouse.screen,
-                                replaces_id = state.cid,
-                                destroy = naughty_destroy_callback}).id
+                                replaces_id = state.cid})
+   noti:connect_signal("destroyed", naughty_destroy_callback)
+   state.cid = noti.id
 end
 
 return {
