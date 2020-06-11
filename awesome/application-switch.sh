@@ -12,14 +12,14 @@ id=$(echo "$result" | cut -f2)
 workspace=$(($(echo "$result" | cut -f3) +1))
 
 # if the user aborts then we don't change the focus
-if [[ "$name" == "" || $"id" == "" || "$workspace" == "" ]]; then
+if [[ "$name" == "" || "$id" == "" || "$workspace" == "" ]]; then
     exit
 fi
 echo "$name $id $workspace"
 
 # switch to the correct workspace
 awesome-client <<EOF
-_G.client.focus.screen.tags[$workspace]:view_only()
+_G.mouse.screen.tags[$workspace]:view_only()
 EOF
 
 # select the correct window
