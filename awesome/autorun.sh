@@ -68,6 +68,11 @@ if [[ "$(command -v lxsession)" ]]; then
         lxsession &
 fi
 
+# watch for dbus events
+process="python /etc/xdg/awesome/tos-udev-dbus.py"
+if ! pgrep -f "$process"; then
+    PYTHONDONTWRITEBYTECODE=1 $process & 
+fi
 
 # autostart user scripts if that directory exists
 if [[ -d "$userlocation" ]]; then
