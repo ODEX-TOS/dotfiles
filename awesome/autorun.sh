@@ -44,8 +44,6 @@ if ! pgrep tos; then
     nohup tos theme daemon &>/dev/null &# launch a tos daemon
 fi
 
-touchpad.sh &
-
 if [[ "$(command -v mantablockscreen)" ]]; then
     # create a cached image for the lock screen
     mantablockscreen -i "$(tos theme list | head -n1)" &
