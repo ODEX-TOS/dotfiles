@@ -38,7 +38,9 @@ local themefile = require('theme.config')
 local mat_colors = require('theme.mat-colors')
 --local color = mat_colors[themefile["primary"]].hue_500 or mat_colors.purple.hue_500
 local color = mat_colors.purple.hue_500
+local colorBG = mat_colors.purple.hue_700
 local color = addHash(themefile["primary_hue_500"]) or color
+local colorBG = addHash(themefile["primary_hue_700"]) or colorBG
 
 return {
   -- List of apps to start by default on some actions
@@ -62,8 +64,8 @@ return {
     'blueman-applet', -- Bluetooth tray icon
     'xfce4-power-manager', -- Power manager
     'xfsettingsd', -- Settings
+    'sh -c "/etc/xdg/awesome/firefox-color.sh \'' .. color .. '\' \'' .. colorBG .. '\'"',
     'xrdb $HOME/.Xresources',
-    'sh -c "/etc/xdg/awesome/firefox-color.sh \'' .. color .. '\'"',
   },
   bins = {
     coverUpdate = require('helper.extractcover').extractalbum
