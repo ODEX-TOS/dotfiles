@@ -35,10 +35,9 @@ end
 
 -- helper to retrieve current theme
 local themefile = require('theme.config')
-local mat_colors = require('theme.mat-colors')
---local color = mat_colors[themefile["primary"]].hue_500 or mat_colors.purple.hue_500
-local color = mat_colors.purple.hue_500
-local colorBG = mat_colors.purple.hue_700
+local beautiful = require('beautiful')
+local color = beautiful.primary.hue_500
+local colorBG = beautiful.primary.hue_700
 local color = addHash(themefile["primary_hue_500"]) or color
 local colorBG = addHash(themefile["primary_hue_700"]) or colorBG
 
