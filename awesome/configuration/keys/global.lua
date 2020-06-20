@@ -46,7 +46,7 @@ local globalKeys =
     function()
       xrandr.xrandr()
     end,
-    { description = "Open Terminal", group = "launcher"}),
+    { description = "Launch screen layout mode", group = "launcher"}),
   awful.key(
     {modkey}, config.terminal,
     function()
