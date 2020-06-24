@@ -53,5 +53,7 @@ return {
     drop = config["dropdown_terminal"] or 'F12',
     toggleMusic = config["toggle_sound"] or 't',
     prevMusic = config["previous_song"] or 'k',
-    nextMusic = config["next_song"] or 'n'
+    nextMusic = config["next_song"] or 'n',
+    printscreen = config["printscreen"] or 'Print',
+    snapArea = config["snapshot_area"] or 'Print'
 }

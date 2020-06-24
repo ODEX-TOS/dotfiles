@@ -67,6 +67,9 @@ return {
     'xrdb $HOME/.Xresources',
   },
   bins = {
-    coverUpdate = require('helper.extractcover').extractalbum
+    coverUpdate = require('helper.extractcover').extractalbum,
+    full_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" full',
+    area_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" area'
+
   }
 }

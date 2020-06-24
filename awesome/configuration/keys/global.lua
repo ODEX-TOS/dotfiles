@@ -427,6 +427,22 @@ local globalKeys =
       awful.spawn('playerctl next')
     end,
     {description = 'go to the next song', group = 'hardware'}
+  ),
+  awful.key(
+    { }, 
+    config.printscreen,
+    function ()
+        awful.spawn(apps.bins.full_screenshot)
+    end,
+    {description = "fullscreen screenshot", group = 'Utility'}
+  ),
+  awful.key(
+    {modkey}, 
+    config.snapArea,
+    function ()
+        awful.spawn(apps.bins.area_screenshot)
+    end,
+    {description = "area/selected screenshot", group = 'Utility'}
   )
 )
 
