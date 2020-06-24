@@ -36,6 +36,7 @@ local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local spawn = require('awful.spawn')
 local awful = require('awful')
+local sound = require('helper.sound')
 
 local bootup = true
 
@@ -45,11 +46,12 @@ local slider_osd =
   widget = mat_slider
 }
 
+
 local function single_shot_play() 
   if bootup then
     bootup = false
   else
-    spawn('paplay /etc/xdg/awesome/sound/audio-pop.wav')
+    sound()
   end
 end
 
@@ -112,7 +114,7 @@ button:connect_signal(
             else
                     icon.image = icons.volume
                     _G.volumeIcon1.image = icons.volume
-                    spawn('paplay /etc/xdg/awesome/sound/audio-pop.wav')
+                    sound()
             end
     end)
   end

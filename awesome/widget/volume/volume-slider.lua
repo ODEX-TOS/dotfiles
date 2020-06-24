@@ -31,6 +31,7 @@ local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local spawn = require('awful.spawn')
 local awful = require('awful')
+local sound = require('helper.sound')
 
 local slider =
   wibox.widget {
@@ -46,7 +47,7 @@ slider:connect_signal(
     _G.volume2:set_value(slider.value)
     if (_G.menuopened) then
         _G.toggleVolOSD(false)
-        spawn('paplay /etc/xdg/awesome/sound/audio-pop.wav')
+        sound()
     end
   end
 )
