@@ -46,7 +46,7 @@ slider:connect_signal(
     _G.volume2:set_value(slider.value)
     if (_G.menuopened) then
         _G.toggleVolOSD(false)
-        spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
+        spawn('paplay /etc/xdg/awesome/sound/audio-pop.wav')
     end
   end
 )

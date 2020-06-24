@@ -37,11 +37,21 @@ local watch = require('awful.widget.watch')
 local spawn = require('awful.spawn')
 local awful = require('awful')
 
+local bootup = true
+
 local slider_osd =
   wibox.widget {
   read_only = false,
   widget = mat_slider
 }
+
+local function single_shot_play() 
+  if bootup then
+    bootup = false
+  else
+    spawn('paplay /etc/xdg/awesome/sound/audio-pop.wav')
+  end
+end
 
 _G.volume2 = slider_osd
 slider_osd:connect_signal(
@@ -49,7 +59,7 @@ slider_osd:connect_signal(
   function()
     if (not _G.menuopened) then
         spawn('amixer -D pulse sset Master ' .. slider_osd.value .. '%')
-        spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
+        single_shot_play()
         awesome.emit_signal('widget::volume:update', slider_osd.value)
     end
   end
@@ -102,7 +112,7 @@ button:connect_signal(
             else
                     icon.image = icons.volume
                     _G.volumeIcon1.image = icons.volume
-                    spawn('mplayer /etc/xdg/awesome/sound/audio-pop.wav')
+                    spawn('paplay /etc/xdg/awesome/sound/audio-pop.wav')
             end
     end)
   end
