@@ -55,5 +55,6 @@ return {
     prevMusic = config["previous_song"] or 'k',
     nextMusic = config["next_song"] or 'n',
     printscreen = config["printscreen"] or 'Print',
-    snapArea = config["snapshot_area"] or 'Print'
+    snapArea = config["snapshot_area"] or 'Print',
+    emoji = config["emoji"] or "m"
 }

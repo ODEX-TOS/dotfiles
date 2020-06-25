@@ -51,6 +51,7 @@ return {
     rofi = 'rofi -dpi ' .. screen.primary.dpi .. ' -show "Global Search" -mod "Global Search":'..filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi-spotlight.sh -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
     web = 'rofi -dpi ' .. screen.primary.dpi .. ' -show Search -modi Search:' .. filesystem.get_configuration_dir() .. '/configuration/rofi/search.py' .. ' -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/sidebar/rofi.rasi',
     rofiappmenu = 'rofi -dpi ' .. screen.primary.dpi ..  ' -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/appmenu/drun.rasi',
+    rofiemojimenu = 'bash /etc/xdg/awesome/emoji.sh ' .. screen.primary.dpi,
     rofiwindowswitch = 'bash /etc/xdg/awesome/application-switch.sh' .. ' ' .. screen.primary.dpi,
     rofidpimenu = 'bash /etc/xdg/awesome/dpi.sh',
     rofiwifimenu = 'bash /etc/xdg/awesome/wifi.sh' .. ' ' .. screen.primary.dpi,

@@ -443,6 +443,14 @@ local globalKeys =
         awful.spawn(apps.bins.area_screenshot)
     end,
     {description = "area/selected screenshot", group = 'Utility'}
+  ),
+  awful.key(
+    {modkey}, 
+    config.emoji,
+    function ()
+        awful.spawn(apps.default.rofiemojimenu)
+    end,
+    {description = "Show emoji selector", group = 'Utility'}
   )
 )
 
