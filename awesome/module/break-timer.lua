@@ -140,7 +140,7 @@ local current_time_inbetween = function(time_start, time_end)
   return false
 end
 
-gears.timer {
+local breakTriggerTimer = gears.timer {
   -- TODO: change timeout from one hour to something variable
   timeout = tonumber(general["break_timeout"])  or (60 * 60 * 1),
   autostart = true,
@@ -156,6 +156,12 @@ gears.timer {
     end
   end
 }
+
+-- Disable the global timer
+-- Thus no more breaks will be triggered
+_G.pause.disable = function()
+  breakTriggerTimer:stop()
+end
 
 return breakOverlay
 

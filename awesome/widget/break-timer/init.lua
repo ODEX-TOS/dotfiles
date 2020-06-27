@@ -117,10 +117,38 @@ delay:buttons(
   )
 )
 
+local disable = clickable_container(
+  wibox.container.margin(
+    wibox.widget{
+      markup = 'Disable for this session',
+      align  = 'center',
+      valign = 'center',
+      read_only = true,
+      widget = wibox.widget.textbox
+    },
+  dpi(14),dpi(14),dpi(14),dpi(14))
+)
+
+disable:buttons(
+  gears.table.join(
+    awful.button(
+      {},
+      1,
+      nil,
+      function()
+        -- This can only be reset by reloading the DE
+        _G.pause.stop()
+        _G.pause.disable()
+        print("Disabling breaks all together")
+      end
+    )
+  )
+)
+
 local skip = clickable_container(
   wibox.container.margin(
     wibox.widget{
-      markup = 'Skip pause',
+      markup = 'Skip break',
       align  = 'center',
       valign = 'center',
       read_only = true,
@@ -145,6 +173,7 @@ skip:buttons(
 local buttons = wibox.widget{
   {
     delay,
+    disable,
     skip,
     layout = wibox.layout.fixed.horizontal
   },
