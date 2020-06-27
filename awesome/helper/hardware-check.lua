@@ -21,8 +21,15 @@ function wifi()
 end
 
 function bluetooth()
-    out, returnValue = osExecute("dmesg | grep -i bluetooth")
-    return returnValue == 0
+    out, returnValue = osExecute("systemctl is-active bluetooth")
+    -- only check if a bluetooth controller is found if the bluetooth service is active
+    -- Otherwise the system will hang
+    if returnValue == 0 then
+        -- list all present controllers
+        out2, returnValue2 = osExecute("bluetoothctl list")
+        return returnValue2 == 0
+    end
+    return false
 end
 
 return {
