@@ -119,25 +119,10 @@ local current_time_inbetween = function(time_start, time_end)
   local time_start_min = tonumber(time_start_split[2])
   local time_end_hour = tonumber(time_end_split[1])
   local time_end_min = tonumber(time_end_split[2])
-  -- We are inbetween the start and end hours
-  if time.hour > time_start_hour and time.hour < time_end_hour then
-    return true
-  end
-  -- We are in the same hour as the start
-  if time.hour == time_start_hour then
-    -- Our current time is above the start minute time
-    if time.min >= time_start_min then
-      return true
-    end
-  end
-  -- We are in the end hour 
-  if time.hour == time_end_hour then
-    -- Our current time is above the start minute time
-    if time.min <= time_end_min then
-      return true
-    end
-  end
-  return false
+
+  local currentTimeInMin = (time.hour * 60) + time.min
+
+  return currentTimeInMin >= ((time_start_hour*60) + time_start_min) and currentTimeInMin <= ((time_end_hour * 60) + time_end_min)
 end
 
 local breakTriggerTimer = gears.timer {
