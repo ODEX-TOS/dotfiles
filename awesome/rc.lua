@@ -26,6 +26,9 @@
 local gears = require('gears')
 local awful = require('awful')
 
+local general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
+
+
 require('awful.autofocus')
 local beautiful = require('beautiful')
 
@@ -45,6 +48,13 @@ require('module.quake-terminal')
 require('module.titlebar')
 require('module.brightness-slider-osd')
 require('module.volume-slider-osd')
+
+-- Only activate the break timer if users what it
+-- The default implementation of TOS doesn't use it
+if general["break"] == "1" then
+  require('module.break-timer')
+end
+
 require('module.battery-notifier')
 require('collision')()
 local wibox = require("wibox")
