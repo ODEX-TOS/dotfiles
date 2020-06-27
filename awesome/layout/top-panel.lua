@@ -205,9 +205,9 @@ local TopPanel = function(s, offset, controlCenterOnly)
       show_widget_or_default(require('widget.bluetooth'), hardware.hasBluetooth()),
       show_widget_or_default(require('widget.wifi'), hardware.hasWifi()),
       require('widget.package-updater'),
-      require('widget.music'), --only add this when the data can be extracted from spotify
+      show_widget_or_default(require('widget.music'),hardware.hasSound()), --only add this when the data can be extracted from spotify
       require('widget.about'),
-      require('widget.screen-recorder')(),
+      show_widget_or_default(require('widget.screen-recorder')(), hardware.hasFFMPEG()),
       require('widget.search'),
       require('widget.notification-center'),
     }

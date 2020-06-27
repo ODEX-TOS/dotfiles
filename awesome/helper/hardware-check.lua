@@ -32,8 +32,20 @@ function bluetooth()
     return false
 end
 
+function ffmpeg()
+    out, returnValue = osExecute("pacman -Q ffmpeg")
+    return returnValue == 0
+end
+
+function sound()
+    out, returnValue = osExecute("pactl info | grep 'Sink'")
+    return returnValue == 0
+end
+
 return {
     hasBattery = battery,
     hasWifi = wifi,
-    hasBluetooth = bluetooth
+    hasBluetooth = bluetooth,
+    hasFFMPEG = ffmpeg,
+    hasSound = sound,
 }
