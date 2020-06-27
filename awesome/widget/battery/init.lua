@@ -152,7 +152,7 @@ local return_button = function()
 
 		local icon_name = 'battery'
 
-		if status:match('discharging') then
+		if status:match('Discharging') then
 			if battery_percentage >= 0 and battery_percentage < 10 then
 				icon_name = icon_name .. '-' .. 'alert-red'
 				if os.difftime(os.time(), last_battery_check) > 300 or notify_critcal_battery then
