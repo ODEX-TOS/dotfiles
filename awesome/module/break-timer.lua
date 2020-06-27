@@ -143,7 +143,6 @@ end
 gears.timer {
   -- TODO: change timeout from one hour to something variable
   timeout = tonumber(general["break_timeout"])  or (60 * 60 * 1),
-  call_now= true,
   autostart = true,
   callback = function ()
     -- TODO: only run during time constraints eg work
