@@ -445,6 +445,14 @@ local globalKeys =
     {description = "area/selected screenshot", group = 'Utility'}
   ),
   awful.key(
+    {modkey, 'Shift'}, 
+    config.windowSnapArea,
+    function ()
+        awful.spawn(apps.bins.window_screenshot)
+    end,
+    {description = "window screenshot", group = 'Utility'}
+  ),
+  awful.key(
     {modkey}, 
     config.emoji,
     function ()

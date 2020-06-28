@@ -16,6 +16,9 @@
 
 
 screenshot_dir="$HOME/Pictures/Screenshots/"
+COLOR="${2:-none}"
+
+echo "Selected color: $COLOR"
 
 # Check save directory
 # Creates it if it doesn't exist
@@ -36,8 +39,12 @@ function shot() {
 	maim_command="$1"
 	notif_message="$2"
 
-	# Execute maim command
-	${maim_command} "${file_loc}"
+	# Execute maim command if a third option is provided maim will be piped into it
+	if [[ ! -z "$3" ]]; then
+		${maim_command} | $3 "${file_loc}"
+	else
+		${maim_command} "${file_loc}"
+	fi
 
 	# Exit if the user cancels the screenshot
 	# So it means there's no new screenshot image file
@@ -52,16 +59,19 @@ function shot() {
 }
 
 # Check the args passed
-if [ -z "$1" ] || ([ "$1" != 'full' ] && [ "$1" != 'area' ]);
+if [ -z "$1" ] || ([ "$1" != 'full' ] && [ "$1" != 'area' ] && [ "$1" != 'window' ]);
 then
 	echo "
 	Requires an argument:
 	area 	- Area screenshot
 	full 	- Fullscreen screenshot
+	window  - Take a screenshot of a window (optionaly provide a color for the background)
 
 	Example:
 	./snapshot area
 	./snapshot full
+	./snapshot window
+	./snapshot window #FFFFFF
 	"
 elif [ "$1" = 'full' ];
 then
@@ -71,5 +81,10 @@ elif [ "$1" = 'area' ];
 then
 	msg='Area screenshot saved and copied to clipboard!'
 	shot 'maim -u -s -n -m 1' "${msg}"
+elif [ "$1" = 'window' ];
+then
+	msg='Window screenshot saved and copied to clipboard!'
+	# TODO: add a margin around the window so that the background is better visible
+	shot 'maim -st 9999999 -B -m 1 -u' "${msg}" "convert - ( +clone -background black -shadow 80x3+8+8 ) +swap -background $COLOR -layers merge +repage"
 fi
 

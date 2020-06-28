@@ -70,7 +70,8 @@ return {
   bins = {
     coverUpdate = require('helper.extractcover').extractalbum,
     full_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" full',
-    area_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" area'
+    area_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" area',
+    window_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" window "' .. colorBG .. '"', 
 
   }
 }
