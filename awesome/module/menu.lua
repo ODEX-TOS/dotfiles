@@ -27,7 +27,7 @@ local awful = require("awful")
 local gears = require("gears")
 local beautiful = require("beautiful")
 local apps = require('configuration.apps')
-
+local icons = require('theme.icons')
 local hotkeys_popup = require('awful.hotkeys_popup').widget
 
 terminal = apps.default.terminal
@@ -85,7 +85,7 @@ mymainmenu = freedesktop.menu.build({
 		-- other triads can be put here
 	},
 	after = {
-		{"Awesome", myawesomemenu, beautiful.awesome_icon},
+		{"TDE", myawesomemenu, icons.logo},
 		{"End Session", function() _G.exit_screen_show() end, menubar.utils.lookup_icon("system-shutdown") },
 		-- other triads can be put here
 	}
