@@ -34,6 +34,7 @@ local modkey = config.modKey
 local altkey = config.altKey
 local apps = require('configuration.apps')
 local xrandr = require('helper.xrandr')
+local general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
 
 -- Key bindings
 local globalKeys =
@@ -448,7 +449,11 @@ local globalKeys =
     {modkey, 'Shift'}, 
     config.windowSnapArea,
     function ()
-        awful.spawn(apps.bins.window_screenshot)
+        if general["window_screen_mode"] == "none" then
+          awful.spawn(apps.bins.window_blank_screenshot)
+        else
+          awful.spawn(apps.bins.window_screenshot)
+        end
     end,
     {description = "window screenshot", group = 'Utility'}
   ),

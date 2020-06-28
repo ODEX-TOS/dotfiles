@@ -71,7 +71,7 @@ return {
     coverUpdate = require('helper.extractcover').extractalbum,
     full_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" full',
     area_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" area',
-    window_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" window "' .. colorBG .. '"', 
-
+    window_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" window "' .. color .. '"', 
+    window_blank_screenshot = 'sh "/etc/xdg/awesome/snapshot.sh" window_blank', 
   }
 }

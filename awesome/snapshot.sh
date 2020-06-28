@@ -17,6 +17,7 @@
 
 screenshot_dir="$HOME/Pictures/Screenshots/"
 COLOR="${2:-none}"
+PADDING="20"
 
 echo "Selected color: $COLOR"
 
@@ -27,6 +28,38 @@ function check_dir() {
 	then
 		mkdir -p "$screenshot_dir"
 	fi
+}
+
+function window() {
+	check_dir
+
+	file_loc="${screenshot_dir}$(date +%Y%m%d_%H%M%S).png"
+	file_loc_tmp="${screenshot_dir}$(date +%Y%m%d_%H%M%S)tmp.png"
+
+	
+	maim_command="$1"
+	notif_message="$2"
+
+	# Execute maim command if a third option is provided maim will be piped into it
+	${maim_command} | $3 "${file_loc}"
+	cp "${file_loc}" "${file_loc_tmp}"
+	convert "${file_loc_tmp}" -gravity west -background "$COLOR" -splice "$PADDING"x0 "${file_loc_tmp}"
+	convert "${file_loc_tmp}" -gravity east -background "$COLOR" -splice "$PADDING"x0 "${file_loc_tmp}"
+	convert "${file_loc_tmp}" -gravity north -background "$COLOR" -splice 0x"$PADDING" "${file_loc_tmp}"
+	convert "${file_loc_tmp}" -gravity south -background "$COLOR" -splice 0x"$PADDING" "${file_loc_tmp}"
+
+	mv "$file_loc_tmp" "$file_loc"
+
+	# Exit if the user cancels the screenshot
+	# So it means there's no new screenshot image file
+	if [ ! -f "${file_loc}" ]; then
+		exit
+	fi
+
+	# Copy to clipboard
+	xclip -selection clipboard -t image/png -i "${screenshot_dir}"/`ls -1 -t "${screenshot_dir}" | head -1` &
+
+	notify-send 'Snap!' "${notif_message}" -a 'Screenshot tool' -i "${file_loc}"
 }
 
 # Main function
@@ -59,19 +92,22 @@ function shot() {
 }
 
 # Check the args passed
-if [ -z "$1" ] || ([ "$1" != 'full' ] && [ "$1" != 'area' ] && [ "$1" != 'window' ]);
+if [ -z "$1" ] || ([ "$1" != 'full' ] && [ "$1" != 'area' ] && [ "$1" != 'window' ] && [ "$1" != 'window_blank' ]);
 then
 	echo "
 	Requires an argument:
 	area 	- Area screenshot
 	full 	- Fullscreen screenshot
 	window  - Take a screenshot of a window (optionaly provide a color for the background)
+	window_blank - Don't add any fancy shadow and background to the window screenshot
 
 	Example:
 	./snapshot area
 	./snapshot full
 	./snapshot window
 	./snapshot window #FFFFFF
+	./snapshot window_blank
+
 	"
 elif [ "$1" = 'full' ];
 then
@@ -85,6 +121,10 @@ elif [ "$1" = 'window' ];
 then
 	msg='Window screenshot saved and copied to clipboard!'
 	# TODO: add a margin around the window so that the background is better visible
-	shot 'maim -st 9999999 -B -m 1 -u' "${msg}" "convert - ( +clone -background black -shadow 80x3+8+8 ) +swap -background $COLOR -layers merge +repage"
+	window 'maim -st 9999999 -B -m 1 -u' "${msg}" "convert - ( +clone -background black -shadow 80x3+8+8 ) +swap -background $COLOR -layers merge +repage"
+elif [ "$1" = "window_blank" ];
+then
+	msg='Window screenshot saved and copied to clipboard!'
+	shot 'maim -st 9999999 -B -m 1 -u' "${msg}"
 fi
 
