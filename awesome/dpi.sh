@@ -55,8 +55,8 @@ if [[ "$1" == "" ]]; then
 else
     pkill -f "rofi"
     # this gets ran in the "fork"
-    val=$(printf "Is the scaling correct\nyes\nno\n" | rofi -dmenu -dpi $DPI -theme /etc/xdg/awesome/configuration/rofi/sidebar/rofi.rasi) # get the requested dpi
-    if [[ "$val" == "no" ]]; then
+    val=$(printf "Yes\nNo\n" | rofi -dmenu -dpi $DPI -p "Is the scaling correct?" -theme /etc/xdg/awesome/configuration/rofi/sidebar/dpi.rasi) # get the requested dpi
+    if [[ "$val" == "No" ]]; then
         set-screen "$1"
     fi
     kill -9 "$2" # kill the parent
