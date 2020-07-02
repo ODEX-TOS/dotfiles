@@ -1,7 +1,7 @@
 --- Separating Multiple Monitor functions as a separeted module (taken from awesome wiki)
 -- TODO: add a display duplication option
 local gtable  = require("gears.table")
-local spawn   = require("awful.spawn")
+local awful   = require("awful")
 local naughty = require("naughty")
 local apps    = require("configuration.apps")
 
@@ -61,10 +61,13 @@ local function menu()
       local cmd = "xrandr"
       -- Enabled outputs
       for i, o in pairs(choice) do
-         cmd = cmd .. " --output " .. o .. " --auto"
+         -- set default resolution and disable panning (in case it is on)
+         cmd = cmd .. " --output " .. o .. " --panning 0x0 --auto"
          if i > 1 then
             cmd = cmd .. " --right-of " .. choice[i-1]
          end
+         -- duplicate command due to xrandr bug?
+         cmd = cmd .. "; sleep 1; " .. cmd
       end
       -- Disabled outputs
       for _, o in pairs(out) do
@@ -98,9 +101,10 @@ local state = { cid = nil }
 local function naughty_destroy_callback(reason)
     local action = state.index and state.menu[state.index - 1][2]
     if action then
-      spawn(action, false)
+      awful.spawn.easy_async_with_shell(action, function()
+         _G.awesome.restart()
+      end)
       state.index = nil
-      _G.awesome.restart()
     end
 end
 
