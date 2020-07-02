@@ -84,6 +84,9 @@ local function menu()
       end
 
       menu[#menu + 1] = { label, cmd }
+      if #choice == 1 then
+         menu[#menu + 1] = { 'Duplicate <span weight="bold">' .. choice[1] .. '</span>' ,  apps.default.duplicate_screens .. ' ' .. choice[1] }
+      end
    end
 
    return menu
@@ -97,6 +100,7 @@ local function naughty_destroy_callback(reason)
     if action then
       spawn(action, false)
       state.index = nil
+      _G.awesome.restart()
     end
 end
 
@@ -104,7 +108,8 @@ local function xrandr()
    -- Build the list of choices
    if not state.index then
       state.menu = menu()
-      state.menu[#state.menu + 1] = {'Duplicate screens', apps.default.duplicate_screens}
+      -- append extra options to the end
+      -- state.menu[#state.menu + 1] = {'Duplicate screens', apps.default.duplicate_screens}
       state.index = 1
    end
 
