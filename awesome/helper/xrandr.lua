@@ -3,6 +3,7 @@
 local gtable  = require("gears.table")
 local spawn   = require("awful.spawn")
 local naughty = require("naughty")
+local apps    = require("configuration.apps")
 
 -- A path to a fancy icon
 local icon_path = "/etc/xdg/awesome/theme/icons/laptop.svg"
@@ -103,6 +104,7 @@ local function xrandr()
    -- Build the list of choices
    if not state.index then
       state.menu = menu()
+      state.menu[#state.menu + 1] = {'Duplicate screens', apps.default.duplicate_screens}
       state.index = 1
    end
 

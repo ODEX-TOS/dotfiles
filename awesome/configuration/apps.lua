@@ -56,7 +56,8 @@ return {
     rofidpimenu = 'bash /etc/xdg/awesome/dpi.sh',
     rofiwifimenu = 'bash /etc/xdg/awesome/wifi.sh' .. ' ' .. screen.primary.dpi,
     lock = 'mantablockscreen -sc',
-    quake = (os.getenv("TERMINAL") or 'st') .. ' -T QuakeTerminal'
+    quake = (os.getenv("TERMINAL") or 'st') .. ' -T QuakeTerminal',
+    duplicate_screens = 'bash /etc/xdg/awesome/xrandr-duplicate.sh'
   },
   -- List of apps to start once on start-up
   run_on_start_up = {
