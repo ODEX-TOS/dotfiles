@@ -3125,3 +3125,984 @@
  fa-youtube; U+F167
  fa-youtube-square; U+F431
  fa-zhihu; U+F63F
++ plus sign; U+002B
+< less-than sign; U+003C
+= equals sign; U+003D
+> greater-than sign; U+003E
+| vertical line; U+007C
+~ tilde; U+007E
+¬ not sign; U+00AC
+± plus-minus sign; U+00B1
+× multiplication sign; U+00D7
+÷ division sign; U+00F7
+϶ greek reversed lunate epsilon symbol; U+03F6
+؆ arabic-indic cube root; U+0606
+؇ arabic-indic fourth root; U+0607
+؈ arabic ray; U+0608
+⁄ fraction slash; U+2044
+⁒ commercial minus sign; U+2052
+⁺ superscript plus sign; U+207A
+⁻ superscript minus; U+207B
+⁼ superscript equals sign; U+207C
+₊ subscript plus sign; U+208A
+₋ subscript minus; U+208B
+₌ subscript equals sign; U+208C
+℘ script capital p; U+2118
+⅀ double-struck n-ary summation; U+2140
+⅁ turned sans-serif capital g; U+2141
+⅂ turned sans-serif capital l; U+2142
+⅃ reversed sans-serif capital l; U+2143
+⅄ turned sans-serif capital y; U+2144
+⅋ turned ampersand; U+214B
+← leftwards arrow; U+2190
+↑ upwards arrow; U+2191
+→ rightwards arrow; U+2192
+↓ downwards arrow; U+2193
+↔ left right arrow; U+2194
+↚ leftwards arrow with stroke; U+219A
+↛ rightwards arrow with stroke; U+219B
+↠ rightwards two headed arrow; U+21A0
+↣ rightwards arrow with tail; U+21A3
+↦ rightwards arrow from bar; U+21A6
+↮ left right arrow with stroke; U+21AE
+⇎ left right double arrow with stroke; U+21CE
+⇏ rightwards double arrow with stroke; U+21CF
+⇒ rightwards double arrow; U+21D2
+⇔ left right double arrow; U+21D4
+⇴ right arrow with small circle; U+21F4
+⇵ downwards arrow leftwards of upwards arrow; U+21F5
+⇶ three rightwards arrows; U+21F6
+⇷ leftwards arrow with vertical stroke; U+21F7
+⇸ rightwards arrow with vertical stroke; U+21F8
+⇹ left right arrow with vertical stroke; U+21F9
+⇺ leftwards arrow with double vertical stroke; U+21FA
+⇻ rightwards arrow with double vertical stroke; U+21FB
+⇼ left right arrow with double vertical stroke; U+21FC
+⇽ leftwards open-headed arrow; U+21FD
+⇾ rightwards open-headed arrow; U+21FE
+⇿ left right open-headed arrow; U+21FF
+∀ for all; U+2200
+∁ complement; U+2201
+∂ partial differential; U+2202
+∃ there exists; U+2203
+∄ there does not exist; U+2204
+∅ empty set; U+2205
+∆ increment; U+2206
+∇ nabla; U+2207
+∈ element of; U+2208
+∉ not an element of; U+2209
+∊ small element of; U+220A
+∋ contains as member; U+220B
+∌ does not contain as member; U+220C
+∍ small contains as member; U+220D
+∎ end of proof; U+220E
+∏ n-ary product; U+220F
+∐ n-ary coproduct; U+2210
+∑ n-ary summation; U+2211
+− minus sign; U+2212
+∓ minus-or-plus sign; U+2213
+∔ dot plus; U+2214
+∕ division slash; U+2215
+∖ set minus; U+2216
+∗ asterisk operator; U+2217
+∘ ring operator; U+2218
+∙ bullet operator; U+2219
+√ square root; U+221A
+∛ cube root; U+221B
+∜ fourth root; U+221C
+∝ proportional to; U+221D
+∞ infinity; U+221E
+∟ right angle; U+221F
+∠ angle; U+2220
+∡ measured angle; U+2221
+∢ spherical angle; U+2222
+∣ divides; U+2223
+∤ does not divide; U+2224
+∥ parallel to; U+2225
+∦ not parallel to; U+2226
+∧ logical and; U+2227
+∨ logical or; U+2228
+∩ intersection; U+2229
+∪ union; U+222A
+∫ integral; U+222B
+∬ double integral; U+222C
+∭ triple integral; U+222D
+∮ contour integral; U+222E
+∯ surface integral; U+222F
+∰ volume integral; U+2230
+∱ clockwise integral; U+2231
+∲ clockwise contour integral; U+2232
+∳ anticlockwise contour integral; U+2233
+∴ therefore; U+2234
+∵ because; U+2235
+∶ ratio; U+2236
+∷ proportion; U+2237
+∸ dot minus; U+2238
+∹ excess; U+2239
+∺ geometric proportion; U+223A
+∻ homothetic; U+223B
+∼ tilde operator; U+223C
+∽ reversed tilde; U+223D
+∾ inverted lazy s; U+223E
+∿ sine wave; U+223F
+≀ wreath product; U+2240
+≁ not tilde; U+2241
+≂ minus tilde; U+2242
+≃ asymptotically equal to; U+2243
+≄ not asymptotically equal to; U+2244
+≅ approximately equal to; U+2245
+≆ approximately but not actually equal to; U+2246
+≇ neither approximately nor actually equal to; U+2247
+≈ almost equal to; U+2248
+≉ not almost equal to; U+2249
+≊ almost equal or equal to; U+224A
+≋ triple tilde; U+224B
+≌ all equal to; U+224C
+≍ equivalent to; U+224D
+≎ geometrically equivalent to; U+224E
+≏ difference between; U+224F
+≐ approaches the limit; U+2250
+≑ geometrically equal to; U+2251
+≒ approximately equal to or the image of; U+2252
+≓ image of or approximately equal to; U+2253
+≔ colon equals; U+2254
+≕ equals colon; U+2255
+≖ ring in equal to; U+2256
+≗ ring equal to; U+2257
+≘ corresponds to; U+2258
+≙ estimates; U+2259
+≚ equiangular to; U+225A
+≛ star equals; U+225B
+≜ delta equal to; U+225C
+≝ equal to by definition; U+225D
+≞ measured by; U+225E
+≟ questioned equal to; U+225F
+≠ not equal to; U+2260
+≡ identical to; U+2261
+≢ not identical to; U+2262
+≣ strictly equivalent to; U+2263
+≤ less-than or equal to; U+2264
+≥ greater-than or equal to; U+2265
+≦ less-than over equal to; U+2266
+≧ greater-than over equal to; U+2267
+≨ less-than but not equal to; U+2268
+≩ greater-than but not equal to; U+2269
+≪ much less-than; U+226A
+≫ much greater-than; U+226B
+≬ between; U+226C
+≭ not equivalent to; U+226D
+≮ not less-than; U+226E
+≯ not greater-than; U+226F
+≰ neither less-than nor equal to; U+2270
+≱ neither greater-than nor equal to; U+2271
+≲ less-than or equivalent to; U+2272
+≳ greater-than or equivalent to; U+2273
+≴ neither less-than nor equivalent to; U+2274
+≵ neither greater-than nor equivalent to; U+2275
+≶ less-than or greater-than; U+2276
+≷ greater-than or less-than; U+2277
+≸ neither less-than nor greater-than; U+2278
+≹ neither greater-than nor less-than; U+2279
+≺ precedes; U+227A
+≻ succeeds; U+227B
+≼ precedes or equal to; U+227C
+≽ succeeds or equal to; U+227D
+≾ precedes or equivalent to; U+227E
+≿ succeeds or equivalent to; U+227F
+⊀ does not precede; U+2280
+⊁ does not succeed; U+2281
+⊂ subset of; U+2282
+⊃ superset of; U+2283
+⊄ not a subset of; U+2284
+⊅ not a superset of; U+2285
+⊆ subset of or equal to; U+2286
+⊇ superset of or equal to; U+2287
+⊈ neither a subset of nor equal to; U+2288
+⊉ neither a superset of nor equal to; U+2289
+⊊ subset of with not equal to; U+228A
+⊋ superset of with not equal to; U+228B
+⊌ multiset; U+228C
+⊍ multiset multiplication; U+228D
+⊎ multiset union; U+228E
+⊏ square image of; U+228F
+⊐ square original of; U+2290
+⊑ square image of or equal to; U+2291
+⊒ square original of or equal to; U+2292
+⊓ square cap; U+2293
+⊔ square cup; U+2294
+⊕ circled plus; U+2295
+⊖ circled minus; U+2296
+⊗ circled times; U+2297
+⊘ circled division slash; U+2298
+⊙ circled dot operator; U+2299
+⊚ circled ring operator; U+229A
+⊛ circled asterisk operator; U+229B
+⊜ circled equals; U+229C
+⊝ circled dash; U+229D
+⊞ squared plus; U+229E
+⊟ squared minus; U+229F
+⊠ squared times; U+22A0
+⊡ squared dot operator; U+22A1
+⊢ right tack; U+22A2
+⊣ left tack; U+22A3
+⊤ down tack; U+22A4
+⊥ up tack; U+22A5
+⊦ assertion; U+22A6
+⊧ models; U+22A7
+⊨ true; U+22A8
+⊩ forces; U+22A9
+⊪ triple vertical bar right turnstile; U+22AA
+⊫ double vertical bar double right turnstile; U+22AB
+⊬ does not prove; U+22AC
+⊭ not true; U+22AD
+⊮ does not force; U+22AE
+⊯ negated double vertical bar double right turnstile; U+22AF
+⊰ precedes under relation; U+22B0
+⊱ succeeds under relation; U+22B1
+⊲ normal subgroup of; U+22B2
+⊳ contains as normal subgroup; U+22B3
+⊴ normal subgroup of or equal to; U+22B4
+⊵ contains as normal subgroup or equal to; U+22B5
+⊶ original of; U+22B6
+⊷ image of; U+22B7
+⊸ multimap; U+22B8
+⊹ hermitian conjugate matrix; U+22B9
+⊺ intercalate; U+22BA
+⊻ xor; U+22BB
+⊼ nand; U+22BC
+⊽ nor; U+22BD
+⊾ right angle with arc; U+22BE
+⊿ right triangle; U+22BF
+⋀ n-ary logical and; U+22C0
+⋁ n-ary logical or; U+22C1
+⋂ n-ary intersection; U+22C2
+⋃ n-ary union; U+22C3
+⋄ diamond operator; U+22C4
+⋅ dot operator; U+22C5
+⋆ star operator; U+22C6
+⋇ division times; U+22C7
+⋈ bowtie; U+22C8
+⋉ left normal factor semidirect product; U+22C9
+⋊ right normal factor semidirect product; U+22CA
+⋋ left semidirect product; U+22CB
+⋌ right semidirect product; U+22CC
+⋍ reversed tilde equals; U+22CD
+⋎ curly logical or; U+22CE
+⋏ curly logical and; U+22CF
+⋐ double subset; U+22D0
+⋑ double superset; U+22D1
+⋒ double intersection; U+22D2
+⋓ double union; U+22D3
+⋔ pitchfork; U+22D4
+⋕ equal and parallel to; U+22D5
+⋖ less-than with dot; U+22D6
+⋗ greater-than with dot; U+22D7
+⋘ very much less-than; U+22D8
+⋙ very much greater-than; U+22D9
+⋚ less-than equal to or greater-than; U+22DA
+⋛ greater-than equal to or less-than; U+22DB
+⋜ equal to or less-than; U+22DC
+⋝ equal to or greater-than; U+22DD
+⋞ equal to or precedes; U+22DE
+⋟ equal to or succeeds; U+22DF
+⋠ does not precede or equal; U+22E0
+⋡ does not succeed or equal; U+22E1
+⋢ not square image of or equal to; U+22E2
+⋣ not square original of or equal to; U+22E3
+⋤ square image of or not equal to; U+22E4
+⋥ square original of or not equal to; U+22E5
+⋦ less-than but not equivalent to; U+22E6
+⋧ greater-than but not equivalent to; U+22E7
+⋨ precedes but not equivalent to; U+22E8
+⋩ succeeds but not equivalent to; U+22E9
+⋪ not normal subgroup of; U+22EA
+⋫ does not contain as normal subgroup; U+22EB
+⋬ not normal subgroup of or equal to; U+22EC
+⋭ does not contain as normal subgroup or equal; U+22ED
+⋮ vertical ellipsis; U+22EE
+⋯ midline horizontal ellipsis; U+22EF
+⋰ up right diagonal ellipsis; U+22F0
+⋱ down right diagonal ellipsis; U+22F1
+⋲ element of with long horizontal stroke; U+22F2
+⋳ element of with vertical bar at end of horizontal stroke; U+22F3
+⋴ small element of with vertical bar at end of horizontal stroke; U+22F4
+⋵ element of with dot above; U+22F5
+⋶ element of with overbar; U+22F6
+⋷ small element of with overbar; U+22F7
+⋸ element of with underbar; U+22F8
+⋹ element of with two horizontal strokes; U+22F9
+⋺ contains with long horizontal stroke; U+22FA
+⋻ contains with vertical bar at end of horizontal stroke; U+22FB
+⋼ small contains with vertical bar at end of horizontal stroke; U+22FC
+⋽ contains with overbar; U+22FD
+⋾ small contains with overbar; U+22FE
+⋿ z notation bag membership; U+22FF
+⌠ top half integral; U+2320
+⌡ bottom half integral; U+2321
+⍼ right angle with downwards zigzag arrow; U+237C
+⎛ left parenthesis upper hook; U+239B
+⎜ left parenthesis extension; U+239C
+⎝ left parenthesis lower hook; U+239D
+⎞ right parenthesis upper hook; U+239E
+⎟ right parenthesis extension; U+239F
+⎠ right parenthesis lower hook; U+23A0
+⎡ left square bracket upper corner; U+23A1
+⎢ left square bracket extension; U+23A2
+⎣ left square bracket lower corner; U+23A3
+⎤ right square bracket upper corner; U+23A4
+⎥ right square bracket extension; U+23A5
+⎦ right square bracket lower corner; U+23A6
+⎧ left curly bracket upper hook; U+23A7
+⎨ left curly bracket middle piece; U+23A8
+⎩ left curly bracket lower hook; U+23A9
+⎪ curly bracket extension; U+23AA
+⎫ right curly bracket upper hook; U+23AB
+⎬ right curly bracket middle piece; U+23AC
+⎭ right curly bracket lower hook; U+23AD
+⎮ integral extension; U+23AE
+⎯ horizontal line extension; U+23AF
+⎰ upper left or lower right curly bracket section; U+23B0
+⎱ upper right or lower left curly bracket section; U+23B1
+⎲ summation top; U+23B2
+⎳ summation bottom; U+23B3
+⏜ top parenthesis; U+23DC
+⏝ bottom parenthesis; U+23DD
+⏞ top curly bracket; U+23DE
+⏟ bottom curly bracket; U+23DF
+⏠ top tortoise shell bracket; U+23E0
+⏡ bottom tortoise shell bracket; U+23E1
+▷ white right-pointing triangle; U+25B7
+◁ white left-pointing triangle; U+25C1
+◸ upper left triangle; U+25F8
+◹ upper right triangle; U+25F9
+◺ lower left triangle; U+25FA
+◻ white medium square; U+25FB
+◼ black medium square; U+25FC
+◽ white medium small square; U+25FD
+◾ black medium small square; U+25FE
+◿ lower right triangle; U+25FF
+♯ music sharp sign; U+266F
+⟀ three dimensional angle; U+27C0
+⟁ white triangle containing small white triangle; U+27C1
+⟂ perpendicular; U+27C2
+⟃ open subset; U+27C3
+⟄ open superset; U+27C4
+⟇ or with dot inside; U+27C7
+⟈ reverse solidus preceding subset; U+27C8
+⟉ superset preceding solidus; U+27C9
+⟊ vertical bar with horizontal stroke; U+27CA
+⟋ mathematical rising diagonal; U+27CB
+⟌ long division; U+27CC
+⟍ mathematical falling diagonal; U+27CD
+⟎ squared logical and; U+27CE
+⟏ squared logical or; U+27CF
+⟐ white diamond with centred dot; U+27D0
+⟑ and with dot; U+27D1
+⟒ element of opening upwards; U+27D2
+⟓ lower right corner with dot; U+27D3
+⟔ upper left corner with dot; U+27D4
+⟕ left outer join; U+27D5
+⟖ right outer join; U+27D6
+⟗ full outer join; U+27D7
+⟘ large up tack; U+27D8
+⟙ large down tack; U+27D9
+⟚ left and right double turnstile; U+27DA
+⟛ left and right tack; U+27DB
+⟜ left multimap; U+27DC
+⟝ long right tack; U+27DD
+⟞ long left tack; U+27DE
+⟟ up tack with circle above; U+27DF
+⟠ lozenge divided by horizontal rule; U+27E0
+⟡ white concave-sided diamond; U+27E1
+⟢ white concave-sided diamond with leftwards tick; U+27E2
+⟣ white concave-sided diamond with rightwards tick; U+27E3
+⟤ white square with leftwards tick; U+27E4
+⟥ white square with rightwards tick; U+27E5
+⟰ upwards quadruple arrow; U+27F0
+⟱ downwards quadruple arrow; U+27F1
+⟲ anticlockwise gapped circle arrow; U+27F2
+⟳ clockwise gapped circle arrow; U+27F3
+⟴ right arrow with circled plus; U+27F4
+⟵ long leftwards arrow; U+27F5
+⟶ long rightwards arrow; U+27F6
+⟷ long left right arrow; U+27F7
+⟸ long leftwards double arrow; U+27F8
+⟹ long rightwards double arrow; U+27F9
+⟺ long left right double arrow; U+27FA
+⟻ long leftwards arrow from bar; U+27FB
+⟼ long rightwards arrow from bar; U+27FC
+⟽ long leftwards double arrow from bar; U+27FD
+⟾ long rightwards double arrow from bar; U+27FE
+⟿ long rightwards squiggle arrow; U+27FF
+⤀ rightwards two-headed arrow with vertical stroke; U+2900
+⤁ rightwards two-headed arrow with double vertical stroke; U+2901
+⤂ leftwards double arrow with vertical stroke; U+2902
+⤃ rightwards double arrow with vertical stroke; U+2903
+⤄ left right double arrow with vertical stroke; U+2904
+⤅ rightwards two-headed arrow from bar; U+2905
+⤆ leftwards double arrow from bar; U+2906
+⤇ rightwards double arrow from bar; U+2907
+⤈ downwards arrow with horizontal stroke; U+2908
+⤉ upwards arrow with horizontal stroke; U+2909
+⤊ upwards triple arrow; U+290A
+⤋ downwards triple arrow; U+290B
+⤌ leftwards double dash arrow; U+290C
+⤍ rightwards double dash arrow; U+290D
+⤎ leftwards triple dash arrow; U+290E
+⤏ rightwards triple dash arrow; U+290F
+⤐ rightwards two-headed triple dash arrow; U+2910
+⤑ rightwards arrow with dotted stem; U+2911
+⤒ upwards arrow to bar; U+2912
+⤓ downwards arrow to bar; U+2913
+⤔ rightwards arrow with tail with vertical stroke; U+2914
+⤕ rightwards arrow with tail with double vertical stroke; U+2915
+⤖ rightwards two-headed arrow with tail; U+2916
+⤗ rightwards two-headed arrow with tail with vertical stroke; U+2917
+⤘ rightwards two-headed arrow with tail with double vertical stroke; U+2918
+⤙ leftwards arrow-tail; U+2919
+⤚ rightwards arrow-tail; U+291A
+⤛ leftwards double arrow-tail; U+291B
+⤜ rightwards double arrow-tail; U+291C
+⤝ leftwards arrow to black diamond; U+291D
+⤞ rightwards arrow to black diamond; U+291E
+⤟ leftwards arrow from bar to black diamond; U+291F
+⤠ rightwards arrow from bar to black diamond; U+2920
+⤡ north west and south east arrow; U+2921
+⤢ north east and south west arrow; U+2922
+⤣ north west arrow with hook; U+2923
+⤤ north east arrow with hook; U+2924
+⤥ south east arrow with hook; U+2925
+⤦ south west arrow with hook; U+2926
+⤧ north west arrow and north east arrow; U+2927
+⤨ north east arrow and south east arrow; U+2928
+⤩ south east arrow and south west arrow; U+2929
+⤪ south west arrow and north west arrow; U+292A
+⤫ rising diagonal crossing falling diagonal; U+292B
+⤬ falling diagonal crossing rising diagonal; U+292C
+⤭ south east arrow crossing north east arrow; U+292D
+⤮ north east arrow crossing south east arrow; U+292E
+⤯ falling diagonal crossing north east arrow; U+292F
+⤰ rising diagonal crossing south east arrow; U+2930
+⤱ north east arrow crossing north west arrow; U+2931
+⤲ north west arrow crossing north east arrow; U+2932
+⤳ wave arrow pointing directly right; U+2933
+⤴ arrow pointing rightwards then curving upwards; U+2934
+⤵ arrow pointing rightwards then curving downwards; U+2935
+⤶ arrow pointing downwards then curving leftwards; U+2936
+⤷ arrow pointing downwards then curving rightwards; U+2937
+⤸ right-side arc clockwise arrow; U+2938
+⤹ left-side arc anticlockwise arrow; U+2939
+⤺ top arc anticlockwise arrow; U+293A
+⤻ bottom arc anticlockwise arrow; U+293B
+⤼ top arc clockwise arrow with minus; U+293C
+⤽ top arc anticlockwise arrow with plus; U+293D
+⤾ lower right semicircular clockwise arrow; U+293E
+⤿ lower left semicircular anticlockwise arrow; U+293F
+⥀ anticlockwise closed circle arrow; U+2940
+⥁ clockwise closed circle arrow; U+2941
+⥂ rightwards arrow above short leftwards arrow; U+2942
+⥃ leftwards arrow above short rightwards arrow; U+2943
+⥄ short rightwards arrow above leftwards arrow; U+2944
+⥅ rightwards arrow with plus below; U+2945
+⥆ leftwards arrow with plus below; U+2946
+⥇ rightwards arrow through x; U+2947
+⥈ left right arrow through small circle; U+2948
+⥉ upwards two-headed arrow from small circle; U+2949
+⥊ left barb up right barb down harpoon; U+294A
+⥋ left barb down right barb up harpoon; U+294B
+⥌ up barb right down barb left harpoon; U+294C
+⥍ up barb left down barb right harpoon; U+294D
+⥎ left barb up right barb up harpoon; U+294E
+⥏ up barb right down barb right harpoon; U+294F
+⥐ left barb down right barb down harpoon; U+2950
+⥑ up barb left down barb left harpoon; U+2951
+⥒ leftwards harpoon with barb up to bar; U+2952
+⥓ rightwards harpoon with barb up to bar; U+2953
+⥔ upwards harpoon with barb right to bar; U+2954
+⥕ downwards harpoon with barb right to bar; U+2955
+⥖ leftwards harpoon with barb down to bar; U+2956
+⥗ rightwards harpoon with barb down to bar; U+2957
+⥘ upwards harpoon with barb left to bar; U+2958
+⥙ downwards harpoon with barb left to bar; U+2959
+⥚ leftwards harpoon with barb up from bar; U+295A
+⥛ rightwards harpoon with barb up from bar; U+295B
+⥜ upwards harpoon with barb right from bar; U+295C
+⥝ downwards harpoon with barb right from bar; U+295D
+⥞ leftwards harpoon with barb down from bar; U+295E
+⥟ rightwards harpoon with barb down from bar; U+295F
+⥠ upwards harpoon with barb left from bar; U+2960
+⥡ downwards harpoon with barb left from bar; U+2961
+⥢ leftwards harpoon with barb up above leftwards harpoon with barb down; U+2962
+⥣ upwards harpoon with barb left beside upwards harpoon with barb right; U+2963
+⥤ rightwards harpoon with barb up above rightwards harpoon with barb down; U+2964
+⥥ downwards harpoon with barb left beside downwards harpoon with barb right; U+2965
+⥦ leftwards harpoon with barb up above rightwards harpoon with barb up; U+2966
+⥧ leftwards harpoon with barb down above rightwards harpoon with barb down; U+2967
+⥨ rightwards harpoon with barb up above leftwards harpoon with barb up; U+2968
+⥩ rightwards harpoon with barb down above leftwards harpoon with barb down; U+2969
+⥪ leftwards harpoon with barb up above long dash; U+296A
+⥫ leftwards harpoon with barb down below long dash; U+296B
+⥬ rightwards harpoon with barb up above long dash; U+296C
+⥭ rightwards harpoon with barb down below long dash; U+296D
+⥮ upwards harpoon with barb left beside downwards harpoon with barb right; U+296E
+⥯ downwards harpoon with barb left beside upwards harpoon with barb right; U+296F
+⥰ right double arrow with rounded head; U+2970
+⥱ equals sign above rightwards arrow; U+2971
+⥲ tilde operator above rightwards arrow; U+2972
+⥳ leftwards arrow above tilde operator; U+2973
+⥴ rightwards arrow above tilde operator; U+2974
+⥵ rightwards arrow above almost equal to; U+2975
+⥶ less-than above leftwards arrow; U+2976
+⥷ leftwards arrow through less-than; U+2977
+⥸ greater-than above rightwards arrow; U+2978
+⥹ subset above rightwards arrow; U+2979
+⥺ leftwards arrow through subset; U+297A
+⥻ superset above leftwards arrow; U+297B
+⥼ left fish tail; U+297C
+⥽ right fish tail; U+297D
+⥾ up fish tail; U+297E
+⥿ down fish tail; U+297F
+⦀ triple vertical bar delimiter; U+2980
+⦁ z notation spot; U+2981
+⦂ z notation type colon; U+2982
+⦙ dotted fence; U+2999
+⦚ vertical zigzag line; U+299A
+⦛ measured angle opening left; U+299B
+⦜ right angle variant with square; U+299C
+⦝ measured right angle with dot; U+299D
+⦞ angle with s inside; U+299E
+⦟ acute angle; U+299F
+⦠ spherical angle opening left; U+29A0
+⦡ spherical angle opening up; U+29A1
+⦢ turned angle; U+29A2
+⦣ reversed angle; U+29A3
+⦤ angle with underbar; U+29A4
+⦥ reversed angle with underbar; U+29A5
+⦦ oblique angle opening up; U+29A6
+⦧ oblique angle opening down; U+29A7
+⦨ measured angle with open arm ending in arrow pointing up and right; U+29A8
+⦩ measured angle with open arm ending in arrow pointing up and left; U+29A9
+⦪ measured angle with open arm ending in arrow pointing down and right; U+29AA
+⦫ measured angle with open arm ending in arrow pointing down and left; U+29AB
+⦬ measured angle with open arm ending in arrow pointing right and up; U+29AC
+⦭ measured angle with open arm ending in arrow pointing left and up; U+29AD
+⦮ measured angle with open arm ending in arrow pointing right and down; U+29AE
+⦯ measured angle with open arm ending in arrow pointing left and down; U+29AF
+⦰ reversed empty set; U+29B0
+⦱ empty set with overbar; U+29B1
+⦲ empty set with small circle above; U+29B2
+⦳ empty set with right arrow above; U+29B3
+⦴ empty set with left arrow above; U+29B4
+⦵ circle with horizontal bar; U+29B5
+⦶ circled vertical bar; U+29B6
+⦷ circled parallel; U+29B7
+⦸ circled reverse solidus; U+29B8
+⦹ circled perpendicular; U+29B9
+⦺ circle divided by horizontal bar and top half divided by vertical bar; U+29BA
+⦻ circle with superimposed x; U+29BB
+⦼ circled anticlockwise-rotated division sign; U+29BC
+⦽ up arrow through circle; U+29BD
+⦾ circled white bullet; U+29BE
+⦿ circled bullet; U+29BF
+⧀ circled less-than; U+29C0
+⧁ circled greater-than; U+29C1
+⧂ circle with small circle to the right; U+29C2
+⧃ circle with two horizontal strokes to the right; U+29C3
+⧄ squared rising diagonal slash; U+29C4
+⧅ squared falling diagonal slash; U+29C5
+⧆ squared asterisk; U+29C6
+⧇ squared small circle; U+29C7
+⧈ squared square; U+29C8
+⧉ two joined squares; U+29C9
+⧊ triangle with dot above; U+29CA
+⧋ triangle with underbar; U+29CB
+⧌ s in triangle; U+29CC
+⧍ triangle with serifs at bottom; U+29CD
+⧎ right triangle above left triangle; U+29CE
+⧏ left triangle beside vertical bar; U+29CF
+⧐ vertical bar beside right triangle; U+29D0
+⧑ bowtie with left half black; U+29D1
+⧒ bowtie with right half black; U+29D2
+⧓ black bowtie; U+29D3
+⧔ times with left half black; U+29D4
+⧕ times with right half black; U+29D5
+⧖ white hourglass; U+29D6
+⧗ black hourglass; U+29D7
+⧜ incomplete infinity; U+29DC
+⧝ tie over infinity; U+29DD
+⧞ infinity negated with vertical bar; U+29DE
+⧟ double-ended multimap; U+29DF
+⧠ square with contoured outline; U+29E0
+⧡ increases as; U+29E1
+⧢ shuffle product; U+29E2
+⧣ equals sign and slanted parallel; U+29E3
+⧤ equals sign and slanted parallel with tilde above; U+29E4
+⧥ identical to and slanted parallel; U+29E5
+⧦ gleich stark; U+29E6
+⧧ thermodynamic; U+29E7
+⧨ down-pointing triangle with left half black; U+29E8
+⧩ down-pointing triangle with right half black; U+29E9
+⧪ black diamond with down arrow; U+29EA
+⧫ black lozenge; U+29EB
+⧬ white circle with down arrow; U+29EC
+⧭ black circle with down arrow; U+29ED
+⧮ error-barred white square; U+29EE
+⧯ error-barred black square; U+29EF
+⧰ error-barred white diamond; U+29F0
+⧱ error-barred black diamond; U+29F1
+⧲ error-barred white circle; U+29F2
+⧳ error-barred black circle; U+29F3
+⧴ rule-delayed; U+29F4
+⧵ reverse solidus operator; U+29F5
+⧶ solidus with overbar; U+29F6
+⧷ reverse solidus with horizontal stroke; U+29F7
+⧸ big solidus; U+29F8
+⧹ big reverse solidus; U+29F9
+⧺ double plus; U+29FA
+⧻ triple plus; U+29FB
+⧾ tiny; U+29FE
+⧿ miny; U+29FF
+⨀ n-ary circled dot operator; U+2A00
+⨁ n-ary circled plus operator; U+2A01
+⨂ n-ary circled times operator; U+2A02
+⨃ n-ary union operator with dot; U+2A03
+⨄ n-ary union operator with plus; U+2A04
+⨅ n-ary square intersection operator; U+2A05
+⨆ n-ary square union operator; U+2A06
+⨇ two logical and operator; U+2A07
+⨈ two logical or operator; U+2A08
+⨉ n-ary times operator; U+2A09
+⨊ modulo two sum; U+2A0A
+⨋ summation with integral; U+2A0B
+⨌ quadruple integral operator; U+2A0C
+⨍ finite part integral; U+2A0D
+⨎ integral with double stroke; U+2A0E
+⨏ integral average with slash; U+2A0F
+⨐ circulation function; U+2A10
+⨑ anticlockwise integration; U+2A11
+⨒ line integration with rectangular path around pole; U+2A12
+⨓ line integration with semicircular path around pole; U+2A13
+⨔ line integration not including the pole; U+2A14
+⨕ integral around a point operator; U+2A15
+⨖ quaternion integral operator; U+2A16
+⨗ integral with leftwards arrow with hook; U+2A17
+⨘ integral with times sign; U+2A18
+⨙ integral with intersection; U+2A19
+⨚ integral with union; U+2A1A
+⨛ integral with overbar; U+2A1B
+⨜ integral with underbar; U+2A1C
+⨝ join; U+2A1D
+⨞ large left triangle operator; U+2A1E
+⨟ z notation schema composition; U+2A1F
+⨠ z notation schema piping; U+2A20
+⨡ z notation schema projection; U+2A21
+⨢ plus sign with small circle above; U+2A22
+⨣ plus sign with circumflex accent above; U+2A23
+⨤ plus sign with tilde above; U+2A24
+⨥ plus sign with dot below; U+2A25
+⨦ plus sign with tilde below; U+2A26
+⨧ plus sign with subscript two; U+2A27
+⨨ plus sign with black triangle; U+2A28
+⨩ minus sign with comma above; U+2A29
+⨪ minus sign with dot below; U+2A2A
+⨫ minus sign with falling dots; U+2A2B
+⨬ minus sign with rising dots; U+2A2C
+⨭ plus sign in left half circle; U+2A2D
+⨮ plus sign in right half circle; U+2A2E
+⨯ vector or cross product; U+2A2F
+⨰ multiplication sign with dot above; U+2A30
+⨱ multiplication sign with underbar; U+2A31
+⨲ semidirect product with bottom closed; U+2A32
+⨳ smash product; U+2A33
+⨴ multiplication sign in left half circle; U+2A34
+⨵ multiplication sign in right half circle; U+2A35
+⨶ circled multiplication sign with circumflex accent; U+2A36
+⨷ multiplication sign in double circle; U+2A37
+⨸ circled division sign; U+2A38
+⨹ plus sign in triangle; U+2A39
+⨺ minus sign in triangle; U+2A3A
+⨻ multiplication sign in triangle; U+2A3B
+⨼ interior product; U+2A3C
+⨽ righthand interior product; U+2A3D
+⨾ z notation relational composition; U+2A3E
+⨿ amalgamation or coproduct; U+2A3F
+⩀ intersection with dot; U+2A40
+⩁ union with minus sign; U+2A41
+⩂ union with overbar; U+2A42
+⩃ intersection with overbar; U+2A43
+⩄ intersection with logical and; U+2A44
+⩅ union with logical or; U+2A45
+⩆ union above intersection; U+2A46
+⩇ intersection above union; U+2A47
+⩈ union above bar above intersection; U+2A48
+⩉ intersection above bar above union; U+2A49
+⩊ union beside and joined with union; U+2A4A
+⩋ intersection beside and joined with intersection; U+2A4B
+⩌ closed union with serifs; U+2A4C
+⩍ closed intersection with serifs; U+2A4D
+⩎ double square intersection; U+2A4E
+⩏ double square union; U+2A4F
+⩐ closed union with serifs and smash product; U+2A50
+⩑ logical and with dot above; U+2A51
+⩒ logical or with dot above; U+2A52
+⩓ double logical and; U+2A53
+⩔ double logical or; U+2A54
+⩕ two intersecting logical and; U+2A55
+⩖ two intersecting logical or; U+2A56
+⩗ sloping large or; U+2A57
+⩘ sloping large and; U+2A58
+⩙ logical or overlapping logical and; U+2A59
+⩚ logical and with middle stem; U+2A5A
+⩛ logical or with middle stem; U+2A5B
+⩜ logical and with horizontal dash; U+2A5C
+⩝ logical or with horizontal dash; U+2A5D
+⩞ logical and with double overbar; U+2A5E
+⩟ logical and with underbar; U+2A5F
+⩠ logical and with double underbar; U+2A60
+⩡ small vee with underbar; U+2A61
+⩢ logical or with double overbar; U+2A62
+⩣ logical or with double underbar; U+2A63
+⩤ z notation domain antirestriction; U+2A64
+⩥ z notation range antirestriction; U+2A65
+⩦ equals sign with dot below; U+2A66
+⩧ identical with dot above; U+2A67
+⩨ triple horizontal bar with double vertical stroke; U+2A68
+⩩ triple horizontal bar with triple vertical stroke; U+2A69
+⩪ tilde operator with dot above; U+2A6A
+⩫ tilde operator with rising dots; U+2A6B
+⩬ similar minus similar; U+2A6C
+⩭ congruent with dot above; U+2A6D
+⩮ equals with asterisk; U+2A6E
+⩯ almost equal to with circumflex accent; U+2A6F
+⩰ approximately equal or equal to; U+2A70
+⩱ equals sign above plus sign; U+2A71
+⩲ plus sign above equals sign; U+2A72
+⩳ equals sign above tilde operator; U+2A73
+⩴ double colon equal; U+2A74
+⩵ two consecutive equals signs; U+2A75
+⩶ three consecutive equals signs; U+2A76
+⩷ equals sign with two dots above and two dots below; U+2A77
+⩸ equivalent with four dots above; U+2A78
+⩹ less-than with circle inside; U+2A79
+⩺ greater-than with circle inside; U+2A7A
+⩻ less-than with question mark above; U+2A7B
+⩼ greater-than with question mark above; U+2A7C
+⩽ less-than or slanted equal to; U+2A7D
+⩾ greater-than or slanted equal to; U+2A7E
+⩿ less-than or slanted equal to with dot inside; U+2A7F
+⪀ greater-than or slanted equal to with dot inside; U+2A80
+⪁ less-than or slanted equal to with dot above; U+2A81
+⪂ greater-than or slanted equal to with dot above; U+2A82
+⪃ less-than or slanted equal to with dot above right; U+2A83
+⪄ greater-than or slanted equal to with dot above left; U+2A84
+⪅ less-than or approximate; U+2A85
+⪆ greater-than or approximate; U+2A86
+⪇ less-than and single-line not equal to; U+2A87
+⪈ greater-than and single-line not equal to; U+2A88
+⪉ less-than and not approximate; U+2A89
+⪊ greater-than and not approximate; U+2A8A
+⪋ less-than above double-line equal above greater-than; U+2A8B
+⪌ greater-than above double-line equal above less-than; U+2A8C
+⪍ less-than above similar or equal; U+2A8D
+⪎ greater-than above similar or equal; U+2A8E
+⪏ less-than above similar above greater-than; U+2A8F
+⪐ greater-than above similar above less-than; U+2A90
+⪑ less-than above greater-than above double-line equal; U+2A91
+⪒ greater-than above less-than above double-line equal; U+2A92
+⪓ less-than above slanted equal above greater-than above slanted equal; U+2A93
+⪔ greater-than above slanted equal above less-than above slanted equal; U+2A94
+⪕ slanted equal to or less-than; U+2A95
+⪖ slanted equal to or greater-than; U+2A96
+⪗ slanted equal to or less-than with dot inside; U+2A97
+⪘ slanted equal to or greater-than with dot inside; U+2A98
+⪙ double-line equal to or less-than; U+2A99
+⪚ double-line equal to or greater-than; U+2A9A
+⪛ double-line slanted equal to or less-than; U+2A9B
+⪜ double-line slanted equal to or greater-than; U+2A9C
+⪝ similar or less-than; U+2A9D
+⪞ similar or greater-than; U+2A9E
+⪟ similar above less-than above equals sign; U+2A9F
+⪠ similar above greater-than above equals sign; U+2AA0
+⪡ double nested less-than; U+2AA1
+⪢ double nested greater-than; U+2AA2
+⪣ double nested less-than with underbar; U+2AA3
+⪤ greater-than overlapping less-than; U+2AA4
+⪥ greater-than beside less-than; U+2AA5
+⪦ less-than closed by curve; U+2AA6
+⪧ greater-than closed by curve; U+2AA7
+⪨ less-than closed by curve above slanted equal; U+2AA8
+⪩ greater-than closed by curve above slanted equal; U+2AA9
+⪪ smaller than; U+2AAA
+⪫ larger than; U+2AAB
+⪬ smaller than or equal to; U+2AAC
+⪭ larger than or equal to; U+2AAD
+⪮ equals sign with bumpy above; U+2AAE
+⪯ precedes above single-line equals sign; U+2AAF
+⪰ succeeds above single-line equals sign; U+2AB0
+⪱ precedes above single-line not equal to; U+2AB1
+⪲ succeeds above single-line not equal to; U+2AB2
+⪳ precedes above equals sign; U+2AB3
+⪴ succeeds above equals sign; U+2AB4
+⪵ precedes above not equal to; U+2AB5
+⪶ succeeds above not equal to; U+2AB6
+⪷ precedes above almost equal to; U+2AB7
+⪸ succeeds above almost equal to; U+2AB8
+⪹ precedes above not almost equal to; U+2AB9
+⪺ succeeds above not almost equal to; U+2ABA
+⪻ double precedes; U+2ABB
+⪼ double succeeds; U+2ABC
+⪽ subset with dot; U+2ABD
+⪾ superset with dot; U+2ABE
+⪿ subset with plus sign below; U+2ABF
+⫀ superset with plus sign below; U+2AC0
+⫁ subset with multiplication sign below; U+2AC1
+⫂ superset with multiplication sign below; U+2AC2
+⫃ subset of or equal to with dot above; U+2AC3
+⫄ superset of or equal to with dot above; U+2AC4
+⫅ subset of above equals sign; U+2AC5
+⫆ superset of above equals sign; U+2AC6
+⫇ subset of above tilde operator; U+2AC7
+⫈ superset of above tilde operator; U+2AC8
+⫉ subset of above almost equal to; U+2AC9
+⫊ superset of above almost equal to; U+2ACA
+⫋ subset of above not equal to; U+2ACB
+⫌ superset of above not equal to; U+2ACC
+⫍ square left open box operator; U+2ACD
+⫎ square right open box operator; U+2ACE
+⫏ closed subset; U+2ACF
+⫐ closed superset; U+2AD0
+⫑ closed subset or equal to; U+2AD1
+⫒ closed superset or equal to; U+2AD2
+⫓ subset above superset; U+2AD3
+⫔ superset above subset; U+2AD4
+⫕ subset above subset; U+2AD5
+⫖ superset above superset; U+2AD6
+⫗ superset beside subset; U+2AD7
+⫘ superset beside and joined by dash with subset; U+2AD8
+⫙ element of opening downwards; U+2AD9
+⫚ pitchfork with tee top; U+2ADA
+⫛ transversal intersection; U+2ADB
+⫝̸ forking; U+2ADC
+⫝ nonforking; U+2ADD
+⫞ short left tack; U+2ADE
+⫟ short down tack; U+2ADF
+⫠ short up tack; U+2AE0
+⫡ perpendicular with s; U+2AE1
+⫢ vertical bar triple right turnstile; U+2AE2
+⫣ double vertical bar left turnstile; U+2AE3
+⫤ vertical bar double left turnstile; U+2AE4
+⫥ double vertical bar double left turnstile; U+2AE5
+⫦ long dash from left member of double vertical; U+2AE6
+⫧ short down tack with overbar; U+2AE7
+⫨ short up tack with underbar; U+2AE8
+⫩ short up tack above short down tack; U+2AE9
+⫪ double down tack; U+2AEA
+⫫ double up tack; U+2AEB
+⫬ double stroke not sign; U+2AEC
+⫭ reversed double stroke not sign; U+2AED
+⫮ does not divide with reversed negation slash; U+2AEE
+⫯ vertical line with circle above; U+2AEF
+⫰ vertical line with circle below; U+2AF0
+⫱ down tack with circle below; U+2AF1
+⫲ parallel with horizontal stroke; U+2AF2
+⫳ parallel with tilde operator; U+2AF3
+⫴ triple vertical bar binary relation; U+2AF4
+⫵ triple vertical bar with horizontal stroke; U+2AF5
+⫶ triple colon operator; U+2AF6
+⫷ triple nested less-than; U+2AF7
+⫸ triple nested greater-than; U+2AF8
+⫹ double-line slanted less-than or equal to; U+2AF9
+⫺ double-line slanted greater-than or equal to; U+2AFA
+⫻ triple solidus binary relation; U+2AFB
+⫼ large triple vertical bar operator; U+2AFC
+⫽ double solidus operator; U+2AFD
+⫾ white vertical bar; U+2AFE
+⫿ n-ary white vertical bar; U+2AFF
+⬰ left arrow with small circle; U+2B30
+⬱ three leftwards arrows; U+2B31
+⬲ left arrow with circled plus; U+2B32
+⬳ long leftwards squiggle arrow; U+2B33
+⬴ leftwards two-headed arrow with vertical stroke; U+2B34
+⬵ leftwards two-headed arrow with double vertical stroke; U+2B35
+⬶ leftwards two-headed arrow from bar; U+2B36
+⬷ leftwards two-headed triple dash arrow; U+2B37
+⬸ leftwards arrow with dotted stem; U+2B38
+⬹ leftwards arrow with tail with vertical stroke; U+2B39
+⬺ leftwards arrow with tail with double vertical stroke; U+2B3A
+⬻ leftwards two-headed arrow with tail; U+2B3B
+⬼ leftwards two-headed arrow with tail with vertical stroke; U+2B3C
+⬽ leftwards two-headed arrow with tail with double vertical stroke; U+2B3D
+⬾ leftwards arrow through x; U+2B3E
+⬿ wave arrow pointing directly left; U+2B3F
+⭀ equals sign above leftwards arrow; U+2B40
+⭁ reverse tilde operator above leftwards arrow; U+2B41
+⭂ leftwards arrow above reverse almost equal to; U+2B42
+⭃ rightwards arrow through greater-than; U+2B43
+⭄ rightwards arrow through superset; U+2B44
+⭇ reverse tilde operator above rightwards arrow; U+2B47
+⭈ rightwards arrow above reverse almost equal to; U+2B48
+⭉ tilde operator above leftwards arrow; U+2B49
+⭊ leftwards arrow above almost equal to; U+2B4A
+⭋ leftwards arrow above reverse tilde operator; U+2B4B
+⭌ rightwards arrow above reverse tilde operator; U+2B4C
+﬩ hebrew letter alternative plus sign; U+FB29
+𝛁 mathematical bold nabla; U+1D6C1
+𝛛 mathematical bold partial differential; U+1D6DB
+𝛻 mathematical italic nabla; U+1D6FB
+𝜕 mathematical italic partial differential; U+1D715
+𝜵 mathematical bold italic nabla; U+1D735
+𝝏 mathematical bold italic partial differential; U+1D74F
+𝝯 mathematical sans-serif bold nabla; U+1D76F
+𝞉 mathematical sans-serif bold partial differential; U+1D789
+𝞩 mathematical sans-serif bold italic nabla; U+1D7A9
+𝟃 mathematical sans-serif bold italic partial differential; U+1D7C3
+𞻰 arabic mathematical operator meem with hah with tatweel; U+1EEF0
+𞻱 arabic mathematical operator hah with dal; U+1EEF1
+α alpha; U+03B1
+β beta; U+03B2
+γ gamma; U+03B3
+δ delta; U+03B4
+ε epsilon; U+03B5
+ζ zeta; U+03B6
+η eta; U+03B7
+θ theta; U+03B8
+ι iota; U+03B9
+κ kappa; U+03BA
+λ lamda; U+03BB
+μ mu; U+03BC
+ν nu; U+03BD
+ξ xi; U+03BE
+ο omicron; U+03BF
+π pi; U+03C0
+ρ rho; U+03C1
+ς final sigma; U+03C2
+σ sigma; U+03C3
+τ tau; U+03C4
+υ upsilon; U+03C5
+φ phi; U+03C6
+χ chi; U+03C7
+ψ psi; U+03C8
+ω omega; U+03C9
+ϐ beta symbol; U+03D0
+ϑ theta symbol; U+03D1
+ϕ phi symbol; U+03D5
+ϖ pi symbol; U+03D6
+ϗ kai symbol; U+03D7
+ϙ archaic koppa; U+03D9
+ϛ stigma; U+03DB
+ϝ digamma; U+03DD
+ϟ koppa; U+03DF
+ϡ sampi; U+03E1
+ϰ kappa symbol; U+03F0
+ϱ rho symbol; U+03F1
+ϲ lunate sigma symbol; U+03F2
+ϳ letter yot; U+03F3
+ϵ lunate epsilon symbol; U+03F5
+ϸ small letter sho; U+03F8
+ϻ small letter san; U+03FB
+ᴦ capital gamma; U+1D26
+ᴧ capital lamda; U+1D27
+ᴨ capital pi; U+1D28
+ᴩ capital rho; U+1D29
+ᴪ capital psi; U+1D2A
+ꭥ capital omega; U+AB65
