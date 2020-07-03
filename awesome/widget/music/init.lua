@@ -59,17 +59,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
       y = padding,
     }
 
-  musicbackdrop = wibox {
-    ontop = true,
-    visible = false,
-    screen = s,
-    bg = '#00000000',
-    type = 'dock',
-    x = s.geometry.x,
-    y = s.geometry.y,
-    width = s.geometry.width,
-    height = s.geometry.height - dpi(40)
-  }
 end)
 
 local grabber = awful.keygrabber {
@@ -78,7 +67,6 @@ local grabber = awful.keygrabber {
           modifiers = {},
           key       = 'Escape',
           on_press  = function()
-            musicbackdrop.visible = false
             musicPlayer.visible = false
             bShowingWidget = false
           end
@@ -90,7 +78,6 @@ local grabber = awful.keygrabber {
 }
 
 function togglePlayer()
-  musicbackdrop.visible = not musicbackdrop.visible
   musicPlayer.visible = not musicPlayer.visible
   if musicPlayer.visible then
     grabber:start()
@@ -101,17 +88,7 @@ function togglePlayer()
   end
 end
 
-musicbackdrop:buttons(
-  awful.util.table.join(
-    awful.button(
-      {},
-      1,
-      function()
-        togglePlayer()
-      end
-    )
-  )
-)
+
 
 local widget =
   wibox.widget {
@@ -201,6 +178,11 @@ musicPlayer:setup {
     widget = wibox.container.background()
 }
 
+musicPlayer:connect_signal("mouse::leave", function()
+  musicPlayer.visible = false
+  grabber:stop()
+  bShowingWidget = false
+end)
 
 -- Check every X seconds if song status is
 -- Changed outside this widget
