@@ -28,6 +28,8 @@ local awful = require('awful')
 
 local general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
 
+-- Used to enable custom widgets as a plugin mechanism for TDE
+package.path = package.path .. ';' .. os.getenv('HOME') .. '/.config/tde/?/init.lua'
 
 require('awful.autofocus')
 local beautiful = require('beautiful')
@@ -48,6 +50,7 @@ require('module.quake-terminal')
 require('module.titlebar')
 require('module.brightness-slider-osd')
 require('module.volume-slider-osd')
+require('module.plugin-module')
 
 -- Only activate the break timer if users what it
 -- The default implementation of TOS doesn't use it

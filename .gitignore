@@ -5,6 +5,8 @@
 
 !/.gitignore
 
+!/tde
+
 !/.github
 
 !/README.md

@@ -34,6 +34,34 @@ local clickable_container = require('widget.material.clickable-container')
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/notification-center/icons/'
 local mat_list_item = require('widget.material.list-item')
 
+-- load the notification plugins
+print("notification plugin loading started")
+local plugins = require('helper.plugin-loader')('notification')
+print("Done loading notification plugins")
+
+local function notification_plugin()
+
+  local table_widget = wibox.widget{
+    separator,
+    layout = wibox.layout.fixed.vertical,
+  }
+
+  local table = {
+    id = 'widgets_id',
+    visible = false,
+    layout = wibox.layout.fixed.vertical,
+    table_widget
+  }
+
+  for index, value in ipairs(plugins) do
+    table_widget:add({
+      wibox.container.margin(value, dpi(15), dpi(15), dpi(0), dpi(10)),
+      layout = wibox.layout.fixed.vertical,
+    })
+  end
+  return table
+end 
+
 panel_visible = false
 
 local right_panel = function(screen)
@@ -232,33 +260,7 @@ local right_panel = function(screen)
         layout = wibox.layout.fixed.vertical,
       },
       -- Widget Center
-      {
-        id = 'widgets_id',
-        visible = false,
-        layout = wibox.layout.fixed.vertical,
-        separator,
-        {
-          wibox.container.margin(require('widget.user-profile'), dpi(15), dpi(15), dpi(0), dpi(10)),
-          layout = wibox.layout.fixed.vertical,
-        },
-        {
-          wibox.container.margin(require('widget.social-media'), dpi(15), dpi(15), dpi(5), dpi(5)),
-          layout = wibox.layout.fixed.vertical,
-        },
-        {
-          wibox.container.margin(require('widget.weather'), dpi(15), dpi(15), dpi(10), dpi(5)),
-          layout = wibox.layout.fixed.vertical,
-        },
-        {
-          wibox.container.margin(require('widget.sars-cov-2'), dpi(15), dpi(15), dpi(10), dpi(5)),
-          layout = wibox.layout.fixed.vertical,
-        },
-        {
-          wibox.container.margin(require('widget.calculator'), dpi(15), dpi(15), dpi(10), dpi(10)),
-          layout = wibox.layout.fixed.vertical,
-        },
-
-      }
+      notification_plugin()
 
     }
 

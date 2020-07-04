@@ -38,6 +38,10 @@ local mat_icon = require('widget.material.icon')
 
 left_panel_visible = false
 
+print("settings plugin loading started")
+local plugins = require('helper.plugin-loader')('settings')
+print("Done loading settings plugins")
+
 local left_panel_func = function(screen)
   -- set the panel width equal to the rofi settings
   -- the rofi width is defined in configuration/rofi/sidebar/rofi.rasi
@@ -350,77 +354,92 @@ local bottomSeparator = wibox.widget {
 
 }
 
+local function settings_plugin()
+
+  local table_widget = wibox.widget{
+    topSeparator,
+    layout = wibox.layout.fixed.vertical,
+    {
+      wibox.widget {
+        search_button,
+        bg = beautiful.bg_modal,     --beautiful.background.hue_800,
+        shape = function(cr, w, h)
+                  gears.shape.rounded_rect(cr, w, h, 28)
+                end,
+        widget = wibox.container.background,
+      },
+      widget = mat_list_item,
+    },
+    separator,
+    require('widget.control-center.dashboard.quick-settings'),
+    require('widget.control-center.dashboard.hardware-monitor')(screen),
+    require('widget.control-center.dashboard.action-center'),
+    separator,
+    layout = wibox.layout.fixed.vertical,
+    {
+      wibox.widget {
+          text = 'Network Settings',
+          font = 'Iosevka Regular 10',
+          align = 'left',
+          widget = wibox.widget.textbox
+      },
+      widget = mat_list_item,
+    },
+      layout = wibox.layout.fixed.vertical,
+      {
+          wibox.widget {
+              wifi_button,
+        bg = beautiful.bg_modal,     --beautiful.background.hue_800,
+        shape = function(cr, w, h)
+                  gears.shape.rounded_rect(cr, w, h, 28)
+                end,
+        widget = wibox.container.background,
+      },
+      widget = mat_list_item,
+    },
+    separator,
+    layout = wibox.layout.fixed.vertical,
+    {
+      wibox.widget {
+          text = 'Screen Settings',
+          font = 'Iosevka Regular 10',
+          align = 'left',
+          widget = wibox.widget.textbox
+      },
+      widget = mat_list_item,
+    },
+    layout = wibox.layout.fixed.vertical,
+    {
+      wibox.widget {
+            dpi_button,
+      bg = beautiful.bg_modal,     --beautiful.background.hue_800,
+      shape = function(cr, w, h)
+                gears.shape.rounded_rect(cr, w, h, 28)
+              end,
+      widget = wibox.container.background,
+      },
+    widget = mat_list_item,
+    },
+  }
+
+  for index, value in ipairs(plugins) do
+    table_widget:add({
+      wibox.container.margin(value, dpi(15),dpi(15),dpi(15),dpi(15)),
+      layout = wibox.container.background,
+    })
+  end
+  return table_widget
+end 
+
   left_panel:setup {
     expand = 'none',
     layout = wibox.layout.fixed.vertical,
     scrollbar(wibox.widget {
       layout = wibox.layout.align.vertical,
-      {
-        topSeparator,
-        layout = wibox.layout.fixed.vertical,
-        {
-          wibox.widget {
-            search_button,
-            bg = beautiful.bg_modal,     --beautiful.background.hue_800,
-            shape = function(cr, w, h)
-                      gears.shape.rounded_rect(cr, w, h, 28)
-                    end,
-            widget = wibox.container.background,
-          },
-          widget = mat_list_item,
-        },
-        separator,
-        require('widget.control-center.dashboard.quick-settings'),
-        require('widget.control-center.dashboard.hardware-monitor')(screen),
-        require('widget.control-center.dashboard.action-center'),
-        separator,
-        layout = wibox.layout.fixed.vertical,
-        {
-          wibox.widget {
-              text = 'Network Settings',
-              font = 'Iosevka Regular 10',
-              align = 'left',
-              widget = wibox.widget.textbox
-          },
-          widget = mat_list_item,
-        },
-          layout = wibox.layout.fixed.vertical,
-          {
-              wibox.widget {
-                  wifi_button,
-            bg = beautiful.bg_modal,     --beautiful.background.hue_800,
-            shape = function(cr, w, h)
-                      gears.shape.rounded_rect(cr, w, h, 28)
-                    end,
-            widget = wibox.container.background,
-          },
-          widget = mat_list_item,
-        },
-        separator,
-        layout = wibox.layout.fixed.vertical,
-        {
-          wibox.widget {
-              text = 'Screen Settings',
-              font = 'Iosevka Regular 10',
-              align = 'left',
-              widget = wibox.widget.textbox
-          },
-          widget = mat_list_item,
-        },
-          layout = wibox.layout.fixed.vertical,
-          {
-              wibox.widget {
-                  dpi_button,
-            bg = beautiful.bg_modal,     --beautiful.background.hue_800,
-            shape = function(cr, w, h)
-                      gears.shape.rounded_rect(cr, w, h, 28)
-                    end,
-            widget = wibox.container.background,
-          },
-          widget = mat_list_item,
-        },
-      },
+      
       separator,
+      settings_plugin(),
+
       {
   
         layout = wibox.layout.fixed.vertical,

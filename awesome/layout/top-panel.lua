@@ -37,6 +37,12 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local icons = require('theme.icons')
 
+-- load the notification plugins
+print("topbar plugin loading started")
+local plugins = require('helper.plugin-loader')('topbar')
+print("Done loading topbar plugins")
+
+
   -- Clock / Calendar 12h format
 local textclock = wibox.widget.textclock('<span font="Roboto bold 10">%l:%M %p</span>')
 
@@ -153,6 +159,33 @@ add_button:buttons(
   )
 )
 
+local function topbar_plugin(s)
+
+  local table_widget = wibox.widget{
+    layout = wibox.layout.fixed.horizontal,
+    -- System tray and widgets
+    --wibox.container.margin(systray, dpi(14), dpi(14)),
+    wibox.container.margin(s.systray, dpi(14), dpi(0), dpi(4), dpi(4)),
+  }
+
+  for index, value in ipairs(plugins) do
+    table_widget:add({
+      value,
+      layout = wibox.layout.fixed.vertical,
+    })
+  end
+  table_widget:add(show_widget_or_default(require('widget.battery')(), hardware.hasBattery()))
+  table_widget:add(show_widget_or_default(require('widget.bluetooth'), hardware.hasBluetooth()))
+  table_widget:add(show_widget_or_default(require('widget.wifi'), hardware.hasWifi()))
+  table_widget:add(require('widget.package-updater'))
+  table_widget:add(show_widget_or_default(require('widget.music'),hardware.hasSound())) --only add this when the data can be extracted from spotify
+  table_widget:add(require('widget.about'))
+  table_widget:add(show_widget_or_default(require('widget.screen-recorder')(), hardware.hasFFMPEG()))
+  table_widget:add(require('widget.search'))
+  table_widget:add(require('widget.notification-center'))
+  return table_widget
+end 
+
 
 local TopPanel = function(s, offset, controlCenterOnly)
   local offsetx = 0
@@ -196,21 +229,7 @@ local TopPanel = function(s, offset, controlCenterOnly)
 	  -- Create a clock widget
 	  -- Clock
 	  clock_widget,
-    {
-      layout = wibox.layout.fixed.horizontal,
-      -- System tray and widgets
-      --wibox.container.margin(systray, dpi(14), dpi(14)),
-      wibox.container.margin(s.systray, dpi(14), dpi(0), dpi(4), dpi(4)),
-      show_widget_or_default(require('widget.battery')(), hardware.hasBattery()),
-      show_widget_or_default(require('widget.bluetooth'), hardware.hasBluetooth()),
-      show_widget_or_default(require('widget.wifi'), hardware.hasWifi()),
-      require('widget.package-updater'),
-      show_widget_or_default(require('widget.music'),hardware.hasSound()), --only add this when the data can be extracted from spotify
-      require('widget.about'),
-      show_widget_or_default(require('widget.screen-recorder')(), hardware.hasFFMPEG()),
-      require('widget.search'),
-      require('widget.notification-center'),
-    }
+    topbar_plugin(s)
   }
   if controlCenterOnly then
     return require('widget.control-center')
