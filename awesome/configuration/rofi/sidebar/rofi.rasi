@@ -60,7 +60,7 @@ prompt {
 
 button {
     action:                         "ok";
-    str:                            " ";
+    str:                            " ";
     font:                           "FantasqueSansMono Nerd Font 16";
     expand:                         false;
     text-color:                     @foreground;
