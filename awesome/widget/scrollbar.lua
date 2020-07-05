@@ -50,6 +50,7 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
     local prevy = nil
     local widget = nil
     local size = 20
+    local bAddingSize = true
     -- connect signals to get the current status of the scrollbar
     show:connect_signal(
     'mouse::enter',
@@ -89,6 +90,7 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
         prevx = nil
         prevy = nil
     end
+
 
     function move()
             if( bTopToBottom) then
@@ -154,6 +156,7 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
                         end
                         widget.top = offset
                     end
+                    bAddingSize = true
                 end
             ),
             awful.button(
@@ -168,6 +171,7 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
                         end
                         widget.top = offset
                     end
+                    bAddingSize = false
                 end
             )
         )

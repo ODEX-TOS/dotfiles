@@ -34,6 +34,9 @@ local clickable_container = require('widget.material.clickable-container')
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/notification-center/icons/'
 local mat_list_item = require('widget.material.list-item')
 
+local scrollbar = require('widget.scrollbar')
+
+
 -- load the notification plugins
 print("notification plugin loading started")
 local plugins = require('helper.plugin-loader')('notification')
@@ -46,8 +49,7 @@ local function notification_plugin()
     layout = wibox.layout.fixed.vertical,
   }
 
-  local table = {
-    id = 'widgets_id',
+  local table = wibox.widget{
     visible = false,
     layout = wibox.layout.fixed.vertical,
     table_widget
@@ -111,6 +113,33 @@ local right_panel = function(screen)
       right = 0
     }
   )
+
+  local notification_widget = wibox.widget{
+    visible = true,
+    separator,
+    require('widget.notification-center.subwidgets.dont-disturb'),
+    {
+      expand = 'none',
+      layout = wibox.layout.align.horizontal,
+      {
+        nil,
+        layout = wibox.layout.fixed.horizontal,
+      },
+      nil,
+      {
+        wibox.container.margin(clear_all_button, dpi(15), dpi(15), dpi(10), dpi(0)),
+        layout = wibox.layout.fixed.horizontal,
+      },
+    },
+    {
+      require('widget.notification-center.subwidgets.notif-generate'),
+      wibox.widget({}),
+      margins = dpi(15),
+      widget = wibox.container.margin,
+    },
+    layout = wibox.layout.fixed.vertical,
+  }
+
   openPanel = function()
     panel_visible = true
     backdrop.visible = true
@@ -143,16 +172,18 @@ local right_panel = function(screen)
     end
   end
 
+  widgets = notification_plugin()
+
 
   function panel:switch_mode(mode)
     if mode == 'notif_mode' then
       -- Update Content
-      panel:get_children_by_id('notif_id')[1].visible = true
-      panel:get_children_by_id('widgets_id')[1].visible = false
+      notification_widget.visible = true
+      widgets.visible = false
     elseif mode == 'widgets_mode' then
       -- Update Content
-      panel:get_children_by_id('notif_id')[1].visible = false
-      panel:get_children_by_id('widgets_id')[1].visible = true
+      notification_widget.visible = false
+      widgets.visible = true
     end
   end
 
@@ -211,10 +242,10 @@ local right_panel = function(screen)
     widget = wibox.widget.separator
   }
 
-  panel:setup {
-    expand = 'none',
-    layout = wibox.layout.fixed.vertical,
-    separator,
+
+  local body = scrollbar(
+    wibox.widget {
+      separator,
     {
       expand = 'none',
       layout = wibox.layout.align.horizontal,
@@ -233,37 +264,18 @@ local right_panel = function(screen)
     {
       layout = wibox.layout.stack,
       -- Notification Center
-      {
-        id = 'notif_id',
-        visible = true,
-        separator,
-        require('widget.notification-center.subwidgets.dont-disturb'),
-        {
-          expand = 'none',
-          layout = wibox.layout.align.horizontal,
-          {
-            nil,
-            layout = wibox.layout.fixed.horizontal,
-          },
-          nil,
-          {
-            wibox.container.margin(clear_all_button, dpi(15), dpi(15), dpi(10), dpi(0)),
-            layout = wibox.layout.fixed.horizontal,
-          },
-        },
-        {
-          require('widget.notification-center.subwidgets.notif-generate'),
-          wibox.widget({}),
-          margins = dpi(15),
-          widget = wibox.container.margin,
-        },
-        layout = wibox.layout.fixed.vertical,
-      },
+      notification_widget,
       -- Widget Center
-      notification_plugin()
-
+      widgets
+    },
+    layout = wibox.layout.fixed.vertical,
     }
+  )
 
+  panel:setup {
+    expand = 'none',
+    layout = wibox.layout.fixed.vertical,
+    body
   }
 
 
