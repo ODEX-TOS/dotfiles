@@ -29,6 +29,7 @@ local beautiful = require("beautiful")
 local apps = require('configuration.apps')
 local icons = require('theme.icons')
 local hotkeys_popup = require('awful.hotkeys_popup').widget
+local dpi = require('beautiful').xresources.apply_dpi
 
 terminal = apps.default.terminal
 web_browser = os.getenv("BROWSER") or apps.default.web_browser
@@ -112,3 +113,32 @@ root.buttons(
 		)
 	)
 )
+
+-- Used when enabling desktop icons
+
+--[[
+for s in screen do
+    freedesktop.desktop.add_icons({
+		screen = s,
+		open_with = 'xdg-open',
+		iconsize = { width = dpi(64), height = dpi(64) },
+		baseicons = {
+			[1] = {
+				label = "This PC",
+				icon  = "computer",
+				onclick = "/"
+			},
+			[2] = {
+				label = "Home",
+				icon  = "user-home",
+				onclick = os.getenv("HOME")
+			},
+			[3] = {
+				label = "Trash",
+				icon  = "user-trash",
+				onclick = "trash://"
+			}
+		},
+	})
+end
+--]]
