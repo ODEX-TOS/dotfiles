@@ -64,4 +64,4 @@ tos/autostart
 
 !libinput-gestures.conf
 
-!/xfce4
+!/xfce4/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
