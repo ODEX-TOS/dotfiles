@@ -28,7 +28,6 @@ local bottom_panel = require('layout.bottom-panel')
 local left_panel = require('layout.left-panel')
 local right_panel = require('layout.right-panel')
 local top_panel = require('layout.top-panel')
-local general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
 local topBarDraw = general["top_bar_draw"] or "all"
 local tagBarDraw = general["tag_bar_draw"] or "main"
 local anchorTag = general["tag_bar_anchor"] or "bottom"

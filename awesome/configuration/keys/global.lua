@@ -34,7 +34,6 @@ local modkey = config.modKey
 local altkey = config.altKey
 local apps = require('configuration.apps')
 local xrandr = require('helper.xrandr')
-local general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
 
 -- Key bindings
 local globalKeys =

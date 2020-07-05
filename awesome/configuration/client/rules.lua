@@ -27,8 +27,8 @@ local awful = require('awful')
 local gears = require('gears')
 local client_keys = require('configuration.client.keys')
 local client_buttons = require('configuration.client.buttons')
-local config = require('parser')(os.getenv('HOME') .. "/.config/tos/tags.conf")
-local config_float = require('parser')(os.getenv('HOME') .. "/.config/tos/floating.conf")
+local config = tags
+local config_float = floating
 
 function getItem(item)
   return config[item] or nil

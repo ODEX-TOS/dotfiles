@@ -34,7 +34,7 @@ local titlebars = {}
 local theme = {}
 local dpi = require('beautiful').xresources.apply_dpi
 local titleBarSize = dpi(25)
-local mode = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")["draw_mode"]
+local mode = general["draw_mode"]
 
 -- Titlebar Colors
 beautiful.titlebar_bg_focus = '#000000'

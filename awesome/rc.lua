@@ -28,7 +28,11 @@ require('helper.logger')
 local gears = require('gears')
 local awful = require('awful')
 
-local general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
+general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
+plugins = require('parser')(os.getenv('HOME') .. "/.config/tos/plugins.conf")
+tags = require('parser')(os.getenv('HOME') .. "/.config/tos/tags.conf")
+keys = require('parser')(os.getenv('HOME') .. "/.config/tos/keys.conf")
+floating = require('parser')(os.getenv('HOME') .. "/.config/tos/floating.conf")
 
 -- Used to enable custom widgets as a plugin mechanism for TDE
 package.path = package.path .. ';' .. os.getenv('HOME') .. '/.config/tde/?/init.lua'

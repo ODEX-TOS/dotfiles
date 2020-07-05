@@ -30,7 +30,6 @@ local wibox = require("wibox")
 local watch = require('awful.widget.watch')
 local beautiful = require('beautiful')
 local dpi = require('beautiful').xresources.apply_dpi
-local general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
 
 _G.pause = {}
 local breakTimer = require('widget.break-timer')

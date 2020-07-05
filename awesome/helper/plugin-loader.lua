@@ -3,7 +3,6 @@
 -- End users should add their plugins in that directory
 -- Following that there is a plugins.conf file inside .config/tos/plugins.conf
 -- This file describes which plugins should be loaded
-local plugins = require('parser')(os.getenv('HOME') .. "/.config/tos/plugins.conf")
 local dirExists = require('helper.file').dir_exists
 local naughty = require("naughty")
 
