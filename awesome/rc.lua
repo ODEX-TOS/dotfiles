@@ -23,6 +23,8 @@
 --SOFTWARE.
 ]]
 
+require('helper.logger')
+
 local gears = require('gears')
 local awful = require('awful')
 
@@ -39,7 +41,7 @@ beautiful.init(require('theme'))
 
 -- Layout
 require('layout')
-awful.spawn.with_shell("/etc/xdg/awesome/autorun.sh")
+awful.spawn.with_shell("/etc/xdg/awesome/autorun.sh &>/dev/null")
 -- Init all modules
 require('module.notifications')
 require('module.auto-start')

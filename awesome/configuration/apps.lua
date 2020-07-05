@@ -64,7 +64,6 @@ return {
     'picom -b --dbus --experimental-backends --config ' .. config.getComptonFile(),
     'blueman-applet', -- Bluetooth tray icon
     'xfce4-power-manager', -- Power manager
-    'xfsettingsd', -- Settings
     'sh -c "/etc/xdg/awesome/firefox-color.sh \'' .. color .. '\' \'' .. colorBG .. '\'"',
     'xrdb $HOME/.Xresources',
   },
