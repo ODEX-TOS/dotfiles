@@ -50,7 +50,16 @@ local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = '/etc/xdg/awesome/widget/package-updater/icons/'
 local updateAvailable = false
 local numOfUpdatesAvailable
+local numOfSecUpdatesAvailable
 local config = require('config')
+
+local function split(str)
+  lines = {}
+  for s in str:gmatch("[^\r\n]+") do
+      table.insert(lines, s)
+  end
+  return lines
+end
 
 local widget =
   wibox.widget {
@@ -87,10 +96,18 @@ awful.tooltip(
     align = 'right',
     timer_function = function()
       if updateAvailable then
-        if numOfUpdatesAvailable == "1 " then
-            return numOfUpdatesAvailable .. ' updates are available'
+        local str = ""
+        if numOfUpdatesAvailable == "1" then
+          str = numOfUpdatesAvailable .. ' update is available!'
+        else
+          str = numOfUpdatesAvailable .. ' updates are available!'
         end
-        return numOfUpdatesAvailable .. ' updates are available'
+        if numOfSecUpdatesAvailable == "1" then
+          return str .. "\nOf which " .. numOfSecUpdatesAvailable .. " is a security update"
+        elseif numOfSecUpdatesAvailable == "0" then
+          return str
+        end
+        return str .. "\nOf which " .. numOfSecUpdatesAvailable .. " are security updates"
       else
         return 'We are up-to-date!'
       end
@@ -99,25 +116,6 @@ awful.tooltip(
   }
 )
 
--- To use colors from beautiful theme put
--- following lines in rc.lua before require("battery"):
---beautiful.tooltip_fg = beautiful.fg_normal
---beautiful.tooltip_bg = beautiful.bg_normal
-
-local function show_battery_warning()
-  naughty.notify {
-    icon = theme(PATH_TO_ICONS .. 'battery-alert.svg'),
-    icon_size = dpi(48),
-    text = 'Huston, we have a problem',
-    title = 'Battery is dying',
-    timeout = 5,
-    hover_timeout = 0.5,
-    position = 'bottom_left',
-    bg = '#d32f2f',
-    fg = '#EEE9EF',
-    width = 248
-  }
-end
 
 local last_battery_check = os.time()
 local COMMAND = "/bin/bash " .. '/etc/xdg/awesome/updater.sh'
@@ -125,13 +123,17 @@ watch(
   COMMAND,
   config.package_timeout,
   function(_, stdout)
-    -- Check if there  bluetooth
-    local _, replacements = string.gsub(stdout, "\n", " ")
-    numOfUpdatesAvailable = _ -- If 'Controller' string is detected on stdout
+    local _ = split(stdout)
+
+    numOfUpdatesAvailable = _[1]
+    numOfSecUpdatesAvailable = _[2]
     local widgetIconName
-    if numOfUpdatesAvailable == "0 " then
+    if numOfUpdatesAvailable == "0" then
       widgetIconName = 'package'
       updateAvailable = false
+    elseif not (numOfSecUpdatesAvailable == "0") then
+      widgetIconName = 'package-sec'
+      updateAvailable = true
     else
       widgetIconName = 'package-up'
       updateAvailable = true
@@ -141,6 +143,9 @@ watch(
   end,
   widget
 )
+
+
+
 
 
 

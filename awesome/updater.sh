@@ -32,4 +32,7 @@
 #        fi
 #done <<< "$unique"
 #echo "$num"
-echo "$(checkupdates-tos | wc -l)"
+# normal updates
+checkupdates-tos | wc -l
+# of which x security updates
+arch-audit -u -r -C never | wc -l
