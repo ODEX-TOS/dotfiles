@@ -41,6 +41,7 @@ local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local theme = require('theme.icons.dark-light')
+local icon = require('theme.icons').warning
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
@@ -103,11 +104,11 @@ awful.tooltip(
           str = numOfUpdatesAvailable .. ' updates are available!'
         end
         if numOfSecUpdatesAvailable == "1" then
-          return str .. "\nOf which " .. numOfSecUpdatesAvailable .. " is a security update"
+          return str .. "\nOf which " .. numOfSecUpdatesAvailable .. " is security related"
         elseif numOfSecUpdatesAvailable == "0" then
           return str
         end
-        return str .. "\nOf which " .. numOfSecUpdatesAvailable .. " are security updates"
+        return str .. "\nOf which " .. numOfSecUpdatesAvailable .. " are security related"
       else
         return 'We are up-to-date!'
       end
@@ -115,6 +116,23 @@ awful.tooltip(
     preferred_positions = {'right', 'left', 'top', 'bottom'}
   }
 )
+
+local function notifySecurityUpdate(num)
+  str = "There are " .. num .. " security vulnerabilities. Please try and update the system to prevent risks."
+  if num == "1" then
+    str = "There is " .. num .. " security vulnerability. Please try and update the system to prevent risks."
+  end
+  naughty.notification(
+    {
+      title = "Security Updates",
+      text = str,
+      icon = icon,
+      timeout = 10,
+      urgency = 'critical',
+      app_name = "Security center"
+    }
+  )
+end
 
 
 local last_battery_check = os.time()
@@ -124,7 +142,6 @@ watch(
   config.package_timeout,
   function(_, stdout)
     local _ = split(stdout)
-
     numOfUpdatesAvailable = _[1]
     numOfSecUpdatesAvailable = _[2]
     local widgetIconName
@@ -133,6 +150,7 @@ watch(
       updateAvailable = false
     elseif not (numOfSecUpdatesAvailable == "0") then
       widgetIconName = 'package-sec'
+      notifySecurityUpdate(numOfSecUpdatesAvailable)
       updateAvailable = true
     else
       widgetIconName = 'package-up'

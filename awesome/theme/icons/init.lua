@@ -64,5 +64,6 @@ return {
   plus = theme(config["plus"] or  dir .. '/plus.svg'),
   network = theme(config["network"] or  dir .. '/network.svg'),
   upload = theme(config["upload"] or  dir .. '/upload.svg'),
-  download = theme(config["download"] or  dir .. '/download.svg')
+  download = theme(config["download"] or  dir .. '/download.svg'),
+  warning = theme(config["warning"] or dir .. '/warning.svg')
 }
