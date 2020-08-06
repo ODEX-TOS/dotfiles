@@ -439,7 +439,8 @@ end
       
       separator,
       settings_plugin(),
-
+      
+      wibox.container.margin(
       {
   
         layout = wibox.layout.fixed.vertical,
@@ -455,7 +456,7 @@ end
           widget = mat_list_item,
         },
         bottomSeparator
-      }
+      }, 0,0,dpi(15),dpi(15))
     })
   }
 
