@@ -81,7 +81,7 @@ widget_button:buttons(
       nil,
       function()
         if updateAvailable then
-          awful.spawn((os.getenv("TERMINAL") or 'st') .. ' -e system-updater')
+          awful.spawn((os.getenv("TERMINAL") or 'st') .. ' -e sh -c "system-updater || read"')
         else
           awful.spawn(os.getenv("TERMINAL") or 'st')
         end
