@@ -144,6 +144,10 @@ local return_button = function()
 
 		local status = status:gsub('%\n', '')
 		local percentage = file.string("/sys/class/power_supply/BAT0/capacity")
+		-- some hardware counts from BAT1
+		if percentage == "" or percentage == nil then
+			percentage = file.string("/sys/class/power_supply/BAT1/capacity")
+		end
 		local battery_percentage = tonumber(percentage)
 
 		battery_widget.spacing = dpi(5)

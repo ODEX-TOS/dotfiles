@@ -12,7 +12,7 @@ end
 -- Extend the below functions depening if you need the perform another check on some widget
 -- PS: Each function should return a boolean depending on if the hardware is available
 function battery()
-    return fileHandle.dir_exists('/sys/class/power_supply/BAT0')
+    return fileHandle.dir_exists('/sys/class/power_supply/BAT0') or fileHandle.dir_exists('/sys/class/power_supply/BAT1')
 end
 
 function wifi()
