@@ -10,6 +10,23 @@ function getItem(item)
     return plugins[item] or nil
 end
 
+function inValidPlugin(name, msg)
+    print("Plugin " .. name .. " is not valid!")
+    print(name .. " returned: " .. msg)
+    -- notify the user that a wrong plugin was entered
+    naughty.notify({ text = 'Plugin <span weight="bold">' .. name .."</span>" .. msg,
+                     timeout = 5,
+                     screen = mouse.screen,
+                     urgency = "critical",
+                     })
+end
+
+function prequire(lib)
+    local status, lib = pcall(require, lib)
+    if(status) then return lib end
+    return nil
+end
+
 function getPluginSection(section)
     local section = section .. "_"
     local iterator = {}
@@ -22,16 +39,15 @@ function getPluginSection(section)
             -- otherwise the user entered a wrong pluging
             -- system plugins are also accepted and start with widget.
             if getItem(name):find("^widget.") or dirExists(os.getenv('HOME') .. "/.config/tde/" .. getItem(name))  then
-                table.insert(iterator, require(getItem(name)))
-                print("Plugin " .. name .. " is loaded in!")
+                local plugin = prequire(getItem(name))
+                if(plugin) then
+                    table.insert(iterator, plugin)
+                    print("Plugin " .. name .. " is loaded in!")
+                else
+                    inValidPlugin(name, "Errored out while loading. Make sure your plugins is the latest version and supports the latest TDE build.")
+                end
             else
-                print("Plugin " .. name .. " is not valid!")
-                -- notify the user that a wrong plugin was entered
-                naughty.notify({ text = 'Plugin <span weight="bold">' .. name .."</span> not found. Make sure it is present in  ~/.config/tde/" .. name .. "/init.lua",
-                                 timeout = 5,
-                                 screen = mouse.screen,
-                                 urgency = "critical",
-                                 })
+                inValidPlugin(name, "Not found. Make sure it is present in  ~/.config/tde/" .. name .. "/init.lua")
             end
         else 
         return iterator
