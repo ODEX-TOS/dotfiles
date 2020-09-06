@@ -26,13 +26,20 @@
 require('helper.logger')
 require("helper.luapath")
 
+-- general conf is used by sentry (to opt out of it)
+general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
+
 -- Setup Sentry error logging --
-_G.sentry = require('helper.errors')
+if not (general["tde_opt_out"] == "0") then
+  _G.sentry = require('helper.errors')
+else
+  print("User opted out of stacktrace analysis")
+  print("No information will be send to the tos developers")
+end
 
 local gears = require('gears')
 local awful = require('awful')
 
-general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")
 plugins = require('parser')(os.getenv('HOME') .. "/.config/tos/plugins.conf")
 tags = require('parser')(os.getenv('HOME') .. "/.config/tos/tags.conf")
 keys = require('parser')(os.getenv('HOME') .. "/.config/tos/keys.conf")

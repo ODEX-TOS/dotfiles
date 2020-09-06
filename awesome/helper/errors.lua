@@ -1,3 +1,13 @@
+-- This script listens for errors and sends them to sentry.odex.be
+-- It is used to debug common errors and make the user experience better
+-- Information that is stored by sentry:
+--  * username
+--  * hostname
+--  * TDE version
+--  * stack trace of error
+
+
+
 local sentrypkg = require('helper.sentry')
 
 local sentry = sentrypkg.new {
@@ -32,13 +42,5 @@ awesome.connect_signal("debug::error", function (err)
     print("Sending error: " .. tostring(err))
     in_error = false
 end)
-
-local function add(a,b)
-    assert(type(a) == "number", "a is not a number")
-    assert(type(b) == "number", "b is not a number")
-    return a+b
- end
-
-print(add(10))
 
 return sentry
