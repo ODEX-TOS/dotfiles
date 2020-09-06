@@ -14,7 +14,7 @@ LOG_INFO="\27[0;32m[ INFO "
 print = function (arg, log_type)
 	awful.spawn.easy_async_with_shell("date +%H:%M:%S.$(($(date +%N)/1000000))", function(out)
 		log = log_type or LOG_INFO
-		echo(log .. out:gsub("\n", "") .. "]\27[0m " .. arg)
+		echo(log .. out:gsub("\n", "") .. " ]\27[0m " .. arg)
 	end)
 end
 
