@@ -27,11 +27,18 @@
 
 echo "UPDATING FIREFOX COLORS TO $1 and as bg $2"
 
+for file in "$HOME"/.mozilla/firefox/*/chrome/colors/blurred.css; do
+        echo "Updating FIREFOX colors in $file"
+        # change all colors in /*START*/ colorcode /*END*/
+        sed -i 's:STARTFG.*ENDFG:STARTFG*/ '"$1"' /*ENDFG:' "$file"
+        # change all colors in /*STARTBG*/ colorcode /*ENDBG*/
+        sed -i 's:STARTBG.*ENDBG:STARTBG*/ '"$2"' /*ENDBG:' "$file"
+done
+
 for file in "$HOME"/.mozilla/firefox/*/chrome/userChrome.css; do
         echo "Updating FIREFOX colors in $file"
         # change all colors in /*START*/ colorcode /*END*/
         sed -i 's:STARTFG.*ENDFG:STARTFG*/ '"$1"' /*ENDFG:' "$file"
         # change all colors in /*STARTBG*/ colorcode /*ENDBG*/
         sed -i 's:STARTBG.*ENDBG:STARTBG*/ '"$2"' /*ENDBG:' "$file"
-
 done
