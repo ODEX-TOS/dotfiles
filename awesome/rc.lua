@@ -24,6 +24,10 @@
 ]]
 
 require('helper.logger')
+require("helper.luapath")
+
+-- Setup Sentry error logging --
+_G.sentry = require('helper.errors')
 
 local gears = require('gears')
 local awful = require('awful')
@@ -34,8 +38,6 @@ tags = require('parser')(os.getenv('HOME') .. "/.config/tos/tags.conf")
 keys = require('parser')(os.getenv('HOME') .. "/.config/tos/keys.conf")
 floating = require('parser')(os.getenv('HOME') .. "/.config/tos/floating.conf")
 
--- Used to enable custom widgets as a plugin mechanism for TDE
-package.path = package.path .. ';' .. os.getenv('HOME') .. '/.config/tde/?/init.lua'
 
 require('awful.autofocus')
 local beautiful = require('beautiful')

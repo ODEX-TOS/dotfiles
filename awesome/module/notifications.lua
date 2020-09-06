@@ -86,6 +86,10 @@ end)
 
 -- Error handling
 naughty.connect_signal("request::display_error", function(message, startup)
+	if(startup) then
+		return
+	end
+	-- only show notification if it is not a startup error (could potentially fail to create a screen)
     naughty.notification {
         urgency = "critical",
         title   = "Oops, an error happened"..(startup and " during startup!" or "!"),
@@ -109,7 +113,10 @@ end)
 
 -- Naughty template
 naughty.connect_signal("request::display", function(n)
-
+	local screen = awful.screen.preferred() or awful.screen.focused()
+	if(screen == nil) then
+		return
+	end
 	-- naughty.actions template
 	local actions_template = wibox.widget {
 		notification = n,
@@ -146,7 +153,7 @@ naughty.connect_signal("request::display", function(n)
 	naughty.layout.box {
 		notification = n,
 		type = "notification",
-		screen = awful.screen.preferred(),
+		screen = screen,
 		shape = gears.shape.rectangle,
 		widget_template = {
 			{
