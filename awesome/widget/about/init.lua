@@ -145,6 +145,7 @@ widget_button:buttons(
       1,
       nil,
       function()
+        print("Showing about page")
         toggleAbout()
       end
     )
@@ -159,6 +160,7 @@ browserOpen:buttons(
       1,
       nil,
       function()
+        print("Opening tos.odex.be in default browser")
         awful.spawn.easy_async_with_shell("$BROWSER tos.odex.be")
         toggleAbout()
         naughty.notify({ title = "TOS website", message = "Opened the tos homepage", timeout = 5, position = "top_right"})

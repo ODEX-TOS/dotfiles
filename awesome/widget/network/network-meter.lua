@@ -63,6 +63,8 @@ watch(
     local download_text, upload_text = stdout:match('(.*);(.*)')
     value_up:set_markup_silently(upload_text)
     value_down:set_markup_silently(download_text)
+    print("Network download: " .. download_text)
+    print("Network upload: " .. upload_text)
 
     if upload_text:match('M') then
       upload_num = tonumber(upload_text:match('%S+'))

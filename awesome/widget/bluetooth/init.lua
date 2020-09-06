@@ -66,8 +66,8 @@ widget_button:buttons(
       1,
       nil,
       function()
-		--awful.spawn('blueberry')
-      awful.spawn('blueman-manager')
+        print("Opening blueman-manager")
+        awful.spawn('blueman-manager')
       end
     )
   )
@@ -109,6 +109,7 @@ watch(
       widgetIconName = 'bluetooth-off'
     end
     widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '.svg'))
+    print("Polling bluetooth status")
     collectgarbage('collect')
   end,
   widget

@@ -63,8 +63,8 @@ widget_button:buttons(
       1,
       nil,
       function()
-		--awful.spawn('blueberry')
-      awful.spawn(apps.default.rofidpimenu)
+        print("Opening rofi application scaling")
+        awful.spawn(apps.default.rofidpimenu)
       end
     )
   )

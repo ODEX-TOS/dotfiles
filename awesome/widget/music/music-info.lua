@@ -57,8 +57,10 @@ function getTitle()
   awful.spawn.easy_async_with_shell('playerctl metadata xesam:title', function( stdout )
     if (stdout:match("%W")) then
       musicTitle.title:set_text(stdout)
+      print("Music title: " .. stdout)
     else
       musicTitle.title:set_text("No active music player found.")
+      print("No music found")
     end
   end)
 end
@@ -79,6 +81,7 @@ function getArtist()
   awful.spawn.easy_async_with_shell('playerctl metadata xesam:artist', function( stdout )
     if (stdout:match("%W")) then
       musicArtist.artist:set_text(stdout)
+      print("Music artist: " .. stdout)
     else
       musicArtist.artist:set_text("Try and play some music :)")
     end

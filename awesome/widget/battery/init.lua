@@ -149,6 +149,7 @@ local return_button = function()
 			percentage = file.string("/sys/class/power_supply/BAT1/capacity")
 		end
 		local battery_percentage = tonumber(percentage)
+		print("Battery percentage: " .. percentage)
 
 		battery_widget.spacing = dpi(5)
 		battery_percentage_text.visible = true

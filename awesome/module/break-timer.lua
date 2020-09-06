@@ -81,6 +81,7 @@ _G.pause.stop = function ()
   breakbackdrop.visible = false
   breakOverlay.visible = false
   _G.pause.stopSlider()
+  print("Stopping break timer")
 end
 
 _G.pause.show = function (time) 
@@ -96,6 +97,7 @@ _G.pause.show = function (time)
       _G.pause.stop()
     end
   }
+  print("Showing break timer")
 end
 
 local split = function(inputstr, sep)
@@ -125,12 +127,9 @@ local current_time_inbetween = function(time_start, time_end)
 end
 
 local breakTriggerTimer = gears.timer {
-  -- TODO: change timeout from one hour to something variable
   timeout = tonumber(general["break_timeout"])  or (60 * 60 * 1),
   autostart = true,
   callback = function ()
-    -- TODO: only run during time constraints eg work
-    -- TODO: change timeout length
     time_start = general["break_time_start"] or "00:00"
     time_end = general["break_time_end"] or "23:59"
     if current_time_inbetween(time_start, time_end) then
@@ -144,6 +143,7 @@ local breakTriggerTimer = gears.timer {
 -- Disable the global timer
 -- Thus no more breaks will be triggered
 _G.pause.disable = function()
+  print("Disabeling break timer")
   breakTriggerTimer:stop()
 end
 

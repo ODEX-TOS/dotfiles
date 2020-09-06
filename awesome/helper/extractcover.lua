@@ -40,7 +40,7 @@ local extract_cover = function()
     fi
   ]]
 
-  awful.spawn.easy_async_with_shell(extract_script, function(stderr) end, false)
+  awful.spawn.easy_async_with_shell(extract_script, function(stderr) print("Music image: " .. stderr) end, false)
 end
 
 

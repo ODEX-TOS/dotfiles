@@ -144,6 +144,7 @@ function updateInfo()
   _G.getTitle()
   _G.getArtist()
   apps.bins.coverUpdate()
+  print("Song changed")
   awesome.emit_signal("song_changed")
 end
 

@@ -105,25 +105,30 @@ local buildButton = function(icon, name)
 end
 
 suspend_command = function()
+	print("Suspending")
 	exit_screen_hide()
-	awful.spawn.with_shell(apps.default.lock .. ' & systemctl suspend')
+	awful.spawn.with_shell(apps.default.lock .. ' && systemctl suspend')
 end
 
 exit_command = function()
+	print("Stopping TDE")
 	_G.awesome.quit()
 end
 
 lock_command = function()
+	print("Locking computer")
 	exit_screen_hide()
 	awful.spawn.with_shell('sleep 1 && ' .. apps.default.lock)
 end
 
 poweroff_command = function()
+	print("Powering off")
 	awful.spawn.with_shell('poweroff')
 	awesome.emit_signal("module::exit_screen_hide")
 end
 
 reboot_command = function()
+	print("Rebooting")
 	awful.spawn.with_shell('reboot')
 	awesome.emit_signal("module::exit_screen_hide")
 end

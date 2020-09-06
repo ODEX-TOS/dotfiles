@@ -139,6 +139,7 @@ local calculate = function ()
 	local calcu_screen = calculator_screen.calcu_screen
 
 	local string_expression = calcu_screen.text:gsub(',', '')
+	print("Calculating: " .. string_expression)
 
 	if string_expression:sub(-1):match("[%+%-%/%*%^%.]") then
 		return
@@ -155,7 +156,9 @@ local calculate = function ()
 	end
 
 	-- Set the answer in textbox
-	calcu_screen:set_text(numberFormat(ans, ","))
+	local num = numberFormat(ans, ",")
+	calcu_screen:set_text(num)
+	print("Calculator resolved to: " .. num)
 
 end
 

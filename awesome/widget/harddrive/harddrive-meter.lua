@@ -43,6 +43,7 @@ watch(
   function(_, stdout)
     local space_consumed = stdout:match('(%d+)')
     slider:set_value(tonumber(space_consumed))
+    print("harddrive size: " .. space_consumed .. "%")
     collectgarbage('collect')
   end
 )

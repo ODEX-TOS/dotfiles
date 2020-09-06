@@ -50,12 +50,14 @@ local globalKeys =
   awful.key(
     {modkey}, config.terminal,
     function()
+      print("Spawning terminal")
       awful.spawn(apps.default.terminal)
     end,
     { description = "Open Terminal", group = "launcher"}),
   awful.key(
     {modkey}, config.window,
     function()
+      print("Spawning rofi window switcher")
       awful.spawn(apps.default.rofiwindowswitch)
     end,
     { description = "Open a Window Switcher", group = "launcher"}),
@@ -63,6 +65,7 @@ local globalKeys =
   awful.key(
     {modkey}, config.launcher,
     function()
+      print("Spawning rofi app menu")
       awful.util.spawn(apps.default.rofiappmenu)
     end,
     { description = "Open Rofi", group = "launcher"}),
@@ -70,14 +73,16 @@ local globalKeys =
   awful.key(
     {modkey, "Shift"}, config.browser,
     function()
-      -- TODO: Change to dinamic browser
-      awful.spawn("firefox-developer-edition")
+      local browser = os.getenv("BROWSER") or "firefox-developer-edition"
+      print("Opening browser: " .. browser)
+      awful.spawn(browser)
     end,
     { description = "Open Browser", group = "launcher"}),
 
   awful.key(
     {modkey, "Shift"}, config.filemanager,
     function()
+      print("Opening filemanager: thunar")
       awful.spawn("thunar")
     end,
     { description = "Open file manager", group = "launcher"}),
@@ -85,6 +90,7 @@ local globalKeys =
   awful.key(
     {"Control", "Shift"}, config.monitor,
     function()
+      print("Opening system monitor")
       awful.spawn("gnome-system-monitor")
     end,
     { description = "Open system monitor", group = "launcher"}),
@@ -92,13 +98,21 @@ local globalKeys =
 
   -- Screen Shots
   -- Screen Shot and Save
-  awful.key({ }, "Print", function () awful.util.spawn("snap full") end),
+  awful.key({ }, "Print", function () 
+    print("Taking a full screenshot")
+    awful.util.spawn("snap full") 
+  end),
 
   -- Screen Shot Area and Save
-  awful.key({modkey, "Shift"}, 's', function () awful.util.spawn("snap area") end),
+  awful.key({modkey, "Shift"}, 's', 
+  function () 
+    print("Taking an area screenhot")
+    awful.util.spawn("snap area") 
+  end),
 
   -- Toggle System Tray
   awful.key({ modkey }, '=', function ()
+      print("Toggeling systray visibility")
       awful.screen.focused().systray.visible = not awful.screen.focused().systray.visible
     end, {description = "Toggle systray visibility", group = "custom"}),
 
@@ -127,6 +141,7 @@ local globalKeys =
     {modkey},
     config.configPanel,
     function()
+      print("Showing action center")
       _G.screen.primary.left_panel:toggle(true)
     end,
     {description = 'Open Control panel', group = 'awesome'}
@@ -148,6 +163,7 @@ local globalKeys =
     {modkey},
     config.lock,
     function()
+      print("Locking screen")
       awful.spawn(apps.default.lock)
     end,
     {description = 'lock the screen', group = 'hotkeys'}
@@ -155,6 +171,7 @@ local globalKeys =
   awful.key(
     {modkey}, config.notificationPanel,
     function()
+      print("Toggeling right panel")
       if  _G.screen.primary.right_panel ~=nil then
         _G.screen.primary.right_panel:toggle()
       end
@@ -254,6 +271,7 @@ local globalKeys =
     {},
     'XF86MonBrightnessUp',
     function()
+      print("Increasing brightness")
       if (_G.oled) then
         awful.spawn('brightness -a 5 -F')
       else
@@ -274,6 +292,7 @@ local globalKeys =
     {},
     'XF86MonBrightnessDown',
     function()
+      print("Decreasing brightness")
       if (_G.oled) then
         awful.spawn('brightness -d 5 -F')
       else
@@ -296,6 +315,7 @@ local globalKeys =
     {},
     'XF86AudioRaiseVolume',
     function()
+      print("Raising volume")
       awful.spawn('amixer -D pulse sset Master 5%+')
       awesome.emit_signal('widget::volume')
       if toggleVolOSD ~= nil then
@@ -311,6 +331,7 @@ local globalKeys =
     {},
     'XF86AudioLowerVolume',
     function()
+      print("Lowering volume")
       awful.spawn('amixer -D pulse sset Master 5%-')
       awesome.emit_signal('widget::volume')
       if toggleVolOSD ~= nil then
@@ -326,6 +347,7 @@ local globalKeys =
     {},
     'XF86AudioMute',
     function()
+      print("Toggeling volume")
       awful.spawn('amixer -D pulse set Master 1+ toggle')
       awesome.emit_signal('widget::volume')
       if toggleVolOSD ~= nil then
@@ -349,6 +371,7 @@ local globalKeys =
     {},
     'XF86PowerDown',
     function()
+      print("Showing exit screen")
       _G.exit_screen_show()
 
     end,
@@ -358,6 +381,7 @@ local globalKeys =
     {},
     'XF86PowerOff',
     function()
+      print("Showing exit screen")
       _G.exit_screen_show()
     end,
     {description = 'toggle exit screen', group = 'hardware'}
@@ -366,6 +390,7 @@ local globalKeys =
     {},
     'XF86Display',
     function()
+      print("Spawning arandr")
       awful.spawn('arandr')
     end,
     {description = 'arandr', group = 'hotkeys'}
@@ -375,6 +400,7 @@ local globalKeys =
     {},
     'XF86AudioPlay',
     function()
+      print("toggeling music")
       awful.spawn('playerctl play-pause')
     end,
     {description = 'toggle music', group = 'hardware'}
@@ -383,6 +409,7 @@ local globalKeys =
     {},
     'XF86AudioPause',
     function()
+      print("toggeling music")
       awful.spawn('playerctl play-pause')
     end,
     {description = 'toggle music', group = 'hardware'}
@@ -391,6 +418,7 @@ local globalKeys =
     {},
     'XF86AudioPrev',
     function()
+      print("Previous song")
       awful.spawn('playerctl previous')
     end,
     {description = 'go to the previous song', group = 'hardware'}
@@ -399,6 +427,7 @@ local globalKeys =
     {},
     'XF86AudioNext',
     function()
+      print("Next song")
       awful.spawn('playerctl next')
     end,
     {description = 'go to the next song', group = 'hardware'}
@@ -408,6 +437,7 @@ local globalKeys =
     {modkey},
     config.toggleMusic,
     function()
+      print("toggeling music")
       awful.spawn('playerctl play-pause')
     end,
     {description = 'toggle music', group = 'hardware'}
@@ -416,6 +446,7 @@ local globalKeys =
     {modkey},
     config.prevMusic,
     function()
+      print("Previous song")
       awful.spawn('playerctl previous')
     end,
     {description = 'go to the previous song', group = 'hardware'}
@@ -424,6 +455,7 @@ local globalKeys =
     {modkey},
     config.nextMusic,
     function()
+      print("Next song")
       awful.spawn('playerctl next')
     end,
     {description = 'go to the next song', group = 'hardware'}
@@ -432,6 +464,7 @@ local globalKeys =
     { }, 
     config.printscreen,
     function ()
+      print("Taking a full screenshot")
         awful.spawn(apps.bins.full_screenshot)
     end,
     {description = "fullscreen screenshot", group = 'Utility'}
@@ -440,7 +473,8 @@ local globalKeys =
     {modkey}, 
     config.snapArea,
     function ()
-        awful.spawn(apps.bins.area_screenshot)
+      print("Taking an area screenshot")
+      awful.spawn(apps.bins.area_screenshot)
     end,
     {description = "area/selected screenshot", group = 'Utility'}
   ),
@@ -448,6 +482,7 @@ local globalKeys =
     {modkey, 'Shift'}, 
     config.windowSnapArea,
     function ()
+        print("Taking a screenshot of a window")
         if general["window_screen_mode"] == "none" then
           awful.spawn(apps.bins.window_blank_screenshot)
         else
@@ -460,7 +495,8 @@ local globalKeys =
     {modkey}, 
     config.emoji,
     function ()
-        awful.spawn(apps.default.rofiemojimenu)
+      print("Opening rofi emoji menu")
+      awful.spawn(apps.default.rofiemojimenu)
     end,
     {description = "Show emoji selector", group = 'Utility'}
   )
@@ -488,6 +524,7 @@ for i = 1, 9 do
       function()
         local screen = awful.screen.focused()
         local tag = screen.tags[i]
+        print("Going to tag: " .. i)
         if tag then
           tag:view_only()
         end
@@ -501,6 +538,7 @@ for i = 1, 9 do
       function()
         local screen = awful.screen.focused()
         local tag = screen.tags[i]
+        print("Toggeling tag: " .. i)
         if tag then
           awful.tag.viewtoggle(tag)
         end
@@ -512,6 +550,8 @@ for i = 1, 9 do
       {modkey, 'Shift'},
       '#' .. i + 9,
       function()
+        print("Moving client to tag: " .. i)
+
         if _G.client.focus then
           local tag = _G.client.focus.screen.tags[i]
           if tag then
@@ -526,6 +566,8 @@ for i = 1, 9 do
       {modkey, 'Control', 'Shift'},
       '#' .. i + 9,
       function()
+        print("Toggeling tag " .. i .. " focused client")
+
         if _G.client.focus then
           local tag = _G.client.focus.screen.tags[i]
           if tag then

@@ -23,8 +23,10 @@
 --SOFTWARE.
 ]]
 
-require('helper.logger')
 require("helper.luapath")
+require('helper.logger')
+
+print("Booting up...")
 
 -- general conf is used by sentry (to opt out of it)
 general = require('parser')(os.getenv('HOME') .. "/.config/tos/general.conf")

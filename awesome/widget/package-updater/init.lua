@@ -144,6 +144,8 @@ watch(
     local _ = split(stdout)
     numOfUpdatesAvailable = _[1]
     numOfSecUpdatesAvailable = _[2]
+    print("Packages to update: " .. numOfUpdatesAvailable)
+    print("Security patch packages to update: " .. numOfSecUpdatesAvailable)
     local widgetIconName
     if numOfUpdatesAvailable == "0" then
       widgetIconName = 'package'
