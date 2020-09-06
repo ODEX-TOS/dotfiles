@@ -22,15 +22,12 @@ local sentry = sentrypkg.new {
      },
 }
 
-
-awesome.connect_signal("debug::error", function (err)
-    -- Make sure we don't go into an endless error loop
-    if in_error then return end
-    in_error = true
-
+local function send(msg)
+    print("Caught Error")
+    print(msg)
     local exception = {{
         ["type"]= "Error",
-        ["value"]= tostring(err),
+        ["value"]= tostring(msg),
         ["module"]= "tde";
      }}
     sentry:captureException(
@@ -39,7 +36,19 @@ awesome.connect_signal("debug::error", function (err)
             compositor = awesome.composite_manager_running
         }}
     )
-    print("Sending error: " .. tostring(err))
+end
+
+
+awesome.connect_signal("debug::error_msg", function(msg)
+    send(msg)
+end)
+
+
+awesome.connect_signal("debug::error", function (err)
+    -- Make sure we don't go into an endless error loop
+    if in_error then return end
+    in_error = true
+    send(err)
     in_error = false
 end)
 
