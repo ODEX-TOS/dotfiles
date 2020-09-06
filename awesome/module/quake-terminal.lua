@@ -40,10 +40,12 @@ function create_shell()
 end
 
 function open_quake()
+  print("Opening quake terminal")
   quake_client.hidden = false
 end
 
 function close_quake()
+  print("Closing quake terminal")
   quake_client.hidden = true
 end
 

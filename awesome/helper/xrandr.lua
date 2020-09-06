@@ -128,6 +128,7 @@ local function xrandr()
    else
       label, action = next[1], next[2]
    end
+   print("Display mode: " .. label)
    local noti = naughty.notify({ text = label,
                                 icon = icon_path,
                                 timeout = 4,

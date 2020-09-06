@@ -48,7 +48,9 @@ gears.timer {
     local stdout = file.lines("/proc/meminfo", nil, 3)
     local total = string.gmatch(stdout[1], '%d+')()
     local free = string.gmatch(stdout[3], '%d+')()
-    slider:set_value((1 - (free / total)) * 100)
+    local usage = (1 - (free / total)) * 100
+    slider:set_value(usage)
+    print("Ram usage: " ..  usage .. "%")
   end
 }
 

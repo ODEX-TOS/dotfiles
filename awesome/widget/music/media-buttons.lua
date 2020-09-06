@@ -72,6 +72,7 @@ play_button:buttons(
       1,
       nil,
       function()
+        print("Toggeling song play mode")
         -- give spotify time to react
         awful.spawn('playerctl play-pause')
         -- give the music player time to react

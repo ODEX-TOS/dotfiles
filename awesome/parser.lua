@@ -64,8 +64,11 @@ function parse_file(file)
 end
 
 return function (file)
+    print("Parsing file: " .. file)
     if file_exists(file) then
-     return parse_file(file)
+     local result = parse_file(file)
+     print("Finished parsing file: " .. file)
+     return result
     end
     return {}
 end

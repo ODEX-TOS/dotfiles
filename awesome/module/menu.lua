@@ -59,13 +59,15 @@ myawesomemenu = {
 local screenshot = {
 	{"Full", function() 
 		awful.spawn.easy_async_with_shell(apps.bins.full_screenshot, 
-			function() 
+			function(out)
+				print("Full screenshot\n" .. out) 
 			end
 		)
 	end},
 	{"Area", function() 
 		awful.spawn.easy_async_with_shell(apps.bins.area_screenshot, 
-			function() 
+			function(out) 
+				print("Area screenshot\n" .. out)
 			end
 		)
 	end}
@@ -87,7 +89,10 @@ mymainmenu = freedesktop.menu.build({
 	},
 	after = {
 		{"TDE", myawesomemenu, icons.logo},
-		{"End Session", function() _G.exit_screen_show() end, menubar.utils.lookup_icon("system-shutdown") },
+		{"End Session", function() 
+			print("Showing exit screen")
+			_G.exit_screen_show() 
+		end, menubar.utils.lookup_icon("system-shutdown") },
 		-- other triads can be put here
 	}
 })

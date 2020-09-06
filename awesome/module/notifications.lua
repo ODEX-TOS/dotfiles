@@ -89,6 +89,7 @@ naughty.connect_signal("request::display_error", function(message, startup)
 	if(startup) then
 		return
 	end
+	print(message)
 	-- only show notification if it is not a startup error (could potentially fail to create a screen)
     naughty.notification {
         urgency = "critical",

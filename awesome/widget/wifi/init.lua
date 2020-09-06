@@ -51,6 +51,7 @@ local command = "ip route get 1.1.1.1 | grep -Po '(?<=dev\\s)\\w+' | cut -f1 -d 
 awful.spawn.easy_async_with_shell(command, function()
     awful.spawn.easy_async_with_shell("cat /tmp/interface.txt", function(out)
         interface = out
+        print("Connected to network interface: " .. out)
     end)
 end)
 
@@ -124,6 +125,7 @@ local function grabText()
         if (essid == nil) then
           essid = 'N/A'
         end
+        print("Network essid: " .. essid)
       end
     )
   end

@@ -57,6 +57,7 @@ gears.timer {
     local diff_usage = (1000 * (diff_total - diff_idle) / diff_total + 5) / 10
 
     slider:set_value(diff_usage)
+    print("CPU usage: " .. diff_usage .. "%")
 
     total_prev = total
     idle_prev = idle

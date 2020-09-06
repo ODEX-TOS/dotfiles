@@ -37,9 +37,13 @@ local function run_once(cmd)
   end
   print("Executing: " .. ' ' .. cmd)
   if findme == "sh" or findme == "bash" then
-    awful.spawn.with_shell(string.format('%s', cmd))
+    awful.spawn.easy_async_with_shell (string.format('%s', cmd), function(stdout)
+      print(stdout)
+    end)
   else
-    awful.spawn.with_shell(string.format('pgrep -u $USER -x %s > /dev/null || (%s)', findme, cmd))
+    awful.spawn.easy_async_with_shell(string.format('pgrep -u $USER -x %s > /dev/null || (%s)', findme, cmd), function(stdout)
+      print(stdout)
+    end)
   end
 end
 

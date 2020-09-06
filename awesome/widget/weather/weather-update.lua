@@ -112,6 +112,10 @@ awesome.connect_signal("widget::weather", function(temperature, description, ico
     local icon
     local color
     local widgetIconName
+
+    print("Current weather temperature: " .. temperature)
+    print("Current weather description: " .. description)
+
     -- Set icon and color depending on icon_code
     if string.find(icon_code, "11") then
         -- icon = sun_icon
