@@ -37,10 +37,10 @@ local titleBarSize = dpi(25)
 local mode = general["draw_mode"]
 
 -- Titlebar Colors
-beautiful.titlebar_bg_focus = '#000000'
-beautiful.titlebar_bg_normal = '#000000'
+beautiful.titlebar_bg_focus = '#00000099'
+beautiful.titlebar_bg_normal = '#00000099'
 beautiful.titlebar_fg_focus = '#ffffff00'
-beautiful.titlebar_fg_normal = '#00000000'
+beautiful.titlebar_fg_normal = '#00000099'
 
 
 -- event handler that checks if  2 clicks occurend within 0.2 seconds
