@@ -38,9 +38,9 @@ local mode = general["draw_mode"]
 
 -- Titlebar Colors
 beautiful.titlebar_bg_focus = '#00000099'
-beautiful.titlebar_bg_normal = '#00000099'
+beautiful.titlebar_bg_normal = '#00000077'
 beautiful.titlebar_fg_focus = '#ffffff00'
-beautiful.titlebar_fg_normal = '#00000099'
+beautiful.titlebar_fg_normal = '#00000077'
 
 
 -- event handler that checks if  2 clicks occurend within 0.2 seconds
