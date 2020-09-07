@@ -9,12 +9,18 @@
 
 
 local sentrypkg = require('helper.sentry')
+local release = require("release")
+
+print("Resolved release to: " .. release)
+print("Resolved environment to: " .. (os.getenv("TDE_ENV") or "production"))
 
 local sentry = sentrypkg.new {
     sender = require("helper.sentry.senders.luasocket").new {
         dsn = "https://4684617907b540c0a3caf0245e1d6a2a@sentry.odex.be/6"
     },
     logger = "TDE-log",
+    release = release,
+    environment = os.getenv("TDE_ENV") or "production",
     tags = { 
         version = awesome.version,
         release = awesome.release,
@@ -32,9 +38,11 @@ local function send(msg)
      }}
     sentry:captureException(
         exception,
-        {tags = { 
-            compositor = awesome.composite_manager_running
-        }}
+        {
+            tags = { 
+                compositor = awesome.composite_manager_running
+            }
+        }
     )
 end
 
@@ -51,5 +59,11 @@ awesome.connect_signal("debug::error", function (err)
     send(err)
     in_error = false
 end)
+
+function add(a, b)
+    return a + b
+end
+
+add("ABC", 4)
 
 return sentry

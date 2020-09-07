@@ -30,6 +30,7 @@ local catcher_trace_level = 4
 -- @field tags   Defaults tags for sent messages, defaults to `{}`. Example:
 --  `{ "foo"="bar", ... }`
 -- @field extra  Default extra data sent with messages, defaults to `{}`
+-- @field release  Sets the release id for message, defaults to `SENTRY_RELEASE`
 -- @table sentry_conf
 
 local TDE_mt = { }
@@ -128,12 +129,16 @@ _M.capture_error_handler = capture_error_handler
 --    },
 --    tags = { foo = "bar", abc = "def" },
 --    logger = "foo",
+--    release = "879939692a0c3bdbd1662fd666477f4248290da0",
+--    environment = "staging"
 -- }
 function _M.new(conf)
     local obj = {
         sender = assert(conf.sender, "sender is required"),
         level = conf.level or "error",
         logger = conf.logger or "root",
+        release = conf.release or os.getenv('SENTRY_RELEASE'),
+        environment = conf.environment or os.getenv("SENTRY_ENVIRONMENT"),
         tags = conf.tags or nil,
         extra = conf.extra or nil,
     }
@@ -296,11 +301,13 @@ function TDE_mt:send_report(json, conf)
         end
     end
 
-    json.event_id  = event_id
-    json.timestamp = iso8601()
-    json.level     = self.level
-    json.platform  = "lua"
-    json.logger    = self.logger
+    json.event_id    = event_id
+    json.timestamp   = iso8601()
+    json.level       = self.level
+    json.platform    = "lua"
+    json.logger      = self.logger
+    json.release     = self.release
+    json.environment = self.environment
 
     if conf then
         json.tags = merge_tables(conf.tags, self.tags)
