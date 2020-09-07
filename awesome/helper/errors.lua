@@ -60,10 +60,4 @@ awesome.connect_signal("debug::error", function (err)
     in_error = false
 end)
 
-function add(a, b)
-    return a + b
-end
-
-add("ABC", 4)
-
 return sentry
