@@ -66,7 +66,7 @@ local globalKeys =
     {modkey}, config.launcher,
     function()
       print("Spawning rofi app menu")
-      awful.util.spawn(apps.default.rofiappmenu)
+      awful.spawn(apps.default.rofiappmenu)
     end,
     { description = "Open Rofi", group = "launcher"}),
 
@@ -100,14 +100,14 @@ local globalKeys =
   -- Screen Shot and Save
   awful.key({ }, "Print", function () 
     print("Taking a full screenshot")
-    awful.util.spawn("snap full") 
+    awful.spawn("snap full") 
   end),
 
   -- Screen Shot Area and Save
   awful.key({modkey, "Shift"}, 's', 
   function () 
     print("Taking an area screenhot")
-    awful.util.spawn("snap area") 
+    awful.spawn("snap area") 
   end),
 
   -- Toggle System Tray
