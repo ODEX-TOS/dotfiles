@@ -180,7 +180,7 @@ local return_button = function()
 			elseif battery_percentage >= 90 and battery_percentage < 100 then
 				icon_name = icon_name .. '-' .. '90'
 			elseif battery_percentage == 100 then
-				icon_name = icon_name .. '-' .. status .. battery_percentage
+				icon_name = icon_name .. '-fully-charged'
 			end
 		elseif status:match('charging') or status:match('fully') then
 			if battery_percentage > 0 and battery_percentage < 20 then
@@ -198,7 +198,7 @@ local return_button = function()
 			elseif battery_percentage >= 90 and battery_percentage < 100 then
 				icon_name = icon_name .. '-' .. status .. '-' .. '90'
 			elseif battery_percentage == 100 then
-				icon_name = icon_name .. '-' .. status
+				icon_name = icon_name .. '-fully-charged'
 			end
 		end
 
@@ -213,6 +213,10 @@ local return_button = function()
 		autostart = true,
 		callback  = function()
 			local status = file.string("/sys/class/power_supply/BAT0/status")
+			if status == "" then
+				-- possibility that the manufacturer starts counting from 1
+				status = file.string("/sys/class/power_supply/BAT1/status")
+			end
 			-- If no output or battery detected
 			if status == "" then
 				battery_widget.spacing = dpi(0)
