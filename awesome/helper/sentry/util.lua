@@ -14,6 +14,9 @@ local string_match = string.match
 local math_random = math.random
 local os_date = os.date
 
+local loglevel = require("helper.logger").error
+
+
 local _M = {}
 
 local _VERSION = "1.0.0"
@@ -25,7 +28,7 @@ _M._VERSION = _VERSION
 -- implementation to something smarter.
 -- @param ... Message to log (will be concatenated)
 function _M.errlog(...)
-    print("[ERROR]", ...)
+    print(..., loglevel)
 end
 
 --- Returns a string suitable to be used as `event_id`.

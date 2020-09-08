@@ -10,6 +10,7 @@
 
 local sentrypkg = require('helper.sentry')
 local release = require("release")
+local loglevel = require("helper.logger").error
 
 print("Resolved release to: " .. release)
 print("Resolved environment to: " .. (os.getenv("TDE_ENV") or "production"))
@@ -23,14 +24,14 @@ local sentry = sentrypkg.new {
     environment = os.getenv("TDE_ENV") or "production",
     tags = { 
         version = awesome.version,
-        release = awesome.release,
+        wmrelease = awesome.release,
         hostname = awesome.hostname
      },
 }
 
 local function send(msg)
-    print("Caught Error")
-    print(msg)
+    print("Caught Error", loglevel)
+    print(msg, loglevel)
     local exception = {{
         ["type"]= "Error",
         ["value"]= tostring(msg),
