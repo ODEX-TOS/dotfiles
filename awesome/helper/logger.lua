@@ -34,9 +34,13 @@ print = function (arg, log_type)
 		-- print it to stdout
 		echo(statement .. line)
 		-- append it to the log file
-		file:write(statement .. line .. "\n")
+        if file ~= nil then
+		    file:write(statement .. line .. "\n")
+        end
 	end
-	file:close()
+    if file ~= nil then
+	    file:close()
+    end
 end
 
 return {
