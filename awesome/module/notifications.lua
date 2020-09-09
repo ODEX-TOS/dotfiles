@@ -49,8 +49,8 @@ ruled.notification.connect_signal('request::rules', function()
 			fg 					= beautiful.text,
 			margin 				= dpi(16),
 			position 			= 'top_right',
-			timeout 			= 0,
-			implicit_timeout	= 0
+			timeout 			= 20,
+			implicit_timeout	= 20
 		}
 	}
 
