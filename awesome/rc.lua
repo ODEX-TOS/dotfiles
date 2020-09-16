@@ -54,6 +54,7 @@ local beautiful = require('beautiful')
 -- Theme
 beautiful.init(require('theme'))
 require('module.titlebar')()
+--require("module.tbar")
 
 -- Layout
 require('layout')

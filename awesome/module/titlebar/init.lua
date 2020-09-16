@@ -15,6 +15,8 @@ Forked to fit TDE (transapancy support)
 -- => Awesome WM
 -- ============================================================
 local awful = require("awful")
+local gears = require("gears")
+
 local atooltip = awful.tooltip
 local abutton = awful.button
 local wibox = require("wibox")
@@ -828,21 +830,46 @@ function nice.initialize(args)
         for _, c in pairs(s.clients) do
           if #s.tiled_clients >= 0 and (c.floating or c.first_tag.layout.name == 'floating') then
             awful.titlebar.show(c, 'top')
+            c.shape = function(cr, w, h)
+              gears.shape.rectangle(cr, w, h)
+            end
           elseif #s.tiled_clients == 1 and c.fullscreen == true then
             awful.titlebar.show(c, 'top')
+            c.shape = function(cr, w, h)
+              gears.shape.rectangle(cr, w, h)
+            end
           elseif #s.tiled_clients >= 1 and c.fullscreen == true then
             awful.titlebar.show(c, 'top')
+            c.shape = function(cr, w, h)
+              gears.shape.rectangle(cr, w, h)
+            end
           elseif #s.tiled_clients >= 1 and c.maximized == true then
             if c.maximized then
             awful.titlebar.show(c, 'top')
+            c.shape = function(cr, w, h)
+              gears.shape.rectangle(cr, w, h)
+            end
           end
           elseif #s.tiled_clients == 1 and c.first_tag.layout.name == 'dwindle' then
             awful.titlebar.hide(c, 'top')
+            c.shape = function(cr, w, h)
+              gears.shape.rectangle(cr, w, h)
+            end
           elseif #s.tiled_clients > 1 and c.first_tag.layout.name == 'dwindle' then
+            awful.titlebar.show(c, 'top')
+            c.shape =  function(cr, w, h)
+                gears.shape.rectangle(cr, w, h)
+              end
           elseif #s.tiled_clients == 1 and c.first_tag.layout.name == 'tile' then
             awful.titlebar.hide(c, 'top')
+            c.shape = function(cr, w, h)
+              gears.shape.rectangle(cr, w, h)
+            end
           elseif #s.tiled_clients > 1 and c.first_tag.layout.name == 'tile' then
             awful.titlebar.show(c, 'top')
+            c.shape =  function(cr, w, h)
+                gears.shape.rectangle(cr, w, h)
+              end
           end
         end
       end
@@ -851,8 +878,14 @@ function nice.initialize(args)
         for _, c in pairs(s.clients) do
           if #s.tiled_clients >= 2 or (c.floating or c.first_tag.layout.name == 'floating') then
             awful.titlebar.show(c, 'top')
+            c.shape = function(cr, w, h)
+              gears.shape.rectangle(cr, w, h)
+            end
           else
             awful.titlebar.hide(c, 'top')
+            c.shape = function(cr, w, h)
+              gears.shape.rectangle(cr, w, h)
+            end
           end
         end
       end
@@ -860,8 +893,12 @@ function nice.initialize(args)
       function none(s)
         for _, c in pairs(s.clients) do
             awful.titlebar.hide(c, 'top')
+            c.shape = function(cr, w, h)
+              gears.shape.rectangle(cr, w, h)
+            end
         end
       end
+      
 
       -- remove transparancy from a hex color
       function untransparant(color)
@@ -926,6 +963,18 @@ _G.client.connect_signal("property::floating", function(c)
 
     else
       awful.titlebar.hide(c, 'top')
+    end
+end)
+
+-- Show the titlebar if it's not maximized layout
+_G.tag.connect_signal("property::layout", function(t)
+    local clients = t:clients()
+    for k,c in pairs(clients) do
+        if c.first_tag.layout.name ~= "max" then
+            awful.titlebar.show(c, 'top')
+        else
+            awful.titlebar.hide(c, 'top')
+        end
     end
 end)
 

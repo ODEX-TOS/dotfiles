@@ -193,8 +193,8 @@ awful.rules.rules = {
     },
   },
     properties = {
-    skip_decoration = true,
-    titlebars_enabled = false,
+    skip_decoration = false,
+    titlebars_enabled = true,
     floating = true,
     placement = awful.placement.centered,
     ontop = true
@@ -287,13 +287,11 @@ awful.rules.rules = {
     rule_any = {class = {'lxpolkit', 'Lxpolkit'}},
     except_any = { type = { "dialog" } },
     properties = {
+      skip_decoration = true,
       floating = true,
+      placement = awful.placement.centered,
+      ontop = true,
       drawBackdrop = true,
-      shape = function()
-        return function(cr, w, h)
-          gears.shape.rounded_rect(cr, w, h, 12)
-        end
-      end,
     }
   },
   -- Dialog with blurred background
@@ -301,13 +299,11 @@ awful.rules.rules = {
     rule_any = {class = {'Pinentry-gtk-2', 'pinentry-gtk-2',
     'Pinentry-gtk', 'pinentry-gtk'}},
     properties = {
+      skip_decoration = true,
       floating = true,
+      placement = awful.placement.centered,
+      ontop = true,
       drawBackdrop = true,
-      shape = function()
-        return function(cr, w, h)
-          gears.shape.rounded_rect(cr, w, h, 12)
-        end
-      end,
     }
   },
 },
