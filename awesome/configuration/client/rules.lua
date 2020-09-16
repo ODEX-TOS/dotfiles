@@ -79,6 +79,7 @@ awful.rules.rules = {
         below = true,
         fullscreen = true,
         maximized = true,
+        titlebars_enabled = true,
         keys = {},
         --tag = '7' 
       } 
@@ -106,7 +107,8 @@ awful.rules.rules = {
       ontop = false,
       sticky = false,
       maximized_horizontal = false,
-      maximized_vertical = false
+      maximized_vertical = false,
+      titlebars_enabled = true
 
     }
   },
@@ -192,7 +194,7 @@ awful.rules.rules = {
   },
     properties = {
     skip_decoration = true,
-    titlebars_enabled = true,
+    titlebars_enabled = false,
     floating = true,
     placement = awful.placement.centered,
     ontop = true

@@ -53,6 +53,7 @@ local beautiful = require('beautiful')
 
 -- Theme
 beautiful.init(require('theme'))
+require('module.titlebar')()
 
 -- Layout
 require('layout')
@@ -64,7 +65,6 @@ require('module.decorate-client')
 require('module.backdrop')
 require('module.exit-screen')
 require('module.quake-terminal')
-require('module.titlebar')
 require('module.brightness-slider-osd')
 require('module.volume-slider-osd')
 require('module.plugin-module')
