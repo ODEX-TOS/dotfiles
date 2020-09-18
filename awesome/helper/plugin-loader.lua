@@ -5,6 +5,7 @@
 -- This file describes which plugins should be loaded
 local dirExists = require('helper.file').dir_exists
 local naughty = require("naughty")
+local ERROR = require("helper.logger").error
 
 function getItem(item)
     return plugins[item] or nil
@@ -24,6 +25,7 @@ end
 function prequire(lib)
     local status, lib = pcall(require, lib)
     if(status) then return lib end
+    print(lib, ERROR)
     return nil
 end
 
