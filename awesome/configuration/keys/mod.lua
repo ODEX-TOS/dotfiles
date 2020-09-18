@@ -57,5 +57,6 @@ return {
     printscreen = config["printscreen"] or 'Print',
     snapArea = config["snapshot_area"] or 'Print',
     windowSnapArea = config["window_screenshot"] or 'Print',
-    emoji = config["emoji"] or "m"
+    emoji = config["emoji"] or "m",
+    clipboard = config["clipboard"] or "p"
 }

@@ -499,6 +499,15 @@ local globalKeys =
       awful.spawn(apps.default.rofiemojimenu)
     end,
     {description = "Show emoji selector", group = 'Utility'}
+  ),
+  awful.key(
+    {modkey}, 
+    config.clipboard,
+    function ()
+      print("Opening rofi clipboard")
+      awful.spawn(apps.default.roficlipboard)
+    end,
+    {description = "Show clipboard history", group = 'Utility'}
   )
 )
 

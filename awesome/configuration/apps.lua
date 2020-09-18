@@ -53,6 +53,7 @@ return {
     rofiappmenu = 'rofi -dpi ' .. screen.primary.dpi ..  ' -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/appmenu/drun.rasi',
     rofiemojimenu = 'bash /etc/xdg/awesome/emoji.sh ' .. screen.primary.dpi,
     rofiwindowswitch = 'bash /etc/xdg/awesome/application-switch.sh' .. ' ' .. screen.primary.dpi,
+    roficlipboard = 'rofi -dpi ' .. screen.primary.dpi ..  ' -modi "clipboard:greenclip print" -show clipboard -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi/appmenu/drun.rasi',
     rofidpimenu = 'bash /etc/xdg/awesome/dpi.sh',
     rofiwifimenu = 'bash /etc/xdg/awesome/wifi.sh' .. ' ' .. screen.primary.dpi,
     lock = 'mantablockscreen -sc',
@@ -66,6 +67,7 @@ return {
     'xfce4-power-manager', -- Power manager
     'sh -c "/etc/xdg/awesome/firefox-color.sh \'' .. color .. '\' \'' .. colorBG .. '\'"',
     'xrdb $HOME/.Xresources',
+    'sh -c "pgrep greenclip || greenclip daemon"'
   },
   bins = {
     coverUpdate = require('helper.extractcover').extractalbum,
