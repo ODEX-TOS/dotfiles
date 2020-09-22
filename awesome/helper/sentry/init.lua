@@ -69,7 +69,8 @@ local function backtrace(level)
     level = level + 1
 
     while true do
-        local info = debug_getinfo(level, "Snl")
+        -- +3 is done because we offset the stacktrace by 3 function (all of which are used to log the error and are not related to the error itself)
+        local info = debug_getinfo(level + 3, "Snl")
         if not info then
             break
         end
