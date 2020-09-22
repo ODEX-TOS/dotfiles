@@ -29,12 +29,25 @@ local sentry = sentrypkg.new {
      },
 }
 
+local function removeStackTraceFromMSG(msg)
+    -- find a match for stack traceback
+    local i, j = msg:find("stack traceback:")
+    
+    -- if stack traceback was not found then we return the entire message
+    if i == nil or j == nil then
+        return msg
+    end
+    
+    return msg:sub(1, i - 1)
+end
+
 local function send(msg)
     print("Caught Error", loglevel)
-    print(msg, loglevel)
+    local message = removeStackTraceFromMSG(tostring(msg))
+    print(message, loglevel)
     local exception = {{
         ["type"]= "Error",
-        ["value"]= tostring(msg),
+        ["value"]= message,
         ["module"]= "tde";
      }}
     sentry:captureException(
