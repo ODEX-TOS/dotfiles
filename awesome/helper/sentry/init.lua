@@ -80,7 +80,7 @@ local function fileinfo(file, lineno)
     local pre = {}
     local post = {}
 
-    if (#lines - lineno) <= size then
+    if lineno < size then
         pre = { table.unpack( lines, 1, lineno - 1 ) }
     else
         pre = { table.unpack( lines, lineno - size, lineno - 1 ) }
