@@ -491,7 +491,7 @@ local function create_titlebar_title(c)
                                title_color_light or title_color_dark
         title_widget.markup =
             ("<span foreground='%s' font='%s'>%s</span>"):format(
-                text_color, _private.titlebar_font, c.name)
+                text_color, _private.titlebar_font, gears.string.xml_escape(c.name))
     end
     c:connect_signal("property::name", update)
     c:connect_signal(
