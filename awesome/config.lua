@@ -27,11 +27,7 @@
 -- This file holds general configuration parameters and functions you can use
 local HOME = os.getenv('HOME')
 local filesystem = require('gears.filesystem')
-
-function file_exists(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
-end
+local file_exists = require("helper.file").exists
 
 config = {
     package_timeout = 180, -- how frequently we want to check if there are new updates in seconds

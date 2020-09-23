@@ -32,19 +32,13 @@ local awful = require('awful')
 local gtk = require("beautiful.gtk")
 local config = require("theme.config")
 local darklight = require('theme.icons.dark-light')
+local file_exists = require('helper.file').exists
 
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
 theme.font = 'Roboto medium 10'
 theme.gtk = gtk.get_theme_variables()
 
--- read out files
--- see if the file exists
-function file_exists(file)
-  local f = io.open(file, "rb")
-  if f then f:close() end
-  return f ~= nil
-end
 
 -- get all lines from a file, returns an empty 
 -- list/table if the file does not exist

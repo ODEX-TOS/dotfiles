@@ -1,8 +1,9 @@
 -- see if the file exists
 function file_exists(file)
-    local f = io.open(file, "rb")
-    if f then f:close() end
-    return f ~= nil
+  if type(file) ~= "string" then return false end
+  local f = io.open(file, "rb")
+  if f then f:close() end
+  return f ~= nil
 end
 
 local function osExecute(cmd)

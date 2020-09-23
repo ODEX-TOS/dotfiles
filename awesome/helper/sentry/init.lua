@@ -8,6 +8,7 @@
 -- @license BSD 3-clause (see LICENSE file)
 
 local util = require("helper.sentry.util")
+local filehandle = require("helper.file")
 local cjson = require("cjson")
 
 local _M = {}
@@ -63,6 +64,46 @@ local function get_culprit(level)
     return culprit
 end
 
+-- return the line, pre and post line information
+local function fileinfo(file, lineno)
+
+    if not filehandle.exists(file) then
+        return nil, nil, nil
+    end
+
+    local size = 12
+
+    local lines = filehandle.lines(file)
+
+    local line = lines[lineno]
+
+    local pre = {}
+    local post = {}
+
+    if (#lines - lineno) <= size then
+        pre = { table.unpack( lines, 1, lineno - 1 ) }
+    else
+        pre = { table.unpack( lines, lineno - size, lineno - 1 ) }
+    end
+
+    if (lineno + size) > #lines then
+        post = { table.unpack( lines, lineno + 1, #lines ) }
+    else
+        post = { table.unpack( lines, lineno + 1, lineno + size ) }
+    end
+
+    return line, pre, post
+
+end
+
+-- it is in app if the filename is not /usr/share/awesome
+local function isInApp(filename)
+    local find = "/usr/share/awesome"
+    local result = not (filename:sub(1, #find) == find)
+    print(filename .. " IsInApp: " .. tostring(result))
+    return result
+end
+
 local function backtrace(level)
     local frames = {}
 
@@ -74,11 +115,15 @@ local function backtrace(level)
         if not info then
             break
         end
-
+        local line, pre, post = fileinfo(info.short_src, info.currentline)
         table_insert(frames, 1, {
             filename = info.short_src,
             ["function"] = info.name,
             lineno = info.currentline,
+            context_line = line,
+            pre_context = pre,
+            post_context = post,
+            in_app = isInApp(info.short_src)
         })
 
         level = level + 1

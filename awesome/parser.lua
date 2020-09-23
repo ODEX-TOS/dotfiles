@@ -22,13 +22,8 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local file_exists = require("helper.file").exists
 
-
--- check if a file exists
-function file_exists(name)
-    local f=io.open(name,"r")
-    if f~=nil then io.close(f) return true else return false end
-end
 
 
 function split (inputstr, sep)
