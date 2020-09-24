@@ -24,9 +24,9 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local mode = general["draw_mode"]
 
-
-local get_font_height = require("beautiful").get_font_height
-local primary_color = require("beautiful").primary.hue_500
+local beautiful = require("beautiful")
+local get_font_height = beautiful.get_font_height
+local primary_color = beautiful.primary.hue_500
 -- Widgets
 local imagebox = wibox.widget.imagebox
 local textbox = wibox.widget.textbox
@@ -132,20 +132,20 @@ _private.titlebar_items = {
     right = {"sticky", "ontop", "floating"},
 }
 _private.context_menu_theme = {
-    bg_focus = "#aed9e0",
-    bg_normal = "#5e6472",
-    border_color = "#00000000",
-    border_width = 0,
+    bg_focus = beautiful.primary.hue_300,
+    bg_normal = '#00000044',
+    border_color = '#00000075',
+    border_width = 20,
     fg_focus = "#242424",
     fg_normal = "#fefefa",
-    font = "Sans 11",
-    height = dpi(15),
+    font = "Iosevka Custom Regular 11",
+    height = dpi(35),
     width = dpi(250),
 }
 _private.no_titlebar_maximized = true
 _private.mb_move = nice.MB_LEFT
-_private.mb_contextmenu = nice.MB_MIDDLE
-_private.mb_resize = nice.MB_RIGHT
+_private.mb_contextmenu = nice.MB_RIGHT
+_private.mb_resize = nice.MB_MIDDLE
 _private.mb_win_shade_rollup = nice.MB_SCROLL_UP
 _private.mb_win_shade_rolldown = nice.MB_SCROLL_DOWN
 
@@ -434,14 +434,14 @@ local function get_titlebar_mouse_bindings(c)
                 end
                 -- TODO: Add client control options as menu entries for options that haven't had their buttons added
                 add_item(
-                    "Redo Window Decorations", function()
+                    "Auto detect Window Decoration color", function()
                         c._nice_base_color = get_dominant_color(c)
                         set_color_rule(c, c._nice_base_color)
                         _private.add_window_decorations(c)
                     end)
                 local picked_color
                 add_item(
-                    "Manually Pick Color", function()
+                    "Color Picker", function()
                         _G.mousegrabber.run(
                             function(m)
                                 if m.buttons[1] then
