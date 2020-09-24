@@ -136,8 +136,8 @@ _private.context_menu_theme = {
     bg_normal = '#00000044',
     border_color = '#00000075',
     border_width = 20,
-    fg_focus = "#242424",
-    fg_normal = "#fefefa",
+    --fg_focus = "#fefefa",
+    --fg_normal = "#fefefa",
     font = "Iosevka Custom Regular 11",
     height = dpi(35),
     width = dpi(250),
@@ -435,7 +435,7 @@ local function get_titlebar_mouse_bindings(c)
                 -- TODO: Add client control options as menu entries for options that haven't had their buttons added
                 add_item(
                     "Auto detect Window Decoration color", function()
-                        c._nice_base_color = get_dominant_color(c)
+                        c._nice_base_color = untransparant(get_dominant_color(c))
                         set_color_rule(c, c._nice_base_color)
                         _private.add_window_decorations(c)
                     end)
