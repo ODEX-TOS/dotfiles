@@ -41,7 +41,7 @@ watch(
   [[bash -c "df -h /home|grep '^/' | awk '{print $5}'"]],
   config.harddisk_poll,
   function(_, stdout)
-    local space_consumed = stdout:match('(%d+)')
+    local space_consumed = stdout:match('(%d+)') or 0
     slider:set_value(tonumber(space_consumed))
     print("harddrive size: " .. space_consumed .. "%")
     collectgarbage('collect')
