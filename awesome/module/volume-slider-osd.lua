@@ -80,6 +80,10 @@ local hideOSD =
 
 function toggleVolOSD(bool)
   if (not _G.menuopened) then
+    -- don't perform the toggle off if it is already off
+    if ((not bool) and (not volumeOverlay.visible)) then
+      return
+    end
     volumeOverlay.visible = bool
     if bool then
       hideOSD:again()

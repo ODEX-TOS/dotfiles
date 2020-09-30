@@ -79,6 +79,10 @@ local hideOSD =
 }
 
 function toggleBriOSD(bool)
+  -- don't perform the toggle off if it is already off
+  if ((not bool) and (not brightnessOverlay.visible)) then
+    return
+  end
   brightnessOverlay.visible = bool
   if bool then
     hideOSD:again()
