@@ -22,17 +22,14 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local awful = require('awful')
-local naughty = require('naughty')
-local watch = require('awful.widget.watch')
-local wibox = require('wibox')
-local clickable_container = require('widget.material.clickable-container')
-local gears = require('gears')
-local dpi = require('beautiful').xresources.apply_dpi
+local awful = require("awful")
+local wibox = require("wibox")
+local clickable_container = require("widget.material.clickable-container")
+local gears = require("gears")
+local dpi = require("beautiful").xresources.apply_dpi
 local menubar = require("menubar")
 
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/xdg-folders/icons/'
+local PATH_TO_ICONS = "/etc/xdg/awesome/widget/xdg-folders/icons/"
 
 function icon(item)
   return menubar.utils.lookup_icon(item)
@@ -40,7 +37,7 @@ end
 local docuWidget =
   wibox.widget {
   {
-    id = 'icon',
+    id = "icon",
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -55,7 +52,12 @@ docu_button:buttons(
       1,
       nil,
       function()
-        awful.spawn.easy_async_with_shell("xdg-open $HOME/Documents", function(stderr) end, 1)
+        awful.spawn.easy_async_with_shell(
+          "xdg-open $HOME/Documents",
+          function(stderr)
+          end,
+          1
+        )
       end
     )
   )
@@ -65,15 +67,15 @@ docu_button:buttons(
 awful.tooltip(
   {
     objects = {docu_button},
-    mode = 'outside',
-    align = 'right',
+    mode = "outside",
+    align = "right",
     timer_function = function()
-      return 'Documents'
+      return "Documents"
     end,
-    preferred_positions = {'right', 'left', 'top', 'bottom'}
+    preferred_positions = {"right", "left", "top", "bottom"}
   }
 )
 
-docuWidget.icon:set_image(icon('folder-documents') or (PATH_TO_ICONS .. 'folder-documents' .. '.svg'))
+docuWidget.icon:set_image(icon("folder-documents") or (PATH_TO_ICONS .. "folder-documents" .. ".svg"))
 
 return docu_button

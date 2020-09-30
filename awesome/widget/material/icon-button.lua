@@ -22,11 +22,10 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local wibox = require('wibox')
-local gears = require('gears')
-local clickable_container = require('widget.material.clickable-container')
-local dpi = require('beautiful').xresources.apply_dpi
+local wibox = require("wibox")
+local gears = require("gears")
+local clickable_container = require("widget.material.clickable-container")
+local dpi = require("beautiful").xresources.apply_dpi
 
 function build(imagebox, args)
   -- return wibox.container.margin(container, 6, 6, 6, 6)

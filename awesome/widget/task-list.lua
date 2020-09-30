@@ -22,13 +22,12 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local awful = require('awful')
-local wibox = require('wibox')
-local dpi = require('beautiful').xresources.apply_dpi
+local awful = require("awful")
+local wibox = require("wibox")
+local dpi = require("beautiful").xresources.apply_dpi
 local capi = {button = _G.button}
-local gears = require('gears')
-local clickable_container = require('widget.material.clickable-container')
+local gears = require("gears")
+local clickable_container = require("widget.material.clickable-container")
 --- Common method to create buttons.
 -- @tab buttons
 -- @param object
@@ -43,15 +42,15 @@ local function create_buttons(buttons, object)
       -- argument.
       local btn = capi.button {modifiers = b.modifiers, button = b.button}
       btn:connect_signal(
-        'press',
+        "press",
         function()
-          b:emit_signal('press', object)
+          b:emit_signal("press", object)
         end
       )
       btn:connect_signal(
-        'release',
+        "release",
         function()
-          b:emit_signal('release', object)
+          b:emit_signal("release", object)
         end
       )
       btns[#btns + 1] = btn
@@ -73,19 +72,13 @@ local function list_update(w, buttons, label, data, objects)
       bgb = cache.bgb
       tbm = cache.tbm
       ibm = cache.ibm
-      tt  = cache.tt
+      tt = cache.tt
     else
       ib = wibox.widget.imagebox()
       tb = wibox.widget.textbox()
       cb =
         clickable_container(
-        wibox.container.margin(
-          wibox.widget.imagebox('/etc/xdg/awesome/theme/icons/tag-list/tag/close.png'),
-          4,
-          4,
-          4,
-          4
-        )
+        wibox.container.margin(wibox.widget.imagebox("/etc/xdg/awesome/theme/icons/tag-list/tag/close.png"), 4, 4, 4, 4)
       )
       cb.shape = gears.shape.circle
       cbm = wibox.container.margin(cb, dpi(4), dpi(8), dpi(2), dpi(2)) -- 4, 8 ,12 ,12 -- close button
@@ -122,12 +115,15 @@ local function list_update(w, buttons, label, data, objects)
       l:buttons(create_buttons(buttons, o))
 
       -- Tooltip to display whole title, if it was truncated
-      tt = awful.tooltip({
-        objects = {tb},
-        mode = 'outside',
-        align = 'bottom',
-        delay_show = 1,
-      })
+      tt =
+        awful.tooltip(
+        {
+          objects = {tb},
+          mode = "outside",
+          align = "bottom",
+          delay_show = 1
+        }
+      )
 
       data[o] = {
         ib = ib,
@@ -135,7 +131,7 @@ local function list_update(w, buttons, label, data, objects)
         bgb = bgb,
         tbm = tbm,
         ibm = ibm,
-        tt  = tt
+        tt = tt
       }
     end
 
@@ -143,24 +139,24 @@ local function list_update(w, buttons, label, data, objects)
     args = args or {}
 
     -- The text might be invalid, so use pcall.
-    if text == nil or text == '' then
+    if text == nil or text == "" then
       tbm:set_margins(0)
     else
       -- truncate when title is too long
-      local textOnly = text:match('>(.-)<')
+      local textOnly = text:match(">(.-)<")
       if (textOnly:len() > 24) then
-        text = text:gsub('>(.-)<', '>' .. textOnly:sub(1, 21) .. '...<')
+        text = text:gsub(">(.-)<", ">" .. textOnly:sub(1, 21) .. "...<")
         tt:set_text(textOnly)
         tt:add_to_object(tb)
       else
         tt:remove_from_object(tb)
       end
       if not tb:set_markup_silently(text) then
-        tb:set_markup('<i>&lt;Invalid text&gt;</i>')
+        tb:set_markup("<i>&lt;Invalid text&gt;</i>")
       end
     end
     bgb:set_bg(bg)
-    if type(bg_image) == 'function' then
+    if type(bg_image) == "function" then
       -- TODO: Why does this pass nil as an argument?
       bg_image = bg_image(tb, o, nil, objects, i)
     end

@@ -22,13 +22,12 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local wibox = require('wibox')
-local gears = require('gears')
-local awful = require('awful')
+local wibox = require("wibox")
+local gears = require("gears")
+local awful = require("awful")
 
 local function update_backdrop(w, c)
-  local cairo = require('lgi').cairo
+  local cairo = require("lgi").cairo
   local geo = c.screen.geometry
 
   w.x = geo.x
@@ -41,7 +40,7 @@ local function update_backdrop(w, c)
   local cr = cairo.Context(shape)
 
   -- Fill with "completely opaque"
-  cr.operator = 'SOURCE'
+  cr.operator = "SOURCE"
   cr:set_source_rgba(1, 1, 1, 1)
   cr:paint()
 
@@ -62,7 +61,7 @@ local function backdrop(c)
     update_backdrop(c.backdrop, c)
   end
   if not c.backdrop then
-    c.backdrop = wibox {ontop = true, bg = '#00000054', type = 'splash'}
+    c.backdrop = wibox {ontop = true, bg = "#00000054", type = "splash"}
     c.backdrop:buttons(
       awful.util.table.join(
         awful.button(
@@ -74,21 +73,21 @@ local function backdrop(c)
         )
       )
     )
-    c:connect_signal('property::geometry', update)
+    c:connect_signal("property::geometry", update)
     c:connect_signal(
-      'property::shape_client_bounding',
+      "property::shape_client_bounding",
       function()
         gears.timer.delayed_call(update)
       end
     )
     c:connect_signal(
-      'unmanage',
+      "unmanage",
       function()
         c.backdrop.visible = false
       end
     )
     c:connect_signal(
-      'property::shape_bounding',
+      "property::shape_bounding",
       function()
         gears.timer.delayed_call(update)
       end
@@ -99,7 +98,7 @@ local function backdrop(c)
 end
 
 _G.client.connect_signal(
-  'manage',
+  "manage",
   function(c)
     if c.drawBackdrop == true then
       backdrop(c)

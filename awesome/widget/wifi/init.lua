@@ -22,47 +22,45 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-
-local awful = require('awful')
-local watch = require('awful.widget.watch')
-local wibox = require('wibox')
-local clickable_container = require('widget.material.clickable-container')
-local gears = require('gears')
-local file = require('helper.file')
-local dpi = require('beautiful').xresources.apply_dpi
-local naughty = require('naughty')
-local config = require('config')
-local theme = require('theme.icons.dark-light')
+local awful = require("awful")
+local wibox = require("wibox")
+local clickable_container = require("widget.material.clickable-container")
+local gears = require("gears")
+local file = require("helper.file")
+local dpi = require("beautiful").xresources.apply_dpi
+local config = require("config")
+local theme = require("theme.icons.dark-light")
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
-local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/wifi/icons/'
+local PATH_TO_ICONS = "/etc/xdg/awesome/widget/wifi/icons/"
 local interface = "wlp2s01"
-
-
 
 -- This is the correct way
 local command = "ip route get 1.1.1.1 | grep -Po '(?<=dev\\s)\\w+' | cut -f1 -d ' ' > /tmp/interface.txt"
 
-awful.spawn.easy_async_with_shell(command, function()
-    awful.spawn.easy_async_with_shell("cat /tmp/interface.txt", function(out)
+awful.spawn.easy_async_with_shell(
+  command,
+  function()
+    awful.spawn.easy_async_with_shell(
+      "cat /tmp/interface.txt",
+      function(out)
         interface = out
         print("Connected to network interface: " .. out)
-    end)
-end)
-
+      end
+    )
+  end
+)
 
 local connected = false
-local essid = 'N/A'
+local essid = "N/A"
 
 local widget =
   wibox.widget {
   {
-    id = 'icon',
+    id = "icon",
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -77,7 +75,7 @@ widget_button:buttons(
       1,
       nil,
       function()
-        awful.spawn('wicd-client -n')
+        awful.spawn("wicd-client -n")
       end
     )
   )
@@ -91,7 +89,7 @@ widget_button:buttons(
       1,
       nil,
       function()
-        awful.spawn('nm-connection-editor')
+        awful.spawn("nm-connection-editor")
       end
     )
   )
@@ -101,16 +99,16 @@ widget_button:buttons(
 awful.tooltip(
   {
     objects = {widget_button},
-    mode = 'outside',
-    align = 'right',
+    mode = "outside",
+    align = "right",
     timer_function = function()
       if connected then
-        return 'Connected to ' .. essid
+        return "Connected to " .. essid
       else
-        return 'Wireless network is disconnected'
+        return "Wireless network is disconnected"
       end
     end,
-    preferred_positions = {'right', 'left', 'top', 'bottom'},
+    preferred_positions = {"right", "left", "top", "bottom"},
     margin_leftright = dpi(8),
     margin_topbottom = dpi(8)
   }
@@ -119,11 +117,11 @@ awful.tooltip(
 local function grabText()
   if connected then
     awful.spawn.easy_async(
-      'iw dev ' .. interface .. ' link',
+      "iw dev " .. interface .. " link",
       function(stdout)
-        essid = stdout:match('SSID:(.-)\n')
+        essid = stdout:match("SSID:(.-)\n")
         if (essid == nil) then
-          essid = 'N/A'
+          essid = "N/A"
         end
         print("Network essid: " .. essid)
       end
@@ -132,39 +130,39 @@ local function grabText()
 end
 
 gears.timer {
-  timeout   = config.network_poll,
-  call_now  = true,
+  timeout = config.network_poll,
+  call_now = true,
   autostart = true,
-  callback  = function()
-    local widgetIconName = 'wifi-strength'
+  callback = function()
+    local widgetIconName = "wifi-strength"
     local interface = file.lines("/proc/net/wireless", nil, 3)[3]
     if interface == nil then
       connected = false
-      widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '-off' .. '.svg'))
-      collectgarbage('collect')
+      widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. "-off" .. ".svg"))
+      collectgarbage("collect")
       return
     end
-    local ssid, num, link = interface:match('(%w+):%s+(%d+)%s+(%d+)')
-    local wifi_strength = (tonumber(link)/70)*100
+    local ssid, num, link = interface:match("(%w+):%s+(%d+)%s+(%d+)")
+    local wifi_strength = (tonumber(link) / 70) * 100
     if (wifi_strength ~= nil) then
       connected = true
       -- Update popup text
       local wifi_strength_rounded = math.floor(wifi_strength / 25 + 0.5)
-      widgetIconName = widgetIconName .. '-' .. wifi_strength_rounded
-      widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '.svg'))   
+      widgetIconName = widgetIconName .. "-" .. wifi_strength_rounded
+      widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. ".svg"))
     else
       connected = false
-      widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '-off' .. '.svg'))
+      widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. "-off" .. ".svg"))
     end
-    if (connected and (essid == 'N/A' or essid == nil)) then
+    if (connected and (essid == "N/A" or essid == nil)) then
       grabText()
     end
-    collectgarbage('collect')
+    collectgarbage("collect")
   end
 }
 
 widget:connect_signal(
-  'mouse::enter',
+  "mouse::enter",
   function()
     grabText()
   end

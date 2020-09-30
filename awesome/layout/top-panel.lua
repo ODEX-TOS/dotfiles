@@ -22,45 +22,41 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local awful = require("awful")
+local beautiful = require("beautiful")
+local wibox = require("wibox")
+local TaskList = require("widget.task-list")
+local gears = require("gears")
+local mat_icon_button = require("widget.material.icon-button")
+local mat_icon = require("widget.material.icon")
+local hardware = require("helper.hardware-check")
 
-local awful = require('awful')
-local beautiful = require('beautiful')
-local wibox = require('wibox')
-local TaskList = require('widget.task-list')
-local gears = require('gears')
-local clickable_container = require('widget.material.clickable-container')
-local mat_icon_button = require('widget.material.icon-button')
-local mat_icon = require('widget.material.icon')
-local hardware = require('helper.hardware-check')
+local dpi = require("beautiful").xresources.apply_dpi
 
-local dpi = require('beautiful').xresources.apply_dpi
-
-local icons = require('theme.icons')
+local icons = require("theme.icons")
 
 -- load the notification plugins
 print("topbar plugin loading started")
-local plugins = require('helper.plugin-loader')('topbar')
+local plugins = require("helper.plugin-loader")("topbar")
 print("Done loading topbar plugins")
 
-
-  -- Clock / Calendar 12h format
+-- Clock / Calendar 12h format
 local textclock = wibox.widget.textclock('<span font="Roboto bold 10">%l:%M %p</span>')
 
-  -- Clock / Calendar 12AM/PM fornat
-  -- local textclock = wibox.widget.textclock('<span font="Roboto Mono bold 11">%I\n%M</span>\n<span font="Roboto Mono bold 9">%p</span>')
-  -- textclock.forced_height = 56
+-- Clock / Calendar 12AM/PM fornat
+-- local textclock = wibox.widget.textclock('<span font="Roboto Mono bold 11">%I\n%M</span>\n<span font="Roboto Mono bold 9">%p</span>')
+-- textclock.forced_height = 56
 local clock_widget = wibox.container.margin(textclock, dpi(0), dpi(0))
 
 local function rounded_shape(size, partial)
   if partial then
-      return function(cr, width, height)
-                 gears.shape.partially_rounded_rect(cr, width, height,
-                      false, true, false, true, 5)
-             end
+    return function(cr, width, height)
+      gears.shape.partially_rounded_rect(cr, width, height, false, true, false, true, 5)
+    end
   else
-      return function(cr, width, height)
-                 gears.shape.rounded_rect(cr, width, height, size)
-             end
+    return function(cr, width, height)
+      gears.shape.rounded_rect(cr, width, height, size)
+    end
   end
 end
 
@@ -69,8 +65,8 @@ local function show_widget_or_default(widget, show)
     return widget
   end
   return wibox.widget {
-		text = '',
-		visible = false,
+    text = "",
+    visible = false,
     widget = wibox.widget.textbox
   }
 end
@@ -80,55 +76,61 @@ end
 awful.tooltip(
   {
     objects = {clock_widget},
-    mode = 'outside',
-    align = 'right',
+    mode = "outside",
+    align = "right",
     timer_function = function()
       return os.date("The date today is %B %d, %Y (%A).")
     end,
-    preferred_positions = {'right', 'left', 'top', 'bottom'},
+    preferred_positions = {"right", "left", "top", "bottom"},
     margin_leftright = dpi(8),
     margin_topbottom = dpi(8)
   }
 )
 
-
 local cal_shape = function(cr, width, height)
-    gears.shape.infobubble(cr, width, height, 12)
+  gears.shape.infobubble(cr, width, height, 12)
 end
 
 -- Calendar Widget
-local month_calendar = awful.widget.calendar_popup.month({
-	start_sunday = false,
-	spacing = 10,
-	font = 'Iosevka Custom 11',
-	long_weekdays = false,
-	margin = 5,
-	style_month = { border_width = 0, padding = 12, shape = cal_shape, padding = 25},
-	style_header = { border_width = 0, bg_color = '#00000000'},
-	style_weekday = { border_width = 0, bg_color = '#00000000' },
-	style_normal = { border_width = 0, bg_color = '#00000000', shape = rounded_shape(5)},
-	style_focus = { 
-    border_width = 0, 
-    bg_color = beautiful.primary.hue_500,
-    shape        = rounded_shape(5)
-  },
+local month_calendar =
+  awful.widget.calendar_popup.month(
+  {
+    start_sunday = false,
+    spacing = 10,
+    font = "Iosevka Custom 11",
+    long_weekdays = false,
+    margin = 5,
+    style_month = {border_width = 0, shape = cal_shape, padding = 25},
+    style_header = {border_width = 0, bg_color = "#00000000"},
+    style_weekday = {border_width = 0, bg_color = "#00000000"},
+    style_normal = {border_width = 0, bg_color = "#00000000", shape = rounded_shape(5)},
+    style_focus = {
+      border_width = 0,
+      bg_color = beautiful.primary.hue_500,
+      shape = rounded_shape(5)
+    }
+  }
+)
+month_calendar:attach(clock_widget, "tc", {on_pressed = true, on_hover = false})
 
-	})
-	month_calendar:attach( clock_widget, "tc" , { on_pressed = true, on_hover = false })
-  
-  month_calendar:connect_signal("mouse::leave", function()
+month_calendar:connect_signal(
+  "mouse::leave",
+  function()
     month_calendar:toggle()
-  end)
+  end
+)
 
-
-awful.screen.connect_for_each_screen(function(s)
-  s.systray = wibox.widget.systray()
-  s.systray.visible = false
-  s.systray:set_horizontal(true)
-  s.systray:set_base_size(28)
-  beautiful.systray_icon_spacing = 24
-  s.systray.opacity = 0.3
-end)
+awful.screen.connect_for_each_screen(
+  function(s)
+    s.systray = wibox.widget.systray()
+    s.systray.visible = false
+    s.systray:set_horizontal(true)
+    s.systray:set_base_size(28)
+    beautiful.systray_icon_spacing = 24
+    s.systray.opacity = 0.3
+  end
+)
+ --
 
 --[[
 -- Systray Widget
@@ -137,9 +139,8 @@ local systray = wibox.widget.systray()
 	systray:set_base_size(28)
 	beautiful.systray_icon_spacing = 24
 	opacity = 0
-]]--
-
-local add_button = mat_icon_button(mat_icon(icons.plus, dpi(16))) -- add button -- 24
+]] local add_button =
+  mat_icon_button(mat_icon(icons.plus, dpi(16))) -- add button -- 24
 add_button:buttons(
   gears.table.join(
     awful.button(
@@ -160,32 +161,33 @@ add_button:buttons(
 )
 
 local function topbar_plugin(s)
-
-  local table_widget = wibox.widget{
+  local table_widget =
+    wibox.widget {
     layout = wibox.layout.fixed.horizontal,
     -- System tray and widgets
     --wibox.container.margin(systray, dpi(14), dpi(14)),
-    wibox.container.margin(s.systray, dpi(14), dpi(0), dpi(4), dpi(4)),
+    wibox.container.margin(s.systray, dpi(14), dpi(0), dpi(4), dpi(4))
   }
 
   for index, value in ipairs(plugins) do
-    table_widget:add({
-      value,
-      layout = wibox.layout.fixed.vertical,
-    })
+    table_widget:add(
+      {
+        value,
+        layout = wibox.layout.fixed.vertical
+      }
+    )
   end
-  table_widget:add(show_widget_or_default(require('widget.battery')(), hardware.hasBattery()))
-  table_widget:add(show_widget_or_default(require('widget.bluetooth'), hardware.hasBluetooth()))
-  table_widget:add(show_widget_or_default(require('widget.wifi'), hardware.hasWifi()))
-  table_widget:add(require('widget.package-updater'))
-  table_widget:add(show_widget_or_default(require('widget.music'),hardware.hasSound())) --only add this when the data can be extracted from spotify
-  table_widget:add(require('widget.about'))
-  table_widget:add(show_widget_or_default(require('widget.screen-recorder')(), hardware.hasFFMPEG()))
-  table_widget:add(require('widget.search'))
-  table_widget:add(require('widget.notification-center'))
+  table_widget:add(show_widget_or_default(require("widget.battery")(), hardware.hasBattery()))
+  table_widget:add(show_widget_or_default(require("widget.bluetooth"), hardware.hasBluetooth()))
+  table_widget:add(show_widget_or_default(require("widget.wifi"), hardware.hasWifi()))
+  table_widget:add(require("widget.package-updater"))
+  table_widget:add(show_widget_or_default(require("widget.music"), hardware.hasSound())) --only add this when the data can be extracted from spotify
+  table_widget:add(require("widget.about"))
+  table_widget:add(show_widget_or_default(require("widget.screen-recorder")(), hardware.hasFFMPEG()))
+  table_widget:add(require("widget.search"))
+  table_widget:add(require("widget.notification-center"))
   return table_widget
-end 
-
+end
 
 local TopPanel = function(s, offset, controlCenterOnly)
   local offsetx = 0
@@ -217,22 +219,22 @@ local TopPanel = function(s, offset, controlCenterOnly)
   )
 
   panel:setup {
-	expand = "none",
+    expand = "none",
     layout = wibox.layout.align.horizontal,
     {
       layout = wibox.layout.fixed.horizontal,
       -- Create a taglist widget
-      require('widget.control-center'),
+      require("widget.control-center"),
       TaskList(s),
       add_button
     },
-	  -- Create a clock widget
-	  -- Clock
-	  clock_widget,
+    -- Create a clock widget
+    -- Clock
+    clock_widget,
     topbar_plugin(s)
   }
   if controlCenterOnly then
-    return require('widget.control-center')
+    return require("widget.control-center")
   end
 
   return panel

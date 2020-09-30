@@ -22,11 +22,9 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local awful = require('awful')
-local gears = require('gears')
-local icons = require('theme.icons')
-local config = require('parser')(os.getenv('HOME') .. "/.config/tos/tags.conf")
+local awful = require("awful")
+local icons = require("theme.icons")
+local config = require("parser")(os.getenv("HOME") .. "/.config/tos/tags.conf")
 local menubar = require("menubar")
 
 function icon(item)
@@ -66,114 +64,119 @@ end
 
 function getGapPerTag(number)
   local gap = "tag_gap_" .. number
-  return tonumber(getItem(gap)) or 4 
+  return tonumber(getItem(gap)) or 4
 end
 
 local tags = {
   {
-    icon = icon('webbrowser-app') or icons.chrome,
-    type = 'chrome',
-    defaultApp = 'chrome',
+    icon = icon("webbrowser-app") or icons.chrome,
+    type = "chrome",
+    defaultApp = "chrome",
     screen = 1,
     layout = getLayoutPerTag(1)
   },
   {
-    icon = icon('utilities-terminal') or icons.terminal,
-    type = 'terminal',
-    defaultApp = 'st',
+    icon = icon("utilities-terminal") or icons.terminal,
+    type = "terminal",
+    defaultApp = "st",
     screen = 1,
     layout = getLayoutPerTag(2)
   },
   {
-    icon = icon('visual-studio-code-insiders') or icons.code,
-    type = 'code',
-    defaultApp = 'code-insiders',
+    icon = icon("visual-studio-code-insiders") or icons.code,
+    type = "code",
+    defaultApp = "code-insiders",
     screen = 1,
     layout = getLayoutPerTag(3)
   },
- --[[ {
+  --
+  --[[ {
     icon = icons.social,
     type = 'social',
     defaultApp = 'station',
     screen = 1
-  },]]--
-  {
-    icon = icon('system-file-manager') or icons.folder,
-    type = 'files',
-    defaultApp = 'thunar',
+  },]] {
+    icon = icon("system-file-manager") or icons.folder,
+    type = "files",
+    defaultApp = "thunar",
     screen = 1,
     layout = getLayoutPerTag(4)
   },
   {
-    icon = icon('deepin-music') or icons.music,
-    type = 'music',
-    defaultApp = 'spotify',
+    icon = icon("deepin-music") or icons.music,
+    type = "music",
+    defaultApp = "spotify",
     screen = 1,
     layout = getLayoutPerTag(5)
   },
   {
-    icon = icon('applications-games') or icons.game,
-    type = 'game',
-    defaultApp = '',
+    icon = icon("applications-games") or icons.game,
+    type = "game",
+    defaultApp = "",
     screen = 1,
     layout = getLayoutPerTag(6)
   },
   {
-    icon = icon('gimp') or icons.art,
-    type = 'art',
-    defaultApp = 'gimp',
+    icon = icon("gimp") or icons.art,
+    type = "art",
+    defaultApp = "gimp",
     screen = 1,
     layout = getLayoutPerTag(7)
   },
   {
-    icon = icon('utilities-system-monitor') or icons.lab,
-    type = 'any',
-    defaultApp = '',
+    icon = icon("utilities-system-monitor") or icons.lab,
+    type = "any",
+    defaultApp = "",
     screen = 1,
     layout = getLayoutPerTag(8)
   }
 }
-tag.connect_signal("request::default_layouts", function()
-  awful.layout.append_default_layouts({
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.floating,
-    awful.layout.suit.fair,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.max
-  })
-end)
+tag.connect_signal(
+  "request::default_layouts",
+  function()
+    awful.layout.append_default_layouts(
+      {
+        awful.layout.suit.spiral.dwindle,
+        awful.layout.suit.floating,
+        awful.layout.suit.fair,
+        awful.layout.suit.magnifier,
+        awful.layout.suit.max
+      }
+    )
+  end
+)
 
 awful.screen.connect_for_each_screen(
   function(s)
     for i, tag in pairs(tags) do
       -- the last tag is reserved for the desktop
-        tag.layout = getLayoutPerTag(i)
-        tag.gap = getGapPerTag(i)
-        awful.tag.add(
-          i,
-          {
-            icon = tag.icon,
-            icon_only = true,
-            layout = tag.layout,
-            gap_single_client = false,
-            gap = tag.gap,
-            screen = s,
-            defaultApp = tag.defaultApp,
-            selected = i == 1
-          }
-        )
+      tag.layout = getLayoutPerTag(i)
+      tag.gap = getGapPerTag(i)
+      awful.tag.add(
+        i,
+        {
+          icon = tag.icon,
+          icon_only = true,
+          layout = tag.layout,
+          gap_single_client = false,
+          gap = tag.gap,
+          screen = s,
+          defaultApp = tag.defaultApp,
+          selected = i == 1
+        }
+      )
     end
   end
 )
 
 _G.tag.connect_signal(
-  'property::layout',
+  "property::layout",
   function(t)
-    local currentLayout = awful.tag.getproperty(t, 'layout')
+    local currentLayout = awful.tag.getproperty(t, "layout")
     if (currentLayout == awful.layout.suit.max) then
       t.gap = 0
     else
-      t.gap = awful.tag.getproperty(t, 'gap') or 4
+      t.gap = awful.tag.getproperty(t, "gap") or 4
     end
   end
 )

@@ -22,15 +22,14 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local wibox = require('wibox')
-local mat_list_item = require('widget.material.list-item')
-local mat_slider = require('widget.material.slider')
-local mat_icon = require('widget.material.icon')
-local icons = require('theme.icons')
-local watch = require('awful.widget.watch')
-local dpi = require('beautiful').xresources.apply_dpi
-local config = require('config')
+local wibox = require("wibox")
+local mat_list_item = require("widget.material.list-item")
+local mat_slider = require("widget.material.slider")
+local mat_icon = require("widget.material.icon")
+local icons = require("theme.icons")
+local watch = require("awful.widget.watch")
+local dpi = require("beautiful").xresources.apply_dpi
+local config = require("config")
 local slider =
   wibox.widget {
   read_only = true,
@@ -41,10 +40,10 @@ watch(
   [[bash -c "df -h /home|grep '^/' | awk '{print $5}'"]],
   config.harddisk_poll,
   function(_, stdout)
-    local space_consumed = stdout:match('(%d+)') or 0
+    local space_consumed = stdout:match("(%d+)") or 0
     slider:set_value(tonumber(space_consumed))
     print("harddrive size: " .. space_consumed .. "%")
-    collectgarbage('collect')
+    collectgarbage("collect")
   end
 )
 

@@ -22,32 +22,26 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 -- Default widget requirements
-local base = require('wibox.widget.base')
-local gtable = require('gears.table')
+local base = require("wibox.widget.base")
+local gtable = require("gears.table")
 local setmetatable = setmetatable
-local dpi = require('beautiful').xresources.apply_dpi
+local dpi = require("beautiful").xresources.apply_dpi
 
 -- Commons requirements
-local wibox = require('wibox')
-local gears = require('gears')
-local beautiful = require('beautiful')
-local mat_colors = require('theme.mat-colors')
+local wibox = require("wibox")
+local gears = require("gears")
+local beautiful = require("beautiful")
 -- Local declarations
 
 local mat_slider = {mt = {}}
-
-local properties = {
-  read_only = false
-}
 
 function mat_slider:set_value(value)
   if self._private.value ~= value then
     self._private.value = value
     self._private.progress_bar:set_value(self._private.value)
     self._private.slider:set_value(self._private.value)
-    self:emit_signal('property::value')
+    self:emit_signal("property::value")
   --self:emit_signal('widget::layout_changed')
   end
 end
@@ -59,8 +53,8 @@ end
 function mat_slider:set_read_only(value)
   if self._private.read_only ~= value then
     self._private.read_only = value
-    self:emit_signal('property::read_only')
-    self:emit_signal('widget::layout_changed')
+    self:emit_signal("property::read_only")
+    self:emit_signal("widget::layout_changed")
   end
 end
 
@@ -72,9 +66,17 @@ function mat_slider:layout(_, width, height)
   local layout = {}
   local size_field = 18
   local size_button = 5
-  table.insert(layout, base.place_widget_at(self._private.progress_bar, 0, dpi(size_field), width, height - dpi(size_field*2))) --[[ 21 and 42 ]]--
+  table.insert(
+    layout,
+    base.place_widget_at(self._private.progress_bar, 0, dpi(size_field), width, height - dpi(size_field * 2))
+  ) --[[ 21 and 42 ]]
+  --
   if (not self._private.read_only) then
-    table.insert(layout, base.place_widget_at(self._private.slider, 0, dpi(size_button), width, height - dpi(size_button*2))) --[[ 6 and 12 ]]--
+    table.insert(
+      layout,
+      base.place_widget_at(self._private.slider, 0, dpi(size_button), width, height - dpi(size_button * 2))
+    ) --[[ 6 and 12 ]]
+  --
   end
   return layout
 end
@@ -110,8 +112,9 @@ local function new(args)
     forced_height = dpi(6),
     paddings = 0,
     shape = gears.shape.rounded_rect,
-    background_color = '#ffffff20',--beautiful.background.hue_800,
-    color = beautiful.accent.hue_500 or '#fdfdfd',
+    background_color = "#ffffff20",
+    --beautiful.background.hue_800,
+    color = beautiful.accent.hue_500 or "#fdfdfd",
     widget = wibox.widget.progressbar
   }
 
@@ -121,16 +124,17 @@ local function new(args)
     bar_shape = gears.shape.rounded_rect,
     bar_height = 0,
     bar_color = beautiful.primary.hue_500,
-    handle_color = beautiful.accent.hue_500,--beautiful.primary.hue_300,
+    handle_color = beautiful.accent.hue_500,
+    --beautiful.primary.hue_300,
     handle_shape = gears.shape.circle,
-    handle_border_color = '#00000012',
+    handle_border_color = "#00000012",
     handle_border_width = dpi(3),
     value = 25,
     widget = wibox.widget.slider
   }
 
   ret._private.slider:connect_signal(
-    'property::value',
+    "property::value",
     function()
       ret:set_value(ret._private.slider.value)
     end

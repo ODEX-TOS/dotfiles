@@ -22,26 +22,21 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local awful = require("awful")
+local wibox = require("wibox")
+local gears = require("gears")
+local icons = require("theme.icons")
 
-local awful = require('awful')
-local wibox = require('wibox')
-local gears = require('gears')
-local beautiful = require('beautiful')
-local icons = require('theme.icons')
-local mat_icon = require('widget.material.icon')
-
-
-local apps = require('configuration.apps')
-local dpi = require('beautiful').xresources.apply_dpi
-local clickable_container = require('widget.material.clickable-container')
+local dpi = require("beautiful").xresources.apply_dpi
+local clickable_container = require("widget.material.clickable-container")
 
 -- Load panel rules, it will create panel for each screen
-require('widget.control-center.panel-rules')
+require("widget.control-center.panel-rules")
 
 local widget =
   wibox.widget {
   {
-    id = 'icon',
+    id = "icon",
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -51,20 +46,20 @@ local widget =
 local home_button = clickable_container(wibox.container.margin(widget, dpi(5), dpi(10), dpi(5), dpi(5)))
 
 home_button:buttons(
-gears.table.join(
-  awful.button(
-    {},
-    1,
-    nil,
-    function()
-      _G.screen.primary.left_panel:toggle()
-    end
+  gears.table.join(
+    awful.button(
+      {},
+      1,
+      nil,
+      function()
+        _G.screen.primary.left_panel:toggle()
+      end
+    )
   )
-)
 )
 
 _G.screen.primary.left_panel:connect_signal(
-  'opened',
+  "opened",
   function()
     widget.icon:set_image(icons.close)
     _G.menuopened = true
@@ -72,7 +67,7 @@ _G.screen.primary.left_panel:connect_signal(
 )
 
 _G.screen.primary.left_panel:connect_signal(
-  'closed',
+  "closed",
   function()
     widget.icon:set_image(icons.settings)
     _G.menuopened = false
@@ -80,6 +75,5 @@ _G.screen.primary.left_panel:connect_signal(
 )
 
 widget.icon:set_image(icons.settings)
-
 
 return home_button

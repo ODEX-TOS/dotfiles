@@ -22,7 +22,6 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 -------------------------------------------------
 -- Battery Widget for Awesome Window Manager
 -- Shows the battery status using the ACPI tool
@@ -33,31 +32,30 @@
 -- @copyright 2017 Pavel Makhov
 -------------------------------------------------
 
-local awful = require('awful')
-local naughty = require('naughty')
-local watch = require('awful.widget.watch')
-local wibox = require('wibox')
-local clickable_container = require('widget.material.clickable-container')
-local gears = require('gears')
-local dpi = require('beautiful').xresources.apply_dpi
-local theme = require('theme.icons.dark-light')
-local icon = require('theme.icons').warning
+local awful = require("awful")
+local naughty = require("naughty")
+local watch = require("awful.widget.watch")
+local wibox = require("wibox")
+local clickable_container = require("widget.material.clickable-container")
+local gears = require("gears")
+local dpi = require("beautiful").xresources.apply_dpi
+local theme = require("theme.icons.dark-light")
+local icon = require("theme.icons").warning
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
-local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/package-updater/icons/'
+local PATH_TO_ICONS = "/etc/xdg/awesome/widget/package-updater/icons/"
 local updateAvailable = false
 local numOfUpdatesAvailable
 local numOfSecUpdatesAvailable
-local config = require('config')
+local config = require("config")
 
 local function split(str)
   lines = {}
   for s in str:gmatch("[^\r\n]+") do
-      table.insert(lines, s)
+    table.insert(lines, s)
   end
   return lines
 end
@@ -65,7 +63,7 @@ end
 local widget =
   wibox.widget {
   {
-    id = 'icon',
+    id = "icon",
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -81,9 +79,9 @@ widget_button:buttons(
       nil,
       function()
         if updateAvailable then
-          awful.spawn((os.getenv("TERMINAL") or 'st') .. ' -e sh -c "system-updater || read"')
+          awful.spawn((os.getenv("TERMINAL") or "st") .. ' -e sh -c "system-updater || read"')
         else
-          awful.spawn(os.getenv("TERMINAL") or 'st')
+          awful.spawn(os.getenv("TERMINAL") or "st")
         end
       end
     )
@@ -93,15 +91,15 @@ widget_button:buttons(
 awful.tooltip(
   {
     objects = {widget_button},
-    mode = 'outside',
-    align = 'right',
+    mode = "outside",
+    align = "right",
     timer_function = function()
       if updateAvailable then
         local str = ""
         if numOfUpdatesAvailable == "1" then
-          str = numOfUpdatesAvailable .. ' update is available!'
+          str = numOfUpdatesAvailable .. " update is available!"
         else
-          str = numOfUpdatesAvailable .. ' updates are available!'
+          str = numOfUpdatesAvailable .. " updates are available!"
         end
         if numOfSecUpdatesAvailable == "1" then
           return str .. "\nOf which " .. numOfSecUpdatesAvailable .. " is security related"
@@ -110,10 +108,10 @@ awful.tooltip(
         end
         return str .. "\nOf which " .. numOfSecUpdatesAvailable .. " are security related"
       else
-        return 'We are up-to-date!'
+        return "We are up-to-date!"
       end
     end,
-    preferred_positions = {'right', 'left', 'top', 'bottom'}
+    preferred_positions = {"right", "left", "top", "bottom"}
   }
 )
 
@@ -128,15 +126,14 @@ local function notifySecurityUpdate(num)
       text = str,
       icon = icon,
       timeout = 10,
-      urgency = 'critical',
+      urgency = "critical",
       app_name = "Security center"
     }
   )
 end
 
-
 local last_battery_check = os.time()
-local COMMAND = "/bin/bash " .. '/etc/xdg/awesome/updater.sh'
+local COMMAND = "/bin/bash " .. "/etc/xdg/awesome/updater.sh"
 watch(
   COMMAND,
   config.package_timeout,
@@ -148,26 +145,20 @@ watch(
     print("Security patch packages to update: " .. numOfSecUpdatesAvailable)
     local widgetIconName
     if numOfUpdatesAvailable == "0" then
-      widgetIconName = 'package'
+      widgetIconName = "package"
       updateAvailable = false
     elseif not (numOfSecUpdatesAvailable == "0") then
-      widgetIconName = 'package-sec'
+      widgetIconName = "package-sec"
       notifySecurityUpdate(numOfSecUpdatesAvailable)
       updateAvailable = true
     else
-      widgetIconName = 'package-up'
+      widgetIconName = "package-up"
       updateAvailable = true
     end
-    widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '.svg'))
-    collectgarbage('collect')
+    widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. ".svg"))
+    collectgarbage("collect")
   end,
   widget
 )
-
-
-
-
-
-
 
 return widget_button

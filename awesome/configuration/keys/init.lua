@@ -22,8 +22,7 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 return {
-  mod = require('configuration.keys.mod'),
-  global = require('configuration.keys.global')
+  mod = require("configuration.keys.mod"),
+  global = require("configuration.keys.global")
 }

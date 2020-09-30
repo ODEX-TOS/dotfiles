@@ -22,7 +22,6 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 ---------------------------------------------------------------------------
 --- Maximized and fullscreen layouts module for awful
 --
@@ -68,7 +67,7 @@ end
 
 --- Maximized layout.
 -- @clientlayout awful.layout.suit.max.name
-max.name = 'max'
+max.name = "max"
 function max.arrange(p)
     return fmax(p, false)
 end

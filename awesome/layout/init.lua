@@ -22,17 +22,16 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local awful = require('awful')
-local bottom_panel = require('layout.bottom-panel')
-local left_panel = require('layout.left-panel')
-local right_panel = require('layout.right-panel')
-local top_panel = require('layout.top-panel')
+local awful = require("awful")
+local bottom_panel = require("layout.bottom-panel")
+local left_panel = require("layout.left-panel")
+local right_panel = require("layout.right-panel")
+local top_panel = require("layout.top-panel")
 local topBarDraw = general["top_bar_draw"] or "all"
 local tagBarDraw = general["tag_bar_draw"] or "main"
 local anchorTag = general["tag_bar_anchor"] or "bottom"
 
-function anchor (s)
+function anchor(s)
   if anchorTag == "bottom" then
     -- Create the bottom bar
     s.bottom_panel = bottom_panel(s)
@@ -78,24 +77,24 @@ function updateBarsVisibility()
 end
 
 _G.tag.connect_signal(
-  'property::selected',
+  "property::selected",
   function(t)
     updateBarsVisibility()
   end
 )
 
 _G.client.connect_signal(
-  'property::fullscreen',
+  "property::fullscreen",
   function(c)
     if c.first_tag then
-        c.first_tag.fullscreenMode = c.fullscreen
+      c.first_tag.fullscreenMode = c.fullscreen
     end
     updateBarsVisibility()
   end
 )
 
 _G.client.connect_signal(
-  'unmanage',
+  "unmanage",
   function(c)
     if c.fullscreen then
       c.screen.selected_tag.fullscreenMode = false

@@ -22,27 +22,23 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local awful = require("awful")
+local wibox = require("wibox")
+local gears = require("gears")
 
-local awful = require('awful')
-local wibox = require('wibox')
-local gears = require('gears')
-local beautiful = require('beautiful')
-
-
-local apps = require('configuration.apps')
-local dpi = require('beautiful').xresources.apply_dpi
-local clickable_container = require('widget.material.clickable-container')
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/notification-center/icons/'
-local theme = require('theme.icons.dark-light')
+local dpi = require("beautiful").xresources.apply_dpi
+local clickable_container = require("widget.material.clickable-container")
+local PATH_TO_ICONS = "/etc/xdg/awesome/widget/notification-center/icons/"
+local theme = require("theme.icons.dark-light")
 
 -- Load panel rules, it will create panel for each screen
-require('widget.notification-center.panel-rules')
+require("widget.notification-center.panel-rules")
 
 local widget =
   wibox.widget {
   {
-    id = 'icon',
-    image = theme(PATH_TO_ICONS .. 'notification' .. '.svg'),
+    id = "icon",
+    image = theme(PATH_TO_ICONS .. "notification" .. ".svg"),
     widget = wibox.widget.imagebox,
     resize = true
   },

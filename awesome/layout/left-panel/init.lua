@@ -22,12 +22,9 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local awful = require('awful')
-local beautiful = require('beautiful')
-local wibox = require('wibox')
-local apps = require('configuration.apps')
-local dpi = require('beautiful').xresources.apply_dpi
+local beautiful = require("beautiful")
+local wibox = require("wibox")
+local dpi = require("beautiful").xresources.apply_dpi
 
 local bottom_panel = function(screen, offset)
   local action_bar_width = dpi(45) -- 48
@@ -40,9 +37,9 @@ local bottom_panel = function(screen, offset)
     screen = screen,
     height = screen.geometry.height,
     width = action_bar_width,
-    type = 'dock',
-		x = screen.geometry.x,
-		y = screen.geometry.y + offsetY,
+    type = "dock",
+    x = screen.geometry.x,
+    y = screen.geometry.y + offsetY,
     ontop = true,
     bg = beautiful.background.hue_800,
     fg = beautiful.fg_normal
@@ -56,7 +53,7 @@ local bottom_panel = function(screen, offset)
 
   panel:setup {
     layout = wibox.layout.align.vertical,
-    require('layout.left-panel.action-bar')(screen, action_bar_width)
+    require("layout.left-panel.action-bar")(screen, action_bar_width)
   }
   return panel
 end

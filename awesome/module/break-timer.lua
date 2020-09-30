@@ -22,22 +22,20 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 -- Load these libraries (if you haven't already)
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
-local watch = require('awful.widget.watch')
-local beautiful = require('beautiful')
-local dpi = require('beautiful').xresources.apply_dpi
+local beautiful = require("beautiful")
+local dpi = require("beautiful").xresources.apply_dpi
 
 _G.pause = {}
-local breakTimer = require('widget.break-timer')
-
+local breakTimer = require("widget.break-timer")
 
 awful.screen.connect_for_each_screen(
   function(s)
-    breakOverlay = wibox(
+    breakOverlay =
+      wibox(
       {
         visible = false,
         ontop = true,
@@ -46,29 +44,30 @@ awful.screen.connect_for_each_screen(
         width = s.geometry.width,
         bg = beautiful.bg_modal,
         x = s.geometry.x,
-        y = s.geometry.x,
+        y = s.geometry.x
       }
     )
     -- Put its items in a shaped container
     breakOverlay:setup {
-     -- Container
-     {
-       breakTimer,
-       layout = wibox.layout.fixed.vertical
-     },
-     -- The real background color
-     bg = beautiful.background.hue_800,
-     valign = "center",
-     halign = "center",
-     widget = wibox.container.place()
+      -- Container
+      {
+        breakTimer,
+        layout = wibox.layout.fixed.vertical
+      },
+      -- The real background color
+      bg = beautiful.background.hue_800,
+      valign = "center",
+      halign = "center",
+      widget = wibox.container.place()
     }
 
-    breakbackdrop = wibox {
+    breakbackdrop =
+      wibox {
       ontop = true,
       visible = false,
       screen = s,
-      bg = '#000000aa',
-      type = 'dock',
+      bg = "#000000aa",
+      type = "dock",
       x = s.geometry.x,
       y = s.geometry.y,
       width = s.geometry.width,
@@ -77,14 +76,14 @@ awful.screen.connect_for_each_screen(
   end
 )
 
-_G.pause.stop = function ()
+_G.pause.stop = function()
   breakbackdrop.visible = false
   breakOverlay.visible = false
   _G.pause.stopSlider()
   print("Stopping break timer")
 end
 
-_G.pause.show = function (time) 
+_G.pause.show = function(time)
   breakbackdrop.visible = true
   breakOverlay.visible = true
   _G.pause.start(time)
@@ -102,12 +101,14 @@ end
 
 local split = function(inputstr, sep)
   if sep == nil then
-      sep = "%s"
+    sep = "%s"
   end
-  local t={}
-  if inputstr == nil then return t; end
-  for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-      table.insert(t, str)
+  local t = {}
+  if inputstr == nil then
+    return t
+  end
+  for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
+    table.insert(t, str)
   end
   return t
 end
@@ -123,17 +124,19 @@ local current_time_inbetween = function(time_start, time_end)
 
   local currentTimeInMin = (time.hour * 60) + time.min
 
-  return currentTimeInMin >= ((time_start_hour*60) + time_start_min) and currentTimeInMin <= ((time_end_hour * 60) + time_end_min)
+  return currentTimeInMin >= ((time_start_hour * 60) + time_start_min) and
+    currentTimeInMin <= ((time_end_hour * 60) + time_end_min)
 end
 
-local breakTriggerTimer = gears.timer {
-  timeout = tonumber(general["break_timeout"])  or (60 * 60 * 1),
+local breakTriggerTimer =
+  gears.timer {
+  timeout = tonumber(general["break_timeout"]) or (60 * 60 * 1),
   autostart = true,
-  callback = function ()
+  callback = function()
     time_start = general["break_time_start"] or "00:00"
     time_end = general["break_time_end"] or "23:59"
     if current_time_inbetween(time_start, time_end) then
-      _G.pause.show(tonumber(general["break_time"]) or 60 * 5)
+      _G.pause.show(tonumber(general["break_time"]) or (60 * 5))
     else
       print("Break triggered but outside of time contraints")
     end
@@ -148,4 +151,3 @@ _G.pause.disable = function()
 end
 
 return breakOverlay
-

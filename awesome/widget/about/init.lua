@@ -22,75 +22,74 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local beautiful = require("beautiful")
+local gears = require("gears")
+local awful = require("awful")
+local wibox = require("wibox")
 
-local beautiful = require('beautiful')
-local gears = require('gears')
-local awful = require('awful')
-local wibox = require('wibox')
+local naughty = require("naughty")
+local dpi = require("beautiful").xresources.apply_dpi
 
-local naughty = require('naughty')
-local dpi = require('beautiful').xresources.apply_dpi
+local clickable_container = require("widget.material.clickable-container")
 
-local clickable_container = require('widget.material.clickable-container')
+local icons = require("theme.icons")
 
-local icons = require('theme.icons')
-
-local mat_list_item = require('widget.material.list-item')
-
-local apps = require('configuration.apps')
-local config = require('config')
+local config = require("config")
 
 local height = dpi(200)
 local width = dpi(380)
-local theme = require('theme.icons.dark-light')
-
+local theme = require("theme.icons.dark-light")
 
 local icon = theme("/etc/xdg/awesome/widget/about/icons/info.svg")
 
-
-screen.connect_signal("request::desktop_decoration", function(s)
+screen.connect_signal(
+  "request::desktop_decoration",
+  function(s)
     -- Create the box
     local offsetx = dpi(500)
     local padding = dpi(10)
-    aboutPage = wibox
-    {
-      bg = '#00000000',
+    aboutPage =
+      wibox {
+      bg = "#00000000",
       visible = false,
       ontop = true,
       type = "normal",
       height = height,
       width = width,
-      x = s.geometry.width/2 - (width/2),
-      y = s.geometry.height/2 - (height/2),
+      x = s.geometry.width / 2 - (width / 2),
+      y = s.geometry.height / 2 - (height / 2)
     }
 
-  aboutBackdrop = wibox {
-    ontop = true,
-    visible = false,
-    screen = s,
-    bg = '#00000000',
-    type = 'dock',
-    x = s.geometry.x,
-    y = s.geometry.y,
-    width = s.geometry.width,
-    height = s.geometry.height - dpi(40)
-  }
-end)
+    aboutBackdrop =
+      wibox {
+      ontop = true,
+      visible = false,
+      screen = s,
+      bg = "#00000000",
+      type = "dock",
+      x = s.geometry.x,
+      y = s.geometry.y,
+      width = s.geometry.width,
+      height = s.geometry.height - dpi(40)
+    }
+  end
+)
 
-local grabber = awful.keygrabber {
+local grabber =
+  awful.keygrabber {
   keybindings = {
-      awful.key {
-          modifiers = {},
-          key       = 'Escape',
-          on_press  = function()
-            aboutBackdrop.visible = false
-            aboutPage.visible = false
-          end
-      },
+    awful.key {
+      modifiers = {},
+      key = "Escape",
+      on_press = function()
+        aboutBackdrop.visible = false
+        aboutPage.visible = false
+      end
+    }
   },
   -- Note that it is using the key name and not the modifier name.
-  stop_key           = 'Escape',
-  stop_event         = 'release',
+  stop_key = "Escape",
+  stop_event = "release"
 }
 
 function toggleAbout()
@@ -118,7 +117,7 @@ aboutBackdrop:buttons(
 local widget =
   wibox.widget {
   {
-    id = 'icon',
+    id = "icon",
     image = icon,
     widget = wibox.widget.imagebox,
     resize = true
@@ -129,7 +128,7 @@ local widget =
 local browserWidget =
   wibox.widget {
   {
-    id = 'icon',
+    id = "icon",
     image = icons.logo,
     widget = wibox.widget.imagebox,
     resize = true
@@ -163,7 +162,9 @@ browserOpen:buttons(
         print("Opening tos.odex.be in default browser")
         awful.spawn.easy_async_with_shell("$BROWSER tos.odex.be")
         toggleAbout()
-        naughty.notify({ title = "TOS website", message = "Opened the tos homepage", timeout = 5, position = "top_right"})
+        naughty.notify(
+          {title = "TOS website", message = "Opened the tos homepage", timeout = 5, position = "top_right"}
+        )
       end
     )
   )
@@ -171,27 +172,23 @@ browserOpen:buttons(
 
 aboutPage:setup {
   expand = "none",
-    {
-        browserOpen,
-        wibox.widget {
-            text = config.aboutText,
-            font = 'Iosevka Regular 10',
-            align = 'center',
-            widget = wibox.widget.textbox,
-        },
-      layout = wibox.layout.fixed.horizontal,
+  {
+    browserOpen,
+    wibox.widget {
+      text = config.aboutText,
+      font = "Iosevka Regular 10",
+      align = "center",
+      widget = wibox.widget.textbox
     },
-    -- The real background color
-    bg = beautiful.background.hue_800,
-    -- The real, anti-aliased shape
-    shape = function(cr, width, height)
-              gears.shape.rounded_rect(
-                cr,
-                width,
-                height,
-                12)
-            end,
-    widget = wibox.container.background()
+    layout = wibox.layout.fixed.horizontal
+  },
+  -- The real background color
+  bg = beautiful.background.hue_800,
+  -- The real, anti-aliased shape
+  shape = function(cr, width, height)
+    gears.shape.rounded_rect(cr, width, height, 12)
+  end,
+  widget = wibox.container.background()
 }
 
 return widget_button

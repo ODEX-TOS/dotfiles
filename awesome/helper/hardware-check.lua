@@ -1,10 +1,10 @@
-local fileHandle = require('helper.file')
+local fileHandle = require("helper.file")
 
 local function osExecute(cmd)
-    local handle     = assert(io.popen(cmd, 'r'))
-    local commandOutput  = assert(handle:read('*a'))
-    local returnTable    = {handle:close()}
-    return commandOutput,returnTable[3]            -- rc[3] contains returnCode
+    local handle = assert(io.popen(cmd, "r"))
+    local commandOutput = assert(handle:read("*a"))
+    local returnTable = {handle:close()}
+    return commandOutput, returnTable[3] -- rc[3] contains returnCode
 end
 
 -- These functions check if the hardware component exists
@@ -12,7 +12,8 @@ end
 -- Extend the below functions depening if you need the perform another check on some widget
 -- PS: Each function should return a boolean depending on if the hardware is available
 function battery()
-    return fileHandle.dir_exists('/sys/class/power_supply/BAT0') or fileHandle.dir_exists('/sys/class/power_supply/BAT1')
+    return fileHandle.dir_exists("/sys/class/power_supply/BAT0") or
+        fileHandle.dir_exists("/sys/class/power_supply/BAT1")
 end
 
 function wifi()
@@ -47,5 +48,5 @@ return {
     hasWifi = wifi,
     hasBluetooth = bluetooth,
     hasFFMPEG = ffmpeg,
-    hasSound = sound,
+    hasSound = sound
 }

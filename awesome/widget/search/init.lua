@@ -22,34 +22,30 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 -------------------------------------------------
 -- Rofi widget for Awesome Window Manager
 -- Shows the application list
 -- Better with Compton tryone fork for blur fx
 --------------
 
-local awful = require('awful')
-local naughty = require('naughty')
-local watch = require('awful.widget.watch')
-local wibox = require('wibox')
-local clickable_container = require('widget.material.clickable-container')
-local gears = require('gears')
-local dpi = require('beautiful').xresources.apply_dpi
-local apps = require('configuration.apps')
-local theme = require('theme.icons.dark-light')
+local awful = require("awful")
+local wibox = require("wibox")
+local clickable_container = require("widget.material.clickable-container")
+local gears = require("gears")
+local dpi = require("beautiful").xresources.apply_dpi
+local apps = require("configuration.apps")
+local theme = require("theme.icons.dark-light")
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
-local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/search/icons/'
+local PATH_TO_ICONS = "/etc/xdg/awesome/widget/search/icons/"
 
 local widget =
   wibox.widget {
   {
-    id = 'icon',
+    id = "icon",
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -64,14 +60,14 @@ widget_button:buttons(
       1,
       nil,
       function()
-		--awful.spawn('blueberry')
-      awful.spawn(apps.default.rofiappmenu)
+        --awful.spawn('blueberry')
+        awful.spawn(apps.default.rofiappmenu)
       end
     )
   )
 )
 
-widget.icon:set_image(theme(PATH_TO_ICONS .. 'search' .. '.svg'))
+widget.icon:set_image(theme(PATH_TO_ICONS .. "search" .. ".svg"))
 
 -- To use colors from beautiful theme put
 -- following lines in rc.lua before require("battery"):

@@ -5,12 +5,9 @@
 local lgi = require("lgi")
 local colors = require("module.titlebar.colors")
 local hex2rgb = colors.hex2rgb
-local darken = colors.darken
 local cairo = lgi.cairo
 local math = math
 local rad = math.rad
-local floor = math.floor
-local min = math.min
 
 -- Returns a shape function for a rounded rectangle with independently configurable corner radii
 local function rounded_rect(args)
@@ -47,8 +44,7 @@ local function circle_filled(color, size)
 end
 
 -- Returns a vertical gradient pattern going from cololr_1 -> color_2
-local function duotone_gradient_vertical(color_1, color_2, height, offset_1,
-                                         offset_2)
+local function duotone_gradient_vertical(color_1, color_2, height, offset_1, offset_2)
     local fill_pattern = cairo.Pattern.create_linear(0, 0, 0, height)
     local r, g, b, a
     r, g, b, a = hex2rgb(color_1)
@@ -87,11 +83,12 @@ local function flip(surface, axis)
     elseif axis == "vertical" then
         source_pattern.matrix = cairo.Matrix {xx = 1, yy = -1, y0 = height}
     elseif axis == "both" then
-        source_pattern.matrix = cairo.Matrix {
+        source_pattern.matrix =
+            cairo.Matrix {
             xx = -1,
             yy = -1,
             x0 = width,
-            y0 = height,
+            y0 = height
         }
     end
     cr.source = source_pattern
@@ -111,9 +108,7 @@ local function create_corner_top_left(args)
     local radius_offset = 1 -- To soften the corner
     cr:move_to(0, height)
     cr:line_to(0, radius - radius_offset)
-    cr:arc(
-        radius + radius_offset, radius + radius_offset, radius, rad(180),
-        rad(270))
+    cr:arc(radius + radius_offset, radius + radius_offset, radius, rad(180), rad(270))
     cr:line_to(radius, height)
     cr:close_path()
     cr.source = args.background_source
@@ -127,9 +122,7 @@ local function create_corner_top_left(args)
         cr:new_sub_path()
         cr:move_to(offset_x, height)
         cr:line_to(offset_x, arc_radius + offset_y)
-        cr:arc(
-            arc_radius + offset_x, arc_radius + offset_y, arc_radius, rad(180),
-            rad(270))
+        cr:arc(arc_radius + offset_x, arc_radius + offset_y, arc_radius, rad(180), rad(270))
         cr.source = nargs.source
         cr.line_width = nargs.width
         cr.antialias = cairo.Antialias.BEST
@@ -141,7 +134,7 @@ local function create_corner_top_left(args)
         offset_y = args.stroke_offset_outer,
         radius = radius + 0.5,
         source = args.stroke_source_outer,
-        width = args.stroke_width_outer,
+        width = args.stroke_width_outer
     }
     -- Inner light stroke
     add_stroke {
@@ -149,7 +142,7 @@ local function create_corner_top_left(args)
         offset_y = args.stroke_offset_inner,
         radius = radius,
         width = args.stroke_width_inner,
-        source = args.stroke_source_inner,
+        source = args.stroke_source_inner
     }
 
     return surface
@@ -176,13 +169,9 @@ local function create_edge_top_middle(args)
         cr:stroke()
     end
     -- Inner light stroke
-    add_stroke(
-        args.stroke_width_inner, args.stroke_offset_inner,
-        args.stroke_color_inner)
+    add_stroke(args.stroke_width_inner, args.stroke_offset_inner, args.stroke_color_inner)
     -- Outer dark stroke
-    add_stroke(
-        args.stroke_width_outer, args.stroke_offset_outer,
-        args.stroke_color_outer)
+    add_stroke(args.stroke_width_outer, args.stroke_offset_outer, args.stroke_color_outer)
 
     return surface
 end
@@ -216,8 +205,7 @@ end
 
 local function set_font(cr, font)
     cr:set_font_size(font.size)
-    cr:select_font_face(
-        font.font or "Inter", font.italic and 1 or 0, font.bold and 1 or 0)
+    cr:select_font_face(font.font or "Inter", font.italic and 1 or 0, font.bold and 1 or 0)
 end
 
 local function text_label(args)
@@ -227,19 +215,20 @@ local function text_label(args)
     local text = args.text
     local kern = args.font.kerning or 0
     local ext = cr:text_extents(text)
-    surface = cairo.ImageSurface.create(
-                  "ARGB32", ext.width + string.len(text) * kern, ext.height)
+    surface = cairo.ImageSurface.create("ARGB32", ext.width + string.len(text) * kern, ext.height)
     cr = cairo.Context.create(surface)
     set_font(cr, args.font)
     cr:move_to(0, ext.height)
     cr:set_source_rgb(hex2rgb(args.color))
     -- cr:show_text(text)
     text:gsub(
-        ".", function(c)
+        ".",
+        function(c)
             -- do something with c
             cr:show_text(c)
             cr:rel_move_to(kern, 0)
-        end)
+        end
+    )
     return surface
 end
 
@@ -251,5 +240,5 @@ return {
     create_corner_top_left = create_corner_top_left,
     create_edge_top_middle = create_edge_top_middle,
     create_edge_left = create_edge_left,
-    text_label = text_label,
+    text_label = text_label
 }

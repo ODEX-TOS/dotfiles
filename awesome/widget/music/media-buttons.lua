@@ -22,31 +22,24 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local gears = require("gears")
+local awful = require("awful")
+local wibox = require("wibox")
 
-local beautiful = require('beautiful')
-local gears = require('gears')
-local awful = require('awful')
-local wibox = require('wibox')
+local dpi = require("beautiful").xresources.apply_dpi
 
-local naughty = require('naughty')
-local dpi = require('beautiful').xresources.apply_dpi
+local clickable_container = require("widget.material.clickable-container")
 
-local clickable_container = require('widget.material.clickable-container')
+local PATH_TO_ICONS = "/etc/xdg/awesome/widget/music/icons/"
 
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/music/icons/'
-
-local mat_list_item = require('widget.material.list-item')
-
-local apps = require('configuration.apps')
-local theme = require('theme.icons.dark-light')
+local theme = require("theme.icons.dark-light")
 
 local config = require("config")
-
 
 local playButton =
   wibox.widget {
   {
-    id = 'play',
+    id = "play",
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -55,13 +48,16 @@ local playButton =
 
 -- 'Public Function' , call it using '_G.checkIfPlaying()'
 function checkIfPlaying()
-  awful.spawn.easy_async_with_shell("playerctl status", function( stdout )
-    if (stdout:match(".*Paused.*")) then
-      playButton.play:set_image(gears.surface(theme(PATH_TO_ICONS .. 'play.svg')))
-    else
-      playButton.play:set_image(gears.surface(theme(PATH_TO_ICONS .. 'pause.svg')))
+  awful.spawn.easy_async_with_shell(
+    "playerctl status",
+    function(stdout)
+      if (stdout:match(".*Paused.*")) then
+        playButton.play:set_image(gears.surface(theme(PATH_TO_ICONS .. "play.svg")))
+      else
+        playButton.play:set_image(gears.surface(theme(PATH_TO_ICONS .. "pause.svg")))
+      end
     end
-  end)
+  )
 end
 
 local play_button = clickable_container(wibox.container.margin(playButton, dpi(14), dpi(14), dpi(7), dpi(7))) -- 4 is top and bottom margin
@@ -74,7 +70,7 @@ play_button:buttons(
       function()
         print("Toggeling song play mode")
         -- give spotify time to react
-        awful.spawn('playerctl play-pause')
+        awful.spawn("playerctl play-pause")
         -- give the music player time to react
         os.execute("sleep " .. config.player_reaction_time)
         checkIfPlaying()
@@ -90,8 +86,8 @@ checkIfPlaying()
 local nextButton =
   wibox.widget {
   {
-    id = 'next',
-    image = theme(PATH_TO_ICONS .. 'next.svg'),
+    id = "next",
+    image = theme(PATH_TO_ICONS .. "next.svg"),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -106,7 +102,7 @@ next_button:buttons(
       1,
       nil,
       function()
-        awful.spawn('playerctl next', false)
+        awful.spawn("playerctl next", false)
         _G.updateInfo()
         _G.checkCover()
       end
@@ -117,8 +113,8 @@ next_button:buttons(
 local prevButton =
   wibox.widget {
   {
-    id = 'prev',
-    image = theme(PATH_TO_ICONS .. 'prev.svg'),
+    id = "prev",
+    image = theme(PATH_TO_ICONS .. "prev.svg"),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -133,7 +129,7 @@ prev_button:buttons(
       1,
       nil,
       function()
-        awful.spawn('playerctl previous', false)
+        awful.spawn("playerctl previous", false)
         _G.updateInfo()
         _G.checkCover()
       end
@@ -143,10 +139,10 @@ prev_button:buttons(
 
 local mediabutton =
   wibox.widget {
-    wibox.container.margin(prev_button, dpi(25), dpi(15)),
-    wibox.container.margin(play_button, dpi(20), dpi(20)),
-    wibox.container.margin(next_button, dpi(15), dpi(25)),
-    layout = wibox.layout.flex.horizontal,
+  wibox.container.margin(prev_button, dpi(25), dpi(15)),
+  wibox.container.margin(play_button, dpi(20), dpi(20)),
+  wibox.container.margin(next_button, dpi(15), dpi(25)),
+  layout = wibox.layout.flex.horizontal
 }
 
 return mediabutton

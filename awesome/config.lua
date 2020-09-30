@@ -22,11 +22,9 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-
 -- This file holds general configuration parameters and functions you can use
-local HOME = os.getenv('HOME')
-local filesystem = require('gears.filesystem')
+local HOME = os.getenv("HOME")
+local filesystem = require("gears.filesystem")
 local file_exists = require("helper.file").exists
 
 config = {
@@ -43,15 +41,15 @@ config = {
     cpu_poll = 10, -- how often do we check the current cpu status
     colors_config = HOME .. "/.config/tos/colors.conf",
     icons_config = HOME .. "/.config/tos/icons.conf",
-    getComptonFile = function ()
+    getComptonFile = function()
         userfile = HOME .. "/.config/picom.conf"
-        if(file_exists(userfile)) then
+        if (file_exists(userfile)) then
             return userfile
         end
-        return filesystem.get_configuration_dir() .. '/configuration/picom.conf '
+        return filesystem.get_configuration_dir() .. "/configuration/picom.conf "
     end,
-    aboutText = 'TOS Linux Alpha Edition\nMIT License\n© Meyers Tom 2019 - ' .. os.date("%Y") ..  '\n\nThanks for using our product ♥'
+    aboutText = "TOS Linux Alpha Edition\nMIT License\n© Meyers Tom 2019 - " ..
+        os.date("%Y") .. "\n\nThanks for using our product ♥"
 }
-
 
 return config

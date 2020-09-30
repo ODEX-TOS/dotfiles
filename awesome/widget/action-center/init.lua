@@ -23,14 +23,10 @@
 --SOFTWARE.
 ]]
 
-local awful = require('awful')
-local naughty = require('naughty')
-local watch = require('awful.widget.watch')
+
 local wibox = require('wibox')
-local clickable_container = require('widget.action-center.clickable-container')
 local gears = require('gears')
 local beautiful = require('beautiful')
-local dpi = beautiful.xresources.apply_dpi
 
 local gap = 1
 
@@ -38,9 +34,6 @@ local gap = 1
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
-local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/bluetooth/icons/'
-local checker
 local mat_list_item = require('widget.material.list-item')
 
 -- TEMPLATE DOWN BELOW DO NOT ALTER OR ELSE WILL DELETE ROOT --
@@ -83,7 +76,6 @@ return wibox.widget {
     widget = mat_list_item,
   },
   -- Bluetooth Connection
-  layout = wibox.layout.fixed.vertical,
   wibox.widget{
     wibox.widget{
       bluebutton,
@@ -103,7 +95,6 @@ return wibox.widget {
     },
     widget = mat_list_item,
   },
-  layout = wibox.layout.fixed.vertical,
   -- OLED Toggle
   wibox.widget{
     wibox.widget{
@@ -124,7 +115,6 @@ return wibox.widget {
     },
     widget = mat_list_item,
   },
-  layout = wibox.layout.fixed.vertical,
   -- Compositor Toggle
   wibox.widget{
     wibox.widget{

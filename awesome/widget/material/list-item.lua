@@ -22,16 +22,15 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 -- Default widget requirements
-local base = require('wibox.widget.base')
-local gtable = require('gears.table')
+local base = require("wibox.widget.base")
+local gtable = require("gears.table")
 local setmetatable = setmetatable
-local dpi = require('beautiful').xresources.apply_dpi
+local dpi = require("beautiful").xresources.apply_dpi
 
 -- Commons requirements
-local wibox = require('wibox')
-local clickable_container = require('widget.material.clickable-container')
+local wibox = require("wibox")
+local clickable_container = require("widget.material.clickable-container")
 -- Local declarations
 
 local mat_list_item = {mt = {}}
@@ -39,12 +38,12 @@ local mat_list_item = {mt = {}}
 function mat_list_item:build_separator()
   self._private.separator =
     wibox.widget {
-    orientation = 'horizontal',
+    orientation = "horizontal",
     forced_height = 1,
     opacity = 0.08,
     widget = wibox.widget.separator
   }
-  self:emit_signal('widget::layout_changed')
+  self:emit_signal("widget::layout_changed")
 end
 
 function mat_list_item:build_clickable_container()
@@ -55,7 +54,7 @@ function mat_list_item:build_clickable_container()
     },
     widget = clickable_container
   }
-  self:emit_signal('widget::layout_changed')
+  self:emit_signal("widget::layout_changed")
 end
 
 function mat_list_item:layout(_, width, height)
@@ -97,8 +96,8 @@ end
 function mat_list_item:set_clickable(value)
   if self._private.clickable ~= value then
     self._private.clickable = value
-    self:emit_signal('property::clickable')
-    self:emit_signal('widget::layout_changed')
+    self:emit_signal("property::clickable")
+    self:emit_signal("widget::layout_changed")
 
     if self._private.clickable and not self._private.clickable_container then
       self:build_clickable_container()
@@ -115,8 +114,8 @@ end
 function mat_list_item:set_divider(value)
   if self._private.divider ~= value then
     self._private.divider = value
-    self:emit_signal('property::divider')
-    self:emit_signal('widget::layout_changed')
+    self:emit_signal("property::divider")
+    self:emit_signal("widget::layout_changed")
 
     if self._private.divider and not self._private.separator then
       self:build_separator()
@@ -133,7 +132,7 @@ function mat_list_item:set_prefix(widget)
     base.check_widget(widget)
   end
   self._private.prefix = widget
-  self:emit_signal('widget::layout_changed')
+  self:emit_signal("widget::layout_changed")
 end
 
 function mat_list_item:get_prefix()
@@ -145,7 +144,7 @@ function mat_list_item:set_suffix(widget)
     base.check_widget(widget)
   end
   self._private.suffix = widget
-  self:emit_signal('widget::layout_changed')
+  self:emit_signal("widget::layout_changed")
 end
 
 function mat_list_item:get_suffix()
@@ -161,7 +160,7 @@ function mat_list_item:set_content(widget)
     base.check_widget(widget)
   end
   self._private.content = widget
-  self:emit_signal('widget::layout_changed')
+  self:emit_signal("widget::layout_changed")
 end
 
 function mat_list_item:get_content()

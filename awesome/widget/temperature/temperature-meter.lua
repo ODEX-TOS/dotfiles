@@ -22,17 +22,15 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local wibox = require('wibox')
-local mat_list_item = require('widget.material.list-item')
-local mat_slider = require('widget.material.slider')
-local mat_icon = require('widget.material.icon')
-local icons = require('theme.icons')
-local watch = require('awful.widget.watch')
-local dpi = require('beautiful').xresources.apply_dpi
-local config = require('config')
-local file = require('helper.file')
-local gears = require('gears')
+local wibox = require("wibox")
+local mat_list_item = require("widget.material.list-item")
+local mat_slider = require("widget.material.slider")
+local mat_icon = require("widget.material.icon")
+local icons = require("theme.icons")
+local dpi = require("beautiful").xresources.apply_dpi
+local config = require("config")
+local file = require("helper.file")
+local gears = require("gears")
 
 local slider =
   wibox.widget {
@@ -42,16 +40,18 @@ local slider =
 
 local max_temp = 80
 gears.timer {
-  timeout   = config.temp_poll,
-  call_now  = true,
+  timeout = config.temp_poll,
+  call_now = true,
   autostart = true,
-  callback  = function()
+  callback = function()
     local stdout = file.string("/sys/class/thermal/thermal_zone0/temp")
-    if stdout == "" then return end
-    local temp = stdout:match('(%d+)')
+    if stdout == "" then
+      return
+    end
+    local temp = stdout:match("(%d+)")
     slider:set_value((temp / 1000) / max_temp * 100)
-    print("Current temperature: " .. (temp/1000) .. " °C")
-    collectgarbage('collect')
+    print("Current temperature: " .. (temp / 1000) .. " °C")
+    collectgarbage("collect")
   end
 }
 

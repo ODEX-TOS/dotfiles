@@ -22,12 +22,12 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-local awful = require('awful')
-local wibox = require('wibox')
-local dpi = require('beautiful').xresources.apply_dpi
+local awful = require("awful")
+local wibox = require("wibox")
+local dpi = require("beautiful").xresources.apply_dpi
 local capi = {button = _G.button}
-local clickable_container = require('widget.clickable-container')
-local modkey = require('configuration.keys.mod').modKey
+local clickable_container = require("widget.clickable-container")
+local modkey = require("configuration.keys.mod").modKey
 --- Common method to create buttons.
 -- @tab buttons
 -- @param object
@@ -42,15 +42,15 @@ local function create_buttons(buttons, object)
 			-- argument.
 			local btn = capi.button {modifiers = b.modifiers, button = b.button}
 			btn:connect_signal(
-				'press',
+				"press",
 				function()
-					b:emit_signal('press', object)
+					b:emit_signal("press", object)
 				end
 			)
 			btn:connect_signal(
-				'release',
+				"release",
 				function()
-					b:emit_signal('release', object)
+					b:emit_signal("release", object)
 				end
 			)
 			btns[#btns + 1] = btn
@@ -76,13 +76,15 @@ local function list_update_horizontal(w, buttons, label, data, objects)
 			ib = wibox.widget.imagebox()
 			tb = wibox.widget.textbox()
 			bgb = wibox.container.background()
-			tbm = wibox.widget {
+			tbm =
+				wibox.widget {
 				tb,
 				left = dpi(4),
 				right = dpi(16),
 				widget = wibox.container.margin
 			}
-			ibm = wibox.widget {
+			ibm =
+				wibox.widget {
 				ib,
 				margins = dpi(10),
 				widget = wibox.container.margin
@@ -114,15 +116,15 @@ local function list_update_horizontal(w, buttons, label, data, objects)
 		args = args or {}
 
 		-- The text might be invalid, so use pcall.
-		if text == nil or text == '' then
+		if text == nil or text == "" then
 			tbm:set_margins(0)
 		else
 			if not tb:set_markup_silently(text) then
-				tb:set_markup('<i>&lt;Invalid text&gt;</i>')
+				tb:set_markup("<i>&lt;Invalid text&gt;</i>")
 			end
 		end
 		bgb:set_bg(bg)
-		if type(bg_image) == 'function' then
+		if type(bg_image) == "function" then
 			-- TODO: Why does this pass nil as an argument?
 			bg_image = bg_image(tb, o, nil, objects, i)
 		end
@@ -157,13 +159,15 @@ local function list_update_vertical(w, buttons, label, data, objects)
 			ib = wibox.widget.imagebox()
 			tb = wibox.widget.textbox()
 			bgb = wibox.container.background()
-			tbm = wibox.widget {
+			tbm =
+				wibox.widget {
 				tb,
 				left = dpi(4),
 				right = dpi(16),
 				widget = wibox.container.margin
 			}
-			ibm = wibox.widget {
+			ibm =
+				wibox.widget {
 				ib,
 				margins = dpi(10),
 				widget = wibox.container.margin
@@ -195,15 +199,15 @@ local function list_update_vertical(w, buttons, label, data, objects)
 		args = args or {}
 
 		-- The text might be invalid, so use pcall.
-		if text == nil or text == '' then
+		if text == nil or text == "" then
 			tbm:set_margins(0)
 		else
 			if not tb:set_markup_silently(text) then
-				tb:set_markup('<i>&lt;Invalid text&gt;</i>')
+				tb:set_markup("<i>&lt;Invalid text&gt;</i>")
 			end
 		end
 		bgb:set_bg(bg)
-		if type(bg_image) == 'function' then
+		if type(bg_image) == "function" then
 			-- TODO: Why does this pass nil as an argument?
 			bg_image = bg_image(tb, o, nil, objects, i)
 		end
@@ -326,7 +330,7 @@ local TagList_left = function(s)
 		wibox.layout.fixed.vertical()
 	)
 end
-return function (position)
+return function(position)
 	if position == "left" then
 		return TagList_left
 	end

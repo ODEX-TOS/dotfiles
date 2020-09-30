@@ -22,19 +22,17 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local wibox = require('wibox')
-local mat_list_item = require('widget.material.list-item')
-local mat_slider = require('widget.material.slider')
-local mat_icon = require('widget.material.icon')
-local icons = require('theme.icons')
-local watch = require('awful.widget.watch')
-local dpi = require('beautiful').xresources.apply_dpi
-local config = require('config')
-local gears = require('gears')
+local wibox = require("wibox")
+local mat_list_item = require("widget.material.list-item")
+local mat_slider = require("widget.material.slider")
+local mat_icon = require("widget.material.icon")
+local icons = require("theme.icons")
+local dpi = require("beautiful").xresources.apply_dpi
+local config = require("config")
+local gears = require("gears")
 local total_prev = 0
 local idle_prev = 0
-local file = require('helper.file')
+local file = require("helper.file")
 
 local slider =
   wibox.widget {
@@ -42,13 +40,13 @@ local slider =
   widget = mat_slider
 }
 gears.timer {
-  timeout   = config.cpu_poll,
-  call_now  = true,
+  timeout = config.cpu_poll,
+  call_now = true,
   autostart = true,
-  callback  = function()
+  callback = function()
     stdout = file.string("/proc/stat", "^cpu")
     local user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice =
-    stdout:match('(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s')
+      stdout:match("(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s")
 
     local total = user + nice + system + idle + iowait + irq + softirq + steal
 
@@ -61,10 +59,9 @@ gears.timer {
 
     total_prev = total
     idle_prev = idle
-    collectgarbage('collect')
+    collectgarbage("collect")
   end
 }
-
 
 local cpu_meter =
   wibox.widget {

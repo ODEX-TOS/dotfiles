@@ -22,10 +22,9 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local awful = require('awful')
-local gears = require('gears')
-local beautiful = require('beautiful')
+local awful = require("awful")
+local gears = require("gears")
+local beautiful = require("beautiful")
 
 local function renderClient(client, mode)
   if client.skip_decoration or (client.rendering_mode == mode) then
@@ -42,12 +41,12 @@ local function renderClient(client, mode)
   client.maximized_horizontal = false
   client.maximized_vertical = false
 
-  if client.rendering_mode == 'maximized' then
+  if client.rendering_mode == "maximized" then
     client.border_width = 0
     client.shape = function(cr, w, h)
       gears.shape.rectangle(cr, w, h)
     end
-  elseif client.rendering_mode == 'tiled' or client.rendering_mode == 'floating' or client.rendering_mode == 'dwindle' then
+  elseif client.rendering_mode == "tiled" or client.rendering_mode == "floating" or client.rendering_mode == "dwindle" then
     client.border_width = beautiful.border_width
     client.shape = function(cr, w, h)
       gears.shape.rounded_rect(cr, w, h, 12)
@@ -68,9 +67,9 @@ local function changesOnScreen(currentScreen)
   end
 
   if (tagIsMax or #clientsToManage == 1) then
-    currentScreen.client_mode = 'maximized'
+    currentScreen.client_mode = "maximized"
   else
-    currentScreen.client_mode = 'dwindle'
+    currentScreen.client_mode = "dwindle"
   end
 
   for _, client in pairs(clientsToManage) do
@@ -78,7 +77,6 @@ local function changesOnScreen(currentScreen)
   end
   changesOnScreenCalled = false
 end
-
 
 function clientCallback(client)
   if not changesOnScreenCalled then
@@ -108,25 +106,25 @@ function tagCallback(tag)
   end
 end
 
-_G.client.connect_signal('manage', clientCallback)
+_G.client.connect_signal("manage", clientCallback)
 
-_G.client.connect_signal('unmanage', clientCallback)
+_G.client.connect_signal("unmanage", clientCallback)
 
-_G.client.connect_signal('property::hidden', clientCallback)
+_G.client.connect_signal("property::hidden", clientCallback)
 
-_G.client.connect_signal('property::minimized', clientCallback)
+_G.client.connect_signal("property::minimized", clientCallback)
 
 _G.client.connect_signal(
-  'property::fullscreen',
+  "property::fullscreen",
   function(c)
     if c.fullscreen then
-      renderClient(c, 'maximized')
+      renderClient(c, "maximized")
     else
       clientCallback(c)
     end
   end
 )
 
-_G.tag.connect_signal('property::selected', tagCallback)
+_G.tag.connect_signal("property::selected", tagCallback)
 
-_G.tag.connect_signal('property::layout', tagCallback)
+_G.tag.connect_signal("property::layout", tagCallback)

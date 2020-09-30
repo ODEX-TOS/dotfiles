@@ -22,68 +22,55 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 -- The one that generates notification in right-panel
 --
 --
 
-local awful = require('awful')
-local naughty = require('naughty')
-local watch = require('awful.widget.watch')
-local wibox = require('wibox')
-local gears = require('gears')
-local dpi = require('beautiful').xresources.apply_dpi
-local theme = require('theme.icons.dark-light')
+local naughty = require("naughty")
+local wibox = require("wibox")
+local gears = require("gears")
+local dpi = require("beautiful").xresources.apply_dpi
+local theme = require("theme.icons.dark-light")
 
-local beautiful = require('beautiful')
+local beautiful = require("beautiful")
 
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/notification-center/icons/'
-local clickable_container = require('widget.material.clickable-container')
+local PATH_TO_ICONS = "/etc/xdg/awesome/widget/notification-center/icons/"
 
 local notif_layout = wibox.layout.fixed.vertical(reverse)
 notif_layout.spacing = dpi(5)
 
-local separator = wibox.widget {
-  orientation = 'horizontal',
-  forced_height = 1,
-  span_ratio = 1.0,
-  opacity = 0.90,
-  color = beautiful.bg_modal,
-  widget = wibox.widget.separator
-}
-
-
 local notif_icon = function(ico_image)
-  local noti_icon = wibox.widget {
+  local noti_icon =
+    wibox.widget {
     {
-      id = 'icon',
+      id = "icon",
       resize = true,
       forced_height = dpi(45),
       forced_width = dpi(45),
-      widget = wibox.widget.imagebox,
+      widget = wibox.widget.imagebox
     },
     layout = wibox.layout.fixed.horizontal
-}
+  }
   noti_icon.icon:set_image(ico_image)
   return noti_icon
 end
 
 local notif_title = function(title)
   return wibox.widget {
-    text   = title,
-    font   = 'SFNS Display Bold 12',
-    align  = 'center',
-    valign = 'center',
+    text = title,
+    font = "SFNS Display Bold 12",
+    align = "center",
+    valign = "center",
     widget = wibox.widget.textbox
   }
 end
 
 local notif_message = function(msg)
   return wibox.widget {
-    markup   = msg,
-    font   = 'SFNS Display Regular 12',
-    align  = 'center',
-    valign = 'center',
+    markup = msg,
+    font = "SFNS Display Regular 12",
+    align = "center",
+    valign = "center",
     widget = wibox.widget.textbox
   }
 end
@@ -92,67 +79,65 @@ end
 local empty_title = "Spooky..."
 local empty_message = "There's nothing in here... Come back later."
 
-
-
 -- The function that generates notifications in right-panel
 local function notif_generate(title, message, icon, noti)
-
   -- naughty.list.actions
-  notif_actions = wibox.widget {
+  notif_actions =
+    wibox.widget {
     notification = noti,
     base_layout = wibox.widget {
-    spacing        = dpi(5),
-    layout         = wibox.layout.flex.vertical
+      spacing = dpi(5),
+      layout = wibox.layout.flex.vertical
     },
     widget_template = {
       {
         {
           {
-            id     = 'text_role',
-            font   = 'SFNS Display Regular 10',
+            id = "text_role",
+            font = "SFNS Display Regular 10",
             widget = wibox.widget.textbox
           },
-            widget = wibox.container.place
+          widget = wibox.container.place
         },
-        bg                 = beautiful.bg_modal,
-        shape              = gears.shape.rounded_rect,
-        forced_height      = 30,
-        widget             = wibox.container.background,
+        bg = beautiful.bg_modal,
+        shape = gears.shape.rounded_rect,
+        forced_height = 30,
+        widget = wibox.container.background
       },
       margins = 4,
-      widget  = wibox.container.margin,
+      widget = wibox.container.margin
     },
-    widget = naughty.list.actions,
+    widget = naughty.list.actions
   }
 
-
-
   -- The layout of notification to be generated
-  local notif_template =  wibox.widget {
-    id = 'notif_template',
-    expand = 'none',
+  local notif_template =
+    wibox.widget {
+    id = "notif_template",
+    expand = "none",
     layout = wibox.layout.fixed.vertical,
     {
       {
-        expand = 'none',
+        expand = "none",
         layout = wibox.layout.align.horizontal,
-          {
-            nil,
-            layout = wibox.layout.fixed.horizontal,
-          },
-          {
-            wibox.container.margin(notif_title(title), dpi(0), dpi(0), dpi(4), dpi(4)),
-            layout = wibox.layout.fixed.horizontal,
-          },
-          -- {
-          --   gen_button(notif_del_button),
-          --   layout = wibox.layout.fixed.horizontal,
-          -- },
+        {
+          nil,
+          layout = wibox.layout.fixed.horizontal
+        },
+        {
+          wibox.container.margin(notif_title(title), dpi(0), dpi(0), dpi(4), dpi(4)),
+          layout = wibox.layout.fixed.horizontal
+        }
+        -- {
+        --   gen_button(notif_del_button),
+        --   layout = wibox.layout.fixed.horizontal,
+        -- },
       },
       bg = beautiful.bg_modal_title,
       shape = function(cr, width, height)
-      gears.shape.partially_rounded_rect(cr, width, height, true, true, false, false, 6) end,
-      widget = wibox.container.background,
+        gears.shape.partially_rounded_rect(cr, width, height, true, true, false, false, 6)
+      end,
+      widget = wibox.container.background
     },
     {
       {
@@ -173,8 +158,8 @@ local function notif_generate(title, message, icon, noti)
             margins = dpi(4),
             widget = wibox.container.margin
           },
-          layout = wibox.layout.flex.horizontal,
-        },
+          layout = wibox.layout.flex.horizontal
+        }
       },
       bg = beautiful.bg_modal,
       widget = wibox.container.background
@@ -188,48 +173,51 @@ local function notif_generate(title, message, icon, noti)
         },
         bg = beautiful.bg_modal,
         shape = function(cr, width, height)
-        gears.shape.partially_rounded_rect(cr, width, height, false, false, true, true, 6) end,
-        widget = wibox.container.background,
+          gears.shape.partially_rounded_rect(cr, width, height, false, false, true, true, 6)
+        end,
+        widget = wibox.container.background
       },
-      layout = wibox.layout.flex.horizontal,
-    },
+      layout = wibox.layout.flex.horizontal
+    }
   }
 
-
   -- Delete notification if naughty.list.actions was pressed
-  notif_actions:connect_signal("button::press", function(_, _, _, button)
-    -- Dont let the user make the notification center null
-    if #notif_layout.children == 1 then
-      notif_layout:reset(notif_layout)
-      firstime = true
-      notif_layout:insert(1, notif_generate(empty_title, empty_message, theme(PATH_TO_ICONS .. 'boo' .. '.svg')))
-    else
-      notif_layout:remove_widgets(notif_template, true)
+  notif_actions:connect_signal(
+    "button::press",
+    function(_, _, _, button)
+      -- Dont let the user make the notification center null
+      if #notif_layout.children == 1 then
+        notif_layout:reset(notif_layout)
+        firstime = true
+        notif_layout:insert(1, notif_generate(empty_title, empty_message, theme(PATH_TO_ICONS .. "boo" .. ".svg")))
+      else
+        notif_layout:remove_widgets(notif_template, true)
+      end
     end
-  end)
+  )
 
-    -- Delete notification if the generated notif was pressed
-  notif_template:connect_signal("button::press", function(_, _, _, button)
-    -- Dont let the user make the notification center null
-    if #notif_layout.children == 1 then
-      notif_layout:reset(notif_layout)
-      firstime = true
-      notif_layout:insert(1, notif_generate(empty_title, empty_message, theme(PATH_TO_ICONS .. 'boo' .. '.svg')))
-    else
-      notif_layout:remove_widgets(notif_template, true)
+  -- Delete notification if the generated notif was pressed
+  notif_template:connect_signal(
+    "button::press",
+    function(_, _, _, button)
+      -- Dont let the user make the notification center null
+      if #notif_layout.children == 1 then
+        notif_layout:reset(notif_layout)
+        firstime = true
+        notif_layout:insert(1, notif_generate(empty_title, empty_message, theme(PATH_TO_ICONS .. "boo" .. ".svg")))
+      else
+        notif_layout:remove_widgets(notif_template, true)
+      end
     end
-  end)
-
+  )
 
   --return template to generate
   return notif_template
 end
 
-
-
 -- add a message to an empty notif center
 local function add_empty()
-  notif_layout:insert(1, notif_generate(empty_title, empty_message, theme(PATH_TO_ICONS .. 'boo' .. '.svg')))
+  notif_layout:insert(1, notif_generate(empty_title, empty_message, theme(PATH_TO_ICONS .. "boo" .. ".svg")))
 end
 
 -- Add empty message on startup
@@ -246,26 +234,26 @@ end
 firstime = true
 
 -- Check signal
-naughty.connect_signal("request::display", function(n)
+naughty.connect_signal(
+  "request::display",
+  function(n)
+    if firstime then
+      -- Delete empty message if the 1st notif is generated
+      notif_layout:remove(1)
+      firstime = false
+    end
 
-  if firstime then
-    -- Delete empty message if the 1st notif is generated
-    notif_layout:remove(1)
-    firstime = false
+    -- Check and set icon to the notification message in panel
+    -- Then generate a widget based on naughty.notify data
+    if n.icon == nil then
+      -- if naughty sends a signal without an icon then use this instead
+      notif_layout:insert(1, notif_generate(n.title, n.message, theme(PATH_TO_ICONS .. "new-notif" .. ".svg"), n))
+    else
+      -- Use the notification's icon
+      notif_layout:insert(1, notif_generate(n.title, n.message, n.icon, n))
+    end
   end
-
-  -- Check and set icon to the notification message in panel
-  -- Then generate a widget based on naughty.notify data
-  if n.icon == nil then
-    -- if naughty sends a signal without an icon then use this instead
-    notif_layout:insert(1, notif_generate(n.title, n.message, theme(PATH_TO_ICONS .. 'new-notif' .. '.svg'), n))
-  else
-    -- Use the notification's icon
-    notif_layout:insert(1, notif_generate(n.title, n.message, n.icon, n))
-  end
-
-
-end)
+)
 
 -- Return notif_layout to right-panel.lua to display it
 return notif_layout

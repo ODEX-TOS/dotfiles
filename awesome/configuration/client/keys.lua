@@ -22,13 +22,10 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local awful = require('awful')
-local gears = require('gears')
-require('awful.autofocus')
-local config = require('configuration.keys.mod')
+local awful = require("awful")
+require("awful.autofocus")
+local config = require("configuration.keys.mod")
 local modkey = config.modKey
-local altkey = config.altKey
 
 local clientKeys =
   awful.util.table.join(
@@ -39,7 +36,7 @@ local clientKeys =
       c.fullscreen = not c.fullscreen
       c:raise()
     end,
-    {description = 'toggle fullscreen', group = 'client'}
+    {description = "toggle fullscreen", group = "client"}
   ),
   awful.key(
     {modkey},
@@ -47,7 +44,7 @@ local clientKeys =
     function(c)
       c:kill()
     end,
-    {description = 'close', group = 'client'}
+    {description = "close", group = "client"}
   ),
   awful.key(
     {modkey},
@@ -56,7 +53,7 @@ local clientKeys =
       c.floating = not c.floating
       c:raise()
     end,
-    {description = 'toggle floating', group = 'client'}
+    {description = "toggle floating", group = "client"}
   )
 )
 

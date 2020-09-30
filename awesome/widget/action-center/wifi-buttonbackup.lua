@@ -22,25 +22,21 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local awful = require("awful")
+local wibox = require("wibox")
+local clickable_container = require("widget.action-center.clickable-container")
+local gears = require("gears")
+local dpi = require("beautiful").xresources.apply_dpi
+local watch = require("awful.widget.watch")
 
-local awful = require('awful')
-local naughty = require('naughty')
-local wibox = require('wibox')
-local clickable_container = require('widget.action-center.clickable-container')
-local gears = require('gears')
-local dpi = require('beautiful').xresources.apply_dpi
-local watch = require('awful.widget.watch')
-
-local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/action-center/icons/wifi/'
+local PATH_TO_ICONS = "/etc/xdg/awesome/widget/action-center/icons/wifi/"
 local checker
 local mode
-
 
 local widget =
   wibox.widget {
   {
-    id = 'icon',
+    id = "icon",
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -49,52 +45,50 @@ local widget =
 
 local function update_icon()
   local widgetIconName
-  if(mode == true) then
-    widgetIconName = 'wifi'
-    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
+  if (mode == true) then
+    widgetIconName = "wifi"
+    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. ".svg")
   else
-    widgetIconName = 'airplane-mode'
-    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
+    widgetIconName = "airplane-mode"
+    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. ".svg")
   end
 end
 
 local function check_wifi()
-  awful.spawn.easy_async_with_shell('nmcli general status', function( stdout )
-    checker = stdout:match('disabled')
-    -- IF NOT NULL THEN WIFI IS DISABLED
-    -- IF NULL IT THEN WIFI IS ENABLED
-    if(checker ~= nil) then
-      mode = false
-      --awful.spawn('notify-send checker~=NOTNULL disabled')
-      update_icon()
-    else
-      mode = true
-    --awful.spawn('notify-send checker==NULL enabled')
-      update_icon()
+  awful.spawn.easy_async_with_shell(
+    "nmcli general status",
+    function(stdout)
+      checker = stdout:match("disabled")
+      -- IF NOT NULL THEN WIFI IS DISABLED
+      -- IF NULL IT THEN WIFI IS ENABLED
+      if (checker ~= nil) then
+        mode = false
+        --awful.spawn('notify-send checker~=NOTNULL disabled')
+        update_icon()
+      else
+        mode = true
+        --awful.spawn('notify-send checker==NULL enabled')
+        update_icon()
+      end
     end
-  end)
-
+  )
 end
 
 local function toggle_wifi()
-  if(mode == true) then
-    awful.spawn('nmcli r wifi off')
+  if (mode == true) then
+    awful.spawn("nmcli r wifi off")
     awful.spawn("notify-send 'Airplane Mode Enabled'")
     mode = false
     update_icon()
   else
-    awful.spawn('nmcli r wifi on')
+    awful.spawn("nmcli r wifi on")
     awful.spawn("notify-send 'Initializing WI-FI'")
     mode = true
     update_icon()
   end
-
 end
 
-
 check_wifi()
-
-
 
 local wifi_button = clickable_container(wibox.container.margin(widget, dpi(7), dpi(7), dpi(7), dpi(7))) -- 4 is top and bottom margin
 wifi_button:buttons(
@@ -114,37 +108,35 @@ wifi_button:buttons(
 awful.tooltip(
   {
     objects = {wifi_button},
-    mode = 'outside',
-    align = 'right',
+    mode = "outside",
+    align = "right",
     timer_function = function()
       if checker == nil then
-        return 'WI-FI is ON'
+        return "WI-FI is ON"
       else
-        return 'Airplane Mode'
+        return "Airplane Mode"
       end
     end,
-    preferred_positions = {'right', 'left', 'top', 'bottom'}
+    preferred_positions = {"right", "left", "top", "bottom"}
   }
 )
 
-local last_wifi_check = os.time()
 watch(
-  'nmcli general status',
+  "nmcli general status",
   5,
   function(_, stdout)
-   -- Check if there  bluetooth
-    checker = stdout:match('disabled') -- If 'Controller' string is detected on stdout
+    -- Check if there  bluetooth
+    checker = stdout:match("disabled") -- If 'Controller' string is detected on stdout
     local widgetIconName
     if (checker == nil) then
-      widgetIconName = 'wifi'
+      widgetIconName = "wifi"
     else
-      widgetIconName = 'airplane-mode'
+      widgetIconName = "airplane-mode"
     end
-    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. '.svg')
-    collectgarbage('collect')
+    widget.icon:set_image(PATH_TO_ICONS .. widgetIconName .. ".svg")
+    collectgarbage("collect")
   end,
   widget
 )
-
 
 return wifi_button

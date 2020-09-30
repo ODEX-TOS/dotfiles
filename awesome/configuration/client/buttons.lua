@@ -22,10 +22,9 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local awful = require("awful")
 
-local awful = require('awful')
-
-local modkey = require('configuration.keys.mod').modKey
+local modkey = require("configuration.keys.mod").modKey
 
 return awful.util.table.join(
   awful.button(

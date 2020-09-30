@@ -22,17 +22,15 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local wibox = require('wibox')
-local mat_list_item = require('widget.material.list-item')
-local mat_slider = require('widget.material.slider')
-local mat_icon = require('widget.material.icon')
-local icons = require('theme.icons')
-local watch = require('awful.widget.watch')
-local dpi = require('beautiful').xresources.apply_dpi
-local config = require('config')
-local file = require('helper.file')
-local gears = require('gears')
+local wibox = require("wibox")
+local mat_list_item = require("widget.material.list-item")
+local mat_slider = require("widget.material.slider")
+local mat_icon = require("widget.material.icon")
+local icons = require("theme.icons")
+local dpi = require("beautiful").xresources.apply_dpi
+local config = require("config")
+local file = require("helper.file")
+local gears = require("gears")
 
 local slider =
   wibox.widget {
@@ -41,16 +39,16 @@ local slider =
 }
 
 gears.timer {
-  timeout   = config.ram_poll,
-  call_now  = true,
+  timeout = config.ram_poll,
+  call_now = true,
   autostart = true,
-  callback  = function()
+  callback = function()
     local stdout = file.lines("/proc/meminfo", nil, 3)
-    local total = string.gmatch(stdout[1], '%d+')()
-    local free = string.gmatch(stdout[3], '%d+')()
+    local total = string.gmatch(stdout[1], "%d+")()
+    local free = string.gmatch(stdout[3], "%d+")()
     local usage = (1 - (free / total)) * 100
     slider:set_value(usage)
-    print("Ram usage: " ..  usage .. "%")
+    print("Ram usage: " .. usage .. "%")
   end
 }
 

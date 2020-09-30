@@ -22,12 +22,9 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local awful = require('awful')
-local beautiful = require('beautiful')
-local wibox = require('wibox')
-local apps = require('configuration.apps')
-local dpi = require('beautiful').xresources.apply_dpi
+local beautiful = require("beautiful")
+local wibox = require("wibox")
+local dpi = require("beautiful").xresources.apply_dpi
 
 local bottom_panel = function(screen)
   local action_bar_height = dpi(45) -- 48
@@ -52,7 +49,7 @@ local bottom_panel = function(screen)
 
   panel:setup {
     layout = wibox.layout.align.vertical,
-    require('layout.bottom-panel.action-bar')(screen, action_bar_height)
+    require("layout.bottom-panel.action-bar")(screen, action_bar_height)
   }
   return panel
 end

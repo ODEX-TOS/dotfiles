@@ -22,8 +22,8 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-local wibox = require('wibox')
-local beautiful = require('beautiful')
+local wibox = require("wibox")
+local beautiful = require("beautiful")
 
 function build(widget)
 	local container =
@@ -34,20 +34,20 @@ function build(widget)
 	local old_cursor, old_wibox
 
 	container:connect_signal(
-		'mouse::enter',
+		"mouse::enter",
 		function()
 			container.bg = beautiful.groups_bg
 			-- Hm, no idea how to get the wibox from this signal's arguments...
 			local w = mouse.current_wibox
 			if w then
 				old_cursor, old_wibox = w.cursor, w
-				w.cursor = 'hand1'
+				w.cursor = "hand1"
 			end
 		end
 	)
 
 	container:connect_signal(
-		'mouse::leave',
+		"mouse::leave",
 		function()
 			container.bg = beautiful.transparent
 			if old_wibox then
@@ -58,14 +58,14 @@ function build(widget)
 	)
 
 	container:connect_signal(
-		'button::press',
+		"button::press",
 		function()
 			container.bg = beautiful.groups_title_bg
 		end
 	)
 
 	container:connect_signal(
-		'button::release',
+		"button::release",
 		function()
 			container.bg = beautiful.groups_bg
 		end

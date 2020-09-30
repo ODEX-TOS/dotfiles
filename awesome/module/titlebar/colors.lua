@@ -11,8 +11,9 @@ local gcolor = require("gears.color")
 local parse_color = gcolor.parse_color
 
 -- Returns a value that is clipped to interval edges if it falls outside the interval
-local function clip(num, min_num, max_num) return
-    max(min(num, max_num), min_num) end
+local function clip(num, min_num, max_num)
+    return max(min(num, max_num), min_num)
+end
 
 -- Converts the given hex color to normalized rgba
 local function hex2rgb(color)
@@ -61,8 +62,12 @@ end
 local function hsv2hex(H, S, V)
     S = S / 100
     V = V / 100
-    if H > 360 then H = 360 end
-    if H < 0 then H = 0 end
+    if H > 360 then
+        H = 360
+    end
+    if H < 0 then
+        H = 0
+    end
     local C = V * S
     local X = C * (1 - math.abs(((H / 60) % 2) - 1))
     local m = V - C
@@ -88,8 +93,7 @@ end
 local function relative_luminance(color)
     local r, g, b = hex2rgb(color)
     local function from_sRGB(u)
-        return u <= 0.0031308 and 25 * u / 323 or
-                   pow(((200 * u + 11) / 211), 12 / 5)
+        return u <= 0.0031308 and 25 * u / 323 or pow(((200 * u + 11) / 211), 12 / 5)
     end
     return 0.2126 * from_sRGB(r) + 0.7152 * from_sRGB(g) + 0.0722 * from_sRGB(b)
 end
@@ -157,5 +161,5 @@ return {
     rand_hex = rand_hex,
     rotate_hue = rotate_hue,
     lighten = lighten,
-    darken = darken,
+    darken = darken
 }

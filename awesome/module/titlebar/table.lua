@@ -1,12 +1,16 @@
 --[[
     Courtesy of: http://lua-users.org/wiki/SaveTableToFile
-]] local function exportstring(s) return string.format("%q", s) end
+]] local function exportstring(s)
+    return string.format("%q", s)
+end
 
 --  The Save Function
 local function save(tbl, filename)
     local charS, charE = "   ", "\n"
     local file, err = io.open(filename, "wb")
-    if err then return err end
+    if err then
+        return err
+    end
 
     -- Initialize variables for save procedure
     local tables, lookup = {tbl}, {[tbl] = 1}
@@ -37,7 +41,6 @@ local function save(tbl, filename)
         for i, v in pairs(t) do
             -- escape handled values
             if (not thandled[i]) then
-
                 local str = ""
                 local stype = type(i)
                 -- handle index
@@ -79,12 +82,16 @@ end
 --  The Load Function
 local function load(sfile)
     local ftables, err = loadfile(sfile)
-    if err then return _, err end
+    if err then
+        return _, err
+    end
     local tables = ftables()
     for idx = 1, #tables do
         local tolinki = {}
         for i, v in pairs(tables[idx]) do
-            if type(v) == "table" then tables[idx][i] = tables[v[1]] end
+            if type(v) == "table" then
+                tables[idx][i] = tables[v[1]]
+            end
             if type(i) == "table" and tables[i[1]] then
                 table.insert(tolinki, {i, tables[i[1]]})
             end

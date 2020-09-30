@@ -22,86 +22,86 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local awful = require("awful")
+local wibox = require("wibox")
+local gears = require("gears")
+local beautiful = require("beautiful")
 
-local awful = require('awful')
-local wibox = require('wibox')
-local gears = require('gears')
-local beautiful = require('beautiful')
+local dpi = require("beautiful").xresources.apply_dpi
+local clickable_container = require("widget.material.clickable-container")
 
-local apps = require('configuration.apps')
-local dpi = require('beautiful').xresources.apply_dpi
-local clickable_container = require('widget.material.clickable-container')
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/notification-center/icons/'
-local mat_list_item = require('widget.material.list-item')
-
-local scrollbar = require('widget.scrollbar')
-
+local scrollbar = require("widget.scrollbar")
 
 -- load the notification plugins
 print("notification plugin loading started")
-local plugins = require('helper.plugin-loader')('notification')
+local plugins = require("helper.plugin-loader")("notification")
 print("Done loading notification plugins")
 
 local function notification_plugin()
-
-  local table_widget = wibox.widget{
+  local table_widget =
+    wibox.widget {
     separator,
-    layout = wibox.layout.fixed.vertical,
+    layout = wibox.layout.fixed.vertical
   }
 
-  local table = wibox.widget{
+  local table =
+    wibox.widget {
     visible = false,
     layout = wibox.layout.fixed.vertical,
     table_widget
   }
 
   for index, value in ipairs(plugins) do
-    table_widget:add({
-      wibox.container.margin(value, dpi(15), dpi(15), dpi(0), dpi(10)),
-      layout = wibox.layout.fixed.vertical,
-    })
+    table_widget:add(
+      {
+        wibox.container.margin(value, dpi(15), dpi(15), dpi(0), dpi(10)),
+        layout = wibox.layout.fixed.vertical
+      }
+    )
   end
   return table
-end 
+end
 
 panel_visible = false
 
 local right_panel = function(screen)
   local panel_width = dpi(350)
-  local panel = wibox {
+  local panel =
+    wibox {
     ontop = true,
     screen = screen,
     width = panel_width,
     height = screen.geometry.height,
     x = screen.geometry.width - panel_width,
     bg = beautiful.background.hue_800,
-    fg = beautiful.fg_normal,
+    fg = beautiful.fg_normal
   }
 
   panel.opened = false
 
-  local grabber = awful.keygrabber {
+  local grabber =
+    awful.keygrabber {
     keybindings = {
-        awful.key {
-            modifiers = {},
-            key       = 'Escape',
-            on_press  = function()
-              panel.opened = false
-              closePanel()
-            end
-        },
+      awful.key {
+        modifiers = {},
+        key = "Escape",
+        on_press = function()
+          panel.opened = false
+          closePanel()
+        end
+      }
     },
     -- Note that it is using the key name and not the modifier name.
-    stop_key           = 'Escape',
-    stop_event         = 'release',
-}
+    stop_key = "Escape",
+    stop_event = "release"
+  }
 
-  local backdrop = wibox
-  {
+  local backdrop =
+    wibox {
     ontop = true,
     screen = screen,
-    bg = '#00000000',
-    type = 'dock',
+    bg = "#00000000",
+    type = "dock",
     x = screen.geometry.x,
     y = screen.geometry.y,
     width = screen.geometry.width,
@@ -114,30 +114,31 @@ local right_panel = function(screen)
     }
   )
 
-  local notification_widget = wibox.widget{
+  local notification_widget =
+    wibox.widget {
     visible = true,
     separator,
-    require('widget.notification-center.subwidgets.dont-disturb'),
+    require("widget.notification-center.subwidgets.dont-disturb"),
     {
-      expand = 'none',
+      expand = "none",
       layout = wibox.layout.align.horizontal,
       {
         nil,
-        layout = wibox.layout.fixed.horizontal,
+        layout = wibox.layout.fixed.horizontal
       },
       nil,
       {
         wibox.container.margin(clear_all_button, dpi(15), dpi(15), dpi(10), dpi(0)),
-        layout = wibox.layout.fixed.horizontal,
-      },
+        layout = wibox.layout.fixed.horizontal
+      }
     },
     {
-      require('widget.notification-center.subwidgets.notif-generate'),
+      require("widget.notification-center.subwidgets.notif-generate"),
       wibox.widget({}),
       margins = dpi(15),
-      widget = wibox.container.margin,
+      widget = wibox.container.margin
     },
-    layout = wibox.layout.fixed.vertical,
+    layout = wibox.layout.fixed.vertical
   }
 
   openPanel = function()
@@ -145,7 +146,7 @@ local right_panel = function(screen)
     backdrop.visible = true
     panel.visible = true
     grabber:start()
-    panel:emit_signal('opened')
+    panel:emit_signal("opened")
   end
 
   closePanel = function()
@@ -153,9 +154,9 @@ local right_panel = function(screen)
     panel.visible = false
     backdrop.visible = false
     -- Change to notif mode on close
-    _G.switch_mode('notif_mode')
+    _G.switch_mode("notif_mode")
     grabber:stop()
-    panel:emit_signal('closed')
+    panel:emit_signal("closed")
   end
 
   -- Hide this panel when app dashboard is called.
@@ -174,13 +175,12 @@ local right_panel = function(screen)
 
   widgets = notification_plugin()
 
-
   function panel:switch_mode(mode)
-    if mode == 'notif_mode' then
+    if mode == "notif_mode" then
       -- Update Content
       notification_widget.visible = true
       widgets.visible = false
-    elseif mode == 'widgets_mode' then
+    elseif mode == "widgets_mode" then
       -- Update Content
       notification_widget.visible = false
       widgets.visible = true
@@ -199,14 +199,16 @@ local right_panel = function(screen)
     )
   )
 
-  local clear_all_text = wibox.widget {
-    text   = 'Clear All Notifications',
-    font   = 'SFNS Display Regular 10',
-    align  = 'center',
-    valign = 'bottom',
+  local clear_all_text =
+    wibox.widget {
+    text = "Clear All Notifications",
+    font = "SFNS Display Regular 10",
+    align = "center",
+    valign = "bottom",
     widget = wibox.widget.textbox
   }
-  local wrap_clear_text = wibox.widget {
+  local wrap_clear_text =
+    wibox.widget {
     clear_all_text,
     margins = dpi(5),
     widget = wibox.container.margin
@@ -226,15 +228,17 @@ local right_panel = function(screen)
     )
   )
 
-  local separator = wibox.widget {
-    orientation = 'horizontal',
+  local separator =
+    wibox.widget {
+    orientation = "horizontal",
     opacity = 0.0,
     forced_height = 15,
-    widget = wibox.widget.separator,
+    widget = wibox.widget.separator
   }
 
-  local headerSeparator = wibox.widget {
-    orientation = 'horizontal',
+  local headerSeparator =
+    wibox.widget {
+    orientation = "horizontal",
     forced_height = 15,
     span_ratio = 1.0,
     opacity = 0.90,
@@ -242,47 +246,43 @@ local right_panel = function(screen)
     widget = wibox.widget.separator
   }
 
-
-  local body = scrollbar(
+  local body =
+    scrollbar(
     wibox.widget {
       separator,
-    {
-      expand = 'none',
-      layout = wibox.layout.align.horizontal,
       {
-        nil,
-        layout = wibox.layout.fixed.horizontal,
+        expand = "none",
+        layout = wibox.layout.align.horizontal,
+        {
+          nil,
+          layout = wibox.layout.fixed.horizontal
+        },
+        require("widget.notification-center.subwidgets.panel-mode-switcher"),
+        {
+          nil,
+          layout = wibox.layout.fixed.horizontal
+        }
       },
-      require('widget.notification-center.subwidgets.panel-mode-switcher'),
+      separator,
+      headerSeparator,
       {
-        nil,
-        layout = wibox.layout.fixed.horizontal,
+        layout = wibox.layout.stack,
+        -- Notification Center
+        notification_widget,
+        -- Widget Center
+        widgets
       },
-    },
-    separator,
-    headerSeparator,
-    {
-      layout = wibox.layout.stack,
-      -- Notification Center
-      notification_widget,
-      -- Widget Center
-      widgets
-    },
-    layout = wibox.layout.fixed.vertical,
+      layout = wibox.layout.fixed.vertical
     }
   )
 
   panel:setup {
-    expand = 'none',
+    expand = "none",
     layout = wibox.layout.fixed.vertical,
     body
   }
 
-
   return panel
 end
 
-
 return right_panel
-
-

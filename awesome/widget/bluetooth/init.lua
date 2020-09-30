@@ -22,36 +22,32 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 -------------------------------------------------
 -- Bluetooth Widget for Awesome Window Manager
 -- Shows the bluetooth status using the bluetoothctl command
 -- Better with Blueman Manager
 --------------
 
-local awful = require('awful')
-local naughty = require('naughty')
-local watch = require('awful.widget.watch')
-local wibox = require('wibox')
-local clickable_container = require('widget.material.clickable-container')
-local gears = require('gears')
-local dpi = require('beautiful').xresources.apply_dpi
-local config = require('config')
-local theme = require('theme.icons.dark-light')
-
+local awful = require("awful")
+local watch = require("awful.widget.watch")
+local wibox = require("wibox")
+local clickable_container = require("widget.material.clickable-container")
+local gears = require("gears")
+local dpi = require("beautiful").xresources.apply_dpi
+local config = require("config")
+local theme = require("theme.icons.dark-light")
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
-local HOME = os.getenv('HOME')
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/bluetooth/icons/'
+local PATH_TO_ICONS = "/etc/xdg/awesome/widget/bluetooth/icons/"
 local checker
 
 local widget =
   wibox.widget {
   {
-    id = 'icon',
+    id = "icon",
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -67,7 +63,7 @@ widget_button:buttons(
       nil,
       function()
         print("Opening blueman-manager")
-        awful.spawn('blueman-manager')
+        awful.spawn("blueman-manager")
       end
     )
   )
@@ -76,16 +72,16 @@ widget_button:buttons(
 awful.tooltip(
   {
     objects = {widget_button},
-    mode = 'outside',
-    align = 'right',
+    mode = "outside",
+    align = "right",
     timer_function = function()
       if checker ~= nil then
-        return 'Bluetooth is on'
+        return "Bluetooth is on"
       else
-        return 'Bluetooth is off'
+        return "Bluetooth is off"
       end
     end,
-    preferred_positions = {'right', 'left', 'top', 'bottom'}
+    preferred_positions = {"right", "left", "top", "bottom"}
   }
 )
 
@@ -94,23 +90,21 @@ awful.tooltip(
 --beautiful.tooltip_fg = beautiful.fg_normal
 --beautiful.tooltip_bg = beautiful.bg_normal
 
-
-local last_bluetooth_check = os.time()
 watch(
-  'bluetoothctl --monitor list',
+  "bluetoothctl --monitor list",
   config.bluetooth_poll,
   function(_, stdout)
-   -- Check if there  bluetooth
-    checker = stdout:match('Controller') -- If 'Controller' string is detected on stdout
+    -- Check if there  bluetooth
+    checker = stdout:match("Controller") -- If 'Controller' string is detected on stdout
     local widgetIconName
     if (checker ~= nil) then
-      widgetIconName = 'bluetooth'
+      widgetIconName = "bluetooth"
     else
-      widgetIconName = 'bluetooth-off'
+      widgetIconName = "bluetooth-off"
     end
-    widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. '.svg'))
+    widget.icon:set_image(theme(PATH_TO_ICONS .. widgetIconName .. ".svg"))
     print("Polling bluetooth status")
-    collectgarbage('collect')
+    collectgarbage("collect")
   end,
   widget
 )

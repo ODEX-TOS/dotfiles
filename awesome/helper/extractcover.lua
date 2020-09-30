@@ -22,27 +22,32 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 -- Extract album cover from song
 -- Will used by music/mpd widget
 -- Depends ffmpeg or perl-image-exiftool, song with hard-coded album cover
 
-local awful = require('awful')
+local awful = require("awful")
 
 local extract = {}
 -- TODO: get image information from spotify
 local extract_cover = function()
   -- see https://github.com/altdesktop/playerctl/issues/172 for more info
-  local extract_script = [[
+  local extract_script =
+    [[
     url=$(playerctl -p spotify metadata mpris:artUrl | sed "s/open\.spotify\.com/i.scdn.co/")
     if [ "$url" ]; then
       curl -fL "$url" -o /tmp/cover.jpg
     fi
   ]]
 
-  awful.spawn.easy_async_with_shell(extract_script, function(stderr) print("Music image: " .. stderr) end, false)
+  awful.spawn.easy_async_with_shell(
+    extract_script,
+    function(stderr)
+      print("Music image: " .. stderr)
+    end,
+    false
+  )
 end
-
 
 extractit = function()
   extract_cover()
@@ -51,4 +56,3 @@ end
 extract.extractalbum = extractit
 
 return extract
-

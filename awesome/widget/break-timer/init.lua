@@ -22,22 +22,18 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local wibox = require('wibox')
-local awful = require('awful')
-local mat_list_item = require('widget.material.list-item')
-local mat_slider = require('widget.material.slider')
-local clickable_container = require('widget.material.clickable-container')
-local mat_icon = require('widget.material.icon')
-local icons = require('theme.icons')
-local dpi = require('beautiful').xresources.apply_dpi
-local config = require('config')
-local gears = require('gears')
-local beautiful = require('beautiful')
-local file = require('helper.file')
+local wibox = require("wibox")
+local awful = require("awful")
+local mat_list_item = require("widget.material.list-item")
+local mat_slider = require("widget.material.slider")
+local clickable_container = require("widget.material.clickable-container")
+local mat_icon = require("widget.material.icon")
+local icons = require("theme.icons")
+local dpi = require("beautiful").xresources.apply_dpi
+local gears = require("gears")
+local beautiful = require("beautiful")
 
 local width = dpi(200)
-local height = width
 local totalTime = 5
 local currentTime = 0
 
@@ -60,46 +56,53 @@ local slider =
   widget = mat_slider
 }
 
-local timerText = wibox.widget{
-    markup = 'Break left: <b>00:00</b>',
-    align  = 'center',
-    valign = 'center',
-    read_only = true,
-    widget = wibox.widget.textbox
+local timerText =
+  wibox.widget {
+  markup = "Break left: <b>00:00</b>",
+  align = "center",
+  valign = "center",
+  read_only = true,
+  widget = wibox.widget.textbox
 }
 
-
-local FiveMinTimeOut = gears.timer {
-  timeout   = 5 * 60,
+local FiveMinTimeOut =
+  gears.timer {
+  timeout = 5 * 60,
   single_shot = true,
-  callback  = function()
+  callback = function()
     _G.pause.show(totalTime)
   end
 }
 
-local countdownSlider = gears.timer {
-  timeout   = 1,
-  callback  = function()
+local countdownSlider =
+  gears.timer {
+  timeout = 1,
+  callback = function()
     currentTime = currentTime + 1
     slider:set_value((currentTime / totalTime) * 100)
     timerText:set_markup_silently("Break Left: <b>" .. numberInSecToMS(totalTime - currentTime) .. "</b>")
     if currentTime >= totalTime then
       currentTime = 0
     end
-    collectgarbage('collect')
+    collectgarbage("collect")
   end
 }
 
-local delay = clickable_container(
+local delay =
+  clickable_container(
   wibox.container.margin(
-    wibox.widget{
-      markup = 'Delay by 5 minutes',
-      align  = 'center',
-      valign = 'center',
+    wibox.widget {
+      markup = "Delay by 5 minutes",
+      align = "center",
+      valign = "center",
       read_only = true,
       widget = wibox.widget.textbox
     },
-  dpi(14),dpi(14),dpi(14),dpi(14))
+    dpi(14),
+    dpi(14),
+    dpi(14),
+    dpi(14)
+  )
 )
 
 delay:buttons(
@@ -117,16 +120,21 @@ delay:buttons(
   )
 )
 
-local disable = clickable_container(
+local disable =
+  clickable_container(
   wibox.container.margin(
-    wibox.widget{
-      markup = 'Disable for this session',
-      align  = 'center',
-      valign = 'center',
+    wibox.widget {
+      markup = "Disable for this session",
+      align = "center",
+      valign = "center",
       read_only = true,
       widget = wibox.widget.textbox
     },
-  dpi(14),dpi(14),dpi(14),dpi(14))
+    dpi(14),
+    dpi(14),
+    dpi(14),
+    dpi(14)
+  )
 )
 
 disable:buttons(
@@ -145,16 +153,21 @@ disable:buttons(
   )
 )
 
-local skip = clickable_container(
+local skip =
+  clickable_container(
   wibox.container.margin(
-    wibox.widget{
-      markup = 'Skip break',
-      align  = 'center',
-      valign = 'center',
+    wibox.widget {
+      markup = "Skip break",
+      align = "center",
+      valign = "center",
       read_only = true,
       widget = wibox.widget.textbox
     },
-  dpi(14),dpi(14),dpi(14),dpi(14))
+    dpi(14),
+    dpi(14),
+    dpi(14),
+    dpi(14)
+  )
 )
 
 skip:buttons(
@@ -170,7 +183,8 @@ skip:buttons(
   )
 )
 
-local buttons = wibox.widget{
+local buttons =
+  wibox.widget {
   {
     delay,
     disable,
@@ -182,25 +196,24 @@ local buttons = wibox.widget{
   widget = wibox.container.place()
 }
 
-
 local breakMeter =
   wibox.widget {
+  wibox.widget {
     wibox.widget {
-      wibox.widget {
-        icon = icons.sleep,
-        size = dpi(24),
-        widget = mat_icon
-      },
-      slider,
-      widget = mat_list_item
+      icon = icons.sleep,
+      size = dpi(24),
+      widget = mat_icon
     },
-    timerText,
-    buttons,
-    spacing = dpi(20),
-    layout  = wibox.layout.fixed.vertical
-  }
+    slider,
+    widget = mat_list_item
+  },
+  timerText,
+  buttons,
+  spacing = dpi(20),
+  layout = wibox.layout.fixed.vertical
+}
 
-_G.pause.start = function (time)
+_G.pause.start = function(time)
   print("Break time triggered started")
   currentTime = 0
   totalTime = time
@@ -208,7 +221,7 @@ _G.pause.start = function (time)
   countdownSlider:start()
 end
 
-_G.pause.stopSlider = function ()
+_G.pause.stopSlider = function()
   countdownSlider:stop()
   print("Break stopped")
 end

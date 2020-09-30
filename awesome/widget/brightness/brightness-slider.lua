@@ -22,16 +22,13 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local wibox = require('wibox')
-local mat_list_item = require('widget.material.list-item')
-local mat_slider = require('widget.material.slider')
-local mat_icon_button = require('widget.material.icon-button')
-local clickable_container = require('widget.material.clickable-container')
-local icons = require('theme.icons')
-local awful = require('awful')
-local spawn = require('awful.spawn')
-local config = require('config')
+local wibox = require("wibox")
+local mat_list_item = require("widget.material.list-item")
+local mat_slider = require("widget.material.slider")
+local mat_icon_button = require("widget.material.icon-button")
+local icons = require("theme.icons")
+local awful = require("awful")
+local spawn = require("awful.spawn")
 
 local slider =
   wibox.widget {
@@ -41,16 +38,16 @@ local slider =
 
 _G.brightness1 = slider
 slider:connect_signal(
-  'property::value',
+  "property::value",
   function()
     if (_G.menuopened) then
-        _G.brightness2:set_value(slider.value)
+      _G.brightness2:set_value(slider.value)
     end
     if (_G.oled) then
-        spawn('brightness -s ' .. math.max(slider.value, 5) .. ' -F') -- toggle pixel values
+      spawn("brightness -s " .. math.max(slider.value, 5) .. " -F") -- toggle pixel values
     else
-        spawn('brightness -s 100 -F') -- reset pixel values
-        spawn('brightness -s ' .. math.max(slider.value, 5))
+      spawn("brightness -s 100 -F") -- reset pixel values
+      spawn("brightness -s " .. math.max(slider.value, 5))
     end
   end
 )
@@ -59,14 +56,15 @@ local update = function()
   awful.spawn.easy_async_with_shell(
     [[grep -q on ~/.cache/oled && brightness -g -F || brightness -g]],
     function(stdout)
-      local brightness = string.match(stdout, '(%d+)')
+      local brightness = string.match(stdout, "(%d+)")
       slider:set_value(tonumber(brightness))
-      collectgarbage('collect')
-    end)
+      collectgarbage("collect")
+    end
+  )
 end
 
 awesome.connect_signal(
-	'widget::brightness',
+  "widget::brightness",
   function(value)
     update()
   end
@@ -74,10 +72,10 @@ awesome.connect_signal(
 
 -- The emit will come from the OSD
 awesome.connect_signal(
-	'widget::brightness:update',
-	function(value)
-		 slider:set_value(tonumber(value))
-	end
+  "widget::brightness:update",
+  function(value)
+    slider:set_value(tonumber(value))
+  end
 )
 
 local icon =

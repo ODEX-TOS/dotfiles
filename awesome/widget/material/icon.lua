@@ -22,14 +22,13 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
 -- Default widget requirements
-local base = require('wibox.widget.base')
-local gtable = require('gears.table')
+local base = require("wibox.widget.base")
+local gtable = require("gears.table")
 local setmetatable = setmetatable
 
 -- Commons requirements
-local wibox = require('wibox')
+local wibox = require("wibox")
 
 -- Local declarations
 
@@ -70,7 +69,7 @@ end
 
 function mat_list_item:set_size(size)
   self._private.size = size
-  self:emit_signal('widget::layout_changed')
+  self:emit_signal("widget::layout_changed")
 end
 
 function mat_list_item:get_size()

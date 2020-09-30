@@ -3,33 +3,38 @@
 -- End users should add their plugins in that directory
 -- Following that there is a plugins.conf file inside .config/tos/plugins.conf
 -- This file describes which plugins should be loaded
-local dirExists = require('helper.file').dir_exists
+local dirExists = require("helper.file").dir_exists
 local naughty = require("naughty")
 local ERROR = require("helper.logger").error
 
-function getItem(item)
+local function getItem(item)
     return plugins[item] or nil
 end
 
-function inValidPlugin(name, msg)
+local function inValidPlugin(name, msg)
     print("Plugin " .. name .. " is not valid!")
     print(name .. " returned: " .. msg)
     -- notify the user that a wrong plugin was entered
-    naughty.notify({ text = 'Plugin <span weight="bold">' .. name .."</span>" .. msg,
-                     timeout = 5,
-                     screen = mouse.screen,
-                     urgency = "critical",
-                     })
+    naughty.notify(
+        {
+            text = 'Plugin <span weight="bold">' .. name .. "</span>" .. msg,
+            timeout = 5,
+            screen = mouse.screen,
+            urgency = "critical"
+        }
+    )
 end
 
-function prequire(lib)
+local function prequire(lib)
     local status, lib = pcall(require, lib)
-    if(status) then return lib end
+    if (status) then
+        return lib
+    end
     print(lib, ERROR)
     return nil
 end
 
-function getPluginSection(section)
+local function getPluginSection(section)
     local section = section .. "_"
     local iterator = {}
     local i = 0
@@ -40,19 +45,22 @@ function getPluginSection(section)
             -- only require plugin if it exists
             -- otherwise the user entered a wrong pluging
             -- system plugins are also accepted and start with widget.
-            if getItem(name):find("^widget.") or dirExists(os.getenv('HOME') .. "/.config/tde/" .. getItem(name))  then
+            if getItem(name):find("^widget.") or dirExists(os.getenv("HOME") .. "/.config/tde/" .. getItem(name)) then
                 local plugin = prequire(getItem(name))
-                if(plugin) then
+                if (plugin) then
                     table.insert(iterator, plugin)
                     print("Plugin " .. name .. " is loaded in!")
                 else
-                    inValidPlugin(name, "Errored out while loading. Make sure your plugins is the latest version and supports the latest TDE build.")
+                    inValidPlugin(
+                        name,
+                        "Errored out while loading. Make sure your plugins is the latest version and supports the latest TDE build."
+                    )
                 end
             else
                 inValidPlugin(name, "Not found. Make sure it is present in  ~/.config/tde/" .. name .. "/init.lua")
             end
-        else 
-        return iterator
+        else
+            return iterator
         end
     end
 end

@@ -22,16 +22,13 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-local wibox = require('wibox')
-local mat_list_item = require('widget.material.list-item')
-local mat_slider = require('widget.material.slider')
-local mat_icon_button = require('widget.material.icon-button')
-local clickable_container = require('widget.material.clickable-container')
-local icons = require('theme.icons')
-local watch = require('awful.widget.watch')
-local spawn = require('awful.spawn')
-local awful = require('awful')
+local wibox = require("wibox")
+local mat_list_item = require("widget.material.list-item")
+local mat_slider = require("widget.material.slider")
+local mat_icon_button = require("widget.material.icon-button")
+local icons = require("theme.icons")
+local spawn = require("awful.spawn")
+local awful = require("awful")
 
 local slider_osd =
   wibox.widget {
@@ -40,25 +37,25 @@ local slider_osd =
 }
 _G.brightness2 = slider_osd
 slider_osd:connect_signal(
-  'property::value',
+  "property::value",
   function()
     if (_G.menuopened) then
-        awesome.emit_signal('widget::brightness:update', slider_osd.value)
+      awesome.emit_signal("widget::brightness:update", slider_osd.value)
     end
     if (_G.oled) then
-        spawn('brightness -s ' .. math.max(slider_osd.value, 5) .. ' -F') -- toggle pixel values
+      spawn("brightness -s " .. math.max(slider_osd.value, 5) .. " -F") -- toggle pixel values
     else
-        spawn('brightness -s 100 -F') -- reset pixel values
-        spawn('brightness -s ' .. math.max(slider_osd.value, 5))
+      spawn("brightness -s 100 -F") -- reset pixel values
+      spawn("brightness -s " .. math.max(slider_osd.value, 5))
     end
   end
 )
 
 slider_osd:connect_signal(
-  'button::press',
+  "button::press",
   function()
     slider_osd:connect_signal(
-      'property::value',
+      "property::value",
       function()
         _G.toggleBriOSD(true)
       end
@@ -68,18 +65,23 @@ slider_osd:connect_signal(
 
 function UpdateBrOSD()
   if (_G.oled) then
-    awful.spawn.easy_async_with_shell("brightness -g -F", function( stdout )
-        local brightness = string.match(stdout, '(%d+)')
+    awful.spawn.easy_async_with_shell(
+      "brightness -g -F",
+      function(stdout)
+        local brightness = string.match(stdout, "(%d+)")
         slider_osd:set_value(tonumber(brightness))
-    end) 
+      end
+    )
   else
-    awful.spawn.easy_async_with_shell("brightness -g", function( stdout )
-        local brightness = string.match(stdout, '(%d+)')
+    awful.spawn.easy_async_with_shell(
+      "brightness -g",
+      function(stdout)
+        local brightness = string.match(stdout, "(%d+)")
         slider_osd:set_value(tonumber(brightness))
-    end)
+      end
+    )
   end
 end
-
 
 local icon =
   wibox.widget {

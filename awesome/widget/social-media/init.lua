@@ -22,21 +22,17 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local awful = require("awful")
+local wibox = require("wibox")
+local gears = require("gears")
+local dpi = require("beautiful").xresources.apply_dpi
 
+local beautiful = require("beautiful")
 
-local awful = require('awful')
-local naughty = require('naughty')
-local watch = require('awful.widget.watch')
-local wibox = require('wibox')
-local gears = require('gears')
-local dpi = require('beautiful').xresources.apply_dpi
+local clickable_container = require("widget.material.clickable-container")
 
-local beautiful = require('beautiful')
-
-local clickable_container = require('widget.material.clickable-container')
-
-local PATH_TO_ICONS = '/etc/xdg/awesome/widget/social-media/icons/'
-local theme = require('theme.icons.dark-light')
+local PATH_TO_ICONS = "/etc/xdg/awesome/widget/social-media/icons/"
+local theme = require("theme.icons.dark-light")
 
 -- Generate widget with background
 local genWidget = function(widgets)
@@ -45,37 +41,29 @@ local genWidget = function(widgets)
       widgets,
       bg = beautiful.bg_modal,
       shape = function(cr, width, height)
-       gears.shape.rounded_rect(cr, width, height, 12) end,
-      widget = wibox.container.background,
+        gears.shape.rounded_rect(cr, width, height, 12)
+      end,
+      widget = wibox.container.background
     },
     margins = dpi(10),
-    widget = wibox.container.margin,
-}
+    widget = wibox.container.margin
+  }
 end
 
-social_header = wibox.widget {
-  text   = "Social Media",
-  font   = 'SFNS Display Regular 14',
-  align  = 'center',
-  valign = 'center',
+social_header =
+  wibox.widget {
+  text = "Social Media",
+  font = "SFNS Display Regular 14",
+  align = "center",
+  valign = "center",
   widget = wibox.widget.textbox
-}
-
-
-local separator = wibox.widget {
-  orientation = 'horizontal',
-  forced_height = 1,
-  span_ratio = 1.0,
-  opacity = 0.90,
-  color = beautiful.bg_modal,
-  widget = wibox.widget.separator
 }
 
 local reddit_widget =
   wibox.widget {
   {
-    id = 'icon',
-    image = theme(PATH_TO_ICONS .. 'reddit' .. '.svg'),
+    id = "icon",
+    image = theme(PATH_TO_ICONS .. "reddit" .. ".svg"),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -90,18 +78,22 @@ reddit_button:buttons(
       1,
       nil,
       function()
-        awful.spawn.easy_async_with_shell("xdg-open https://reddit.com", function(stderr) end, 1)
+        awful.spawn.easy_async_with_shell(
+          "xdg-open https://reddit.com",
+          function(stderr)
+          end,
+          1
+        )
       end
     )
   )
 )
 
-
 local facebook_widget =
   wibox.widget {
   {
-    id = 'icon',
-    image = theme(PATH_TO_ICONS .. 'facebook' .. '.svg'),
+    id = "icon",
+    image = theme(PATH_TO_ICONS .. "facebook" .. ".svg"),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -116,7 +108,12 @@ facebook_button:buttons(
       1,
       nil,
       function()
-        awful.spawn.easy_async_with_shell("xdg-open https://facebook.com", function(stderr) end, 1)
+        awful.spawn.easy_async_with_shell(
+          "xdg-open https://facebook.com",
+          function(stderr)
+          end,
+          1
+        )
       end
     )
   )
@@ -124,8 +121,8 @@ facebook_button:buttons(
 local twitter_widget =
   wibox.widget {
   {
-    id = 'icon',
-    image = theme(PATH_TO_ICONS .. 'twitter' .. '.svg'),
+    id = "icon",
+    image = theme(PATH_TO_ICONS .. "twitter" .. ".svg"),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -140,7 +137,12 @@ twitter_button:buttons(
       1,
       nil,
       function()
-        awful.spawn.easy_async_with_shell("xdg-open https://twitter.com", function(stderr) end, 1)
+        awful.spawn.easy_async_with_shell(
+          "xdg-open https://twitter.com",
+          function(stderr)
+          end,
+          1
+        )
       end
     )
   )
@@ -148,8 +150,8 @@ twitter_button:buttons(
 local instagram_widget =
   wibox.widget {
   {
-    id = 'icon',
-    image = theme(PATH_TO_ICONS .. 'instagram' .. '.svg'),
+    id = "icon",
+    image = theme(PATH_TO_ICONS .. "instagram" .. ".svg"),
     widget = wibox.widget.imagebox,
     resize = true
   },
@@ -164,58 +166,67 @@ instagram_button:buttons(
       1,
       nil,
       function()
-        awful.spawn.easy_async_with_shell("xdg-open https://instagram.com", function(stderr) end, 1)
+        awful.spawn.easy_async_with_shell(
+          "xdg-open https://instagram.com",
+          function(stderr)
+          end,
+          1
+        )
       end
     )
   )
 )
 
-local social_layout = wibox.widget {
+local social_layout =
+  wibox.widget {
   layout = wibox.layout.fixed.horizontal,
   spacing = dpi(25),
   genWidget(facebook_button),
   genWidget(reddit_button),
   genWidget(twitter_button),
-  genWidget(instagram_button),
+  genWidget(instagram_button)
 }
 
-local social =  wibox.widget {
-    expand = 'none',
-    layout = wibox.layout.fixed.vertical,
+local social =
+  wibox.widget {
+  expand = "none",
+  layout = wibox.layout.fixed.vertical,
+  {
     {
-      {
-        wibox.container.margin(social_header, dpi(10), dpi(10), dpi(10), dpi(10)),
-        bg = beautiful.bg_modal_title,
-        shape = function(cr, width, height)
-          gears.shape.partially_rounded_rect(cr, width, height, true, true, false, false, 6) end,
-        widget = wibox.container.background,
-      },
-      layout = wibox.layout.fixed.vertical,
-    },
-    {
-      {
-        {
-          expand = "none",
-          layout = wibox.layout.align.horizontal,
-          {
-            layout = wibox.layout.fixed.horizontal,
-            nil,
-          },
-          social_layout,
-          {
-            layout = wibox.layout.fixed.horizontal,
-            nil,
-          },
-        },
-        margins = dpi(5),
-        widget = wibox.container.margin,
-      },
-      forced_height = dpi(60),
-      bg = beautiful.bg_modal,
+      wibox.container.margin(social_header, dpi(10), dpi(10), dpi(10), dpi(10)),
+      bg = beautiful.bg_modal_title,
       shape = function(cr, width, height)
-        gears.shape.partially_rounded_rect(cr, width, height, false, false, true, true, 6) end,
+        gears.shape.partially_rounded_rect(cr, width, height, true, true, false, false, 6)
+      end,
       widget = wibox.container.background
     },
+    layout = wibox.layout.fixed.vertical
+  },
+  {
+    {
+      {
+        expand = "none",
+        layout = wibox.layout.align.horizontal,
+        {
+          layout = wibox.layout.fixed.horizontal,
+          nil
+        },
+        social_layout,
+        {
+          layout = wibox.layout.fixed.horizontal,
+          nil
+        }
+      },
+      margins = dpi(5),
+      widget = wibox.container.margin
+    },
+    forced_height = dpi(60),
+    bg = beautiful.bg_modal,
+    shape = function(cr, width, height)
+      gears.shape.partially_rounded_rect(cr, width, height, false, false, true, true, 6)
+    end,
+    widget = wibox.container.background
   }
+}
 
 return social

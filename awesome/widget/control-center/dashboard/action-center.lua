@@ -22,30 +22,29 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local wibox = require("wibox")
+local mat_list_item = require("widget.material.list-item")
+local beautiful = require("beautiful")
 
-local wibox = require('wibox')
-local gears = require('gears')
-local mat_list_item = require('widget.material.list-item')
-local beautiful = require('beautiful')
-
-local separator = wibox.widget {
-  orientation = 'vertical',
+local separator =
+  wibox.widget {
+  orientation = "vertical",
   forced_height = 16,
   opacity = 0.00,
   widget = wibox.widget.separator
 }
 
-local actionTitle = wibox.widget {
-  text = 'Action Center',
-  font = 'Iosevka Regular 10',
-  align = 'left',
+local actionTitle =
+  wibox.widget {
+  text = "Action Center",
+  font = "Iosevka Regular 10",
+  align = "left",
   widget = wibox.widget.textbox
 }
 
-local actionWidget = require('widget.action-center')
+local actionWidget = require("widget.action-center")
 
-
-return wibox.widget{
+return wibox.widget {
   spacing = 1,
   wibox.widget {
     wibox.widget {
@@ -54,30 +53,12 @@ return wibox.widget{
       bg = beautiful.bg_modal_title,
       layout = wibox.layout.fixed.vertical
     },
-    widget = mat_list_item,
+    widget = mat_list_item
   },
   layout = wibox.layout.fixed.vertical,
   {
     actionWidget,
     bg = beautiful.bg_modal,
     layout = wibox.layout.align.vertical
-   }
+  }
 }
-
--- return wibox.widget {
---   wibox.widget {
---     wibox.widget {
---       actionTitle,
---       bg = '#ffffff20',
---       layout = wibox.layout.fixed.vertical
---     },
---
---     widget = mat_list_item,
---   },
---   layout = wibox.layout.align.vertical,
---   {
---
---     actionWidget,
---     layout = wibox.layout.align.vertical
---   }
--- }

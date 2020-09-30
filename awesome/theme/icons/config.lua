@@ -22,5 +22,4 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
-
-return require('parser')(require('config').icons_config)
+return require("parser")(require("config").icons_config)

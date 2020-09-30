@@ -1,9 +1,9 @@
 --- Separating Multiple Monitor functions as a separeted module (taken from awesome wiki)
 -- TODO: add a display duplication option
-local gtable  = require("gears.table")
-local awful   = require("awful")
+local gtable = require("gears.table")
+local awful = require("awful")
 local naughty = require("naughty")
-local apps    = require("configuration.apps")
+local apps = require("configuration.apps")
 
 -- A path to a fancy icon
 local icon_path = "/etc/xdg/awesome/theme/icons/laptop.svg"
@@ -18,7 +18,7 @@ local function outputs()
          local output = line:match("^([%w-]+) connected ")
          if output then
             outputs[#outputs + 1] = output
-                                   end
+         end
       end
       xrandr:close()
    end
@@ -29,8 +29,8 @@ end
 local function arrange(out)
    -- We need to enumerate all permutations of horizontal outputs.
 
-   local choices  = {}
-   local previous = { {} }
+   local choices = {}
+   local previous = {{}}
    for i = 1, #out do
       -- Find all permutation of length `i`: we take the permutation
       -- of length `i-1` and for each of them, we create new
@@ -64,7 +64,7 @@ local function menu()
          -- set default resolution and disable panning (in case it is on)
          cmd = cmd .. " --output " .. o .. " --panning 0x0 --auto"
          if i > 1 then
-            cmd = cmd .. " --right-of " .. choice[i-1]
+            cmd = cmd .. " --right-of " .. choice[i - 1]
          end
          -- duplicate command due to xrandr bug?
          cmd = cmd .. "; sleep 1; " .. cmd
@@ -78,17 +78,22 @@ local function menu()
 
       local label = ""
       if #choice == 1 then
-         label = 'Only <span weight="bold">' .. choice[1] .. '</span>'
+         label = 'Only <span weight="bold">' .. choice[1] .. "</span>"
       else
          for i, o in pairs(choice) do
-            if i > 1 then label = label .. " + " end
-            label = label .. '<span weight="bold">' .. o .. '</span>'
+            if i > 1 then
+               label = label .. " + "
+            end
+            label = label .. '<span weight="bold">' .. o .. "</span>"
          end
       end
 
-      menu[#menu + 1] = { label, cmd }
+      menu[#menu + 1] = {label, cmd}
       if #choice == 1 then
-         menu[#menu + 1] = { 'Duplicate <span weight="bold">' .. choice[1] .. '</span>' ,  apps.default.duplicate_screens .. ' ' .. choice[1] }
+         menu[#menu + 1] = {
+            'Duplicate <span weight="bold">' .. choice[1] .. "</span>",
+            apps.default.duplicate_screens .. " " .. choice[1]
+         }
       end
    end
 
@@ -96,16 +101,19 @@ local function menu()
 end
 
 -- Display xrandr notifications from choices
-local state = { cid = nil }
+local state = {cid = nil}
 
 local function naughty_destroy_callback(reason)
-    local action = state.index and state.menu[state.index - 1][2]
-    if action then
-      awful.spawn.easy_async_with_shell(action, function()
-         _G.awesome.restart()
-      end)
+   local action = state.index and state.menu[state.index - 1][2]
+   if action then
+      awful.spawn.easy_async_with_shell(
+         action,
+         function()
+            _G.awesome.restart()
+         end
+      )
       state.index = nil
-    end
+   end
 end
 
 local function xrandr()
@@ -119,7 +127,7 @@ local function xrandr()
 
    -- Select one and display the appropriate notification
    local label, action
-   local next  = state.menu[state.index]
+   local next = state.menu[state.index]
    state.index = state.index + 1
 
    if not next then
@@ -129,11 +137,16 @@ local function xrandr()
       label, action = next[1], next[2]
    end
    print("Display mode: " .. label)
-   local noti = naughty.notify({ text = label,
-                                icon = icon_path,
-                                timeout = 4,
-                                screen = mouse.screen,
-                                replaces_id = state.cid})
+   local noti =
+      naughty.notify(
+      {
+         text = label,
+         icon = icon_path,
+         timeout = 4,
+         screen = mouse.screen,
+         replaces_id = state.cid
+      }
+   )
    noti:connect_signal("destroyed", naughty_destroy_callback)
    state.cid = noti.id
 end

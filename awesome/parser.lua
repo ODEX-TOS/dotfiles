@@ -24,15 +24,15 @@
 ]]
 local file_exists = require("helper.file").exists
 
-
-
-function split (inputstr, sep)
+function split(inputstr, sep)
     if sep == nil then
         sep = "%s"
     end
-    local t={}
-    if inputstr == nil then return t; end
-    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+    local t = {}
+    if inputstr == nil then
+        return t
+    end
+    for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
         table.insert(t, str)
     end
     return t
@@ -40,15 +40,17 @@ end
 
 function extract(line)
     local splitted = split(line, "=")
-    if splitted[1] == nil or splitted[2] == nil then return nil end
-    return splitted[1]:gsub("%s+", ""), splitted[2]:gsub("%s+", ""):gsub("\"", ""):gsub("'", ""):gsub("`", "")
+    if splitted[1] == nil or splitted[2] == nil then
+        return nil
+    end
+    return splitted[1]:gsub("%s+", ""), splitted[2]:gsub("%s+", ""):gsub('"', ""):gsub("'", ""):gsub("`", "")
 end
 
 function parse_file(file)
     local lines = {}
     for line in io.lines(file) do
-        if not (line:sub(1,1) == "#") then
-            line = split(line,"#")[1]
+        if not (line:sub(1, 1) == "#") then
+            line = split(line, "#")[1]
             local data, payload = extract(line)
             if not (data == nil) then
                 lines[data] = payload
@@ -58,12 +60,12 @@ function parse_file(file)
     return lines
 end
 
-return function (file)
+return function(file)
     print("Parsing file: " .. file)
     if file_exists(file) then
-     local result = parse_file(file)
-     print("Finished parsing file: " .. file)
-     return result
+        local result = parse_file(file)
+        print("Finished parsing file: " .. file)
+        return result
     end
     return {}
 end

@@ -22,11 +22,10 @@
 --OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 --SOFTWARE.
 ]]
+local spawn = require("awful.spawn")
+local app = require("configuration.apps").default.quake
 
-local spawn = require('awful.spawn')
-local app = require('configuration.apps').default.quake
-
-local quake_id = 'notnil'
+local quake_id = "notnil"
 local quake_client
 local opened = false
 function create_shell()
@@ -63,7 +62,7 @@ toggle_quake = function()
 end
 
 _G.client.connect_signal(
-  'manage',
+  "manage",
   function(c)
     if (c.pid == quake_id) then
       quake_client = c
@@ -78,13 +77,13 @@ _G.client.connect_signal(
       c.above = true
       c.sticky = true
       c.hidden = not opened
-      --c.maximized_horizontal = true
+    --c.maximized_horizontal = true
     end
   end
 )
 
 _G.client.connect_signal(
-  'unmanage',
+  "unmanage",
   function(c)
     if (c.pid == quake_id) then
       opened = false
