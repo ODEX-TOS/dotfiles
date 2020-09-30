@@ -34,7 +34,7 @@ local catcher_trace_level = 4
 -- @field release  Sets the release id for message, defaults to `SENTRY_RELEASE`
 -- @table sentry_conf
 
-local TDE_mt = { }
+local TDE_mt = {}
 TDE_mt.__index = TDE_mt
 
 -- utility function to deal errors, xpcall and stack traces
@@ -46,7 +46,7 @@ TDE_mt.__index = TDE_mt
 local err_mt = {
     __tostring = function(self)
         return self.message
-    end,
+    end
 }
 
 -- return a string detailing the function running at a stack level
@@ -66,7 +66,6 @@ end
 
 -- return the line, pre and post line information
 local function fileinfo(file, lineno)
-
     if not filehandle.exists(file) then
         return nil, nil, nil
     end
@@ -81,19 +80,18 @@ local function fileinfo(file, lineno)
     local post = {}
 
     if lineno < size then
-        pre = { table.unpack( lines, 1, lineno - 1 ) }
+        pre = {table.unpack(lines, 1, lineno - 1)}
     else
-        pre = { table.unpack( lines, lineno - size, lineno - 1 ) }
+        pre = {table.unpack(lines, lineno - size, lineno - 1)}
     end
 
     if (lineno + size) > #lines then
-        post = { table.unpack( lines, lineno + 1, #lines ) }
+        post = {table.unpack(lines, lineno + 1, #lines)}
     else
-        post = { table.unpack( lines, lineno + 1, lineno + size ) }
+        post = {table.unpack(lines, lineno + 1, lineno + size)}
     end
 
     return line, pre, post
-
 end
 
 -- it is in app if the filename is not /usr/share/awesome
@@ -104,62 +102,82 @@ local function isInApp(filename)
     return result
 end
 
+-- returns if the given file is a plugin or not
+local function isInPlugin(filename)
+    -- find the base plugin directory
+    basePluginDir = os.getenv("HOME") .. "/.config/tde/"
+    return filename:sub(1, #basePluginDir) == basePluginDir
+end
+
 local function backtrace(level)
     local frames = {}
 
     level = level + 1
-
+    local isPlugin = false
     while true do
         -- +3 is done because we offset the stacktrace by 3 function (all of which are used to log the error and are not related to the error itself)
         local info = debug_getinfo(level + 3, "Snl")
         if not info then
             break
         end
+
+        if isInPlugin(info.short_src) then
+            isPlugin = true
+        end
+
         local line, pre, post = fileinfo(info.short_src, info.currentline)
-        table_insert(frames, 1, {
-            filename = info.short_src,
-            ["function"] = info.name,
-            lineno = info.currentline,
-            context_line = line,
-            pre_context = pre,
-            post_context = post,
-            in_app = isInApp(info.short_src)
-        })
+        table_insert(
+            frames,
+            1,
+            {
+                filename = info.short_src,
+                ["function"] = info.name,
+                lineno = info.currentline,
+                context_line = line,
+                pre_context = pre,
+                post_context = post,
+                in_app = isInApp(info.short_src)
+            }
+        )
 
         level = level + 1
     end
-    return { frames = frames }
+    print("Is in plugin?: " .. tostring(isPlugin))
+    return {frames = frames}, isPlugin
 end
 
 -- error_catcher: used to catch an error from xpcall and return a correct
 -- error message
 local function error_catcher(err)
+    local trace, plugin = backtrace(catcher_trace_level)
     return {
         message = err,
         culprit = get_culprit(catcher_trace_level),
-        exception = { {
-            value = err,
-            stacktrace = backtrace(catcher_trace_level),
-        } },
+        exception = {
+            {
+                value = err,
+                stacktrace = trace
+            }
+        }
     }
 end
 
 -- a wrapper around error_catcher that will return something even if
 -- error_catcher itself crashes
 local function capture_error_handler(err)
-     local ok, json_exception = pcall(error_catcher, err)
-     if not ok then
-         -- when failed, json_exception is error message
-         util.errlog('failed to run exception catcher: ' .. tostring(json_exception))
-         -- try to return something anyway (error message with no culprit and
-         -- no stacktrace
-         json_exception = {
-             message = err,
-             culprit = '???',
-             exception = { { value=err } },
-         }
-     end
-     return setmetatable(json_exception, err_mt)
+    local ok, json_exception = pcall(error_catcher, err)
+    if not ok then
+        -- when failed, json_exception is error message
+        util.errlog("failed to run exception catcher: " .. tostring(json_exception))
+        -- try to return something anyway (error message with no culprit and
+        -- no stacktrace
+        json_exception = {
+            message = err,
+            culprit = "???",
+            exception = {{value = err}}
+        }
+    end
+    return setmetatable(json_exception, err_mt)
 end
 _M.capture_error_handler = capture_error_handler
 
@@ -183,10 +201,10 @@ function _M.new(conf)
         sender = assert(conf.sender, "sender is required"),
         level = conf.level or "error",
         logger = conf.logger or "root",
-        release = conf.release or os.getenv('SENTRY_RELEASE'),
+        release = conf.release or os.getenv("SENTRY_RELEASE"),
         environment = conf.environment or os.getenv("SENTRY_ENVIRONMENT"),
         tags = conf.tags or nil,
-        extra = conf.extra or nil,
+        extra = conf.extra or nil
     }
 
     return setmetatable(obj, TDE_mt)
@@ -197,6 +215,20 @@ end
 -- to override this to something more sensible.
 function _M.get_server_name()
     return os.getenv("USER")
+end
+
+local function merge_tables(msg, root)
+    if not root then
+        return msg
+    elseif not msg then
+        return root
+    end
+
+    -- both table exist, merge root into msg
+    for k, v in pairs(root) do
+        msg[k] = msg[k] or v
+    end
+    return msg
 end
 
 --- This table can be used to tune the message reporting.
@@ -212,7 +244,6 @@ end
 --  level of `1` is means that the direct caller will be reported as culprit.
 --
 -- @table report_conf
-
 
 --- A TDE client instance is responsible to collect events and send them
 -- using the associated sender object.
@@ -245,7 +276,7 @@ end
 function TDE_mt:captureException(exception, conf)
     local trace_level
     if not conf then
-        conf = { trace_level = 2 }
+        conf = {trace_level = 2}
     elseif not conf.trace_level then
         conf.trace_level = 2
     else
@@ -253,12 +284,20 @@ function TDE_mt:captureException(exception, conf)
     end
 
     trace_level = conf.trace_level
-    exception[1].stacktrace = backtrace(trace_level)
+    local trace, plugin = backtrace(trace_level)
+
+    if plugin then
+        conf.tags = merge_tables({application_type = "plugin"}, conf.tags)
+    else
+        conf.tags = merge_tables({application_type = "tde-main"}, conf.tags)
+    end
+
+    exception[1].stacktrace = trace
 
     local payload = {
         exception = exception,
         message = exception[1].value,
-        culprit = get_culprit(trace_level),
+        culprit = get_culprit(trace_level)
     }
 
     -- because whether tail call will or will not appear in the stack back trace
@@ -285,7 +324,7 @@ end
 --     { tags = { foo = "bar", abc = "def" }})
 function TDE_mt:captureMessage(message, conf)
     if not conf then
-        conf = { trace_level = 2 }
+        conf = {trace_level = 2}
     elseif not conf.trace_level then
         conf.trace_level = 2
     else
@@ -294,7 +333,7 @@ function TDE_mt:captureMessage(message, conf)
 
     local payload = {
         message = message,
-        culprit = get_culprit(conf.trace_level),
+        culprit = get_culprit(conf.trace_level)
     }
 
     local id, err = self:send_report(payload, conf)
@@ -308,20 +347,6 @@ TDE_mt.capture_exception = TDE_mt.captureException
 --- Ailas of @{TDE:captureMessage}.
 -- @function TDE:capture_message
 TDE_mt.capture_message = TDE_mt.captureMessage
-
-local function merge_tables(msg, root)
-    if not root then
-        return msg
-    elseif not msg then
-        return root
-    end
-
-    -- both table exist, merge root into msg
-    for k, v in pairs(root) do
-        msg[k] = msg[k] or v
-    end
-    return msg
-end
 
 --- Send directly a report to Sentry.
 -- This is an internal function, you should not call it directly, use
@@ -347,12 +372,12 @@ function TDE_mt:send_report(json, conf)
         end
     end
 
-    json.event_id    = event_id
-    json.timestamp   = iso8601()
-    json.level       = self.level
-    json.platform    = "lua"
-    json.logger      = self.logger
-    json.release     = self.release
+    json.event_id = event_id
+    json.timestamp = iso8601()
+    json.level = self.level
+    json.platform = "lua"
+    json.logger = self.logger
+    json.release = self.release
     json.environment = self.environment
 
     if conf then
@@ -373,7 +398,7 @@ function TDE_mt:send_report(json, conf)
     local ok, err = self.sender:send(json_str)
 
     if not ok then
-        util.errlog("Failed to send to Sentry: ", err, " ",  json_str)
+        util.errlog("Failed to send to Sentry: ", err, " ", json_str)
         return nil, err
     end
     return json.event_id
@@ -406,7 +431,7 @@ function TDE_mt:call(f, ...)
     -- When used with ngx_lua, connecting a tcp socket in xpcall error handler
     -- will cause a "yield across C-call boundary" error. To avoid this, we
     -- move all the network operations outside of the xpcall error handler.
-    local res = { xpcall(f, capture_error_handler, ...) }
+    local res = {xpcall(f, capture_error_handler, ...)}
     if not res[1] then
         self:send_report(res[2])
         res[2] = res[2].message -- turn the error object back to its initial form
@@ -441,6 +466,5 @@ end
 function TDE_mt:gen_capture_err() -- luacheck: ignore self
     return capture_error_handler
 end
-
 
 return _M
