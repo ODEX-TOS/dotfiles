@@ -151,8 +151,6 @@ local right_panel = function(screen)
     panel_visible = false
     panel.visible = false
     backdrop.visible = false
-    -- Change to notif mode on close
-    _G.switch_mode("notif_mode")
     grabber:stop()
     panel:emit_signal("closed")
   end
