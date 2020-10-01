@@ -35,6 +35,7 @@ local function prequire(lib)
 end
 
 local function getPluginSection(section)
+    print(section .. " plugin loading started")
     local section = section .. "_"
     local iterator = {}
     local i = 0
@@ -60,9 +61,11 @@ local function getPluginSection(section)
                 inValidPlugin(name, "Not found. Make sure it is present in  ~/.config/tde/" .. name .. "/init.lua")
             end
         else
+            print(section .. " plugin loading ended")
             return iterator
         end
     end
+    print(section .. " plugin loading ended")
 end
 
 return getPluginSection
