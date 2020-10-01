@@ -33,9 +33,7 @@ local clickable_container = require("widget.material.clickable-container")
 local scrollbar = require("widget.scrollbar")
 
 -- load the notification plugins
-print("notification plugin loading started")
 local plugins = require("helper.plugin-loader")("notification")
-print("Done loading notification plugins")
 
 local function notification_plugin()
   local table_widget =

@@ -37,9 +37,7 @@ local mat_icon = require("widget.material.icon")
 
 left_panel_visible = false
 
-print("settings plugin loading started")
 local plugins = require("helper.plugin-loader")("settings")
-print("Done loading settings plugins")
 
 local left_panel_func = function(screen)
   -- set the panel width equal to the rofi settings
@@ -447,7 +445,7 @@ local left_panel_func = function(screen)
               wibox.widget {
                 exit_button,
                 bg = beautiful.bg_modal,
-                 --beautiful.background.hue_800,
+                --beautiful.background.hue_800,
                 widget = wibox.container.background,
                 shape = function(cr, w, h)
                   gears.shape.rounded_rect(cr, w, h, 12)

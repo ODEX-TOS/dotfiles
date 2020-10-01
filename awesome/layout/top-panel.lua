@@ -35,10 +35,10 @@ local dpi = require("beautiful").xresources.apply_dpi
 
 local icons = require("theme.icons")
 
--- load the notification plugins
-print("topbar plugin loading started")
-local plugins = require("helper.plugin-loader")("topbar")
-print("Done loading topbar plugins")
+-- load the topbar plugins
+local pluginsright = require("helper.plugin-loader")("topbar")
+local pluginscenter = require("helper.plugin-loader")("topbar-center")
+local pluginsleft = require("helper.plugin-loader")("topbar-left")
 
 -- Clock / Calendar 12h format
 local textclock = wibox.widget.textclock('<span font="Roboto bold 10">%l:%M %p</span>')
@@ -130,7 +130,7 @@ awful.screen.connect_for_each_screen(
     s.systray.opacity = 0.3
   end
 )
- --
+--
 
 --[[
 -- Systray Widget
@@ -160,7 +160,7 @@ add_button:buttons(
   )
 )
 
-local function topbar_plugin(s)
+local function topbar_right_plugin(s)
   local table_widget =
     wibox.widget {
     layout = wibox.layout.fixed.horizontal,
@@ -169,7 +169,7 @@ local function topbar_plugin(s)
     wibox.container.margin(s.systray, dpi(14), dpi(0), dpi(4), dpi(4))
   }
 
-  for index, value in ipairs(plugins) do
+  for index, value in ipairs(pluginsright) do
     table_widget:add(
       {
         value,
@@ -186,6 +186,36 @@ local function topbar_plugin(s)
   table_widget:add(show_widget_or_default(require("widget.screen-recorder")(), hardware.hasFFMPEG()))
   table_widget:add(require("widget.search"))
   table_widget:add(require("widget.notification-center"))
+  return table_widget
+end
+
+local function topbar_center_plugin(s)
+  local table_widget =
+    wibox.widget {
+    layout = wibox.layout.fixed.horizontal
+  }
+
+  for index, value in ipairs(pluginscenter) do
+    table_widget:add(value)
+  end
+  table_widget:add(clock_widget)
+  return table_widget
+end
+
+local function topbar_left_plugin(s)
+  local table_widget =
+    wibox.widget {
+    layout = wibox.layout.fixed.horizontal
+  }
+
+  table_widget:add(require("widget.control-center"))
+  table_widget:add(TaskList(s))
+  table_widget:add(add_button)
+
+  for index, value in ipairs(pluginsleft) do
+    table_widget:add(value)
+  end
+
   return table_widget
 end
 
@@ -224,14 +254,10 @@ local TopPanel = function(s, offset, controlCenterOnly)
     {
       layout = wibox.layout.fixed.horizontal,
       -- Create a taglist widget
-      require("widget.control-center"),
-      TaskList(s),
-      add_button
+      topbar_left_plugin(s)
     },
-    -- Create a clock widget
-    -- Clock
-    clock_widget,
-    topbar_plugin(s)
+    topbar_center_plugin(s),
+    topbar_right_plugin(s)
   }
   if controlCenterOnly then
     return require("widget.control-center")
