@@ -35,6 +35,9 @@ local scrollbar = require("widget.scrollbar")
 -- load the notification plugins
 local plugins = require("helper.plugin-loader")("notification")
 
+-- body gets populated with a scrollbar widget once generated
+local body = {}
+
 local function notification_plugin()
   local table_widget =
     wibox.widget {
@@ -153,6 +156,8 @@ local right_panel = function(screen)
     backdrop.visible = false
     grabber:stop()
     panel:emit_signal("closed")
+    -- reset the scrollbar
+    body:reset()
   end
 
   -- Hide this panel when app dashboard is called.
@@ -242,7 +247,7 @@ local right_panel = function(screen)
     widget = wibox.widget.separator
   }
 
-  local body =
+  body =
     scrollbar(
     wibox.widget {
       separator,
