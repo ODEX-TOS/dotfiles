@@ -448,14 +448,13 @@ local left_panel_func = function(screen)
           layout = wibox.layout.fixed.vertical,
           wibox.widget {
             wibox.widget {
-              wibox.widget {
-                exit_button,
-                bg = beautiful.bg_modal,
-                --beautiful.background.hue_800,
-                widget = wibox.container.background,
-                shape = function(cr, w, h)
-                  gears.shape.rounded_rect(cr, w, h, 12)
-                end
+              exit_button,
+              bg = beautiful.bg_modal,
+              --beautiful.background.hue_800,
+              widget = wibox.container.background,
+              shape = function(cr, w, h)
+                gears.shape.rounded_rect(cr, w, h, 12)
+              end
             },
             widget = mat_list_item
           },
