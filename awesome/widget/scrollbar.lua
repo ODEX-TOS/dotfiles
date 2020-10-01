@@ -44,79 +44,6 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
 
     local widget = nil
     local size = 20
-    -- connect signals to get the current status of the scrollbar
-    show:connect_signal(
-        "mouse::enter",
-        function()
-            entered = true
-            pressed = false -- if one leaves the widget while holding the button this will prevent that
-        end
-    )
-
-    show:connect_signal(
-        "mouse::leave",
-        function()
-            entered = false
-        end
-    )
-    show:connect_signal(
-        "button::press",
-        function()
-            pressed = true
-        end
-    )
-
-    show:connect_signal(
-        "button::release",
-        function()
-            pressed = false
-        end
-    )
-    -- end gathering connection details
-
-    function updateCoords()
-        prevx = mouse.coords().x
-        prevy = mouse.coords().y
-    end
-
-    -- Move the prevx and prevy values closer to zero on each iteration
-    function reset()
-        deltax = deltax - (deltax / speed)
-        deltay = deltay - (deltay / speed)
-        move()
-        prevx = nil
-        prevy = nil
-    end
-
-    function move()
-        if (bTopToBottom) then
-            offset = offset + deltay
-        else
-            offset = offset + deltax
-        end
-        if (bIsInverted) then
-            if (offset < 0) then
-                offset = 0
-            end
-            if (bTopToBottom) then
-                widget.top = -offset
-            else
-                widget.left = -offset
-            end
-        else
-            if (offset > 0) then
-                offset = 0
-            end
-            if (offset < -max_scroll) then
-                offset = -max_scroll
-            end
-            if (bTopToBottom) then
-                widget.top = offset
-            else
-                widget.left = offset
-            end
-        end
-    end
 
     for s in screen do
         if ((s.geometry.height / 50) > size) then
@@ -125,6 +52,20 @@ return function(show, speed, offset, fps, bTopToBottom, bIsInverted, max_scroll)
     end
 
     widget = wibox.container.margin(show)
+
+    -- The reset function will put the scrollbar to the top
+    widget.reset = function()
+        -- reset the internal state
+        prevx = nil
+        prevy = nil
+        deltax = 0
+        deltay = 0
+        offset = 0
+
+        -- move the widget back to its original position
+        widget.top = 0
+    end
+
     widget:buttons(
         awful.util.table.join(
             awful.button(

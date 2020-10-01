@@ -37,6 +37,9 @@ local mat_icon = require("widget.material.icon")
 
 left_panel_visible = false
 
+-- body gets populated with a scrollbar widget once generated
+local body = {}
+
 print("settings plugin loading started")
 local plugins = require("helper.plugin-loader")("settings")
 print("Done loading settings plugins")
@@ -105,9 +108,13 @@ local left_panel_func = function(screen)
     left_panel_visible = false
     left_panel.visible = false
     backdrop.visible = false
+
     -- Change to notif mode on close
     grabber:stop()
     left_panel:emit_signal("closed")
+
+    -- reset the scrollbar
+    body:reset()
   end
 
   local action_grabber =
@@ -432,38 +439,41 @@ local left_panel_func = function(screen)
     return table_widget
   end
 
+  body =
+    scrollbar(
+    wibox.widget {
+      layout = wibox.layout.align.vertical,
+      separator,
+      settings_plugin(),
+      wibox.container.margin(
+        {
+          layout = wibox.layout.fixed.vertical,
+          wibox.widget {
+            wibox.widget {
+              exit_button,
+              bg = beautiful.bg_modal,
+              --beautiful.background.hue_800,
+              widget = wibox.container.background,
+              shape = function(cr, w, h)
+                gears.shape.rounded_rect(cr, w, h, 12)
+              end
+            },
+            widget = mat_list_item
+          },
+          bottomSeparator
+        },
+        0,
+        0,
+        dpi(15),
+        dpi(15)
+      )
+    }
+  )
+
   left_panel:setup {
     expand = "none",
     layout = wibox.layout.fixed.vertical,
-    scrollbar(
-      wibox.widget {
-        layout = wibox.layout.align.vertical,
-        separator,
-        settings_plugin(),
-        wibox.container.margin(
-          {
-            layout = wibox.layout.fixed.vertical,
-            wibox.widget {
-              wibox.widget {
-                exit_button,
-                bg = beautiful.bg_modal,
-                 --beautiful.background.hue_800,
-                widget = wibox.container.background,
-                shape = function(cr, w, h)
-                  gears.shape.rounded_rect(cr, w, h, 12)
-                end
-              },
-              widget = mat_list_item
-            },
-            bottomSeparator
-          },
-          0,
-          0,
-          dpi(15),
-          dpi(15)
-        )
-      }
-    )
+    body
   }
 
   return left_panel
