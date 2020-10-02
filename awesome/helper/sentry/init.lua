@@ -109,6 +109,13 @@ local function isInPlugin(filename)
     return filename:sub(1, #basePluginDir) == basePluginDir
 end
 
+local function validateSourceFile(source)
+    if source:sub(1, 1) == "@" then
+        return source:sub(2, #source)
+    end
+    return ""
+end
+
 local function backtrace(level)
     local frames = {}
 
@@ -121,22 +128,24 @@ local function backtrace(level)
             break
         end
 
-        if isInPlugin(info.short_src) then
+        local filename = validateSourceFile(info.source)
+
+        if isInPlugin(filename) then
             isPlugin = true
         end
 
-        local line, pre, post = fileinfo(info.short_src, info.currentline)
+        local line, pre, post = fileinfo(filename, info.currentline)
         table_insert(
             frames,
             1,
             {
-                filename = info.short_src,
+                filename = filename,
                 ["function"] = info.name,
                 lineno = info.currentline,
                 context_line = line,
                 pre_context = pre,
                 post_context = post,
-                in_app = isInApp(info.short_src)
+                in_app = isInApp(filename)
             }
         )
 

@@ -36,7 +36,7 @@ local dpi = require("beautiful").xresources.apply_dpi
 local icons = require("theme.icons")
 
 -- load the topbar plugins
-local pluginsright = require("helper.plugin-loader")("topbar")
+local pluginsright = require("helper.plugin-loader")("topbar-right")
 local pluginscenter = require("helper.plugin-loader")("topbar-center")
 local pluginsleft = require("helper.plugin-loader")("topbar-left")
 
