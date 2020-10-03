@@ -5,7 +5,6 @@
 
 !/.gitignore
 
-!/tde
 
 !/.github
 
@@ -18,23 +17,12 @@
 
 !/.vimrc
 
-!/compton
-
-!/i3
-
 !/rofi
 
-!/mpd
-
-!/polybar
-
-!/.urxvt
 
 !/.oh-my-zsh
 
 !/.Xresources
-
-!/dunst
 
 !/emoji
 
@@ -42,25 +30,14 @@
 
 !/.mozilla
 
-!/sway
 
-!/waybar
-
-!/tos
-tos/theme
-tos/autostart
+!/tos/tos-firefox/
+!/tos/profiles.ini
 
 !/neofetch
 
 !/gtk-3.0
 
-!/openbox
-
-!/awesome
-
-!/.themes
-
-!/index.theme
 
 !libinput-gestures.conf
 
