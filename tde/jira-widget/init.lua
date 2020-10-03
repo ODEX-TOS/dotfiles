@@ -24,6 +24,9 @@ local dpi = require("beautiful").xresources.apply_dpi
 
 local HOME_DIR = os.getenv("HOME")
 
+local host = ""
+local result = {}
+
 local GET_ISSUES_CMD =
     [[bash -c "curl -s --show-error -X GET -n '%s/rest/api/2/search?%s&fields=id,assignee,summary,status'"]]
 local DOWNLOAD_AVATAR_CMD = [[bash -c "curl -n --create-dirs -o  %s/.cache/awmw/jira-widget/avatars/%s %s"]]
@@ -106,7 +109,7 @@ local popup =
     shape = gears.shape.rounded_rect,
     border_width = 1,
     border_color = beautiful.bg_focus,
-    maximum_width = 400,
+    maximum_width = mouse.screen.geometry.width,
     offset = {y = 5},
     widget = {}
 }
@@ -136,11 +139,149 @@ local tooltip =
     preferred_positions = {"bottom"}
 }
 
+local function createRow(issue, host, path_to_avatar)
+    local row =
+        wibox.widget {
+        {
+            {
+                {
+                    {
+                        resize = true,
+                        image = path_to_avatar,
+                        forced_width = dpi(40),
+                        forced_height = dpi(40),
+                        widget = wibox.widget.imagebox
+                    },
+                    margins = 8,
+                    layout = wibox.container.margin
+                },
+                {
+                    {
+                        markup = "<b>" .. issue.key .. "</b>",
+                        align = "center",
+                        forced_width = dpi(350), -- for horizontal alignment
+                        widget = wibox.widget.textbox
+                    },
+                    {
+                        text = issue.fields.summary,
+                        widget = wibox.widget.textbox
+                    },
+                    {
+                        text = issue.fields.status.name,
+                        widget = wibox.widget.textbox
+                    },
+                    layout = wibox.layout.align.vertical
+                },
+                spacing = dpi(8),
+                layout = wibox.layout.fixed.horizontal
+            },
+            margins = dpi(8),
+            layout = wibox.container.margin
+        },
+        bg = beautiful.bg_normal,
+        widget = wibox.container.background
+    }
+
+    row:connect_signal(
+        "mouse::enter",
+        function(c)
+            c:set_bg(beautiful.bg_focus)
+        end
+    )
+    row:connect_signal(
+        "mouse::leave",
+        function(c)
+            c:set_bg(beautiful.bg_normal)
+        end
+    )
+
+    row:buttons(
+        awful.util.table.join(
+            awful.button(
+                {},
+                1,
+                function()
+                    spawn.with_shell("xdg-open " .. host .. "/browse/" .. issue.key)
+                    popup.visible = false
+                    grabber:stop()
+                end
+            )
+        )
+    )
+    return row
+end
+
+local function createRowTable(issues, host)
+    local rows = {
+        {widget = wibox.widget.textbox},
+        layout = wibox.layout.fixed.vertical
+    }
+    for _, issue in ipairs(issues) do
+        local path_to_avatar = HOME_DIR .. "/.config/tde/jira-widget/jira-mark-gradient-blue.svg"
+        if issue.fields.assignee.accountId ~= nil then
+            path_to_avatar = os.getenv("HOME") .. "/.cache/awmw/jira-widget/avatars/" .. issue.fields.assignee.accountId
+
+            if not gfs.file_readable(path_to_avatar) then
+                spawn.easy_async(
+                    string.format(
+                        DOWNLOAD_AVATAR_CMD,
+                        HOME_DIR,
+                        issue.fields.assignee.accountId,
+                        issue.fields.assignee.avatarUrls["48x48"]
+                    )
+                )
+            end
+        end
+        table.insert(rows, createRow(issue, host, path_to_avatar))
+    end
+    return rows
+end
+
+local function createTable(result, host, maxelements)
+    if maxelements == nil then
+        maxelements = #result.issues
+    end
+
+    -- the partial variable hold the result set of one vertical table set
+    local partialIssues = {}
+    local previousTableIndex = 1
+    -- arr holds the information about one vertical table set
+    local arr = {}
+    for index, issue in ipairs(result.issues) do
+        -- get the index in the table
+        local tableIndex = math.ceil(index / maxelements)
+        if not (previousTableIndex == tableIndex) then
+            table.insert(arr, createRowTable(partialIssues, host))
+            -- reset variable for next vertical set
+            partialIssues = {}
+            previousTableIndex = tableIndex
+        end
+        table.insert(partialIssues, issue)
+        print("Inserting issue: " .. issue.key .. " into " .. tableIndex)
+    end
+    table.insert(arr, createRowTable(partialIssues, host))
+    local table_widget =
+        wibox.widget {
+        arr[1],
+        arr[2],
+        layout = wibox.layout.fixed.horizontal
+    }
+    --for _, row in ipairs(arr) do
+    --   table_widget:add(
+    --      {
+    --         row,
+    --        layout = wibox.layout.fixed.vertical
+    --  }
+    --)
+    --end
+    return table_widget
+end
+
 local function worker(args)
     local args = args or {}
 
     local icon = args.icon or HOME_DIR .. "/.config/tde/jira-widget/jira-mark-gradient-blue.svg"
-    local host = args.host or show_warning("Jira host is unknown")
+    host = args.host or show_warning("Jira host is unknown")
     local query = args.query or "jql=assignee=currentuser() AND resolution=Unresolved"
 
     jira_widget:set_icon(icon)
@@ -167,7 +308,7 @@ local function worker(args)
         tooltip:remove_from_object(widget)
         widget:is_everything_ok(true)
 
-        local result = json.decode(stdout)
+        result = json.decode(stdout)
 
         number_of_issues = rawlen(result.issues)
 
@@ -179,105 +320,11 @@ local function worker(args)
         widget:set_visible(true)
         widget:set_text(number_of_issues)
 
-        local rows = {
-            {widget = wibox.widget.textbox},
-            layout = wibox.layout.fixed.vertical
+        popup:setup {
+            expand = "none",
+            layout = wibox.layout.align.horizontal,
+            createTable(result, host, 8)
         }
-
-        for i = 0, #rows do
-            rows[i] = nil
-        end
-        for _, issue in ipairs(result.issues) do
-            local path_to_avatar = HOME_DIR .. "/.config/tde/jira-widget/jira-mark-gradient-blue.svg"
-            if issue.fields.assignee.accountId ~= nil then
-                path_to_avatar =
-                    os.getenv("HOME") .. "/.cache/awmw/jira-widget/avatars/" .. issue.fields.assignee.accountId
-
-                if not gfs.file_readable(path_to_avatar) then
-                    spawn.easy_async(
-                        string.format(
-                            DOWNLOAD_AVATAR_CMD,
-                            HOME_DIR,
-                            issue.fields.assignee.accountId,
-                            issue.fields.assignee.avatarUrls["48x48"]
-                        )
-                    )
-                end
-            end
-
-            local row =
-                wibox.widget {
-                {
-                    {
-                        {
-                            {
-                                resize = true,
-                                image = path_to_avatar,
-                                forced_width = 40,
-                                forced_height = 40,
-                                widget = wibox.widget.imagebox
-                            },
-                            margins = 8,
-                            layout = wibox.container.margin
-                        },
-                        {
-                            {
-                                markup = "<b>" .. issue.key .. "</b>",
-                                align = "center",
-                                forced_width = 350, -- for horizontal alignment
-                                widget = wibox.widget.textbox
-                            },
-                            {
-                                text = issue.fields.summary,
-                                widget = wibox.widget.textbox
-                            },
-                            {
-                                text = issue.fields.status.name,
-                                widget = wibox.widget.textbox
-                            },
-                            layout = wibox.layout.align.vertical
-                        },
-                        spacing = 8,
-                        layout = wibox.layout.fixed.horizontal
-                    },
-                    margins = 8,
-                    layout = wibox.container.margin
-                },
-                bg = beautiful.bg_normal,
-                widget = wibox.container.background
-            }
-
-            row:connect_signal(
-                "mouse::enter",
-                function(c)
-                    c:set_bg(beautiful.bg_focus)
-                end
-            )
-            row:connect_signal(
-                "mouse::leave",
-                function(c)
-                    c:set_bg(beautiful.bg_normal)
-                end
-            )
-
-            row:buttons(
-                awful.util.table.join(
-                    awful.button(
-                        {},
-                        1,
-                        function()
-                            spawn.with_shell("xdg-open " .. host .. "/browse/" .. issue.key)
-                            popup.visible = false
-                            grabber:stop()
-                        end
-                    )
-                )
-            )
-
-            table.insert(rows, row)
-        end
-
-        popup:setup(rows)
     end
 
     jira_widget:buttons(
