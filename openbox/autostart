@@ -1,6 +1,0 @@
-#!/bin/bash
-feh --bg-fill ~/Pictures/simple.png
-nohup compton --config ~/.config/compton/compton.conf &> /dev/null &
-nohup polybar main &> /dev/null &
-
-
