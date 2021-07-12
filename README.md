@@ -15,6 +15,12 @@
 
 > This repo contains my dotfiles for `zsh` `i3` `urxvt` `rofi` `polybar` and more.
 
+<p align="center">
+   <a href="https://www.paypal.com/donate?hosted_button_id=X892LWMTDU6D6">
+     <img src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" alt="Donate with PayPal" width="300" height="100"/>
+   </a>
+</p>
+
 ## Prerequisite
 
 - xserver
